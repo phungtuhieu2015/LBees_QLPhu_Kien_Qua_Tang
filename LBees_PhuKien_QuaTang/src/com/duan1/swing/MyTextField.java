@@ -42,15 +42,14 @@ public class MyTextField extends JTextField {
         paintIcon(g);
         initBorder();
         if (isFocusOwner()) {
-            g.setColor(new Color(43, 124, 220));
-            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-            g.drawRect(0, 0, getWidth() - 2, getHeight() - 2);
+            g.setColor(new Color(0, 78, 146));
+            g.fillRect(1, getHeight() - 5, getWidth() - 4, 2);
         } else {
-            g.setColor(new Color(105, 122, 143));
-            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+            g.setColor(new Color(150, 150, 150));
+            g.fillRect(1, getHeight() - 5, getWidth() - 4, 1);
         }
     }
-    
+
     public void paintIcon(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         if (iconTrc != null) {
@@ -69,20 +68,20 @@ public class MyTextField extends JTextField {
     }
     String hint = "";
 
-    public  String getHint() {
+    public String getHint() {
         return hint;
     }
 
     public void setHint(String hint) {
         this.hint = hint;
     }
-    
-     @Override
+
+    @Override
     public void paint(Graphics g) {
         super.paint(g);
         if (getText().isEmpty()) {
             int h = getHeight();
-            ((Graphics2D)g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+            ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
             Insets ins = getInsets();
             FontMetrics fm = g.getFontMetrics();
             int c0 = getBackground().getRGB();
