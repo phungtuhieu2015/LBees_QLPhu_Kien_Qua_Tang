@@ -66,14 +66,14 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtUser">
+        <Component class="com.duan1.swing.MyTextField" name="MyTextField1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="500" y="170" width="240" height="36"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.duan1.swing.MyPassField" name="txtPass">
+        <Component class="com.duan1.swing.MyPassField" name="MyPassField1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
               <AbsoluteConstraints x="500" y="250" width="240" height="36"/>
