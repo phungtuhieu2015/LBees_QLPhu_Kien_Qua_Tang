@@ -82,13 +82,13 @@ public class TitleBar extends JComponent {
         panel.setLayout(new MigLayout("inset 3"));
         Item close = new Item();
         Item minimize = new Item();
-        Item resize = new Item();
+        //Item resize = new Item();
         close.setBackground(new Color(235, 47, 47));
         minimize.setBackground(new Color(220, 213, 53));
-        resize.setBackground(new Color(44, 203, 87));
+        //resize.setBackground(new Color(44, 203, 87));
         panel.add(close);
         panel.add(minimize);
-        panel.add(resize);
+        //panel.add(resize);
         close.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -101,16 +101,16 @@ public class TitleBar extends JComponent {
                 fram.setState(JFrame.ICONIFIED);
             }
         });
-        resize.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (fram.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
-                    fram.setExtendedState(JFrame.NORMAL);
-                } else {
-                    fram.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                }
-            }
-        });
+//        resize.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (fram.getExtendedState() == JFrame.MAXIMIZED_BOTH) {
+//                    fram.setExtendedState(JFrame.NORMAL);
+//                } else {
+//                    fram.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//                }
+//            }
+//        });
     }
 
     private class Item extends JButton {
