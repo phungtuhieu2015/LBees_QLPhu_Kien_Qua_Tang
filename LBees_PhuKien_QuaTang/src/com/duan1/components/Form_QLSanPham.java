@@ -2,18 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.duan1.form;
+package com.duan1.components;
 
 /**
  *
  * @author ASUS
  */
-public class Form_LSHoaDon extends javax.swing.JPanel {
+public class Form_QLSanPham extends javax.swing.JPanel {
 
     /**
-     * Creates new form Form_LSHoaDon
+     * Creates new form Form_QLSanPham
      */
-    public Form_LSHoaDon() {
+    public Form_QLSanPham() {
         initComponents();
     }
 
@@ -28,23 +28,23 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        jLabel1.setText("Form_LSHoaDon");
+        jLabel1.setText("Form QLSanPham");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(197, 197, 197)
+                .addGap(166, 166, 166)
                 .addComponent(jLabel1)
-                .addContainerGap(237, Short.MAX_VALUE))
+                .addContainerGap(337, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addContainerGap(309, Short.MAX_VALUE))
+                .addContainerGap(342, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

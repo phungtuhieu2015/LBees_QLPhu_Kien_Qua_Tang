@@ -4,22 +4,16 @@
  */
 package com.duan1.components;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-
 /**
  *
  * @author ASUS
  */
-public class panelBackGround_MainForm extends javax.swing.JPanel {
+public class Form_LSHoaDon extends javax.swing.JPanel {
 
     /**
-     * Creates new form panelBackGround_MainForm
+     * Creates new form Form_LSHoaDon
      */
-    public panelBackGround_MainForm() {
+    public Form_LSHoaDon() {
         initComponents();
     }
 
@@ -32,29 +26,30 @@ public class panelBackGround_MainForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setOpaque(false);
+        jLabel1 = new javax.swing.JLabel();
+
+        jLabel1.setText("Form_LSHoaDon");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(197, 197, 197)
+                .addComponent(jLabel1)
+                .addContainerGap(237, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(53, 53, 53)
+                .addComponent(jLabel1)
+                .addContainerGap(309, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-      protected void paintChildren(Graphics graph) {
-        Graphics2D g2 = (Graphics2D) graph;
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        GradientPaint g = new GradientPaint(getWidth(), 0, Color.decode("#FFFFFF"), 0, 0, Color.decode("#FFFFFF"));
-        g2.setPaint(g);
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
-        g2.fillRect(getWidth() - 15, 0, getWidth(), getHeight());
-        super.paintChildren(graph);
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

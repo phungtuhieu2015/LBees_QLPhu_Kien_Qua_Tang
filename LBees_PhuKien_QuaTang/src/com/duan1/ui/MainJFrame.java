@@ -1,15 +1,25 @@
 package com.duan1.ui;
 
-import com.duan1.form.Form_LSHoaDon;
-import com.duan1.form.Form_QLBanHang;
-import com.duan1.form.Form_QLKhachHang;
-import com.duan1.form.Form_QLNguoiGiaoHang;
-import com.duan1.form.Main_Form;
-import com.duan1.form.Form_QLNhanVien;
-import com.duan1.form.Form_QLSanPham;
-import com.duan1.form.Form_QLTaiKhoan;
-import com.duan1.form.Form_QuaTang;
-import com.duan1.form.Form_ThongKe;
+import com.duan1.components.Form_LSHoaDon;
+import com.duan1.components.Form_LSHoaDon;
+import com.duan1.components.Form_QLBanHang;
+import com.duan1.components.Form_QLBanHang;
+import com.duan1.components.Form_QLKhachHang;
+import com.duan1.components.Form_QLKhachHang;
+import com.duan1.components.Form_QLNguoiGiaoHang;
+import com.duan1.components.Form_QLNguoiGiaoHang;
+import com.duan1.components.Main_Form;
+import com.duan1.components.Form_QLNhanVien;
+import com.duan1.components.Form_QLNhanVien;
+import com.duan1.components.Form_QLSanPham;
+import com.duan1.components.Form_QLSanPham;
+import com.duan1.components.Form_QLTaiKhoan;
+import com.duan1.components.Form_QLTaiKhoan;
+import com.duan1.components.Form_QuaTang;
+import com.duan1.components.Form_QuaTang;
+import com.duan1.components.Form_ThongKe;
+import com.duan1.components.Form_ThongKe;
+import com.duan1.components.Main_Form;
 import com.duan1.menu.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
@@ -18,14 +28,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author phung
- */
+
 public class MainJFrame extends javax.swing.JFrame {
 
     private static MainJFrame mainJFrame;
@@ -91,9 +94,12 @@ public class MainJFrame extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
+        setResizable(false);
 
-        background.setBackground(new java.awt.Color(240, 240, 240));
+        background.setBackground(new java.awt.Color(255, 255, 255));
+        background.setOpaque(false);
 
         panelMenuu.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -112,9 +118,11 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelMenuuLayout.createSequentialGroup()
                 .addComponent(titleBar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE))
+                .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE))
         );
 
+        body.setBackground(new java.awt.Color(255, 255, 255));
+        body.setOpaque(false);
         body.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
@@ -123,22 +131,21 @@ public class MainJFrame extends javax.swing.JFrame {
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(panelMenuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 902, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelMenuu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(body, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(background, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
