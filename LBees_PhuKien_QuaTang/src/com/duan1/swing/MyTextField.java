@@ -98,10 +98,10 @@ public class MyTextField extends JTextField {
         int right = 5;
 
         if (iconTrc != null) {
-            left = iconTrc.getIconWidth() + 5;
+            left = iconTrc.getIconWidth() + 7;
         }
         if (iconSau != null) {
-            right = iconSau.getIconWidth() + 5;
+            right = iconSau.getIconWidth() + 7;
         }
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, left, 5, right));
