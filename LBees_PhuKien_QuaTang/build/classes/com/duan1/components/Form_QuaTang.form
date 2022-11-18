@@ -2,6 +2,9 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[923, 604]"/>
     </Property>
@@ -27,7 +30,7 @@
           <Component id="jPanel1" alignment="1" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="txtTimKiem" pref="898" max="32767" attributes="0"/>
+              <Component id="txtTimKiem" min="-2" pref="400" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -45,40 +48,54 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="txtMaKhachHang2" min="-2" pref="305" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtMaKhachHang6" min="-2" pref="305" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtMaKhachHang3" min="-2" pref="305" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtMaKhachHang5" min="-2" pref="305" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="txtMaKhachHang1" min="-2" pref="305" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="txtMaKhachHang7" min="-2" pref="305" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtMaKhachHang" min="-2" pref="305" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                          <Component id="txtMaKhachHang4" min="-2" pref="305" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace pref="188" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
                   <Component id="pnlThemSuaXoa" min="-2" pref="285" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="pnlDieuHuong" min="-2" pref="270" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="txtMaHD" min="-2" pref="305" max="-2" attributes="0"/>
+                          <EmptySpace pref="120" max="32767" attributes="0"/>
+                          <Component id="txtDiaChiNN" min="-2" pref="305" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="txtTenKH" min="-2" pref="305" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                          <Component id="txtNgayGiao" min="-2" pref="305" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="txtSDT" min="-2" pref="305" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                                  <Component id="txtTenNguoiNhan" min="-2" pref="305" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="txtMaNGH" pref="305" max="32767" attributes="0"/>
+                                      <Component id="comboBoxSuggestion1" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
+                                  <Component id="txtGhiChu" min="-2" pref="288" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="133" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -87,25 +104,32 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtMaKhachHang" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaKhachHang4" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTenKH" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNgayGiao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtMaKhachHang1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaKhachHang7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSDT" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtTenNguoiNhan" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtMaKhachHang3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaKhachHang5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtMaHD" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDiaChiNN" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtMaKhachHang2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaKhachHang6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="txtMaNGH" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="comboBoxSuggestion1" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtGhiChu" min="-2" pref="115" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="169" max="32767" attributes="0"/>
+                  <EmptySpace pref="111" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="pnlDieuHuong" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="pnlThemSuaXoa" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
@@ -115,21 +139,22 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang">
+        <Component class="com.duan1.swing.MyTextField" name="txtTenKH">
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang1">
+        <Component class="com.duan1.swing.MyTextField" name="txtSDT">
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang2">
+        <Component class="com.duan1.swing.MyTextField" name="txtMaNGH">
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang3">
+        <Component class="com.duan1.swing.MyTextField" name="txtMaHD">
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang4">
+        <Component class="com.duan1.swing.MyTextField" name="txtNgayGiao">
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang5">
+        <Component class="com.duan1.swing.MyTextField" name="txtDiaChiNN">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDiaChiNNActionPerformed"/>
+          </Events>
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang6">
-        </Component>
-        <Component class="com.duan1.swing.MyTextField" name="txtMaKhachHang7">
+        <Component class="com.duan1.swing.MyTextField" name="txtTenNguoiNhan">
         </Component>
         <Container class="javax.swing.JPanel" name="pnlDieuHuong">
           <Properties>
@@ -225,6 +250,32 @@
             </Component>
           </SubComponents>
         </Container>
+        <Container class="com.duan1.swing.TextAreaScroll" name="txtGhiChu">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+          </Properties>
+
+          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+          <SubComponents>
+            <Component class="com.duan1.swing.TextArea" name="textArea1">
+              <Properties>
+                <Property name="columns" type="int" value="20"/>
+                <Property name="rows" type="int" value="5"/>
+              </Properties>
+            </Component>
+          </SubComponents>
+        </Container>
+        <Component class="com.duan1.swing.ComboBoxSuggestion" name="comboBoxSuggestion1">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="1">
+                <StringItem index="0" value="Tr&#x1ea1;ng th&#xe1;i"/>
+              </StringArray>
+            </Property>
+          </Properties>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="com.duan1.swing.TextFieldAnimation" name="txtTimKiem">
