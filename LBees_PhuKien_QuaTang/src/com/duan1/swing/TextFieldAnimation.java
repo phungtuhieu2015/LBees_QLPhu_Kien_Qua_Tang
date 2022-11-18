@@ -60,7 +60,7 @@ public class TextFieldAnimation extends JTextField{
     private final Icon iconSearch;
     private final Icon iconClose;
     private final Icon iconLoading;
-    private String hintText = "Search ...";
+    private String hintText = "";
     private boolean show;
     private double location = -1;
     private com.duan1.swing.EventTextField event;

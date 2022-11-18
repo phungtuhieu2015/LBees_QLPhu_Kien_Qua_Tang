@@ -7,10 +7,6 @@
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
-<<<<<<< HEAD
-=======
-    <Property name="resizable" type="boolean" value="false"/>
->>>>>>> fd40ebbf10545b9084218897c9625b85efaf616c
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
