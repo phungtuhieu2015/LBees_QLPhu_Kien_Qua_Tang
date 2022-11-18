@@ -6,9 +6,16 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javaswingdev.GoogleMaterialDesignIcon;
+import javax.swing.JFrame;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,14 +24,24 @@ import javax.swing.border.EmptyBorder;
 import net.miginfocom.swing.MigLayout;
 
 public class Menu extends JPanel {
-
+    private String bg_1 = "#1CB5E0";
+    private String bg_2 = "#000046";
     private int index = -1;
     private final List<EventMenuSelected> events = new ArrayList<>();
 
     public Menu() {
         init();
     }
-
+     @Override
+    protected void paintChildren(Graphics graph) {
+        Graphics2D g2 = (Graphics2D) graph;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        GradientPaint g = new GradientPaint(0, 0, Color.decode(bg_1), 0, getHeight(), Color.decode(bg_2));
+        g2.setPaint(g);
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0);
+        g2.fillRect(getWidth() - 15, 0, getWidth(), getHeight());
+        super.paintChildren(graph);
+    }
     private void init() {
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
@@ -91,7 +108,7 @@ public class Menu extends JPanel {
         JLabel label = new JLabel(title);
         label.setBorder(new EmptyBorder(15, 20, 5, 5));
         label.setFont(label.getFont().deriveFont(Font.BOLD));
-        label.setForeground(new Color(170, 170, 170));
+        label.setForeground(new Color(255, 255, 255));
         panelMenu.add(label);
     }
 
@@ -127,4 +144,8 @@ public class Menu extends JPanel {
 
     private MigLayout menuLayout;
     private JPanel panelMenu;
+    
+    
+     
+    
 }
