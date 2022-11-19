@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
+    </Component>
+  </NonVisualComponents>
   <Properties>
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -109,9 +113,11 @@
                                   <Component id="txtTenNV" alignment="0" min="-2" pref="305" max="-2" attributes="0"/>
                                   <Component id="txtMaNV" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                  <Component id="txtcccd" alignment="0" min="-2" pref="305" max="-2" attributes="0"/>
-                                  <Component id="txtGioiTinh" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
+                              <Component id="txtcccd" alignment="0" min="-2" pref="305" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="radioButtonCustom1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="radioButtonCustom2" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
@@ -145,18 +151,21 @@
                               <Component id="jLabel2" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="txtGioiTinh" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                  <Component id="txtcccd" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                   <Component id="txtGhiChu" min="-2" pref="115" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                                  <Component id="txtcccd" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="radioButtonCustom1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="radioButtonCustom2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="145" max="32767" attributes="0"/>
+                          <EmptySpace pref="134" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlDieuHuong" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="pnlThemSuaXoa" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
@@ -271,8 +280,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="com.duan1.swing.MyTextField" name="txtGioiTinh">
-                </Component>
                 <Component class="com.duan1.swing.MyTextField" name="txtcccd">
                 </Component>
                 <Container class="com.duan1.swing.TextAreaScroll" name="txtGhiChu">
@@ -301,6 +308,22 @@
                       <Image iconType="3" name="/com/duan1/icon/32_avatar1_32.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="H&#xec;nh &#x1ea3;nh"/>
+                  </Properties>
+                </Component>
+                <Component class="com.duan1.swing.RadioButtonCustom" name="radioButtonCustom1">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nam"/>
+                  </Properties>
+                </Component>
+                <Component class="com.duan1.swing.RadioButtonCustom" name="radioButtonCustom2">
+                  <Properties>
+                    <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                      <ComponentRef name="buttonGroup1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
                   </Properties>
                 </Component>
               </SubComponents>

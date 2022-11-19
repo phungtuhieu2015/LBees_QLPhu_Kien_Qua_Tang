@@ -21,7 +21,6 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     public void setHint(){
         txtMaNV.setHint("Mã nhân viên");
         txtTenNV.setHint("Tên nhân viên");
-        txtGioiTinh.setHint("Giới tính");
         txtcccd.setHint("Căn cước công dân");
         txtSDT.setHint("Số điện thoại");
         txtGmail.setHint("Gmail");
@@ -37,6 +36,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         Tabpane = new com.duan1.swing.MaterialTabbed();
         pnlCapNhat = new javax.swing.JPanel();
@@ -55,11 +55,12 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         button7 = new com.duan1.swing.Button();
         button8 = new com.duan1.swing.Button();
         button2 = new com.duan1.swing.Button();
-        txtGioiTinh = new com.duan1.swing.MyTextField();
         txtcccd = new com.duan1.swing.MyTextField();
         txtGhiChu = new com.duan1.swing.TextAreaScroll();
         textArea1 = new com.duan1.swing.TextArea();
         jLabel2 = new javax.swing.JLabel();
+        radioButtonCustom1 = new com.duan1.swing.RadioButtonCustom();
+        radioButtonCustom2 = new com.duan1.swing.RadioButtonCustom();
         pnlDanhSach = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKhachHang = new com.duan1.swing.Table();
@@ -127,6 +128,12 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_avatar1_32.png"))); // NOI18N
         jLabel2.setText("Hình ảnh");
 
+        buttonGroup1.add(radioButtonCustom1);
+        radioButtonCustom1.setText("Nam");
+
+        buttonGroup1.add(radioButtonCustom2);
+        radioButtonCustom2.setText("Nữ");
+
         javax.swing.GroupLayout pnlTextLayout = new javax.swing.GroupLayout(pnlText);
         pnlText.setLayout(pnlTextLayout);
         pnlTextLayout.setHorizontalGroup(
@@ -141,9 +148,11 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                     .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(txtTenNV, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtMaNV, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtcccd, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtGioiTinh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtcccd, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlTextLayout.createSequentialGroup()
+                        .addComponent(radioButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(radioButtonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(105, 105, 105)
                 .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtGmail, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
@@ -170,13 +179,15 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                 .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlTextLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
-                        .addComponent(txtGioiTinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(txtcccd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTextLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
+                        .addGap(43, 43, 43)
+                        .addComponent(txtcccd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioButtonCustom1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(radioButtonCustom2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlDieuHuong, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pnlThemSuaXoa, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -278,6 +289,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     private com.duan1.swing.Button button6;
     private com.duan1.swing.Button button7;
     private com.duan1.swing.Button button8;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCapNhat;
@@ -285,10 +297,11 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDieuHuong;
     private javax.swing.JPanel pnlText;
     private javax.swing.JPanel pnlThemSuaXoa;
+    private com.duan1.swing.RadioButtonCustom radioButtonCustom1;
+    private com.duan1.swing.RadioButtonCustom radioButtonCustom2;
     private com.duan1.swing.Table tblKhachHang;
     private com.duan1.swing.TextArea textArea1;
     private com.duan1.swing.TextAreaScroll txtGhiChu;
-    private com.duan1.swing.MyTextField txtGioiTinh;
     private com.duan1.swing.MyTextField txtGmail;
     private com.duan1.swing.MyTextField txtMaNV;
     private com.duan1.swing.MyTextField txtSDT;
