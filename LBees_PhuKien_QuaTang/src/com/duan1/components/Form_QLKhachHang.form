@@ -155,6 +155,9 @@
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="com.duan1.swing.Button" name="btnSua">
                       <Properties>
@@ -163,6 +166,9 @@
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="com.duan1.swing.Button" name="btnXoa">
                       <Properties>
@@ -171,6 +177,9 @@
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="com.duan1.swing.Button" name="btnMoi">
                       <Properties>
@@ -179,6 +188,9 @@
                           <Font name="Segoe UI" size="12" style="1"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoiActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

@@ -6,7 +6,12 @@ package com.duan1.components;
 
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
+import com.duan1.swing.Notification;
+import com.duan1.ui.MainJFrame;
+import java.awt.Color;
+import java.awt.Frame;
 import java.awt.Rectangle;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -21,6 +26,8 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
  */
 public class Form_QLKhachHang extends javax.swing.JPanel {
 
+    MainJFrame ab = new MainJFrame();
+
     /**
      * Creates new form Form_QLKhachHang
      */
@@ -28,10 +35,10 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         initComponents();
         setHint();
         TimKiem();
-   
-        
+
     }
-    public  void TimKiem (){
+
+    public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã, tên khách hàng");
         txtTimKiem.addEvent(new EventTextField() {
             @Override
@@ -39,7 +46,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 //  Test
                 try {
                     for (int i = 1; i <= 100; i++) {
-                        
+
                         Thread.sleep(5);
                     }
                     call.done();
@@ -54,18 +61,79 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             }
         });
     }
-    
 
-               
-    
-
-    public void setHint(){
+    public void setHint() {
         txtMaKhachHang.setHint("Nhập mã khách hàng");
         txtTenKhachHang.setHint("Nhập tên khách hàng");
         txtSDT.setHint("Nhập số điện thoại");
         txtDiemTichLuy.setHint("Nhập điểm tích lũy");
     }
-    
+
+    public boolean checkText() {
+
+        if (txtMaKhachHang.getText().trim().isEmpty()) {
+            //JOptionPane.showMessageDialog(this, "Nhập mã khách hàng");
+            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập mã khách hàng");
+            noti.showNotification();
+            txtMaKhachHang.requestFocus();
+            return false;
+        }
+
+        if (txtTenKhachHang.getText().trim().isEmpty()) {
+            //JOptionPane.showMessageDialog(this, "Nhập tên khách hàng");
+            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập tên khách hàng");
+            noti.showNotification();
+            txtTenKhachHang.requestFocus();
+            return false;
+        }
+
+        String PHONE = "^0[9384]{1}\\d{8}$";
+        boolean phone = txtSDT.getText().matches(PHONE);
+
+        if (txtSDT.getText().trim().isEmpty()) {
+            //JOptionPane.showMessageDialog(this, "Nhập số điện thoại khách hàng", "Lỗi số điện thoại", JOptionPane.QUESTION_MESSAGE);
+            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập số điện thoại khách hàng");
+            noti.showNotification();
+            txtSDT.requestFocus();
+            return false;
+        }
+        if (phone != true) {
+            //JOptionPane.showMessageDialog(this, "Nhập số điện thoại khách hàng không Đúng Dịnh Dạng ", "Lỗi số điện thoại", JOptionPane.QUESTION_MESSAGE);
+            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập số điện thoại khách hàng không Đúng Dịnh Dạng");
+            noti.showNotification();
+            txtSDT.requestFocus();
+            return false;
+        }
+
+        if (txtDiemTichLuy.getText().trim().isEmpty()) {
+            //JOptionPane.showMessageDialog(this, "Nhập điểm tích lũy");
+            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập điểm tích lũy");
+            noti.showNotification();
+            txtDiemTichLuy.requestFocus();
+            return false;
+        } else {
+            try {
+
+                double diemtichluy = Double.parseDouble(txtDiemTichLuy.getText());
+                if (diemtichluy < 0) {
+                    //JOptionPane.showMessageDialog(this, "Nhập điểm tích lũy lớn hơn 0");
+                    Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập điểm tích lũy lớn hơn 0");
+                    noti.showNotification();
+                    txtDiemTichLuy.requestFocus();
+                    return false;
+                }
+
+            } catch (Exception e) {
+                //JOptionPane.showMessageDialog(this, "Vui Lòng Nhập Số điểm tích lũy");
+                Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Vui lòng nhập số điểm tích lũy");
+                noti.showNotification();
+                txtDiemTichLuy.requestFocus();
+                return false;
+            }
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,18 +176,38 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
         btnThem.setText("Thêm");
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
         pnlThemSuaXoa.add(btnThem);
 
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
         pnlThemSuaXoa.add(btnSua);
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
         pnlThemSuaXoa.add(btnXoa);
 
         btnMoi.setText("Mới");
         btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
         pnlThemSuaXoa.add(btnMoi);
 
         pnlDieuHuong.setBackground(new java.awt.Color(255, 255, 255));
@@ -261,8 +349,46 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-       Tabpane.setSelectedIndex(0);
+        Tabpane.setSelectedIndex(0);
     }//GEN-LAST:event_tblKhachHangMouseClicked
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        if (checkText() == true) {
+            Notification noti = new Notification(ab, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm thành công");
+            noti.showNotification();
+        }
+
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        if (checkText() == false) {
+            return;
+        }
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn sửa khách hàng không?", "hỏi?", JOptionPane.YES_OPTION) == JOptionPane.NO_OPTION) {
+            Notification noti = new Notification(ab, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Sửa khách hàng không thành công");
+            noti.showNotification();
+            return;
+        }
+        Notification noti = new Notification(ab, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa khách hàng thành công");
+        noti.showNotification();
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xóa khách hàng không?", "hỏi?", JOptionPane.YES_OPTION) == JOptionPane.NO_OPTION) {
+            Notification noti = new Notification(ab, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Xóa khách hàng không thành công");
+            noti.showNotification();
+            return;
+        }
+        Notification noti = new Notification(ab, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa khách hàng thành công");
+        noti.showNotification();
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        txtMaKhachHang.setText("");
+        txtTenKhachHang.setText("");
+        txtSDT.setText("");
+        txtDiemTichLuy.setText("");
+    }//GEN-LAST:event_btnMoiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
