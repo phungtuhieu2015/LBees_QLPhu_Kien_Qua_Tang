@@ -9,8 +9,8 @@ public class loginJFrame extends javax.swing.JFrame {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         panelLogin_left2.initMoving(this);
-        myTextField1.setHint("Tên đăng nhập");
-        myTextPass1.setHint("Mật Khẩu");
+        MyPassField1.setHint("Mật khẩu");
+        MyTextField1.setHint("Tên đăng nhập");
     }
 
     @SuppressWarnings("unchecked")
@@ -20,8 +20,8 @@ public class loginJFrame extends javax.swing.JFrame {
         panelBorder1 = new com.duan1.components.panelLogin_Border();
         panelLogin_left2 = new com.duan1.components.panelLogin_left();
         jLabel1 = new javax.swing.JLabel();
-        myTextField1 = new com.duan1.swing.MyTextField();
-        myTextPass1 = new com.duan1.swing.MyPassField();
+        MyTextField1 = new com.duan1.swing.MyTextField();
+        MyPassField1 = new com.duan1.swing.MyPassField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -35,11 +35,11 @@ public class loginJFrame extends javax.swing.JFrame {
         jLabel1.setText("ĐĂNG NHẬP");
         panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 160, 49));
 
-        myTextField1.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_User.png"))); // NOI18N
-        panelBorder1.add(myTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 240, 35));
+        MyTextField1.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_User.png"))); // NOI18N
+        panelBorder1.add(MyTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 240, 36));
 
-        myTextPass1.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_User.png"))); // NOI18N
-        panelBorder1.add(myTextPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 240, 35));
+        MyPassField1.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_Pass.png"))); // NOI18N
+        panelBorder1.add(MyPassField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 240, 36));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,9 +93,9 @@ public class loginJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.duan1.swing.MyPassField MyPassField1;
+    private com.duan1.swing.MyTextField MyTextField1;
     private javax.swing.JLabel jLabel1;
-    private com.duan1.swing.MyTextField myTextField1;
-    private com.duan1.swing.MyPassField myTextPass1;
     private com.duan1.components.panelLogin_Border panelBorder1;
     private com.duan1.components.panelLogin_left panelLogin_left2;
     // End of variables declaration//GEN-END:variables

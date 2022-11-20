@@ -10,12 +10,19 @@ import java.awt.RenderingHints;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPasswordField;
+import org.jdesktop.animation.timing.Animator;
+import org.jdesktop.animation.timing.TimingTarget;
+import org.jdesktop.animation.timing.TimingTargetAdapter;
 
 public class MyPassField extends JPasswordField {
 
     private Icon iconTrc;
     private Icon iconSau;
-
+    
+    private final Animator animator ;
+    private float location ;
+    private boolean show ;
+    private  Color lineColor = new Color(0,78,146);
     public Icon getIconTrc() {
         return iconTrc;
     }
@@ -34,6 +41,22 @@ public class MyPassField extends JPasswordField {
 
     public MyPassField() {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        TimingTarget target = new TimingTargetAdapter(){
+            @Override
+            public void begin() {
+                super.begin(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+
+            @Override
+            public void timingEvent(float fraction) {
+                super.timingEvent(fraction); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+            }
+            
+        };
+        animator = new Animator(300, target);
+        animator.setResolution(0);
+        animator.setAcceleration(0.5f);
+        animator.setDeceleration(0.5f);
     }
 
     @Override
@@ -42,12 +65,11 @@ public class MyPassField extends JPasswordField {
         paintIcon(g);
         initBorder();
         if (isFocusOwner()) {
-            g.setColor(new Color(43, 124, 220));
-            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
-            g.drawRect(0, 0, getWidth() - 2, getHeight() - 2);
+            g.setColor(new Color(0,78,146));
+            g.fillRect(1, getHeight() - 5, getWidth() - 4, 2);
         } else {
-            g.setColor(new Color(105, 122, 143));
-            g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+            g.setColor(new Color(150, 150, 150));
+            g.fillRect(1, getHeight() - 5, getWidth() - 4, 1);
         }
     }
     
@@ -99,10 +121,10 @@ public class MyPassField extends JPasswordField {
         int right = 5;
 
         if (iconTrc != null) {
-            left = iconTrc.getIconWidth() + 5;
+            left = iconTrc.getIconWidth() + 7;
         }
         if (iconSau != null) {
-            right = iconSau.getIconWidth() + 5;
+            right = iconSau.getIconWidth() + 7;
         }
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, left, 5, right));
