@@ -1,4 +1,4 @@
-package com.poly.swing;
+package com.duan1.swing;
 
 import java.awt.Color;
 import java.awt.FontMetrics;

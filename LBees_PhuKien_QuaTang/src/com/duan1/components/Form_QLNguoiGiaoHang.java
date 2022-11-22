@@ -83,6 +83,9 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         tblNGH = new com.duan1.swing.Table();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(923, 604));
+        setMinimumSize(new java.awt.Dimension(923, 604));
+        setPreferredSize(new java.awt.Dimension(923, 604));
 
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -161,7 +164,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                     .addGroup(pnlTextLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(txtCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
                         .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTextLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -220,7 +223,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
         );
 
         tabPane.addTab("Danh Sách", pnlDanhSach);

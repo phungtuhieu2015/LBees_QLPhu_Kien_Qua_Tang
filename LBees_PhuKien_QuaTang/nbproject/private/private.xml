@@ -3,26 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/MaterialTabbed.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/Menu.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Main_Form.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLKhachHang.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/Item.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/MaterialTextField.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/MenuItem.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
-            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/loginJFrame.java</file>
-=======
-            <file>file:/E:/1one/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLKhachHang.java</file>
-            <file>file:/E:/1one/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/Notification.java</file>
-            <file>file:/E:/1one/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
->>>>>>> c68daa0c242aafe791829976f6d78f551bb91d71
-=======
-            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_LSHoaDon.java</file>
-            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
->>>>>>> 96094c233ca51701f31ab9b748dd545dd4c2676a
+            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/Write_Barcode.java</file>
+            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/webcame.java</file>
+            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/swing/Read_Barcode.java</file>
         </group>
     </open-files>
 </project-private>
