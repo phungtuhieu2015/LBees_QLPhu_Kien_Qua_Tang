@@ -106,4 +106,12 @@ public class MyTextField extends JTextField {
 
         setBorder(javax.swing.BorderFactory.createEmptyBorder(5, left, 5, right));
     }
+
+    public void setHintText(String nhập_mã_tên_giao_hàng) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void addEvent(EventTextField eventTextField) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

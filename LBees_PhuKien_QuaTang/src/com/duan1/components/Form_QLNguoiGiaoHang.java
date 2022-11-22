@@ -87,6 +87,12 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
+        textFieldAnimation1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldAnimation1ActionPerformed(evt);
+            }
+        });
+
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlText.setBackground(new java.awt.Color(255, 255, 255));
@@ -252,6 +258,10 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         // TODO add your handling code here:
         tabPane.setSelectedIndex(0);
     }//GEN-LAST:event_tblNGHMouseClicked
+
+    private void textFieldAnimation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAnimation1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldAnimation1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
