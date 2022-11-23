@@ -40,6 +40,7 @@ public class MyWebCam extends javax.swing.JPanel implements Runnable, ThreadFact
 
     public MyWebCam() {
         initComponents();
+        initWebcam();
     }
 
     private void initWebcam() {
@@ -67,7 +68,7 @@ public class MyWebCam extends javax.swing.JPanel implements Runnable, ThreadFact
             try {
                 Thread.sleep(100);
             } catch (InterruptedException ex) {
-                Logger.getLogger(webcame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
             }
             Result result = null;
             BufferedImage image = null;
@@ -81,7 +82,7 @@ public class MyWebCam extends javax.swing.JPanel implements Runnable, ThreadFact
             try {
                 result = new MultiFormatReader().decode(bitmap);
             } catch (NotFoundException ex) {
-                Logger.getLogger(webcame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
                 if (check == 0) {
                     webcam.close();
                     return;
