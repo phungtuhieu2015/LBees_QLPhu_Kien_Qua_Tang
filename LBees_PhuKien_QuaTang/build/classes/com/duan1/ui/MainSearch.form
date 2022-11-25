@@ -109,6 +109,9 @@
           <Color blue="cc" green="0" red="0" type="rgb"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txt2ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="com.duan1.swing.TextFieldAnimation" name="txt3">
       <Properties>

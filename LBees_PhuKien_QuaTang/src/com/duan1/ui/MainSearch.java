@@ -136,6 +136,11 @@ public class MainSearch extends javax.swing.JFrame {
         txt1.setAnimationColor(new java.awt.Color(0, 204, 0));
 
         txt2.setAnimationColor(new java.awt.Color(0, 0, 204));
+        txt2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt2ActionPerformed(evt);
+            }
+        });
 
         txt3.setAnimationColor(new java.awt.Color(255, 0, 0));
 
@@ -213,6 +218,10 @@ public class MainSearch extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txt2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt2ActionPerformed
 
     /**
      * @param args the command line arguments

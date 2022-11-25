@@ -40,7 +40,7 @@ public class MyWebCam extends javax.swing.JPanel implements Runnable, ThreadFact
 
     public MyWebCam() {
         initComponents();
-        initWebcam();
+//        initWebcam();
     }
 
     private void initWebcam() {
