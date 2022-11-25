@@ -14,6 +14,7 @@ import com.duan1.swing.EventMenuSelected;
 import java.awt.Component;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.components.Main_Form;
+import com.duan1.components.MyWebCam;
 import com.duan1.components.panelTaiKhoanCuaBan;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
@@ -37,10 +38,12 @@ import javax.swing.JPopupMenu;
 import javax.swing.Timer;
 
 public class MainJFrame extends javax.swing.JFrame {
-     private final JPopupMenu popupMenu = new JPopupMenu();
+
+    private final JPopupMenu popupMenu = new JPopupMenu();
     private JMenuItem menuItem = null;
-     Timer thoiGian;
+    Timer thoiGian;
     private static MainJFrame mainJFrame;
+
     public MainJFrame() {
         initComponents();
         init();
@@ -48,34 +51,45 @@ public class MainJFrame extends javax.swing.JFrame {
         dongHo();
         creatPopupMenu(this);
     }
+
     private void init() {
         mainJFrame = this;
-        
+
         menu.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0 && indexSubMenu == 0) {
+                    MyWebCam.check = 0;
                     showForm(new Main_Form());
                 } else if (index == 1 && indexSubMenu == 1) {
+                    MyWebCam.check = 1;
                     showForm(new Form_QLSanPham());
                 } else if (index == 1 && indexSubMenu == 2) {
+                    MyWebCam.check = 0;
                     showForm(new Form_QLBanHang());
                 } else if (index == 1 && indexSubMenu == 3) {
+                    MyWebCam.check = 0;
                     showForm(new Form_QLKhachHang());
                 } else if (index == 1 && indexSubMenu == 4) {
+                    MyWebCam.check = 0;
                     showForm(new Form_QLNhanVien());
                 } else if (index == 1 && indexSubMenu == 5) {
+                    MyWebCam.check = 0;
                     showForm(new Form_QLNguoiGiaoHang());
                 } else if (index == 1 && indexSubMenu == 6) {
+                    MyWebCam.check = 0;
                     showForm(new Form_QLTaiKhoan());
                 } else if (index == 2 && indexSubMenu == 0) {
+                    MyWebCam.check = 0;
                     showForm(new Form_LSHoaDon());
                 } else if (index == 3 && indexSubMenu == 0) {
+                    MyWebCam.check = 0;
                     showForm(new Form_ThongKe());
                 } else if (index == 4 && indexSubMenu == 0) {
+                    MyWebCam.check = 0;
                     showForm(new Form_QuaTang());
                 } else {
-
+                    MyWebCam.check = 0;
                 }
             }
         });
@@ -92,12 +106,13 @@ public class MainJFrame extends javax.swing.JFrame {
     public static MainJFrame getMain() {
         return mainJFrame;
     }
-     int x;
+    int x;
     int y;
+
     public void initMoving(JFrame frame) {
-        panelThoat.addMouseListener(new MouseAdapter(){
+        panelThoat.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent evt){
+            public void mousePressed(MouseEvent evt) {
                 x = evt.getX();
                 y = evt.getY();
             }
@@ -107,9 +122,10 @@ public class MainJFrame extends javax.swing.JFrame {
             public void mouseDragged(MouseEvent e) {
                 frame.setLocation(e.getXOnScreen() - x, e.getYOnScreen() - y);
             }
-            
+
         });
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -255,42 +271,41 @@ public class MainJFrame extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    public void creatPopupMenu (JFrame jFrame){
-       menuItem = new JMenuItem(
-               "Đăng xuất",
-               new ImageIcon(".\\src\\com\\duan1\\icon\\16_dangXuat_16.png")
-       );
-       //apply desc
-       menuItem.getAccessibleContext().setAccessibleDescription("Đăng xuất");
-       //Add an Action Listener
-       menuItem.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-              //showForm(new panelTaiKhoanCuaBan ());
-                
-               
-           }
-       });
-       popupMenu.add(menuItem);
-       
+    public void creatPopupMenu(JFrame jFrame) {
         menuItem = new JMenuItem(
-               "Đổi mật khẩu",
-               new ImageIcon(".\\src\\com\\duan1\\icon\\16_quenmatkhau_16.png")
-       );
-       //apply desc
-       menuItem.getAccessibleContext().setAccessibleDescription("Đổi mật khẩu");
-       //Add an Action Listener
-       menuItem.addActionListener(new ActionListener() {
-           @Override
-           public void actionPerformed(ActionEvent e) {
-              // showForm(new panelTaiKhoanCuaBan ());
-                
-               
-           }
-       });
-       popupMenu.add(menuItem);
-   }
-   public void dongHo() {
+                "Đăng xuất",
+                new ImageIcon(".\\src\\com\\duan1\\icon\\16_dangXuat_16.png")
+        );
+        //apply desc
+        menuItem.getAccessibleContext().setAccessibleDescription("Đăng xuất");
+        //Add an Action Listener
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //showForm(new panelTaiKhoanCuaBan ());
+
+            }
+        });
+        popupMenu.add(menuItem);
+
+        menuItem = new JMenuItem(
+                "Đổi mật khẩu",
+                new ImageIcon(".\\src\\com\\duan1\\icon\\16_quenmatkhau_16.png")
+        );
+        //apply desc
+        menuItem.getAccessibleContext().setAccessibleDescription("Đổi mật khẩu");
+        //Add an Action Listener
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // showForm(new panelTaiKhoanCuaBan ());
+
+            }
+        });
+        popupMenu.add(menuItem);
+    }
+
+    public void dongHo() {
         thoiGian = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -302,13 +317,14 @@ public class MainJFrame extends javax.swing.JFrame {
         thoiGian.start();
     }
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-       dispose();
+        MyWebCam.check = 0;
+        dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void lblBaChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBaChamMouseClicked
         int mPoX = MouseInfo.getPointerInfo().getLocation().x;
         int mPoY = MouseInfo.getPointerInfo().getLocation().y;
-        
+
         //showw popupmenu
         popupMenu.show(this, mPoX, mPoY);
     }//GEN-LAST:event_lblBaChamMouseClicked
@@ -316,7 +332,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
         showForm(new panelTaiKhoanCuaBan());
     }//GEN-LAST:event_lblAvatarMouseClicked
-    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
