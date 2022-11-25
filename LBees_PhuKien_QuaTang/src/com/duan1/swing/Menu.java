@@ -53,11 +53,11 @@ public class Menu extends JPanel {
         add(scroll);
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HOME, "Trang chủ"));
         addTitle("Các form quản lý");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.GROUP, "Quản lý", "Sản phẩm", "Bán hàng","Khách hàng","Nhân viên","Người giao hàng" ,"Tài khoản" ));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.GROUP, "Quản lý", "Sản phẩm", "Bán hàng","Khách hàng","Nhân viên","Người giao hàng" ,"Tài khoản", "Danh mục" ));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.RECEIPT, "Lịch sử hoá đơn"));
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.PAYMENT, "Thống kê"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MONETIZATION_ON, "Thống kê"));
         addTitle("Dịch vụ");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.BOOKMARK, "Quà tặng"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.REDEEM, "Quà tặng"));
         
     }
 
@@ -106,9 +106,9 @@ public class Menu extends JPanel {
 
     public void addTitle(String title) {
         JLabel label = new JLabel(title);
-        label.setBorder(new EmptyBorder(15, 20, 5, 5));
-        label.setFont(label.getFont().deriveFont(Font.BOLD));
-        label.setForeground(new Color(255, 255, 255));
+        label.setBorder(new EmptyBorder(10, 10, 5, 5));
+        label.setFont(label.getFont().deriveFont(Font.ITALIC));
+        label.setForeground(new Color(255,255,255));
         panelMenu.add(label);
     }
 

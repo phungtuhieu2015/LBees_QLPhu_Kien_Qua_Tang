@@ -2,12 +2,14 @@ package com.duan1.ui;
 
 import com.duan1.components.Form_LSHoaDon;
 import com.duan1.components.Form_QLBanHang;
+import com.duan1.components.Form_QLDanhMuc;
 import com.duan1.components.Form_QLKhachHang;
 import com.duan1.components.Form_QLNguoiGiaoHang;
 import com.duan1.components.Main_Form;
 import com.duan1.components.Form_QLNhanVien;
 import com.duan1.components.Form_QLSanPham;
 import com.duan1.components.Form_QLTaiKhoan;
+import com.duan1.components.Form_TaiKhoanCuaBan;
 import com.duan1.components.Form_QuaTang;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.swing.EventMenuSelected;
@@ -15,7 +17,6 @@ import java.awt.Component;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.components.Main_Form;
 import com.duan1.components.MyWebCam;
-import com.duan1.components.panelTaiKhoanCuaBan;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
@@ -79,8 +80,9 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (index == 1 && indexSubMenu == 6) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLTaiKhoan());
-                } else if (index == 2 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                }else if (index == 1 && indexSubMenu == 7) {
+                    showForm(new Form_QLDanhMuc());
+                }else if (index == 2 && indexSubMenu == 0) {
                     showForm(new Form_LSHoaDon());
                 } else if (index == 3 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
@@ -150,7 +152,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         panelMenuu.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelThoat.setBackground(new java.awt.Color(27, 177, 220));
+        panelThoat.setBackground(new java.awt.Color(27, 178, 222));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/16_Thoat_16.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -330,7 +332,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
-        showForm(new panelTaiKhoanCuaBan());
+       new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_lblAvatarMouseClicked
 
     public static void main(String args[]) {
