@@ -128,7 +128,7 @@
                           <Component id="txtMaDanhMuc" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTenDanhMuc" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="btnThem" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnSua" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
@@ -139,7 +139,7 @@
                           <Component id="button8" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="button2" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="142" max="32767" attributes="0"/>
+                      <EmptySpace pref="216" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

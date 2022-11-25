@@ -93,34 +93,36 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="pnlThemSuaXoa" min="-2" pref="285" max="-2" attributes="0"/>
-                          <EmptySpace pref="363" max="32767" attributes="0"/>
-                          <Component id="pnlDieuHuong" min="-2" pref="270" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtGhiChu" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cboTrangThai" alignment="0" pref="305" max="32767" attributes="0"/>
-                                      <Component id="txtTenKH" max="32767" attributes="0"/>
-                                      <Component id="txtSDTKH" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtTenNN" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtDiaChiNN" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="cboNGH" pref="305" max="32767" attributes="0"/>
-                                      <Component id="txtSDTNN" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txtNgayGiao" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="txtMaDH" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="txtMaHD" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="pnlThemSuaXoa" min="-2" pref="285" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+                                  <Component id="pnlDieuHuong" min="-2" pref="270" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtGhiChu" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="cboTrangThai" alignment="0" pref="305" max="32767" attributes="0"/>
+                                          <Component id="txtTenNN" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtDiaChiNN" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtMaDH" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtTenKH" alignment="1" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Component id="cboNGH" pref="305" max="32767" attributes="0"/>
+                                          <Component id="txtSDTKH" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtSDTNN" alignment="1" max="32767" attributes="0"/>
+                                          <Component id="txtNgayGiao" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtMaHD" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="129" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -129,22 +131,22 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtSDTKH" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtTenKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtSDTNN" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtSDTKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNgayGiao" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTenNN" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtSDTNN" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtTenNN" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtMaDH" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDiaChiNN" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtNgayGiao" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtDiaChiNN" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtMaDH" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMaHD" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -154,11 +156,12 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="txtGhiChu" min="-2" pref="88" max="-2" attributes="0"/>
-                          <EmptySpace pref="28" max="32767" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="pnlDieuHuong" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="pnlThemSuaXoa" alignment="1" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="pnlThemSuaXoa" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Component id="pnlDieuHuong" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="0" pref="16" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -305,21 +308,21 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="com.duan1.swing.MyTextField2" name="txtTenKH">
-                </Component>
-                <Component class="com.duan1.swing.MyTextField2" name="txtSDTKH">
-                </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtTenNN">
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtDiaChiNN">
+                </Component>
+                <Component class="com.duan1.swing.MyTextField2" name="txtMaDH">
+                </Component>
+                <Component class="com.duan1.swing.MyTextField2" name="txtSDTKH">
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtSDTNN">
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtNgayGiao">
                 </Component>
-                <Component class="com.duan1.swing.MyTextField2" name="txtMaDH">
-                </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtMaHD">
+                </Component>
+                <Component class="com.duan1.swing.MyTextField2" name="txtTenKH">
                 </Component>
               </SubComponents>
             </Container>
