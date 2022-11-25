@@ -6,6 +6,7 @@ package com.duan1.components;
 
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
+import com.duan1.swing.MessageDialog;
 import com.duan1.swing.Notification;
 import com.duan1.ui.MainJFrame;
 import java.awt.Color;
@@ -26,8 +27,8 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
  */
 public class Form_QLKhachHang extends javax.swing.JPanel {
 
-    MainJFrame ab = new MainJFrame();
-
+    MainJFrame frame = new MainJFrame();
+    MessageDialog mdl = new MessageDialog(frame);
     /**
      * Creates new form Form_QLKhachHang
      */
@@ -35,7 +36,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         initComponents();
         setHint();
         TimKiem();
-
+        
+        
     }
 
     public void TimKiem() {
@@ -69,70 +71,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         txtDiemTichLuy.setHint("Nhập điểm tích lũy");
     }
 
-    public boolean checkText() {
-
-        if (txtMaKhachHang.getText().trim().isEmpty()) {
-            //JOptionPane.showMessageDialog(this, "Nhập mã khách hàng");
-            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập mã khách hàng");
-            noti.showNotification();
-            txtMaKhachHang.requestFocus();
-            return false;
-        }
-
-        if (txtTenKhachHang.getText().trim().isEmpty()) {
-            //JOptionPane.showMessageDialog(this, "Nhập tên khách hàng");
-            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập tên khách hàng");
-            noti.showNotification();
-            txtTenKhachHang.requestFocus();
-            return false;
-        }
-
-        String PHONE = "^0[9384]{1}\\d{8}$";
-        boolean phone = txtSDT.getText().matches(PHONE);
-
-        if (txtSDT.getText().trim().isEmpty()) {
-            //JOptionPane.showMessageDialog(this, "Nhập số điện thoại khách hàng", "Lỗi số điện thoại", JOptionPane.QUESTION_MESSAGE);
-            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập số điện thoại khách hàng");
-            noti.showNotification();
-            txtSDT.requestFocus();
-            return false;
-        }
-        if (phone != true) {
-            //JOptionPane.showMessageDialog(this, "Nhập số điện thoại khách hàng không Đúng Dịnh Dạng ", "Lỗi số điện thoại", JOptionPane.QUESTION_MESSAGE);
-            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập số điện thoại khách hàng không Đúng Dịnh Dạng");
-            noti.showNotification();
-            txtSDT.requestFocus();
-            return false;
-        }
-
-        if (txtDiemTichLuy.getText().trim().isEmpty()) {
-            //JOptionPane.showMessageDialog(this, "Nhập điểm tích lũy");
-            Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập điểm tích lũy");
-            noti.showNotification();
-            txtDiemTichLuy.requestFocus();
-            return false;
-        } else {
-            try {
-
-                double diemtichluy = Double.parseDouble(txtDiemTichLuy.getText());
-                if (diemtichluy < 0) {
-                    //JOptionPane.showMessageDialog(this, "Nhập điểm tích lũy lớn hơn 0");
-                    Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Nhập điểm tích lũy lớn hơn 0");
-                    noti.showNotification();
-                    txtDiemTichLuy.requestFocus();
-                    return false;
-                }
-
-            } catch (Exception e) {
-                //JOptionPane.showMessageDialog(this, "Vui Lòng Nhập Số điểm tích lũy");
-                Notification noti = new Notification(ab, Notification.Type.INFO, Notification.Location.TOP_RIGHT, "Vui lòng nhập số điểm tích lũy");
-                noti.showNotification();
-                txtDiemTichLuy.requestFocus();
-                return false;
-            }
-        }
-        return true;
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,6 +82,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPasswordField1 = new javax.swing.JPasswordField();
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         Tabpane = new com.duan1.swing.MaterialTabbed();
         pnlCapNhat = new javax.swing.JPanel();
@@ -164,8 +104,13 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         pnlDanhSach = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblKhachHang = new com.duan1.swing.Table();
+        jLabel1 = new javax.swing.JLabel();
+
+        jPasswordField1.setText("jPasswordField1");
 
         setBackground(new java.awt.Color(255, 255, 255));
+
+        txtTimKiem.setBackground(new java.awt.Color(235, 227, 227));
 
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -242,7 +187,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtDiemTichLuy, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSDT, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTextLayout.createSequentialGroup()
                 .addComponent(pnlThemSuaXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -319,7 +264,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         pnlDanhSach.setLayout(pnlDanhSachLayout);
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,20 +273,31 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
         Tabpane.addTab("Danh Sách", pnlDanhSach);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Quản Lý Người Giao Hàng");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Tabpane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(3, 3, 3)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -353,34 +309,44 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (checkText() == true) {
-            Notification noti = new Notification(ab, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm thành công");
+            mdl.showMessage("Thêm Khách Hàng", "Bạn có chắc chắn thêm khách hàng không");
+            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm khách hàng thành công");
+            noti.showNotification();
+        }else{
+            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm khách hàng không thành công");
             noti.showNotification();
         }
+            
+            
+        
 
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (checkText() == false) {
-            return;
-        }
-        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn sửa khách hàng không?", "hỏi?", JOptionPane.YES_OPTION) == JOptionPane.NO_OPTION) {
-            Notification noti = new Notification(ab, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Sửa khách hàng không thành công");
+        mdl.showMessage("Sửa Khách Hàng", "Bạn có chắc chắn sửa khách hàng không");
+   
+        if(mdl.getMessageType() == MessageDialog.MessageType.OK){
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa khách hàng thành công");
             noti.showNotification();
-            return;
+        }else{
+            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Sửa khách hàng không thành công");
+            noti.showNotification();
         }
-        Notification noti = new Notification(ab, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa khách hàng thành công");
-        noti.showNotification();
+        
+        
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        if (JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn xóa khách hàng không?", "hỏi?", JOptionPane.YES_OPTION) == JOptionPane.NO_OPTION) {
-            Notification noti = new Notification(ab, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Xóa khách hàng không thành công");
+        mdl.showMessage("Xóa Khách Hàng", "Bạn có chắc chắn xóa khách hàng không");
+   
+        if(mdl.getMessageType() == MessageDialog.MessageType.OK){
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa khách hàng thành công");
             noti.showNotification();
-            return;
-        }
-        Notification noti = new Notification(ab, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa khách hàng thành công");
-        noti.showNotification();
+        }else{
+             Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Xóa khách hàng không thành công");
+             noti.showNotification();
+        }      
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
@@ -401,6 +367,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     private com.duan1.swing.Button button6;
     private com.duan1.swing.Button button7;
     private com.duan1.swing.Button button8;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCapNhat;
     private javax.swing.JPanel pnlDanhSach;
