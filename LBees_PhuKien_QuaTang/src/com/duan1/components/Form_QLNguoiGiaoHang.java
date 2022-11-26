@@ -8,6 +8,7 @@ import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
 import com.duan1.swing.MessageDialog;
 import com.duan1.swing.Notification;
+import com.duan1.swing.ScrollBarCustom;
 import com.duan1.ui.MainJFrame;
 import com.duan1.ui.MainSearch;
 import javax.swing.JOptionPane;
@@ -26,6 +27,10 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         initComponents();
         setHint();
         TimKiem();
+        ThanhTruotTb();
+    }
+    public void ThanhTruotTb(){
+        ScrollNGH.setVerticalScrollBar(new ScrollBarCustom());
     }
      public  void TimKiem (){
         textFieldAnimation1.setHintText("Nhập mã, tên giao hàng");
@@ -84,7 +89,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         btnXoa = new com.duan1.swing.Button();
         btnMoi = new com.duan1.swing.Button();
         pnlDanhSach = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        ScrollNGH = new javax.swing.JScrollPane();
         tblNGH = new com.duan1.swing.Table();
         jLabel1 = new javax.swing.JLabel();
 
@@ -209,8 +214,8 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
         tabPane.addTab("Cập Nhật", pnlCapNhat);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 102));
-        jScrollPane1.setBorder(null);
+        ScrollNGH.setBackground(new java.awt.Color(255, 255, 102));
+        ScrollNGH.setBorder(null);
 
         tblNGH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,7 +238,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                 tblNGHMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblNGH);
+        ScrollNGH.setViewportView(tblNGH);
         if (tblNGH.getColumnModel().getColumnCount() > 0) {
             tblNGH.getColumnModel().getColumn(1).setPreferredWidth(200);
             tblNGH.getColumnModel().getColumn(2).setPreferredWidth(25);
@@ -244,17 +249,17 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         pnlDanhSach.setLayout(pnlDanhSachLayout);
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
+            .addComponent(ScrollNGH, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+            .addComponent(ScrollNGH, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         tabPane.addTab("Danh Sách", pnlDanhSach);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Quản lý Người Giao Hàng");
+        jLabel1.setText("Quản Lý Người Giao Hàng");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -291,7 +296,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblNGHMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        mdl.showMessage("Thêm Người Giao Hàng", "Bạn có chắc chắn thêm người giao hàng không");
+        mdl.showMessage("THÊM NGƯỜI GIAO HÀNG", "Bạn có chắc chắn thêm người giao hàng không");
             if(mdl.getMessageType() == MessageDialog.MessageType.OK){
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm người giao hàng thành công");
             noti.showNotification();
@@ -302,7 +307,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        mdl.showMessage("Sửa Người Giao Hàng", "Bạn có chắc chắn sửa người giao hàng không");
+        mdl.showMessage("SỬA NGƯỜI GIAO HÀNG", "Bạn có chắc chắn sửa người giao hàng không");
             if(mdl.getMessageType() == MessageDialog.MessageType.OK){
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa người giao hàng thành công");
             noti.showNotification();
@@ -313,7 +318,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        mdl.showMessage("Xóa Người Giao Hàng", "Bạn có chắc chắn xóa người giao hàng không");
+        mdl.showMessage("XÓA NGƯỜI GIAO HÀNG", "Bạn có chắc chắn xóa người giao hàng không");
             if(mdl.getMessageType() == MessageDialog.MessageType.OK){
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa người giao hàng thành công");
             noti.showNotification();
@@ -333,6 +338,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollNGH;
     private com.duan1.swing.Button btnMoi;
     private com.duan1.swing.Button btnSua;
     private com.duan1.swing.Button btnThem;
@@ -342,7 +348,6 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     private com.duan1.swing.Button button7;
     private com.duan1.swing.Button button8;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCapNhat;
     private javax.swing.JPanel pnlDanhSach;
     private javax.swing.JPanel pnlDieuHuong;

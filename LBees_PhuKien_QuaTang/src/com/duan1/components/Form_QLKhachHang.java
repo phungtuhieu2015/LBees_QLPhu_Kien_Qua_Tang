@@ -8,6 +8,7 @@ import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
 import com.duan1.swing.MessageDialog;
 import com.duan1.swing.Notification;
+import com.duan1.swing.ScrollBarCustom;
 import com.duan1.ui.MainJFrame;
 import java.awt.Color;
 import java.awt.Frame;
@@ -36,8 +37,11 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         initComponents();
         setHint();
         TimKiem();
+        ThanhTruotTb();
         
-        
+    }
+     public void ThanhTruotTb(){
+        ScrollKH.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     public void TimKiem() {
@@ -102,7 +106,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         button8 = new com.duan1.swing.Button();
         button2 = new com.duan1.swing.Button();
         pnlDanhSach = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        ScrollKH = new javax.swing.JScrollPane();
         tblKhachHang = new com.duan1.swing.Table();
         jLabel1 = new javax.swing.JLabel();
 
@@ -225,12 +229,27 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
         pnlDanhSach.setBackground(new java.awt.Color(255, 255, 255));
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane1.setBorder(null);
+        ScrollKH.setBackground(new java.awt.Color(255, 255, 255));
+        ScrollKH.setBorder(null);
 
         tblKhachHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "Mã Khách Hàng", "Tên Khách Hàng", "Số Điện Thoại", "Điểm Tích Lũy"
@@ -249,7 +268,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
                 tblKhachHangMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblKhachHang);
+        ScrollKH.setViewportView(tblKhachHang);
         if (tblKhachHang.getColumnModel().getColumnCount() > 0) {
             tblKhachHang.getColumnModel().getColumn(0).setResizable(false);
             tblKhachHang.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -264,11 +283,11 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         pnlDanhSach.setLayout(pnlDanhSachLayout);
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
+            .addComponent(ScrollKH, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
+            .addComponent(ScrollKH, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
         );
 
         Tabpane.addTab("Danh Sách", pnlDanhSach);
@@ -309,7 +328,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-            mdl.showMessage("Thêm Khách Hàng", "Bạn có chắc chắn thêm khách hàng không");
+            mdl.showMessage("THÊM KHÁCH HÀNG", "Bạn có chắc chắn thêm khách hàng không");
             if(mdl.getMessageType() == MessageDialog.MessageType.OK){
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm khách hàng thành công");
             noti.showNotification();
@@ -324,7 +343,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        mdl.showMessage("Sửa Khách Hàng", "Bạn có chắc chắn sửa khách hàng không");
+        mdl.showMessage("SỬA KHÁCH HÀNG", "Bạn có chắc chắn sửa khách hàng không");
    
         if(mdl.getMessageType() == MessageDialog.MessageType.OK){
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa khách hàng thành công");
@@ -338,7 +357,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        mdl.showMessage("Xóa Khách Hàng", "Bạn có chắc chắn xóa khách hàng không");
+        mdl.showMessage("XÓA KHÁCH HÀNG", "Bạn có chắc chắn xóa khách hàng không");
    
         if(mdl.getMessageType() == MessageDialog.MessageType.OK){
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa khách hàng thành công");
@@ -358,6 +377,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollKH;
     private com.duan1.swing.MaterialTabbed Tabpane;
     private com.duan1.swing.Button btnMoi;
     private com.duan1.swing.Button btnSua;
@@ -369,7 +389,6 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     private com.duan1.swing.Button button8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlCapNhat;
     private javax.swing.JPanel pnlDanhSach;
     private javax.swing.JPanel pnlDieuHuong;

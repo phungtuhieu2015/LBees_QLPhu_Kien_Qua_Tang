@@ -9,7 +9,7 @@ import javax.swing.JButton;
 public class ButtonCustomMessageDiaLog extends JButton {
 
     private Color background = new Color(69, 191, 71);
-    private Color colorHover = new Color(76, 206, 78);
+    private Color colorHover = new Color(16, 104, 159);
     private Color colorPressed = new Color(63, 175, 65);
     private boolean mouseOver = false;
 
