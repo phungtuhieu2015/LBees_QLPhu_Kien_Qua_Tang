@@ -14,17 +14,17 @@ public class HoaDon {
 
     String MaHD;
     Date NgayTao;
-    String GhiCHu;
+    String GhiChu;
     String MaNV;
     String MaKH;
 
     public HoaDon() {
     }
 
-    public HoaDon(String MaHD, Date NgayTao, String GhiCHu, String MaNV, String MaKH) {
+    public HoaDon(String MaHD, Date NgayTao, String GhiChu, String MaNV, String MaKH) {
         this.MaHD = MaHD;
         this.NgayTao = NgayTao;
-        this.GhiCHu = GhiCHu;
+        this.GhiChu = GhiChu;
         this.MaNV = MaNV;
         this.MaKH = MaKH;
     }
@@ -45,12 +45,12 @@ public class HoaDon {
         this.NgayTao = NgayTao;
     }
 
-    public String getGhiCHu() {
-        return GhiCHu;
+    public String getGhiChu() {
+        return GhiChu;
     }
 
-    public void setGhiCHu(String GhiCHu) {
-        this.GhiCHu = GhiCHu;
+    public void setGhiChu(String GhiChu) {
+        this.GhiChu = GhiChu;
     }
 
     public String getMaNV() {
@@ -68,6 +68,5 @@ public class HoaDon {
     public void setMaKH(String MaKH) {
         this.MaKH = MaKH;
     }
-
     
 }

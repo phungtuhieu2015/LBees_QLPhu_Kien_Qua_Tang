@@ -344,7 +344,7 @@ public class MainJFrame extends javax.swing.JFrame {
         int mPoY = MouseInfo.getPointerInfo().getLocation().y;
 
         //showw popupmenu
-        popupMenu.show(this, mPoX, mPoY);
+        popupMenu.show(this, 1050,45);
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
