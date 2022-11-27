@@ -118,18 +118,10 @@
                               </Group>
                               <Component id="txtMaNGH" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtEmail" pref="305" max="32767" attributes="0"/>
-                                      <Component id="txtSDT" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="myTextField21" min="-2" pref="150" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtEmail" pref="305" max="32767" attributes="0"/>
+                              <Component id="txtSDT" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="117" max="32767" attributes="0"/>
                       </Group>
@@ -160,9 +152,8 @@
                                   <EmptySpace pref="209" max="32767" attributes="0"/>
                                   <Component id="pnlDieuHuong" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="myTextField21" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="pnlThemSuaXoa" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -287,8 +278,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="com.duan1.swing.MyTextField2" name="myTextField21">
-                </Component>
               </SubComponents>
             </Container>
           </SubComponents>
