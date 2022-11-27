@@ -6,6 +6,10 @@ package com.duan1.components;
 
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
+import com.duan1.swing.MessageDialog;
+import com.duan1.swing.Notification;
+import com.duan1.swing.ScrollBarCustom;
+import com.duan1.ui.MainJFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +17,8 @@ import javax.swing.JOptionPane;
  * @author ASUS
  */
 public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
-
+    MainJFrame frame = new MainJFrame();
+    MessageDialog mdl = new MessageDialog(frame);
     /**
      * Creates new form Form_QLNguoiGiaoHang
      */
@@ -21,6 +26,10 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         initComponents();
         setHint();
         TimKiem();
+        ThanhTruotTb();
+    }
+    public void ThanhTruotTb(){
+        ScrollNGH.setVerticalScrollBar(new ScrollBarCustom());
     }
      public  void TimKiem (){
         textFieldAnimation1.setHintText("Nhập mã, tên giao hàng");
@@ -79,19 +88,16 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         btnXoa = new com.duan1.swing.Button();
         btnMoi = new com.duan1.swing.Button();
         pnlDanhSach = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        ScrollNGH = new javax.swing.JScrollPane();
         tblNGH = new com.duan1.swing.Table();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(923, 604));
         setMinimumSize(new java.awt.Dimension(923, 604));
         setPreferredSize(new java.awt.Dimension(923, 604));
 
-        textFieldAnimation1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldAnimation1ActionPerformed(evt);
-            }
-        });
+        textFieldAnimation1.setBackground(new java.awt.Color(222, 214, 214));
 
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -121,18 +127,38 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
         btnThem.setText("Thêm");
         btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
         pnlDieuHuong.add(btnThem);
 
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
         pnlDieuHuong.add(btnSua);
 
         btnXoa.setText("Xóa");
         btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
         pnlDieuHuong.add(btnXoa);
 
         btnMoi.setText("Mới");
         btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
         pnlDieuHuong.add(btnMoi);
 
         javax.swing.GroupLayout pnlTextLayout = new javax.swing.GroupLayout(pnlText);
@@ -149,7 +175,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                 .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtSDT, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
             .addGroup(pnlTextLayout.createSequentialGroup()
                 .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -170,10 +196,10 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                     .addGroup(pnlTextLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addComponent(txtCCCD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
                         .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTextLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 283, Short.MAX_VALUE)
                         .addComponent(pnlThemSuaXoa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
@@ -190,8 +216,8 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
         tabPane.addTab("Cập Nhật", pnlCapNhat);
 
-        jScrollPane1.setBackground(new java.awt.Color(255, 255, 102));
-        jScrollPane1.setBorder(null);
+        ScrollNGH.setBackground(new java.awt.Color(255, 255, 102));
+        ScrollNGH.setBorder(null);
 
         tblNGH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -214,7 +240,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                 tblNGHMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblNGH);
+        ScrollNGH.setViewportView(tblNGH);
         if (tblNGH.getColumnModel().getColumnCount() > 0) {
             tblNGH.getColumnModel().getColumn(1).setPreferredWidth(200);
             tblNGH.getColumnModel().getColumn(2).setPreferredWidth(25);
@@ -225,98 +251,96 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         pnlDanhSach.setLayout(pnlDanhSachLayout);
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+            .addComponent(ScrollNGH, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+            .addComponent(ScrollNGH, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
         );
 
         tabPane.addTab("Danh Sách", pnlDanhSach);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Quản Lý Người Giao Hàng");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textFieldAnimation1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(textFieldAnimation1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(textFieldAnimation1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(3, 3, 3)
+                .addComponent(textFieldAnimation1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-    public boolean  checkText(){
-        if(txtMaNGH.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Nhập mã người giao hàng");
-            txtMaNGH.requestFocus();
-            return false;
-        }
-        
-        if(txtTenNGH.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Nhập tên người giao hàng");
-            txtTenNGH.requestFocus();
-            return false;
-        }
-        
-        String CCCD = "^\\d{12}$";
-        boolean cccd =txtCCCD.getText().matches(CCCD);
-        if(txtCCCD.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Nhập căn cước công dân người giao hàng", "Lỗi căn cước công dân", JOptionPane.QUESTION_MESSAGE);
-            return false;
-        } 
-         if (cccd != true) {
-            JOptionPane.showMessageDialog(this, "Nhập căn cước công dân người giao hàng không Đúng Dịnh Dạng ", "Lỗi Phone", JOptionPane.QUESTION_MESSAGE);
-            return false;
-        }
-            
-        String PHONE = "^0[9384]{1}\\d{8}$";
-        boolean phone = txtSDT.getText().matches(PHONE);
-
-        if (txtSDT.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(this, "Nhập số điện thoại người giao hàng", "Lỗi số điện thoại", JOptionPane.QUESTION_MESSAGE);
-            return false;
-        }
-        if (phone != true) {
-            JOptionPane.showMessageDialog(this, "Nhập số điện thoại người giao hàng không Đúng Dịnh Dạng ", "Lỗi số điện thoại", JOptionPane.QUESTION_MESSAGE);
-            return false;
-        }
-        
-        
-        String EMAIL = "\\w+@gmail";   
-        boolean email = txtEmail.getText().matches(EMAIL);
-
-        if (txtEmail.getText().trim().isEmpty()) {
-
-            JOptionPane.showMessageDialog(this, "Nhập email người giao hàng", "Lỗi email", JOptionPane.QUESTION_MESSAGE);
-            return false;
-        }
-        if (email != true) {
-            JOptionPane.showMessageDialog(this, "Nhập email người giao hàng không Đúng Dịnh Dạng '@fpt.edu.vn'", "Lỗi email", JOptionPane.QUESTION_MESSAGE);
-            return false;
-        }  
-        return true;
-    }
+   
     
     private void tblNGHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNGHMouseClicked
         // TODO add your handling code here:
         tabPane.setSelectedIndex(0);
     }//GEN-LAST:event_tblNGHMouseClicked
 
-    private void textFieldAnimation1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAnimation1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldAnimation1ActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        mdl.showMessage("THÊM NGƯỜI GIAO HÀNG", "Bạn có chắc chắn thêm người giao hàng không");
+            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm người giao hàng thành công");
+            noti.showNotification();
+        }else{
+            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm người giao hàng không thành công");
+            noti.showNotification();
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        mdl.showMessage("SỬA NGƯỜI GIAO HÀNG", "Bạn có chắc chắn sửa người giao hàng không");
+            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa người giao hàng thành công");
+            noti.showNotification();
+        }else{
+            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Sửa người giao hàng không thành công");
+            noti.showNotification();
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
+
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        mdl.showMessage("XÓA NGƯỜI GIAO HÀNG", "Bạn có chắc chắn xóa người giao hàng không");
+            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa người giao hàng thành công");
+            noti.showNotification();
+        }else{
+            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Xóa người giao hàng không thành công");
+            noti.showNotification();
+        }
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
+        txtMaNGH.setText("");
+        txtTenNGH.setText("");
+        txtCCCD.setText("");
+        txtSDT.setText("");
+        txtEmail.setText("");
+    }//GEN-LAST:event_btnMoiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane ScrollNGH;
     private com.duan1.swing.Button btnMoi;
     private com.duan1.swing.Button btnSua;
     private com.duan1.swing.Button btnThem;
@@ -325,7 +349,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     private com.duan1.swing.Button button6;
     private com.duan1.swing.Button button7;
     private com.duan1.swing.Button button8;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel pnlCapNhat;
     private javax.swing.JPanel pnlDanhSach;
     private javax.swing.JPanel pnlDieuHuong;
