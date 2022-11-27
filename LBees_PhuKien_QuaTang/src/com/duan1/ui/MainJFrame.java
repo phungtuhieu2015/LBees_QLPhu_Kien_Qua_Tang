@@ -27,6 +27,7 @@ import java.awt.MouseInfo;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -64,30 +65,31 @@ public class MainJFrame extends javax.swing.JFrame {
                     showForm(new Main_Form());
                 } else if (index == 1 && indexSubMenu == 1) {
                     MyWebCam.check = 1;
-                    showForm(new Form_QLSanPham());
+                    showForm(new Form_QLKhachHang());
                 } else if (index == 1 && indexSubMenu == 2) {
                     MyWebCam.check = 0;
-                    showForm(new Form_QLBanHang());
+                    showForm(new Form_QLNhanVien());
                 } else if (index == 1 && indexSubMenu == 3) {
                     MyWebCam.check = 0;
-                    showForm(new Form_QLKhachHang());
+                    showForm(new Form_QLNguoiGiaoHang());
                 } else if (index == 1 && indexSubMenu == 4) {
                     MyWebCam.check = 0;
-                    showForm(new Form_QLNhanVien());
+                    showForm(new Form_QLTaiKhoan());
                 } else if (index == 1 && indexSubMenu == 5) {
                     MyWebCam.check = 0;
-                    showForm(new Form_QLNguoiGiaoHang());
-                } else if (index == 1 && indexSubMenu == 6) {
-                    MyWebCam.check = 0;
-                    showForm(new Form_QLTaiKhoan());
-                }else if (index == 1 && indexSubMenu == 7) {
                     showForm(new Form_QLDanhMuc());
-                }else if (index == 2 && indexSubMenu == 0) {
-                    showForm(new Form_LSHoaDon());
+                } else if (index == 2 && indexSubMenu == 0) {
+                    MyWebCam.check = 0;
+                    showForm(new Form_QLSanPham());
                 } else if (index == 3 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
-                    showForm(new Form_ThongKe());
+                    showForm(new Form_QLBanHang());
                 } else if (index == 4 && indexSubMenu == 0) {
+                    showForm(new Form_LSHoaDon());
+                } else if (index == 5 && indexSubMenu == 0) {
+                    MyWebCam.check = 0;
+                    showForm(new Form_ThongKe());
+                } else if (index == 6 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QuaTang());
                 } else {
@@ -146,6 +148,11 @@ public class MainJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         background.setBackground(new java.awt.Color(255, 255, 255));
         background.setToolTipText("");
@@ -175,7 +182,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(panelThoatLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelMenuuLayout = new javax.swing.GroupLayout(panelMenuu);
@@ -212,6 +219,11 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel4.setText("admin");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         lblBaCham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/baCham_32.png"))); // NOI18N
         lblBaCham.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -332,8 +344,16 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
-       new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
+        new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_lblAvatarMouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+   
+    }//GEN-LAST:event_formKeyReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

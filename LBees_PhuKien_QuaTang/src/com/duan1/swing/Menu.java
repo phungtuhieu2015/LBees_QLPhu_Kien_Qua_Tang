@@ -53,7 +53,9 @@ public class Menu extends JPanel {
         add(scroll);
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.HOME, "Trang chủ"));
         addTitle("Các form quản lý");
-        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.GROUP, "Quản lý", "Sản phẩm", "Bán hàng","Khách hàng","Nhân viên","Người giao hàng" ,"Tài khoản", "Danh mục" ));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.GROUP, "Quản lý","Khách hàng","Nhân viên","Người giao hàng" ,"Tài khoản", "Danh mục" ));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.STORE, "Sản phẩm"));
+        addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.STORAGE, "Bán hàng"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.RECEIPT, "Lịch sử hoá đơn"));
         addMenuItem(new ModelMenuItem(GoogleMaterialDesignIcon.MONETIZATION_ON, "Thống kê"));
         addTitle("Dịch vụ");
