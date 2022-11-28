@@ -55,11 +55,10 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     }
 // Nếu trùng mã sẽ câp nhập số lượng
     // ngược lại sẽ thêm
-String sl;
+    String sl;
+
     public void addDataGH(int index) {
-        MainJFrame frame = new MainJFrame();
         SanPham sp = listSP.get(index);
-        boolean check = true;
         HoaDonChiTiet hdct = new HoaDonChiTiet();
         hdct.setMaHD(sp.getMaSP());
         hdct.setMaSP(sp.getMaSP());
@@ -68,66 +67,24 @@ String sl;
         listHDCT.add(hdct);
         loadDataToGH();
     }
+
     public void updateGH(int index) {
         SanPham sp = listSP.get(index);
         boolean check = true;
-         MainJFrame frame = new MainJFrame();
-         sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
+        MainJFrame frame = new MainJFrame();
+        sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
         for (HoaDonChiTiet hd : listHDCT) {
-            if(hd.getMaSP().equals(sp.getMaSP())){
-               hd.setSoLuong(hd.getSoLuong() +Integer.parseInt(sl) );
-               check = false;
-               loadDataToGH();
-               break;
+            if (hd.getMaSP().equals(sp.getMaSP())) {
+                hd.setSoLuong(hd.getSoLuong() + Integer.parseInt(sl));
+                hd.setThanhTien(hd.getSoLuong() * sp.getDonGia());
+                check = false;
+                loadDataToGH();
+                break;
             }
         }
-        if(check){
+        if (check) {
             addDataGH(index);
         }
-        
-    }
-    public void addDataGH1(int index) {
-        MainJFrame frame = new MainJFrame();
-        SanPham sp = listSP.get(index);
-
-        String sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
-
-        HoaDonChiTiet hdct = new HoaDonChiTiet();
-
-        boolean check = false;
-        if (listHDCT != null) {
-
-            hdct.setMaHD(sp.getMaSP());
-            hdct.setMaSP(sp.getMaSP());
-            if (hdct != null) {
-
-            }
-            for (HoaDonChiTiet h : listHDCT) {
-
-                if (h.getMaSP().equals(sp.getMaSP())) {
-                    h.setMaHD(sp.getMaSP());
-                    h.setMaSP(sp.getMaSP());
-                    h.setSoLuong(Integer.parseInt(sl) + h.getSoLuong());
-                    h.setThanhTien(h.getSoLuong() * sp.getDonGia());
-                    check = false;
-                    loadDataToGH();
-                    break;
-                } else {
-                    check = true;
-                }
-
-            }
-
-        }
-
-        hdct.setSoLuong(Integer.parseInt(sl));
-        hdct.setThanhTien(sp.getSoLuong() * sp.getDonGia());
-        listHDCT.add(hdct);
-        loadDataToGH();
-        if (check) {
-
-        }
-
     }
 
     public void loadDataToGH() {
