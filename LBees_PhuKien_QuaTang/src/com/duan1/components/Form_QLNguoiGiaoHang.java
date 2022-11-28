@@ -4,42 +4,63 @@
  */
 package com.duan1.components;
 
+import com.duan1.DAO.NguoiGiaoHangDAO;
+import com.duan1.Entity.NguoiGiaoHang;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
 import com.duan1.swing.MessageDialog;
 import com.duan1.swing.Notification;
 import com.duan1.swing.ScrollBarCustom;
 import com.duan1.ui.MainJFrame;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author ASUS
  */
 public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
+
     MainJFrame frame = new MainJFrame();
     MessageDialog mdl = new MessageDialog(frame);
+    DefaultTableModel tblModel = new DefaultTableModel();
+    List<NguoiGiaoHang> listNGH = new ArrayList<>();
+    NguoiGiaoHangDAO dao = new NguoiGiaoHangDAO();
+    int index = 0;
+
     /**
      * Creates new form Form_QLNguoiGiaoHang
      */
     public Form_QLNguoiGiaoHang() {
         initComponents();
+        init();
+    }
+
+    public void ThanhTruotTb() {
+        ScrollNGH.setVerticalScrollBar(new ScrollBarCustom());
+    }
+
+    public void init() {
         setHint();
         TimKiem();
         ThanhTruotTb();
+        initTable();
+        loadData();
     }
-    public void ThanhTruotTb(){
-        ScrollNGH.setVerticalScrollBar(new ScrollBarCustom());
-    }
-     public  void TimKiem (){
-        textFieldAnimation1.setHintText("Nhập mã, tên giao hàng");
-        textFieldAnimation1.addEvent(new EventTextField() {
+
+    public void TimKiem() {
+        txtTimKiem.setHintText("Nhập mã, tên giao hàng");
+        txtTimKiem.addEvent(new EventTextField() {
             @Override
             public void onPressed(EventCallBack call) {
                 //  Test
                 try {
                     for (int i = 1; i <= 100; i++) {
-                        
+
                         Thread.sleep(5);
                     }
                     call.done();
@@ -54,8 +75,8 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
             }
         });
     }
-    
-    public void setHint(){
+
+    public void setHint() {
         txtMaNGH.setHint("Nhập mã người giao hàng");
         txtTenNGH.setHint("Tên mã người giao hàng");
         txtEmail.setHint("Nhập Email");
@@ -63,12 +84,101 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         txtSDT.setHint("Nhập số điện thoại");
     }
 
-    
+    public void insert() {
+        NguoiGiaoHang n = new NguoiGiaoHang();
+        n = getForm();
+        if (n != null) {
+            dao.insert(n);
+            loadData();
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.CENTER, "Thêm thành công!");
+            noti.showNotification();
+            clear();
+        }
+    }
+
+    public void update() {
+        NguoiGiaoHang n = new NguoiGiaoHang();
+        n = getForm();
+        dao.update(n);
+        loadData();
+        Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.CENTER, "Update thành công!");
+        noti.showNotification();
+        clear();
+
+    }
+
+    public void delete() {
+        mdl.showMessage("XÓA NGƯỜI GIAO HÀNG", "Bạn có chắc muốn xóa không?");
+        if (mdl.getMessageType() == MessageDialog.MessageType.OK) {
+            dao.delete(txtMaNGH.getText());
+            loadData();
+            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.CENTER, "Xóa thành công!");
+            noti.showNotification();
+            clear();
+        }
+    }
+
+    public void clear() {
+        NguoiGiaoHang n = new NguoiGiaoHang();
+        setForm(n);
+    }
+
+    public void initTable() {
+        String[] cold = new String[]{"Mã Người Giao Hàng", "Tên Người Giao Hàng", "CCCD", "Số Điện Thoại", "Gmail"};
+        tblModel.setColumnIdentifiers(cold);
+        tblNGH.setModel(tblModel);
+    }
+
+    public void loadData() {
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
+        listNGH = dao.selectAll();
+        for (NguoiGiaoHang ngh : listNGH) {
+            Object[] cols = new Object[]{ngh.getMaNGH(), ngh.getTenNGH(), ngh.getCCCD(), ngh.getSDT(), ngh.getGmail()};
+            tblModel.addRow(cols);
+        }
+    }
+
+    public NguoiGiaoHang getForm() {
+        NguoiGiaoHang n = new NguoiGiaoHang();
+        n.setMaNGH(txtMaNGH.getText());
+        n.setTenNGH(txtTenNGH.getText());
+        n.setCCCD(txtCCCD.getText());
+        n.setSDT(txtSDT.getText());
+        n.setGmail(txtEmail.getText());
+        return n;
+    }
+
+    public void setForm(NguoiGiaoHang n) {
+        txtMaNGH.setText(n.getMaNGH());
+        txtTenNGH.setText(n.getTenNGH());
+        txtCCCD.setText(n.getCCCD());
+        txtSDT.setText(n.getSDT());
+        txtEmail.setText(n.getGmail());
+    }
+
+    public void display(int index) {
+        NguoiGiaoHang n = listNGH.get(index);
+        txtMaNGH.setText(n.getMaNGH());
+        txtTenNGH.setText(n.getTenNGH());
+        txtCCCD.setText(n.getCCCD());
+        txtSDT.setText(n.getSDT());
+        txtEmail.setText(n.getGmail());
+    }
+
+    public void findIdAndName(String IdAndName) {
+        tblModel = (DefaultTableModel) tblNGH.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(tblModel);
+        tblNGH.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter(IdAndName, 0, 1));
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textFieldAnimation1 = new com.duan1.swing.TextFieldAnimation();
+        txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         tabPane = new com.duan1.swing.MaterialTabbed();
         pnlCapNhat = new javax.swing.JPanel();
         pnlText = new javax.swing.JPanel();
@@ -97,7 +207,15 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         setMinimumSize(new java.awt.Dimension(923, 604));
         setPreferredSize(new java.awt.Dimension(923, 604));
 
-        textFieldAnimation1.setBackground(new java.awt.Color(222, 214, 214));
+        txtTimKiem.setBackground(new java.awt.Color(222, 214, 214));
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
 
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -273,7 +391,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                     .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(textFieldAnimation1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -285,49 +403,31 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(3, 3, 3)
-                .addComponent(textFieldAnimation1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tabPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-   
-    
+
+
     private void tblNGHMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNGHMouseClicked
         // TODO add your handling code here:
+        index = tblNGH.getSelectedRow();
+        display(index);
         tabPane.setSelectedIndex(0);
     }//GEN-LAST:event_tblNGHMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        mdl.showMessage("THÊM NGƯỜI GIAO HÀNG", "Bạn có chắc chắn thêm người giao hàng không");
-            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
-            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm người giao hàng thành công");
-            noti.showNotification();
-        }else{
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm người giao hàng không thành công");
-            noti.showNotification();
-        }
+        insert();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        mdl.showMessage("SỬA NGƯỜI GIAO HÀNG", "Bạn có chắc chắn sửa người giao hàng không");
-            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
-            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa người giao hàng thành công");
-            noti.showNotification();
-        }else{
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Sửa người giao hàng không thành công");
-            noti.showNotification();
-        }
+
+        update();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        mdl.showMessage("XÓA NGƯỜI GIAO HÀNG", "Bạn có chắc chắn xóa người giao hàng không");
-            if(mdl.getMessageType() == MessageDialog.MessageType.OK){
-            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa người giao hàng thành công");
-            noti.showNotification();
-        }else{
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Xóa người giao hàng không thành công");
-            noti.showNotification();
-        }
+        delete();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
@@ -337,6 +437,16 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         txtSDT.setText("");
         txtEmail.setText("");
     }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtTimKiemKeyPressed
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+        findIdAndName(txtTimKiem.getText());
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -357,11 +467,11 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     private javax.swing.JPanel pnlThemSuaXoa;
     private com.duan1.swing.MaterialTabbed tabPane;
     private com.duan1.swing.Table tblNGH;
-    private com.duan1.swing.TextFieldAnimation textFieldAnimation1;
     private com.duan1.swing.MyTextField txtCCCD;
     private com.duan1.swing.MyTextField txtEmail;
     private com.duan1.swing.MyTextField txtMaNGH;
     private com.duan1.swing.MyTextField txtSDT;
     private com.duan1.swing.MyTextField txtTenNGH;
+    private com.duan1.swing.TextFieldAnimation txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }
