@@ -47,8 +47,8 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     }
     
     public void init(){
-        txtTuNgay1.setHint("Từ ngày");
-        txtDenNgay.setHint("Đến ngày");
+        txtTuNgay1.setLabelText("Từ ngày");
+        txtDenNgay.setLabelText("Đến ngày");
         
     }
     
@@ -61,16 +61,25 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        TuNgay_Date = new com.duan1.swing.DateChooser();
+        DenNgay_Date = new com.duan1.swing.DateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtTuNgay1 = new com.duan1.swing.MyTextField();
-        txtDenNgay = new com.duan1.swing.MyTextField();
-        jLabel5 = new javax.swing.JLabel();
+        lblDenNgay = new javax.swing.JLabel();
+        lblTuNgay = new javax.swing.JLabel();
         textFieldAnimationTK = new com.duan1.swing.TextFieldAnimation();
         materialTabbed1 = new com.duan1.swing.MaterialTabbed();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table1 = new com.duan1.swing.Table();
+        txtTuNgay1 = new com.duan1.swing.MyTextField2();
+        txtDenNgay = new com.duan1.swing.MyTextField2();
+
+        TuNgay_Date.setForeground(new java.awt.Color(0, 204, 255));
+        TuNgay_Date.setToolTipText("");
+        TuNgay_Date.setTextRefernce(txtTuNgay1);
+
+        DenNgay_Date.setForeground(new java.awt.Color(0, 204, 255));
+        DenNgay_Date.setTextRefernce(txtDenNgay);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(923, 600));
@@ -78,25 +87,17 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("LỊCH SỬ HÓA ĐƠN");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/38px_calendar_blue.png"))); // NOI18N
-
-        txtTuNgay1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTuNgay1ActionPerformed(evt);
+        lblDenNgay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/38px_calendar_blue.png"))); // NOI18N
+        lblDenNgay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblDenNgayMouseClicked(evt);
             }
         });
 
-        txtDenNgay.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDenNgayActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/38px_calendar_blue.png"))); // NOI18N
-
-        textFieldAnimationTK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldAnimationTKActionPerformed(evt);
+        lblTuNgay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/38px_calendar_blue.png"))); // NOI18N
+        lblTuNgay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblTuNgayMouseClicked(evt);
             }
         });
 
@@ -119,15 +120,11 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 906, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
         );
 
         materialTabbed1.addTab("Lịch sử hóa đơn", jPanel1);
@@ -141,13 +138,13 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(materialTabbed1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(jLabel5)
+                        .addComponent(lblTuNgay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTuNgay1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel3)
+                        .addComponent(txtTuNgay1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblDenNgay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -158,46 +155,45 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(13, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTuNgay1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(38, 38, 38)
-                .addComponent(materialTabbed1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDenNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblTuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(38, 38, 38)
+                        .addComponent(materialTabbed1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTuNgay1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTuNgay1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTuNgay1ActionPerformed
+    private void lblTuNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTuNgayMouseClicked
+        TuNgay_Date.showPopup();
+        
+    }//GEN-LAST:event_lblTuNgayMouseClicked
 
-    private void txtDenNgayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDenNgayActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDenNgayActionPerformed
-
-    private void textFieldAnimationTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAnimationTKActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldAnimationTKActionPerformed
+    private void lblDenNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDenNgayMouseClicked
+        DenNgay_Date.showPopup();
+    }//GEN-LAST:event_lblDenNgayMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.duan1.swing.DateChooser DenNgay_Date;
+    private com.duan1.swing.DateChooser TuNgay_Date;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDenNgay;
+    private javax.swing.JLabel lblTuNgay;
     private com.duan1.swing.MaterialTabbed materialTabbed1;
     private com.duan1.swing.Table table1;
     private com.duan1.swing.TextFieldAnimation textFieldAnimationTK;
-    private com.duan1.swing.MyTextField txtDenNgay;
-    private com.duan1.swing.MyTextField txtTuNgay1;
+    private com.duan1.swing.MyTextField2 txtDenNgay;
+    private com.duan1.swing.MyTextField2 txtTuNgay1;
     // End of variables declaration//GEN-END:variables
 }

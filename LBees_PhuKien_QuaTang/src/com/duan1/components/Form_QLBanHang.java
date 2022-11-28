@@ -4,13 +4,26 @@
  */
 package com.duan1.components;
 
+import com.duan1.DAO.SanPhamDAO;
+import com.duan1.Entity.HoaDonChiTiet;
+import com.duan1.Entity.SanPham;
 import com.duan1.swing.ScrollBarCustom;
+import com.duan1.ui.MainJFrame;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author ASUS
  */
 public class Form_QLBanHang extends javax.swing.JPanel {
+
+    SanPhamDAO daoSP = new SanPhamDAO();
+    List<SanPham> listSP = daoSP.selectAll();
+    List<HoaDonChiTiet> listHDCT = new ArrayList<>();
 
     /**
      * Creates new form Form_QLBanHang
@@ -19,6 +32,123 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         initComponents();
         Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
         Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
+
+        loadData();
+
+    }
+
+    public void loadData() {
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+
+        try {
+            for (SanPham sp : listSP) {
+                Object[] row = {
+                    sp.getMaSP(),
+                    sp.getTenSP(),
+                    sp.getSoLuong(),
+                    sp.getDonGia(),};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+    }
+// Nếu trùng mã sẽ câp nhập số lượng
+    // ngược lại sẽ thêm
+String sl;
+    public void addDataGH(int index) {
+        MainJFrame frame = new MainJFrame();
+        SanPham sp = listSP.get(index);
+        boolean check = true;
+        HoaDonChiTiet hdct = new HoaDonChiTiet();
+        hdct.setMaHD(sp.getMaSP());
+        hdct.setMaSP(sp.getMaSP());
+        hdct.setSoLuong(Integer.parseInt(sl));
+        hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
+        listHDCT.add(hdct);
+        loadDataToGH();
+    }
+    public void updateGH(int index) {
+        SanPham sp = listSP.get(index);
+        boolean check = true;
+         MainJFrame frame = new MainJFrame();
+         sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
+        for (HoaDonChiTiet hd : listHDCT) {
+            if(hd.getMaSP().equals(sp.getMaSP())){
+               hd.setSoLuong(hd.getSoLuong() +Integer.parseInt(sl) );
+               check = false;
+               loadDataToGH();
+               break;
+            }
+        }
+        if(check){
+            addDataGH(index);
+        }
+        
+    }
+    public void addDataGH1(int index) {
+        MainJFrame frame = new MainJFrame();
+        SanPham sp = listSP.get(index);
+
+        String sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
+
+        HoaDonChiTiet hdct = new HoaDonChiTiet();
+
+        boolean check = false;
+        if (listHDCT != null) {
+
+            hdct.setMaHD(sp.getMaSP());
+            hdct.setMaSP(sp.getMaSP());
+            if (hdct != null) {
+
+            }
+            for (HoaDonChiTiet h : listHDCT) {
+
+                if (h.getMaSP().equals(sp.getMaSP())) {
+                    h.setMaHD(sp.getMaSP());
+                    h.setMaSP(sp.getMaSP());
+                    h.setSoLuong(Integer.parseInt(sl) + h.getSoLuong());
+                    h.setThanhTien(h.getSoLuong() * sp.getDonGia());
+                    check = false;
+                    loadDataToGH();
+                    break;
+                } else {
+                    check = true;
+                }
+
+            }
+
+        }
+
+        hdct.setSoLuong(Integer.parseInt(sl));
+        hdct.setThanhTien(sp.getSoLuong() * sp.getDonGia());
+        listHDCT.add(hdct);
+        loadDataToGH();
+        if (check) {
+
+        }
+
+    }
+
+    public void loadDataToGH() {
+        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
+        model.setRowCount(0);
+        try {
+            for (HoaDonChiTiet hdct : listHDCT) {
+                SanPham sp = daoSP.selectByid(hdct.getMaSP());
+
+                Object[] row = {
+                    hdct.getMaSP(),
+                    sp.getTenSP(),
+                    hdct.getSoLuong(),
+                    sp.getDonGia(),
+                    hdct.getThanhTien()
+                };
+                model.addRow(row);
+                model.fireTableDataChanged();
+            }
+        } catch (Exception e) {
+        }
     }
 
     /**
@@ -34,14 +164,14 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         Tabpane = new com.duan1.swing.MaterialTabbed();
         pnlDanhSach = new javax.swing.JPanel();
         Scroll_GioHang = new javax.swing.JScrollPane();
-        table1 = new com.duan1.swing.Table();
+        tblGioHang = new com.duan1.swing.Table();
         Tabpane1 = new com.duan1.swing.MaterialTabbed();
         pnlDanhSach1 = new javax.swing.JPanel();
         Scroll_SPBan = new javax.swing.JScrollPane();
-        table2 = new com.duan1.swing.Table();
+        tblSanPham = new com.duan1.swing.Table();
         pnlThemSuaXoa1 = new javax.swing.JPanel();
-        btnXoa = new com.duan1.swing.Button();
-        btnMoi = new com.duan1.swing.Button();
+        btnXoaKhoiGio = new com.duan1.swing.Button();
+        btnDatHang = new com.duan1.swing.Button();
         jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -51,7 +181,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
 
         pnlDanhSach.setBackground(new java.awt.Color(255, 255, 255));
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -70,7 +200,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        Scroll_GioHang.setViewportView(table1);
+        Scroll_GioHang.setViewportView(tblGioHang);
 
         javax.swing.GroupLayout pnlDanhSachLayout = new javax.swing.GroupLayout(pnlDanhSach);
         pnlDanhSach.setLayout(pnlDanhSachLayout);
@@ -93,7 +223,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
 
         pnlDanhSach1.setBackground(new java.awt.Color(255, 255, 255));
 
-        table2.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -112,7 +242,12 @@ public class Form_QLBanHang extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        Scroll_SPBan.setViewportView(table2);
+        tblSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblSanPhamMouseClicked(evt);
+            }
+        });
+        Scroll_SPBan.setViewportView(tblSanPham);
 
         javax.swing.GroupLayout pnlDanhSach1Layout = new javax.swing.GroupLayout(pnlDanhSach1);
         pnlDanhSach1.setLayout(pnlDanhSach1Layout);
@@ -136,23 +271,23 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         pnlThemSuaXoa1.setBackground(new java.awt.Color(255, 255, 255));
         pnlThemSuaXoa1.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
-        btnXoa.setText("Xóa khỏi giỏ");
-        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+        btnXoaKhoiGio.setText("Xóa khỏi giỏ");
+        btnXoaKhoiGio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoaKhoiGio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
+                btnXoaKhoiGioActionPerformed(evt);
             }
         });
-        pnlThemSuaXoa1.add(btnXoa);
+        pnlThemSuaXoa1.add(btnXoaKhoiGio);
 
-        btnMoi.setText("Đặt hàng");
-        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+        btnDatHang.setText("Đặt hàng");
+        btnDatHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDatHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoiActionPerformed(evt);
+                btnDatHangActionPerformed(evt);
             }
         });
-        pnlThemSuaXoa1.add(btnMoi);
+        pnlThemSuaXoa1.add(btnDatHang);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Camera");
@@ -201,11 +336,21 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-    }//GEN-LAST:event_btnXoaActionPerformed
+    private void btnXoaKhoiGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKhoiGioActionPerformed
+    }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
 
-    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-    }//GEN-LAST:event_btnMoiActionPerformed
+    private void btnDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHangActionPerformed
+        // TODO add your handling code here:
+        MainJFrame frame = new MainJFrame();
+        new JDL_NhapKhachHang(frame, true).setVisible(true);
+    }//GEN-LAST:event_btnDatHangActionPerformed
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        int index = tblSanPham.getSelectedRow();
+        if (evt.getClickCount() == 2) {
+            updateGH(index);
+        }
+    }//GEN-LAST:event_tblSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -213,16 +358,14 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     private javax.swing.JScrollPane Scroll_SPBan;
     private com.duan1.swing.MaterialTabbed Tabpane;
     private com.duan1.swing.MaterialTabbed Tabpane1;
-    private com.duan1.swing.Button btnMoi;
-    private com.duan1.swing.Button btnThem;
-    private com.duan1.swing.Button btnXoa;
+    private com.duan1.swing.Button btnDatHang;
+    private com.duan1.swing.Button btnXoaKhoiGio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel pnlDanhSach;
     private javax.swing.JPanel pnlDanhSach1;
-    private javax.swing.JPanel pnlThemSuaXoa;
     private javax.swing.JPanel pnlThemSuaXoa1;
-    private com.duan1.swing.Table table1;
-    private com.duan1.swing.Table table2;
+    private com.duan1.swing.Table tblGioHang;
+    private com.duan1.swing.Table tblSanPham;
     // End of variables declaration//GEN-END:variables
 }

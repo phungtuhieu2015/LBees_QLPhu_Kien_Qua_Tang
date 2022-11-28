@@ -263,7 +263,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         tabPane.addTab("Danh Sách", pnlDanhSach);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Quản Lý Người Giao Hàng");
+        jLabel1.setText("QUẢN LÝ NGƯỜI GIAO HÀNG");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
