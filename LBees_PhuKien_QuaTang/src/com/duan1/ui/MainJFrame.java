@@ -301,6 +301,8 @@ public class MainJFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //showForm(new panelTaiKhoanCuaBan ());
+                new loginJFrame().setVisible(true);
+                dispose();
 
             }
         });
@@ -317,6 +319,8 @@ public class MainJFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // showForm(new panelTaiKhoanCuaBan ());
+                new DoiMatKhauJFrame().setVisible(true);
+                dispose();
 
             }
         });

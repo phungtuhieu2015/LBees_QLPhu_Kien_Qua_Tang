@@ -1,40 +1,31 @@
 package com.duan1.ui;
 
 import java.awt.Color;
-import javax.swing.JOptionPane;
 
 
-public class loginJFrame extends javax.swing.JFrame {
+public class DoiMatKhauJFrame extends javax.swing.JFrame {
 
-    public loginJFrame() {
+    public DoiMatKhauJFrame() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         panelLogin_left2.initMoving(this);
-        MyPassField1.setHint("Mật khẩu");
+        MyPassField_DMK.setHint("nhập mật khẩu");
+        MyPassField2.setHint("nhập lại mật khẩu");
         MyTextField1.setHint("Tên đăng nhập");
     }
 
-    void exit() {
-       int ketQua = JOptionPane.showConfirmDialog(this, "bạn có thực sự muốn thoát không?", "thoát", JOptionPane.YES_NO_OPTION);
-       if (ketQua == JOptionPane.YES_NO_OPTION) {
-               System.exit(0);
-            }
- 
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         panelBorder1 = new com.duan1.components.panelLogin_Border();
         panelLogin_left2 = new com.duan1.components.panelLogin_left();
         jLabel1 = new javax.swing.JLabel();
         MyTextField1 = new com.duan1.swing.MyTextField();
-        MyPassField1 = new com.duan1.swing.MyPassField();
-        button1 = new com.duan1.swing.Button();
+        MyPassField_DMK = new com.duan1.swing.MyPassField();
+        MyPassField2 = new com.duan1.swing.MyPassField();
         lblthoat = new javax.swing.JLabel();
-
-        jLabel2.setText("jLabel2");
+        button1 = new com.duan1.swing.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -45,22 +36,17 @@ public class loginJFrame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ĐĂNG NHẬP");
-        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 160, 49));
+        jLabel1.setText("ĐỔI MẬT KHẨU");
+        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 200, 49));
 
         MyTextField1.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_User.png"))); // NOI18N
         panelBorder1.add(MyTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 240, 36));
 
-        MyPassField1.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_Pass.png"))); // NOI18N
-        panelBorder1.add(MyPassField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 240, 36));
+        MyPassField_DMK.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_Pass.png"))); // NOI18N
+        panelBorder1.add(MyPassField_DMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 240, 36));
 
-        button1.setText("Đăng nhập");
-        button1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button1ActionPerformed(evt);
-            }
-        });
-        panelBorder1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, 100, 40));
+        MyPassField2.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_Pass.png"))); // NOI18N
+        panelBorder1.add(MyPassField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 240, 36));
 
         lblthoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/36px__logout.png"))); // NOI18N
         lblthoat.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -69,6 +55,14 @@ public class loginJFrame extends javax.swing.JFrame {
             }
         });
         panelBorder1.add(lblthoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 410, -1, -1));
+
+        button1.setText("Đổi");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
+        panelBorder1.add(button1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 360, 110, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,15 +79,16 @@ public class loginJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-        // TODO add your handling code here:
-      
-    }//GEN-LAST:event_button1ActionPerformed
-
     private void lblthoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblthoatMouseClicked
         // TODO add your handling code here:
-        exit();
+        new loginJFrame().setVisible(true);
+        dispose();
     }//GEN-LAST:event_lblthoatMouseClicked
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_button1ActionPerformed
     
   
     /**
@@ -113,30 +108,31 @@ public class loginJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(loginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhauJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(loginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhauJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(loginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhauJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(loginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoiMatKhauJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new loginJFrame().setVisible(true);
+                new DoiMatKhauJFrame().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.duan1.swing.MyPassField MyPassField1;
+    private com.duan1.swing.MyPassField MyPassField2;
+    private com.duan1.swing.MyPassField MyPassField_DMK;
     private com.duan1.swing.MyTextField MyTextField1;
     private com.duan1.swing.Button button1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblthoat;
     private com.duan1.components.panelLogin_Border panelBorder1;
     private com.duan1.components.panelLogin_left panelLogin_left2;
