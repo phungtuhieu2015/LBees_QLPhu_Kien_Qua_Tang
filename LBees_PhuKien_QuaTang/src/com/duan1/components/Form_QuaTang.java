@@ -108,7 +108,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
                 Object[] row = {
                     qt.getMaDH(),
-                    qt.getMaHD(),
+                    qt.getMaHD(), 
                     qt.getMaNGH(),
                     qt.getTenNN(),
                     qt.getDiaChiNN(),

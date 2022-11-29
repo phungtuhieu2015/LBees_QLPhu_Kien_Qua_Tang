@@ -46,7 +46,7 @@ public class Notification extends javax.swing.JComponent {
             lbMessage.setText("Thành Công");
         } else if (type == Type.INFO) {
             lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/info.png")));
-            lbMessage.setText("Lỗi");
+            lbMessage.setText("Thông Tin");
         } else {
             lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/warning.png")));
             lbMessage.setText("Cảnh Báo");
