@@ -52,6 +52,7 @@ public class MainJFrame extends javax.swing.JFrame {
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
+       
     }
 
     private void init() {
@@ -78,6 +79,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (index == 1 && indexSubMenu == 5) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLDanhMuc());
+                    
                 } else if (index == 2 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLSanPham());

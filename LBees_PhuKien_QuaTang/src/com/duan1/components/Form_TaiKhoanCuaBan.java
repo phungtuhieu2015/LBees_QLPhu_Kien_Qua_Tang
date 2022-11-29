@@ -4,6 +4,8 @@
  */
 package com.duan1.components;
 
+import com.duan1.ui.MainJFrame;
+
 /**
  *
  * @author ASUS
@@ -57,6 +59,11 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
         });
 
         button1.setText("Quản lý tài khoản");
+        button1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button1ActionPerformed(evt);
+            }
+        });
 
         button2.setText("Đổi mật khẩu");
 
@@ -122,6 +129,11 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
     private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTaiKhoanActionPerformed
+
+    private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
+//         MainJFrame m = new MainJFrame();
+//       new Form_QLTaiKhoan(m, true);
+    }//GEN-LAST:event_button1ActionPerformed
 
     /**
      * @param args the command line arguments

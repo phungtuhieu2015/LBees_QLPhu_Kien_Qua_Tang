@@ -1,4 +1,3 @@
-
 package com.duan1.components;
 
 import com.duan1.swing.EventCallBack;
@@ -17,13 +16,17 @@ public class Form_ThongKe extends javax.swing.JPanel {
         initComponents();
         setHin();
         TimKiem();
+        txtTuNgay.setText("");
+        txtDenNgay.setText("");
     }
-     public void setHin (){
-         txtTuNgay.setLabelText("Từ ngày");
+
+    public void setHin() {
+        txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
-        
+
     }
-      public void TimKiem() {
+
+    public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã để tìm kiếm");
         txtTimKiem.addEvent(new EventTextField() {
             @Override
@@ -46,6 +49,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
             }
         });
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
