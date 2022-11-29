@@ -53,6 +53,7 @@ public class MainJFrame extends javax.swing.JFrame {
         dongHo();
         creatPopupMenu(this);
     }
+    
 
     private void init() {
         mainJFrame = this;
