@@ -40,8 +40,9 @@ public class Form_ThemThanhCong extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
 
-        jLabel1.setBackground(new java.awt.Color(255, 0, 102));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/ThemThanhCong.gif"))); // NOI18N
+        jLabel1.setOpaque(true);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));

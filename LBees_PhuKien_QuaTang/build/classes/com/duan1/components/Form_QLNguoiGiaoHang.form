@@ -110,22 +110,24 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
+                          <EmptySpace min="60" pref="60" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="txtTenNGH" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
+                                  <Component id="txtCCCD" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
+                              </Group>
                               <Component id="txtMaNGH" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
-                              <Component id="txtTenNGH" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
-                              <Component id="txtCCCD" alignment="1" min="-2" pref="305" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txtSDT" pref="305" max="32767" attributes="0"/>
-                              <Component id="txtEmail" max="32767" attributes="0"/>
+                              <Component id="txtEmail" pref="305" max="32767" attributes="0"/>
+                              <Component id="txtSDT" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace pref="117" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="pnlDieuHuong" min="-2" pref="285" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="351" max="32767" attributes="0"/>
                           <Component id="pnlThemSuaXoa" min="-2" pref="270" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -143,15 +145,15 @@
                               <Component id="txtTenNGH" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                                   <Component id="txtCCCD" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="207" max="32767" attributes="0"/>
+                                  <EmptySpace pref="209" max="32767" attributes="0"/>
                                   <Component id="pnlDieuHuong" min="-2" pref="50" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <EmptySpace pref="283" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="pnlThemSuaXoa" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -376,7 +378,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n L&#xfd; Ng&#x1b0;&#x1edd;i Giao H&#xe0;ng"/>
+        <Property name="text" type="java.lang.String" value="QU&#x1ea2;N L&#xdd; NG&#x1af;&#x1edc;I GIAO H&#xc0;NG"/>
       </Properties>
     </Component>
   </SubComponents>

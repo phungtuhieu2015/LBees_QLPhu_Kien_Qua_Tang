@@ -21,6 +21,7 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
     String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDon";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
+    String select_ByID_SQL_TK = "SELECT * FROM dbo.HoaDon WHERE NgayTao=?";
 
     @Override
     public void insert(HoaDon entity) {
@@ -70,6 +71,22 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public List<HoaDon> selectByKeyword(String keyword){
+        String sql = "SELECT * FROM HoaDon WHERE MaHD LIKE ?";
+        return this.selectBySql(sql, "%"+keyword+'%');
+    }
+    
+    public HoaDon selectByid_tk(String NgayTao) {
+        List<HoaDon> list = this.selectBySql(select_ByID_SQL_TK, NgayTao);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+    public List<HoaDon> selectByKeyword_tk(String keyword){
+        String sql = "SELECT * FROM HoaDon WHERE NgayTao LIKE ?";
+        return  this.selectBySql(sql, "%"+keyword+'%' );
     }
 
 }

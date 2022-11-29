@@ -19,6 +19,12 @@ public class NguoiGiaoHang {
     public NguoiGiaoHang() {
     }
 
+    @Override
+    public String toString() {
+        return getTenNGH() + " - " + getMaNGH();
+    }
+    
+    
     public NguoiGiaoHang(String MaNGH, String TenNGH, String CCCD, String SDT, String Gmail) {
         this.MaNGH = MaNGH;
         this.TenNGH = TenNGH;

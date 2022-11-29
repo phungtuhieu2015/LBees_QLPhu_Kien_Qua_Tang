@@ -4,7 +4,6 @@
  */
 package com.duan1.components;
 
-
 import com.duan1.DAO.SanPhamDAO;
 import com.duan1.Entity.SanPham;
 import com.duan1.swing.ScrollBarCustom;
@@ -19,9 +18,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Form_QLSanPham extends javax.swing.JPanel {
 
- 
     SanPhamDAO daosp = new SanPhamDAO();
-     List<SanPham> listsp = daosp.selectAll();
+    List<SanPham> listsp = daosp.selectAll();
+
     /**
      * Creates new form Form_QLSanPham
      */
@@ -29,7 +28,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         initComponents();
         setHint();
         scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
-       loadDuLieu();
+        loadDuLieu();
 
     }
 
@@ -40,17 +39,16 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         txtSoLuong.setHint("Số lượng");
         txtDonGia.setHint("Đơn giá");
     }
-    
-  void loadDuLieu() {
+
+    void loadDuLieu() {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
 
         try {
-           
-           
+
             for (SanPham sp : listsp) {
                 Object[] row = {
-                   sp.getMaSP(),
+                    sp.getMaSP(),
                     sp.getTenSP(),
                     sp.getSoLuong(),
                     sp.getDonGia(),
@@ -64,6 +62,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         }
     }
 
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,10 +90,10 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtTenSP = new com.duan1.swing.MyTextField();
         txtSoLuong = new com.duan1.swing.MyTextField();
-        comboBoxSuggestion2 = new com.duan1.swing.ComboBoxSuggestion();
+        cboDonViTinh = new com.duan1.swing.ComboBoxSuggestion();
         txtDonGia = new com.duan1.swing.MyTextField();
-        comboBoxSuggestion3 = new com.duan1.swing.ComboBoxSuggestion();
-        comboBoxSuggestion4 = new com.duan1.swing.ComboBoxSuggestion();
+        cboDanhMuc = new com.duan1.swing.ComboBoxSuggestion();
+        cboTrangThai = new com.duan1.swing.ComboBoxSuggestion();
         pnlDanhSach = new javax.swing.JPanel();
         scroll_SPBan = new javax.swing.JScrollPane();
         tblSanPham = new com.duan1.swing.Table();
@@ -171,24 +170,24 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         jLabel2.setText("Hình ảnh");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        comboBoxSuggestion2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đơn vị tính", "Kg", "Chai", "Hộp", "Lon", "Con", " " }));
-        comboBoxSuggestion2.addActionListener(new java.awt.event.ActionListener() {
+        cboDonViTinh.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đơn vị tính", "Kg", "Chai", "Hộp", "Lon", "Con", " " }));
+        cboDonViTinh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion2ActionPerformed(evt);
+                cboDonViTinhActionPerformed(evt);
             }
         });
 
-        comboBoxSuggestion3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Danh mục" }));
-        comboBoxSuggestion3.addActionListener(new java.awt.event.ActionListener() {
+        cboDanhMuc.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Danh mục" }));
+        cboDanhMuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion3ActionPerformed(evt);
+                cboDanhMucActionPerformed(evt);
             }
         });
 
-        comboBoxSuggestion4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đang kinh doanh", "Ngừng kinh doanh", "Hết hàng" }));
-        comboBoxSuggestion4.addActionListener(new java.awt.event.ActionListener() {
+        cboTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đang kinh doanh", "Ngừng kinh doanh", "Hết hàng" }));
+        cboTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBoxSuggestion4ActionPerformed(evt);
+                cboTrangThaiActionPerformed(evt);
             }
         });
 
@@ -211,9 +210,9 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                             .addComponent(txtMaSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(comboBoxSuggestion4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                            .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cboTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboDonViTinh, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
+                            .addComponent(cboDanhMuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(42, 42, 42)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(33, 33, 33))
@@ -226,15 +225,15 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                         .addGap(41, 41, 41)
                         .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboDonViTinh, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxSuggestion4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(pnlTextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxSuggestion3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cboDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlTextLayout.createSequentialGroup()
@@ -379,7 +378,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-     
+
         Tabpane.setSelectedIndex(0);
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
@@ -387,17 +386,17 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxSuggestion1ActionPerformed
 
-    private void comboBoxSuggestion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion2ActionPerformed
+    private void cboDonViTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDonViTinhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion2ActionPerformed
+    }//GEN-LAST:event_cboDonViTinhActionPerformed
 
-    private void comboBoxSuggestion3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion3ActionPerformed
+    private void cboDanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDanhMucActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion3ActionPerformed
+    }//GEN-LAST:event_cboDanhMucActionPerformed
 
-    private void comboBoxSuggestion4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSuggestion4ActionPerformed
+    private void cboTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTrangThaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_comboBoxSuggestion4ActionPerformed
+    }//GEN-LAST:event_cboTrangThaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -410,10 +409,10 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     private com.duan1.swing.Button button6;
     private com.duan1.swing.Button button7;
     private com.duan1.swing.Button button8;
+    private com.duan1.swing.ComboBoxSuggestion cboDanhMuc;
+    private com.duan1.swing.ComboBoxSuggestion cboDonViTinh;
+    private com.duan1.swing.ComboBoxSuggestion cboTrangThai;
     private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion1;
-    private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion2;
-    private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion3;
-    private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel pnlCapNhat;
