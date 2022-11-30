@@ -55,13 +55,14 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
          Date d = new Date();
            SimpleDateFormat s = new SimpleDateFormat();
-           s.applyPattern("yyMMyyy");
+           s.applyPattern("yyMM");
            String maKH = s.format(d);
            String maHD = s.format(d);
+           boolean check = true;
         try {
-            KhachHang kh = new KhachHang(txtTenKH.getText(),txtTenKH.getText(), txtSDTKH.getText(), 1);
+            KhachHang kh = new KhachHang("KH"+txtTenKH.getText()+maKH,txtTenKH.getText(), txtSDTKH.getText(), 1);
             daoKH.insert(kh);
-            HoaDon hd = new HoaDon("HD"+maHD, new Date(), "", "NV01", kh.getMaKH());
+            HoaDon hd = new HoaDon("HD"+txtTenKH.getText()+maHD, new Date(), "", "NV01", kh.getMaKH());
             daoHD.insert(hd);
            
             for (HoaDonChiTiet hdct : listHDCT) {
@@ -71,9 +72,14 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                     daoHDCT.insert(hdct1);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    check = false;
                 }
             }
             MainJFrame f = new MainJFrame();
+            if(check == false){
+                 Msgbox.waring(f, "Đã thêm thất bại!");
+                 return;
+            }
             Msgbox.success(f, "Đã thêm thành công!");
             dispose();
         } catch (Exception e) {
@@ -139,6 +145,11 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         btnGuiQua.setForeground(new java.awt.Color(255, 255, 255));
         btnGuiQua.setText("Gửi Quà");
         btnGuiQua.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        btnGuiQua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuiQuaActionPerformed(evt);
+            }
+        });
 
         btnTongTien.setForeground(new java.awt.Color(0, 0, 0));
         btnTongTien.setText("Tổng Tiền:");
@@ -234,6 +245,10 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         thanhToan();
     }//GEN-LAST:event_btnThanhToanActionPerformed
+
+    private void btnGuiQuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiQuaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuiQuaActionPerformed
 
     /**
      * @param args the command line arguments
