@@ -4,28 +4,45 @@
  */
 package com.duan1.components;
 
+import com.duan1.DAO.HoaDonDAO;
+import com.duan1.DAO.SanPhamDAO;
+import com.duan1.Entity.HoaDon;
+import com.duan1.Entity.SanPham;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
+import com.duan1.ui.MainJFrame;
+import com.sun.source.tree.TryTree;
+import java.awt.Color;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ASUS
- */
+
 public class Form_LSHoaDon extends javax.swing.JPanel {
 
 
-    /**
-     * Creates new form Form_QLKhachHang
-     */
+     HoaDonDAO daoHD = new HoaDonDAO();
+     String strTK = "";
+
+   
     public Form_LSHoaDon() {
         initComponents();
         init();
         TimKiemHD();
-        
+        loadDuLieu();
+        txtDenNgay.setText("");
+        txtTuNgay1.setText("");
     }
     public  void TimKiemHD (){
         textFieldAnimationTK.setHintText("Nhập mã hóa đơn");
         textFieldAnimationTK.addEvent(new EventTextField() {
+            
+            
             @Override
             public void onPressed(EventCallBack call) {
                 //  Test
@@ -33,18 +50,23 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     for (int i = 1; i <= 100; i++) {
                         Thread.sleep(15);
                     }
+                    loadDuLieu();
                     call.done();
                 } catch (Exception e) {
                     System.err.println(e);
                 }
             }
+            
+            
 
             @Override
             public void onCancel() {
 
             }
         });
+       
     }
+   
     
     public void init(){
         txtTuNgay1.setLabelText("Từ ngày");
@@ -52,6 +74,63 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         
     }
     
+    void loadDuLieu() {
+        DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
+        model.setRowCount(0);
+
+        try {
+
+            String keywork = textFieldAnimationTK.getText();
+            List<HoaDon> listhd = daoHD.selectByKeyword(keywork);
+            for (HoaDon  hd : listhd) {
+                Object[] row = {
+                    hd.getMaHD(),
+                    hd.getMaNV(),
+                    hd.getMaKH(),
+                    hd.getNgayTao(),
+                    hd.getGhiChu()
+                
+                };
+                model.addRow(row);
+                if (true) {
+                    
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "lỗi");
+        }
+    }
+    
+   
+   public void showDetails(int index){
+     
+   }
+   public void timKiemTheoNgay(){
+        DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
+        model.setRowCount(0);
+        try {
+           String keywork = txtDenNgay.getText();
+           List<HoaDon> listhd = daoHD.selectByKeyword_tk(keywork);
+           for (HoaDon  hd : listhd) {
+                Object[] row = {
+                    hd.getMaHD(),
+                    hd.getMaNV(),
+                    hd.getMaKH(),
+                    hd.getNgayTao(),
+                    hd.getGhiChu()
+                
+                };
+                model.addRow(row);
+                if (true) {
+                    
+                }
+            }
+       } catch (Exception e) {
+           JOptionPane.showMessageDialog(this, "lỗi");
+       }
+        
+   }
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,7 +149,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         materialTabbed1 = new com.duan1.swing.MaterialTabbed();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table1 = new com.duan1.swing.Table();
+        tblLSHD = new com.duan1.swing.Table();
         txtTuNgay1 = new com.duan1.swing.MyTextField2();
         txtDenNgay = new com.duan1.swing.MyTextField2();
 
@@ -101,9 +180,25 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
             }
         });
 
+        textFieldAnimationTK.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                textFieldAnimationTKCaretUpdate(evt);
+            }
+        });
+        textFieldAnimationTK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textFieldAnimationTKMouseClicked(evt);
+            }
+        });
+        textFieldAnimationTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldAnimationTKActionPerformed(evt);
+            }
+        });
+
         jScrollPane1.setBorder(null);
 
-        table1.setModel(new javax.swing.table.DefaultTableModel(
+        tblLSHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -113,8 +208,21 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
             new String [] {
                 "Mã Hóa Đơn", "Mã nhân viên", "Mã khách hàng", "Ngày tạo", "Ghi chú"
             }
-        ));
-        jScrollPane1.setViewportView(table1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblLSHD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblLSHDMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblLSHD);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,6 +236,20 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         );
 
         materialTabbed1.addTab("Lịch sử hóa đơn", jPanel1);
+
+        txtDenNgay.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtDenNgayCaretUpdate(evt);
+            }
+        });
+        txtDenNgay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDenNgayMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtDenNgayMouseReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -181,6 +303,48 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         DenNgay_Date.showPopup();
     }//GEN-LAST:event_lblDenNgayMouseClicked
 
+    private void tblLSHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLSHDMouseClicked
+        // TODO add your handling code here:
+        int index = tblLSHD.getSelectedRow();
+      
+    }//GEN-LAST:event_tblLSHDMouseClicked
+
+    private void textFieldAnimationTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAnimationTKActionPerformed
+        // TODO add your handling code here:
+      
+      
+      
+    }//GEN-LAST:event_textFieldAnimationTKActionPerformed
+
+    private void textFieldAnimationTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldAnimationTKMouseClicked
+         // TODO add your handling code here:
+         strTK = textFieldAnimationTK.getText();
+        TimKiemHD();
+         
+    }//GEN-LAST:event_textFieldAnimationTKMouseClicked
+
+    private void txtDenNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_txtDenNgayMouseClicked
+
+    private void txtDenNgayMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_txtDenNgayMouseReleased
+
+    private void textFieldAnimationTKCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_textFieldAnimationTKCaretUpdate
+        // TODO add your handling code here:
+         strTK = textFieldAnimationTK.getText();
+        loadDuLieu();
+    }//GEN-LAST:event_textFieldAnimationTKCaretUpdate
+
+    private void txtDenNgayCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDenNgayCaretUpdate
+        // TODO add your handling code here:
+        strTK = txtDenNgay.getText();
+        timKiemTheoNgay();
+    }//GEN-LAST:event_txtDenNgayCaretUpdate
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.duan1.swing.DateChooser DenNgay_Date;
@@ -191,7 +355,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lblDenNgay;
     private javax.swing.JLabel lblTuNgay;
     private com.duan1.swing.MaterialTabbed materialTabbed1;
-    private com.duan1.swing.Table table1;
+    private com.duan1.swing.Table tblLSHD;
     private com.duan1.swing.TextFieldAnimation textFieldAnimationTK;
     private com.duan1.swing.MyTextField2 txtDenNgay;
     private com.duan1.swing.MyTextField2 txtTuNgay1;
