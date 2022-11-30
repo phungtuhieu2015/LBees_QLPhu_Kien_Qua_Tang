@@ -31,8 +31,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -91,7 +94,11 @@ public class MainJFrame extends javax.swing.JFrame {
                     showForm(new Form_LSHoaDon());
                 } else if (index == 5 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
-                    showForm(new Form_ThongKe());
+                    try {
+                        showForm(new Form_ThongKe());
+                    } catch (SQLException ex) {
+                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else if (index == 6 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QuaTang());
