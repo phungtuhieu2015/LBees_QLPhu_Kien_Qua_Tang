@@ -51,6 +51,10 @@
   </Layout>
   <SubComponents>
     <Component class="com.duan1.swing.TextFieldAnimation" name="txtTimKiem">
+      <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtTimKiemMousePressed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
+      </Events>
     </Component>
     <Container class="com.duan1.swing.MaterialTabbed" name="Tabpane">
 
@@ -104,20 +108,22 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="ahihi" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="cboTrangThai" alignment="0" pref="305" max="32767" attributes="0"/>
-                                          <Component id="txtTenNN" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtDiaChiNN" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtMaDH" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="txtTenKH" alignment="1" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="cboTrangThai" alignment="0" pref="305" max="32767" attributes="0"/>
+                                              <Component id="txtTenKH" alignment="1" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtSDTKH" min="-2" pref="305" max="-2" attributes="0"/>
+                                          <Component id="txtTenNN" min="-2" pref="311" max="-2" attributes="0"/>
+                                          <Component id="txtSDTNN" min="-2" pref="311" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="-2" pref="119" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="cboNGH" pref="305" max="32767" attributes="0"/>
-                                          <Component id="txtSDTKH" alignment="1" max="32767" attributes="0"/>
-                                          <Component id="txtSDTNN" alignment="1" max="32767" attributes="0"/>
                                           <Component id="txtNgayGiao" alignment="0" max="32767" attributes="0"/>
                                           <Component id="txtMaHD" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtMaDH" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtDiaChiNN" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -129,25 +135,29 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtSDTKH" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtTenKH" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txtTenKH" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="txtSDTKH" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  <Component id="txtDiaChiNN" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="txtMaDH" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtTenNN" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtSDTNN" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtDiaChiNN" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtNgayGiao" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtTenNN" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtMaDH" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMaHD" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtSDTNN" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">

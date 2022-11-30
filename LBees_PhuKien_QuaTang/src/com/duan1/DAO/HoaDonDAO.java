@@ -7,6 +7,7 @@ package com.duan1.DAO;
 import com.duan1.Entity.HoaDon;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
     String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDon";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
-
+    String tongSLHoaDon = " SELECT  COUNT(MaHD) as'TongSLHoaDon'  FROM dbo.HoaDon";
     @Override
     public void insert(HoaDon entity) {
         XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
@@ -71,5 +72,26 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
             throw new RuntimeException(e);
         }
     }
+  protected Integer tongSLHoaDon(String sql) throws SQLException {
 
+        int sl = 0;
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql);
+            while (rs.next()) {
+                sl = rs.getInt("tong");
+                System.out.println(rs.getInt(0));
+            }
+            rs.getStatement().getConnection().close();
+
+        } catch (Exception e) {
+        }
+        return sl;
+    }
+
+    public int s() throws SQLException {
+        String tong = "SELECT  COUNT(MaHD) as'tong'  FROM dbo.HoaDon";
+        return tongSLHoaDon(tong);
+    }
+   
 }
+

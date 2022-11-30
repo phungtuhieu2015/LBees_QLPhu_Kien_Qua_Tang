@@ -1,7 +1,11 @@
 package com.duan1.components;
 
+import com.duan1.DAO.HoaDonDAO;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -9,10 +13,9 @@ import com.duan1.swing.EventTextField;
  */
 public class Form_ThongKe extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Form_ThongKe
-     */
-    public Form_ThongKe() {
+    HoaDonDAO daoTK = new HoaDonDAO();
+   //String a = tongSLHoaDon;
+    public Form_ThongKe() throws SQLException {
         initComponents();
         setHin();
         TimKiem();
@@ -20,12 +23,14 @@ public class Form_ThongKe extends javax.swing.JPanel {
         txtDenNgay.setText("");
     }
 
-    public void setHin() {
+    public void setHin() throws SQLException {
         txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
+        int x = daoTK.s();
+        lblSLHoadon.setText("Tổng số lượng hoá đơn : " +String.valueOf(x));
 
     }
-
+    
     public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã để tìm kiếm");
         txtTimKiem.addEvent(new EventTextField() {
@@ -78,7 +83,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         panelTongDoanhThu = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lblSLHoadon = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -222,8 +227,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
         panelTongDoanhThu.setBackground(new java.awt.Color(255, 255, 255));
         panelTongDoanhThu.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.ABOVE_TOP));
 
-        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel4.setText("SL hoá đơn : 300");
+        lblSLHoadon.setForeground(new java.awt.Color(102, 102, 102));
+        lblSLHoadon.setText("SL hoá đơn : 300");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel9.setText("2 000 000");
@@ -239,10 +244,6 @@ public class Form_ThongKe extends javax.swing.JPanel {
         panelTongDoanhThu.setLayout(panelTongDoanhThuLayout);
         panelTongDoanhThuLayout.setHorizontalGroup(
             panelTongDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTongDoanhThuLayout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jLabel4)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTongDoanhThuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
@@ -250,8 +251,13 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 .addComponent(jLabel3)
                 .addGap(13, 13, 13))
             .addGroup(panelTongDoanhThuLayout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel15)
+                .addGroup(panelTongDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTongDoanhThuLayout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jLabel15))
+                    .addGroup(panelTongDoanhThuLayout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(lblSLHoadon)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelTongDoanhThuLayout.setVerticalGroup(
@@ -263,9 +269,9 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 .addGroup(panelTongDoanhThuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(22, 22, 22))
+                .addGap(18, 18, 18)
+                .addComponent(lblSLHoadon)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         panelNhapXuatKho.setBackground(new java.awt.Color(255, 255, 255));
@@ -345,7 +351,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
         );
 
         comboBoxSuggestion1.setEditable(false);
-        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sắp Xếp", "Tăng ", "Giảm " }));
+        comboBoxSuggestion1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sắp Xếp Mã", "Tăng ", "Giảm " }));
         comboBoxSuggestion1.setToolTipText("112");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -440,12 +446,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDenNgay;
+    private javax.swing.JLabel lblSLHoadon;
     private javax.swing.JLabel lblTuNgay;
     private javax.swing.JPanel panelNhapXuatKho;
     private javax.swing.JPanel panelTonKho;
