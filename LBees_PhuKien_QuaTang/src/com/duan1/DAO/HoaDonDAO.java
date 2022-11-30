@@ -7,6 +7,7 @@ package com.duan1.DAO;
 import com.duan1.Entity.HoaDon;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
     String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDon";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
-
+String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
     @Override
     public void insert(HoaDon entity) {
         XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
@@ -50,7 +51,10 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         }
         return list.get(0);
     }
-
+public String select_Last_ID() throws SQLException{
+        ResultSet rs =  XJdbc.executeQuery(select_Max_ID);
+        return rs.getString("MaHD");
+    }
     @Override
     protected List<HoaDon> selectBySql(String sql, Object... args) {
                         List<HoaDon> list = new ArrayList<>();

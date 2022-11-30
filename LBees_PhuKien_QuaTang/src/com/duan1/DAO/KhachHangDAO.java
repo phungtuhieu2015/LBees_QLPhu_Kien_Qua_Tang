@@ -8,6 +8,7 @@ import com.duan1.Entity.DanhMuc;
 import com.duan1.Entity.KhachHang;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class KhachHangDAO extends QLPK<KhachHang, String> {
     String delete_SQL = "DELETE dbo.KhachHang WHERE MaKH =?";
     String select_All_SQL = "SELECT * FROM dbo.KhachHang";
     String select_ByID_SQL = "SELECT * FROM dbo.KhachHang WHERE MaKH=?";
+    String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
 
     @Override
     public void insert(KhachHang entity) {
@@ -51,7 +53,10 @@ public class KhachHangDAO extends QLPK<KhachHang, String> {
         }
         return list.get(0);
     }
-
+    public String select_Last_ID() throws SQLException{
+        ResultSet rs =  XJdbc.executeQuery(select_Max_ID);
+        return rs.getString("MaKH");
+    }
     @Override
     protected List<KhachHang> selectBySql(String sql, Object... args) {
         List<KhachHang> list = new ArrayList<>();

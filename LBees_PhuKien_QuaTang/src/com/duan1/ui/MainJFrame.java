@@ -337,7 +337,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         MyWebCam.check = 0;
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void lblBaChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBaChamMouseClicked
