@@ -33,6 +33,7 @@ import javax.swing.table.TableRowSorter;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
+import org.jdesktop.swingx.sort.RowFilters;
 
 /**
  *
@@ -155,14 +156,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
     public void delete() {
 
-        if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
-
-//            for (int i = 0; i < listKH.size(); i++) {
-//            if (listKH.get(i).getMaKH().equalsIgnoreCase(txtMaKhachHang.getText())) {
-//                Msgbox.waring(frame, "Không tìm thấy mã khách hàng cần xóa");
-//               return;
-//                 }
-//            }
+        if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {         
             String maKH = txtMaKhachHang.getText();
             daoKH.delete(maKH);
             loadData();
@@ -243,7 +237,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         model = (DefaultTableModel) tblKhachHang.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblKhachHang.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter(IdAndName, 0, 1));
+        trs.setRowFilter(RowFilter.regexFilter("(?i)"+IdAndName, 0,1));
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -560,9 +555,16 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-
-        String ID = txtTimKiem.getText();
-        findIdAndName(ID);
+        
+        if(tblKhachHang.getRowHeight(0) == 0){
+            String ID = txtTimKiem.getText().trim();
+            findIdAndName(ID);
+            loadData();
+        }else{
+            Msgbox.waring(frame, "thông tìm thấy");
+        }
+        
+        
 //        listKH = daoKH.selectByKeyword(keyID);
 //        if (list.size() == 0) {
 //            Msgbox.error(this, "Người học không tồn tại !");

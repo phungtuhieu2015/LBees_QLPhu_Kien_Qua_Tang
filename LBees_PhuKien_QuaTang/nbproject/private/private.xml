@@ -2,7 +2,12 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/H:/Hoc_Ki_IV/DongNNPC03139_DuAn1_IT17301_QLCuaHangPhuKienQuaTang/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
+=======
+            <file>file:/E:/1one/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLKhachHang.java</file>
+            <file>file:/E:/1one/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
+>>>>>>> 9d5a3cb8135bfd621136e3c64aec659da1b245ec
         </group>
     </open-files>
 </project-private>
