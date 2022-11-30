@@ -4,7 +4,19 @@
  */
 package com.duan1.components;
 
+import com.duan1.DAO.HoaDonChiTietDAO;
+import com.duan1.DAO.HoaDonDAO;
+import com.duan1.DAO.KhachHangDAO;
+import com.duan1.Entity.HoaDon;
+import com.duan1.Entity.HoaDonChiTiet;
+import com.duan1.Entity.KhachHang;
+import com.duan1.Helper.Msgbox;
+import com.duan1.ui.MainJFrame;
 import java.awt.Color;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -12,23 +24,62 @@ import java.awt.Color;
  */
 public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
+    List<HoaDonChiTiet> listHDCT = null;
+    HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
+    HoaDonDAO daoHD = new HoaDonDAO();
+    KhachHangDAO daoKH = new KhachHangDAO();
+
     /**
      * Creates new form JDL_NhapKhachHang
      */
     public JDL_NhapKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.setBackground(new Color(0,0,0,0));
+        this.setBackground(new Color(0, 0, 0, 0));
         setHint();
-        
-        
     }
-    void setHint(){
+
+    public void setHint() {
         txtTenKH.setLabelText("Tên khách hàng");
         txtSDTKH.setLabelText("Số điện thoại");
         txtTienKhachDua.setLabelText("Tiền khách đưa");
         txtTienTraLai.setLabelText("");
         txtTienTraLai.setEditable(false);
+    }
+
+    public List<HoaDonChiTiet> getList(List<HoaDonChiTiet> listHDCT) {
+        return this.listHDCT = listHDCT;
+    }
+    
+    public void thanhToan() {
+
+         Date d = new Date();
+           SimpleDateFormat s = new SimpleDateFormat();
+           s.applyPattern("yyMMyyy");
+           String maKH = s.format(d);
+           String maHD = s.format(d);
+        try {
+            KhachHang kh = new KhachHang(txtTenKH.getText(),txtTenKH.getText(), txtSDTKH.getText(), 1);
+            daoKH.insert(kh);
+            HoaDon hd = new HoaDon("HD"+maHD, new Date(), "", "NV01", kh.getMaKH());
+            daoHD.insert(hd);
+           
+            for (HoaDonChiTiet hdct : listHDCT) {
+                try {
+                    hdct.setMaHD(hd.getMaHD());
+                    HoaDonChiTiet hdct1 = new HoaDonChiTiet(hdct.getSoLuong(), hdct.getThanhTien(), hdct.getMaSP(), hdct.getMaHD());
+                    daoHDCT.insert(hdct1);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            MainJFrame f = new MainJFrame();
+            Msgbox.success(f, "Đã thêm thành công!");
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -68,6 +119,11 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToan.setText("Thanh Toán");
         btnThanhToan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
+        btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThanhToanActionPerformed(evt);
+            }
+        });
 
         btnHuy.setBackground(new java.awt.Color(204, 0, 51));
         btnHuy.setForeground(new java.awt.Color(255, 255, 255));
@@ -174,6 +230,10 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
         dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        thanhToan();
+    }//GEN-LAST:event_btnThanhToanActionPerformed
 
     /**
      * @param args the command line arguments

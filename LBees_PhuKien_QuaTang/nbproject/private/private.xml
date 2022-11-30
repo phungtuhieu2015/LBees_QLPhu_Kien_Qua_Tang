@@ -5,6 +5,7 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/H:/Hoc_Ki_IV/DongNNPC03139_DuAn1_IT17301_QLCuaHangPhuKienQuaTang/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
 <<<<<<< HEAD
 =======
@@ -21,6 +22,13 @@
 =======
             <file>file:/H:/Hoc_Ki_IV/DongNNPC03139_DuAn1_IT17301_QLCuaHangPhuKienQuaTang/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/JDL_XacNhanThongTin_QuaTang.java</file>
 >>>>>>> 351cdee23759aabdc71ec20d41e704a8eca60332
+=======
+            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/JDL_NhapKhachHang.java</file>
+            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/DAO/HoaDonDAO.java</file>
+            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/DAO/KhachHangDAO.java</file>
+            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLBanHang.java</file>
+            <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
+>>>>>>> bb0e8c1ed44fd7fdd19917c4df9f7a3f43c34204
         </group>
     </open-files>
 </project-private>
