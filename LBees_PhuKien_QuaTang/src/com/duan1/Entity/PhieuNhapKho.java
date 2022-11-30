@@ -13,20 +13,14 @@ import java.util.Date;
 public class PhieuNhapKho {
 
     String maPNK;
-    int soLuong;
-    float thanhTien;
-    Date NgayNhap;
-    String maSP;
+    Date ngayNhap;
 
     public PhieuNhapKho() {
     }
 
-    public PhieuNhapKho(String maPNK, int soLuong, float thanhTien, Date NgayNhap, String maSP) {
+    public PhieuNhapKho(String maPNK, Date ngayNhap) {
         this.maPNK = maPNK;
-        this.soLuong = soLuong;
-        this.thanhTien = thanhTien;
-        this.NgayNhap = NgayNhap;
-        this.maSP = maSP;
+        this.ngayNhap = ngayNhap;
     }
 
     public String getMaPNK() {
@@ -37,36 +31,14 @@ public class PhieuNhapKho {
         this.maPNK = maPNK;
     }
 
-    public int getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public float getThanhTien() {
-        return thanhTien;
-    }
-
-    public void setThanhTien(float thanhTien) {
-        this.thanhTien = thanhTien;
-    }
-
     public Date getNgayNhap() {
-        return NgayNhap;
+        return ngayNhap;
     }
 
-    public void setNgayNhap(Date NgayNhap) {
-        this.NgayNhap = NgayNhap;
+    public void setNgayNhap(Date ngayNhap) {
+        this.ngayNhap = ngayNhap;
     }
 
-    public String getMaSP() {
-        return maSP;
-    }
-
-    public void setMaSP(String maSP) {
-        this.maSP = maSP;
-    }
+    
 
 }

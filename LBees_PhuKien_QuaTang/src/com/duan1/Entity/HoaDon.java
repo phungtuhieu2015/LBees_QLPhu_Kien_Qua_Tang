@@ -12,61 +12,71 @@ import java.util.Date;
  */
 public class HoaDon {
 
-    String MaHD;
-    Date NgayTao;
-    String GhiChu;
-    String MaNV;
-    String MaKH;
+    String maHD;
+    float tienShip;
+    Date ngayTao;
+    String ghiChu;
+    String maNV;
+    String maKH;
 
     public HoaDon() {
     }
 
-    public HoaDon(String MaHD, Date NgayTao, String GhiChu, String MaNV, String MaKH) {
-        this.MaHD = MaHD;
-        this.NgayTao = NgayTao;
-        this.GhiChu = GhiChu;
-        this.MaNV = MaNV;
-        this.MaKH = MaKH;
+    public HoaDon(String maHD, float tienShip, Date ngayTao, String ghiChu, String maNV, String maKH) {
+        this.maHD = maHD;
+        this.tienShip = tienShip;
+        this.ngayTao = ngayTao;
+        this.ghiChu = ghiChu;
+        this.maNV = maNV;
+        this.maKH = maKH;
     }
 
     public String getMaHD() {
-        return MaHD;
+        return maHD;
     }
 
-    public void setMaHD(String MaHD) {
-        this.MaHD = MaHD;
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
+    }
+
+    public float getTienShip() {
+        return tienShip;
+    }
+
+    public void setTienShip(float tienShip) {
+        this.tienShip = tienShip;
     }
 
     public Date getNgayTao() {
-        return NgayTao;
+        return ngayTao;
     }
 
-    public void setNgayTao(Date NgayTao) {
-        this.NgayTao = NgayTao;
+    public void setNgayTao(Date ngayTao) {
+        this.ngayTao = ngayTao;
     }
 
     public String getGhiChu() {
-        return GhiChu;
+        return ghiChu;
     }
 
-    public void setGhiChu(String GhiChu) {
-        this.GhiChu = GhiChu;
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
     public String getMaNV() {
-        return MaNV;
+        return maNV;
     }
 
-    public void setMaNV(String MaNV) {
-        this.MaNV = MaNV;
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public String getMaKH() {
-        return MaKH;
+        return maKH;
     }
 
-    public void setMaKH(String MaKH) {
-        this.MaKH = MaKH;
+    public void setMaKH(String maKH) {
+        this.maKH = maKH;
     }
     
 }

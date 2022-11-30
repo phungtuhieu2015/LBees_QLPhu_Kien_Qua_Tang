@@ -10,111 +10,111 @@ package com.duan1.Entity;
  */
 public class SanPham {
 
-    String MaSP;
-    String TenSP;
-    int SoLuong;
-    String DonViTinh;
-    double DonGia ;
-    boolean TrangThai;
-    String MaVach;
-    String HinhAnh;
-    String MaNV;
-    String MaDM;
+    String maSP;
+    String tenSP;
+    int soLuong;
+    String donViTinh;
+    double donGia ;
+    boolean trangThai;
+    String maVach;
+    String hinhAnh;
+    String maNV;
+    String maDM;
 
     public SanPham() {
     }
 
-    public SanPham(String MaSP, String TenSP, int SoLuong, String DonViTinh, double DonGia, boolean TrangThai, String MaVach, String HinhAnh, String MaNV, String MaDM) {
-        this.MaSP = MaSP;
-        this.TenSP = TenSP;
-        this.SoLuong = SoLuong;
-        this.DonViTinh = DonViTinh;
-        this.DonGia = DonGia;
-        this.TrangThai = TrangThai;
-        this.MaVach = MaVach;
-        this.HinhAnh = HinhAnh;
-        this.MaNV = MaNV;
-        this.MaDM = MaDM;
+    public SanPham(String maSP, String tenSP, int soLuong, String donViTinh, double donGia, boolean trangThai, String maVach, String hinhAnh, String maNV, String maDM) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.soLuong = soLuong;
+        this.donViTinh = donViTinh;
+        this.donGia = donGia;
+        this.trangThai = trangThai;
+        this.maVach = maVach;
+        this.hinhAnh = hinhAnh;
+        this.maNV = maNV;
+        this.maDM = maDM;
     }
 
     public String getMaSP() {
-        return MaSP;
+        return maSP;
     }
 
-    public void setMaSP(String MaSP) {
-        this.MaSP = MaSP;
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
     }
 
     public String getTenSP() {
-        return TenSP;
+        return tenSP;
     }
 
-    public void setTenSP(String TenSP) {
-        this.TenSP = TenSP;
+    public void setTenSP(String tenSP) {
+        this.tenSP = tenSP;
     }
 
     public int getSoLuong() {
-        return SoLuong;
+        return soLuong;
     }
 
-    public void setSoLuong(int SoLuong) {
-        this.SoLuong = SoLuong;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
     public String getDonViTinh() {
-        return DonViTinh;
+        return donViTinh;
     }
 
-    public void setDonViTinh(String DonViTinh) {
-        this.DonViTinh = DonViTinh;
+    public void setDonViTinh(String donViTinh) {
+        this.donViTinh = donViTinh;
     }
 
     public double getDonGia() {
-        return DonGia;
+        return donGia;
     }
 
-    public void setDonGia(double DonGia) {
-        this.DonGia = DonGia;
+    public void setDonGia(double donGia) {
+        this.donGia = donGia;
     }
 
     public boolean isTrangThai() {
-        return TrangThai;
+        return trangThai;
     }
 
-    public void setTrangThai(boolean TrangThai) {
-        this.TrangThai = TrangThai;
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
     }
 
     public String getMaVach() {
-        return MaVach;
+        return maVach;
     }
 
-    public void setMaVach(String MaVach) {
-        this.MaVach = MaVach;
+    public void setMaVach(String maVach) {
+        this.maVach = maVach;
     }
 
     public String getHinhAnh() {
-        return HinhAnh;
+        return hinhAnh;
     }
 
-    public void setHinhAnh(String HinhAnh) {
-        this.HinhAnh = HinhAnh;
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaNV() {
-        return MaNV;
+        return maNV;
     }
 
-    public void setMaNV(String MaNV) {
-        this.MaNV = MaNV;
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public String getMaDM() {
-        return MaDM;
+        return maDM;
     }
 
-    public void setMaDM(String MaDM) {
-        this.MaDM = MaDM;
+    public void setMaDM(String maDM) {
+        this.maDM = maDM;
     }
     
     

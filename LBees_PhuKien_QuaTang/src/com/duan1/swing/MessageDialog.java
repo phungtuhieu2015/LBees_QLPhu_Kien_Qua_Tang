@@ -113,7 +113,7 @@ public class MessageDialog extends javax.swing.JDialog {
         background1.setForeground(new java.awt.Color(51, 204, 255));
 
         cmdCancel.setBackground(new java.awt.Color(245, 71, 71));
-        cmdCancel.setText("Cancel");
+        cmdCancel.setText("Hủy");
         cmdCancel.setColorHover(new java.awt.Color(255, 74, 74));
         cmdCancel.setColorPressed(new java.awt.Color(235, 61, 61));
         cmdCancel.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
@@ -151,9 +151,10 @@ public class MessageDialog extends javax.swing.JDialog {
         background1Layout.setHorizontalGroup(
             background1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(background1Layout.createSequentialGroup()
-                .addComponent(cmdCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                .addGap(3, 3, 3)
-                .addComponent(cmdOK, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE))
+                .addComponent(cmdCancel, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmdOK, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                .addContainerGap())
             .addComponent(lbIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lbTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(txt)

@@ -6,22 +6,22 @@ package com.duan1.Entity;
 
 /**
  *
- * @author asus
+ * @author MSI PC
  */
 public class HoaDonChiTiet {
-     int soLuong;
-    float thanhTien;
-    String MaSP;
-    String MaHD;
+   int soLuong;	
+   double thanhTien;	
+   String maSP;	
+   String maHD;	
 
     public HoaDonChiTiet() {
     }
 
-    public HoaDonChiTiet(int soLuong, float thanhTien, String MaSP, String MaHD) {
+    public HoaDonChiTiet(int soLuong, double thanhTien, String maSP, String maHD) {
         this.soLuong = soLuong;
         this.thanhTien = thanhTien;
-        this.MaSP = MaSP;
-        this.MaHD = MaHD;
+        this.maSP = maSP;
+        this.maHD = maHD;
     }
 
     public int getSoLuong() {
@@ -32,28 +32,30 @@ public class HoaDonChiTiet {
         this.soLuong = soLuong;
     }
 
-    public float getThanhTien() {
+    public double getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(float thanhTien) {
+    public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
 
     public String getMaSP() {
-        return MaSP;
+        return maSP;
     }
 
-    public void setMaSP(String MaSP) {
-        this.MaSP = MaSP;
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
     }
 
     public String getMaHD() {
-        return MaHD;
+        return maHD;
     }
 
-    public void setMaHD(String MaHD) {
-        this.MaHD = MaHD;
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
+
     
+	
 }

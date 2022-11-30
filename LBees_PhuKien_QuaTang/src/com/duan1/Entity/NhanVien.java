@@ -10,55 +10,53 @@ package com.duan1.Entity;
  */
 public class NhanVien {
 
-    String MaNV;
-    String TenNV;
-    boolean GioiTinh;
+    String maNV;
+    String tenNV;
+    boolean gioiTinh;
     String CCCD;
     String SDT;
-    String Gmail;
-    boolean ChucVuString;
-    String GhiChu;
-    String HinhAnh;
-    String MaTK;
+    String gmail;
+    boolean chucVu;
+    String ghiChu;
+    String hinhAnh;
 
     public NhanVien() {
     }
 
-    public NhanVien(String MaNV, String TenNV, boolean GioiTinh, String CCCD, String SDT, String Gmail, boolean ChucVuString, String GhiChu, String HinhAnh, String MaTK) {
-        this.MaNV = MaNV;
-        this.TenNV = TenNV;
-        this.GioiTinh = GioiTinh;
+    public NhanVien(String maNV, String tenNV, boolean gioiTinh, String CCCD, String SDT, String gmail, boolean chucVu, String ghiChu, String hinhAnh) {
+        this.maNV = maNV;
+        this.tenNV = tenNV;
+        this.gioiTinh = gioiTinh;
         this.CCCD = CCCD;
         this.SDT = SDT;
-        this.Gmail = Gmail;
-        this.ChucVuString = ChucVuString;
-        this.GhiChu = GhiChu;
-        this.HinhAnh = HinhAnh;
-        this.MaTK = MaTK;
+        this.gmail = gmail;
+        this.chucVu = chucVu;
+        this.ghiChu = ghiChu;
+        this.hinhAnh = hinhAnh;
     }
 
     public String getMaNV() {
-        return MaNV;
+        return maNV;
     }
 
-    public void setMaNV(String MaNV) {
-        this.MaNV = MaNV;
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public String getTenNV() {
-        return TenNV;
+        return tenNV;
     }
 
-    public void setTenNV(String TenNV) {
-        this.TenNV = TenNV;
+    public void setTenNV(String tenNV) {
+        this.tenNV = tenNV;
     }
 
     public boolean isGioiTinh() {
-        return GioiTinh;
+        return gioiTinh;
     }
 
-    public void setGioiTinh(boolean GioiTinh) {
-        this.GioiTinh = GioiTinh;
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
     }
 
     public String getCCCD() {
@@ -78,46 +76,37 @@ public class NhanVien {
     }
 
     public String getGmail() {
-        return Gmail;
+        return gmail;
     }
 
-    public void setGmail(String Gmail) {
-        this.Gmail = Gmail;
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
     }
 
-    public boolean isChucVuString() {
-        return ChucVuString;
+    public boolean isChucVu() {
+        return chucVu;
     }
 
-    public void setChucVuString(boolean ChucVuString) {
-        this.ChucVuString = ChucVuString;
+    public void setChucVu(boolean chucVu) {
+        this.chucVu = chucVu;
     }
 
     public String getGhiChu() {
-        return GhiChu;
+        return ghiChu;
     }
 
-    public void setGhiChu(String GhiChu) {
-        this.GhiChu = GhiChu;
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
     public String getHinhAnh() {
-        return HinhAnh;
+        return hinhAnh;
     }
 
-    public void setHinhAnh(String HinhAnh) {
-        this.HinhAnh = HinhAnh;
+    public void setHinhAnh(String hinhAnh) {
+        this.hinhAnh = hinhAnh;
     }
 
-    public String getMaTK() {
-        return MaTK;
-    }
-
-    public void setMaTK(String MaTK) {
-        this.MaTK = MaTK;
-    }
-      
-    
     
         
 }

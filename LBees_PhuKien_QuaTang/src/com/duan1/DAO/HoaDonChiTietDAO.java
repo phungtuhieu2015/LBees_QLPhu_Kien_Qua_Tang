@@ -4,7 +4,6 @@
  */
 package com.duan1.DAO;
 
-import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
@@ -13,10 +12,10 @@ import java.util.List;
 
 /**
  *
- * @author asus
+ * @author phung
  */
-public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String> {
-
+public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String>{
+    
     String insert_SQL = "INSERT INTO dbo.HoaDonChiTiet(SoLuong,ThanhTien,MaSP,MaHD)VALUES(?,?,?,?)";
     String update_SQL = "UPDATE dbo.HoaDonChiTiet SET SoLuong=?,ThanhTien=?,MaSP=?WHERE MaHD =?";
     String delete_SQL = "DELETE dbo.HoaDonChiTiet WHERE MaHD =?";
@@ -71,5 +70,4 @@ public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String> {
             throw new RuntimeException(e);
         }
     }
-
 }

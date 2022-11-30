@@ -32,7 +32,7 @@
                   <Component id="txtTimKiem" min="-2" pref="300" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
               </Group>
-              <Component id="table" alignment="0" pref="923" max="32767" attributes="0"/>
+              <Component id="Tabpane" alignment="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -41,14 +41,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="561" max="32767" attributes="0"/>
+              <EmptySpace pref="565" max="32767" attributes="0"/>
           </Group>
           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                   <Component id="txtTimKiem" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="table" max="32767" attributes="0"/>
+                  <Component id="Tabpane" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -66,10 +66,12 @@
     </Component>
     <Component class="com.duan1.swing.TextFieldAnimation" name="txtTimKiem">
       <Events>
+        <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtTimKiemMousePressed"/>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtTimKiemMouseReleased"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
       </Events>
     </Component>
-    <Container class="com.duan1.swing.MaterialTabbed" name="table">
+    <Container class="com.duan1.swing.MaterialTabbed" name="Tabpane">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -102,13 +104,13 @@
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="btnMoi" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="button6" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnDau" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="button7" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnLui" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="button8" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnToi" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="button2" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnCuoi" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtMaDanhMuc" min="-2" pref="379" max="-2" attributes="0"/>
@@ -134,10 +136,10 @@
                           <Component id="btnSua" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnXoa" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnMoi" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="button6" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="button7" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="button8" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="button2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDau" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnLui" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="btnToi" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="btnCuoi" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="216" max="32767" attributes="0"/>
                   </Group>
@@ -156,6 +158,9 @@
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoiActionPerformed"/>
+              </Events>
             </Component>
             <Component class="com.duan1.swing.Button" name="btnXoa">
               <Properties>
@@ -164,6 +169,9 @@
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="com.duan1.swing.Button" name="btnSua">
               <Properties>
@@ -172,6 +180,9 @@
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="com.duan1.swing.Button" name="btnThem">
               <Properties>
@@ -180,38 +191,53 @@
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="button6">
+            <Component class="com.duan1.swing.Button" name="btnDau">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDauActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="button7">
+            <Component class="com.duan1.swing.Button" name="btnLui">
               <Properties>
                 <Property name="text" type="java.lang.String" value="|&lt;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuiActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="button8">
+            <Component class="com.duan1.swing.Button" name="btnToi">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&gt;|"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToiActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="button2">
+            <Component class="com.duan1.swing.Button" name="btnCuoi">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&gt;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCuoiActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -227,17 +253,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="918" max="32767" attributes="0"/>
+                  <Component id="ScrollTK" alignment="0" pref="918" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="439" max="32767" attributes="0"/>
+                  <Component id="ScrollTK" alignment="0" pref="439" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+            <Container class="javax.swing.JScrollPane" name="ScrollTK">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
@@ -246,15 +272,35 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="com.duan1.swing.Table" name="table1">
+                <Component class="com.duan1.swing.Table" name="tblDanhMuc">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="2" rowCount="4">
-                        <Column editable="true" title="M&#xe3; danh muc" type="java.lang.Object"/>
-                        <Column editable="true" title="T&#xea;n danh m&#x1ee5;c" type="java.lang.Object"/>
+                        <Column editable="false" title="M&#xe3; danh muc" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#xea;n danh m&#x1ee5;c" type="java.lang.Object"/>
                       </Table>
                     </Property>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblDanhMucMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
