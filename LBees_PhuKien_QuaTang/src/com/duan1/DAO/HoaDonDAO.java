@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class HoaDonDAO extends QLPK<HoaDon, String> {
 
-    String insert_SQL = "INSERT dbo.HoaDon(MaHD,NgayTao,GhiChu,MaNV,MaKH)VALUES(?,?,?,?,?)";
-    String update_SQL = "UPDATE dbo.HoaDon SET NgayTao=? ,GhiChu=?,MaNV=?,MaKH=? WHERE MaHD =?";
+    String insert_SQL = "INSERT dbo.HoaDon(MaHD,NgayTao,TienShip,GhiChu,MaNV,MaKH)VALUES(?,?,?,?,?)";
+    String update_SQL = "UPDATE dbo.HoaDon SET NgayTao=?,TienShip ,GhiChu=?,MaNV=?,MaKH=? WHERE MaHD =?";
     String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDon";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
@@ -26,12 +26,12 @@ String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
  String select_ByID_SQL_TK = "SELECT * FROM dbo.HoaDon WHERE NgayTao=?";
     @Override
     public void insert(HoaDon entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(),entity.getTienShip(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
     }
 
     @Override
     public void update(HoaDon entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
+        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(),entity.getTienShip(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
     }
 
     @Override
@@ -65,6 +65,7 @@ public String select_Last_ID() throws SQLException{
                 HoaDon entity  = new HoaDon();
                 entity.setMaHD(rs.getString("MaHD"));
                 entity.setNgayTao(rs.getDate("NgayTao"));
+                entity.setTienShip(rs.getFloat("TienShip"));
                 entity.setGhiChu(rs.getString("GhiChu"));
                 entity.setMaNV(rs.getString("MaNV"));
                 entity.setMaKH(rs.getString("MaKH"));

@@ -16,20 +16,20 @@ import java.util.ArrayList;
  */
 public class NhanVienDAO extends QLPK<NhanVien, String> {
 
-    String insert_SQL = "INSERT INTO dbo.NhanVien(MaNV,TenNV,GioiTinh,CCCD,SDT,Gmail,ChucVu,GhiChu,HinhAnh,MaTK)VALUES(?,?,?,?,?,?,?,?,?,?))";
-    String update_SQL = "UPDATE dbo.NhanVien SET TenNV=?,GioiTinh=?,CCCD=?,SDT=?,Gmail=?,ChucVu=?,GhiChu=?,HinhAnh=?,MaTK=? WHERE MaNV =?";
+    String insert_SQL = "INSERT INTO dbo.NhanVien(MaNV,TenNV,GioiTinh,CCCD,SDT,Gmail,ChucVu,GhiChu,HinhAnh)VALUES(?,?,?,?,?,?,?,?,?)";
+    String update_SQL = "UPDATE dbo.NhanVien SET TenNV=?,GioiTinh=?,CCCD=?,SDT=?,Gmail=?,ChucVu=?,GhiChu=?,HinhAnh=? WHERE MaNV =?";
     String delete_SQL = "DELETE dbo.NhanVien WHERE MaNV =?";
     String select_All_SQL = "SELECT * FROM dbo.NhanVien";
     String select_ByID_SQL = "SELECT * FROM dbo.NhanVien WHERE MaNV=?";
 
     @Override
     public void insert(NhanVien entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaNV(), entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVuString(), entity.getGhiChu(), entity.getHinhAnh(), entity.getMaTK());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaNV(), entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVu(), entity.getGhiChu(), entity.getHinhAnh());
     }
 
     @Override
     public void update(NhanVien entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVuString(), entity.getGhiChu(), entity.getHinhAnh(), entity.getMaTK(), entity.getMaNV());
+        XJdbc.executeUpdate(update_SQL, entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVu(), entity.getGhiChu(), entity.getHinhAnh(), entity.getMaNV());
     }
 
     @Override
@@ -64,10 +64,9 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
                 entity.setCCCD(rs.getString("CCCD"));
                 entity.setSDT(rs.getString("SDT"));
                 entity.setGmail(rs.getString("Gmail"));
-                entity.setChucVuString(rs.getBoolean("ChucVu"));
+                entity.setChucVu(rs.getBoolean("ChucVu"));
                 entity.setGhiChu(rs.getString("GhiChu"));
                 entity.setHinhAnh(rs.getString("HinhAnh"));
-                entity.setMaTK(rs.getString("MaTK"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

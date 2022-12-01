@@ -10,43 +10,44 @@ package com.duan1.Entity;
  */
 public class NguoiGiaoHang {
 
-    String MaNGH;
-    String TenNGH;
+    String maNGH;
+    String tenNGH;
     String CCCD;
     String SDT;
-    String Gmail;
+    String gmail;
 
     public NguoiGiaoHang() {
     }
+
+    public NguoiGiaoHang(String maNGH, String tenNGH, String CCCD, String SDT, String gmail) {
+        this.maNGH = maNGH;
+        this.tenNGH = tenNGH;
+        this.CCCD = CCCD;
+        this.SDT = SDT;
+        this.gmail = gmail;
+    }
+
+    
 
     @Override
     public String toString() {
         return getTenNGH() + " - " + getMaNGH();
     }
-    
-    
-    public NguoiGiaoHang(String MaNGH, String TenNGH, String CCCD, String SDT, String Gmail) {
-        this.MaNGH = MaNGH;
-        this.TenNGH = TenNGH;
-        this.CCCD = CCCD;
-        this.SDT = SDT;
-        this.Gmail = Gmail;
-    }
 
     public String getMaNGH() {
-        return MaNGH;
+        return maNGH;
     }
 
-    public void setMaNGH(String MaNGH) {
-        this.MaNGH = MaNGH;
+    public void setMaNGH(String maNGH) {
+        this.maNGH = maNGH;
     }
 
     public String getTenNGH() {
-        return TenNGH;
+        return tenNGH;
     }
 
-    public void setTenNGH(String TenNGH) {
-        this.TenNGH = TenNGH;
+    public void setTenNGH(String tenNGH) {
+        this.tenNGH = tenNGH;
     }
 
     public String getCCCD() {
@@ -66,12 +67,11 @@ public class NguoiGiaoHang {
     }
 
     public String getGmail() {
-        return Gmail;
+        return gmail;
     }
 
-    public void setGmail(String Gmail) {
-        this.Gmail = Gmail;
+    public void setGmail(String gmail) {
+        this.gmail = gmail;
     }
-    
     
 }

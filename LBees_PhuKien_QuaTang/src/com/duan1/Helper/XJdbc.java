@@ -19,7 +19,7 @@ public class XJdbc {
      private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QL_PHU_KIEN_QUA_TANG;encrypt=true;trustServerCertificate=true";
     private static String username = "sa";
-    private static String password = "123";
+    private static String password = "29958";
     static {
         try {
             Class.forName(driver);

@@ -10,31 +10,31 @@ package com.duan1.Entity;
  */
 public class DanhMuc {
 
-    String MaDM;
-    String TenDM;
+    String maDM;
+    String tenDM;
 
     public DanhMuc() {
     }
 
-    public DanhMuc(String MaDM, String TenDM) {
-        this.MaDM = MaDM;
-        this.TenDM = TenDM;
+    public DanhMuc(String maDM, String tenDM) {
+        this.maDM = maDM;
+        this.tenDM = tenDM;
     }
 
     public String getMaDM() {
-        return MaDM;
+        return maDM;
     }
 
-    public void setMaDM(String MaDM) {
-        this.MaDM = MaDM;
+    public void setMaDM(String maDM) {
+        this.maDM = maDM;
     }
 
     public String getTenDM() {
-        return TenDM;
+        return tenDM;
     }
 
-    public void setTenDM(String TenDM) {
-        this.TenDM = TenDM;
+    public void setTenDM(String tenDM) {
+        this.tenDM = tenDM;
     }
     
     

@@ -50,21 +50,21 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     public List<HoaDonChiTiet> getList(List<HoaDonChiTiet> listHDCT) {
         return this.listHDCT = listHDCT;
     }
-    
+
     public void thanhToan() {
 
-         Date d = new Date();
-           SimpleDateFormat s = new SimpleDateFormat();
-           s.applyPattern("yyMM");
-           String maKH = s.format(d);
-           String maHD = s.format(d);
-           boolean check = true;
+        Date d = new Date();
+        SimpleDateFormat s = new SimpleDateFormat();
+        s.applyPattern("yyMM");
+        String maKH = s.format(d);
+        String maHD = s.format(d);
+        boolean check = true;
         try {
-            KhachHang kh = new KhachHang("KH"+txtTenKH.getText()+maKH,txtTenKH.getText(), txtSDTKH.getText(), 1);
+            KhachHang kh = new KhachHang("KH" + txtTenKH.getText() + maKH, txtTenKH.getText(), txtSDTKH.getText(), 1);
             daoKH.insert(kh);
-            HoaDon hd = new HoaDon("HD"+txtTenKH.getText()+maHD, new Date(), "", "NV01", kh.getMaKH());
+            HoaDon hd = new HoaDon("HD" + txtTenKH.getText() + maHD, 0, new Date(), "", "NV01", kh.getMaKH());
             daoHD.insert(hd);
-           
+
             for (HoaDonChiTiet hdct : listHDCT) {
                 try {
                     hdct.setMaHD(hd.getMaHD());
@@ -76,9 +76,9 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                 }
             }
             MainJFrame f = new MainJFrame();
-            if(check == false){
-                 Msgbox.waring(f, "Đã thêm thất bại!");
-                 return;
+            if (check == false) {
+                Msgbox.waring(f, "Đã thêm thất bại!");
+                return;
             }
             Msgbox.success(f, "Đã thêm thành công!");
             dispose();

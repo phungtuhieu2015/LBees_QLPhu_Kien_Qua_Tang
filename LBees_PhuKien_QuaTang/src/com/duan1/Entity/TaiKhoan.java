@@ -10,41 +10,51 @@ package com.duan1.Entity;
  */
 public class TaiKhoan {
 
-    String MaTK;
-    String TenTK;
-    String MatKhau;
+    String maTK;
+    String tenTK;
+    String matKhau;
+    String maNV;
 
     public TaiKhoan() {
     }
 
-    public TaiKhoan(String MaTK, String TenTK, String MatKhau) {
-        this.MaTK = MaTK;
-        this.TenTK = TenTK;
-        this.MatKhau = MatKhau;
+    public TaiKhoan(String maTK, String tenTK, String matKhau, String maNV) {
+        this.maTK = maTK;
+        this.tenTK = tenTK;
+        this.matKhau = matKhau;
+        this.maNV = maNV;
     }
 
     public String getMaTK() {
-        return MaTK;
+        return maTK;
     }
 
-    public void setMaTK(String MaTK) {
-        this.MaTK = MaTK;
+    public void setMaTK(String maTK) {
+        this.maTK = maTK;
     }
 
     public String getTenTK() {
-        return TenTK;
+        return tenTK;
     }
 
-    public void setTenTK(String TenTK) {
-        this.TenTK = TenTK;
+    public void setTenTK(String tenTK) {
+        this.tenTK = tenTK;
     }
 
     public String getMatKhau() {
-        return MatKhau;
+        return matKhau;
     }
 
-    public void setMatKhau(String MatKhau) {
-        this.MatKhau = MatKhau;
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
     
     

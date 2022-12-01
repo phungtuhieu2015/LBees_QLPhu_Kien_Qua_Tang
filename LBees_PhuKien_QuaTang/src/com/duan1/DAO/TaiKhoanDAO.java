@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
 
-    String insert_SQL = "INSERT INTO dbo.TaiKhoan(MaTK,TenTK,MatKhau)VALUES(?,?,?)";
-    String update_SQL = "UPDATE dbo.TaiKhoan SET TenTK=?,MatKhau=?  WHERE MaTK =?";
+    String insert_SQL = "INSERT INTO dbo.TaiKhoan(MaTK,TenTK,MatKhau,MaNV)VALUES(?,?,?,?)";
+    String update_SQL = "UPDATE dbo.TaiKhoan SET TenTK=?,MatKhau=?,MaNV=?  WHERE MaTK =?";
     String delete_SQL = "DELETE dbo.TaiKhoan WHERE MaTK =?";
     String select_All_SQL = "SELECT * FROM dbo.TaiKhoan";
     String select_ByID_SQL = "SELECT * FROM dbo.TaiKhoan WHERE MaTK=?";
@@ -62,6 +62,7 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
                 entity.setMaTK(rs.getString("MaTK"));
                 entity.setTenTK(rs.getString("TenTK"));
                 entity.setMatKhau(rs.getString("MatKhau"));
+                entity.setMaNV(rs.getString("MaNV"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
