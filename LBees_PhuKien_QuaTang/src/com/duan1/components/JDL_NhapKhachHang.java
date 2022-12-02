@@ -56,13 +56,15 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         Date d = new Date();
         SimpleDateFormat s = new SimpleDateFormat();
         s.applyPattern("yyMM");
-        String maKH = s.format(d);
-        String maHD = s.format(d);
+        String maKH = "";
+        String maHD ="";
         boolean check = true;
         try {
-            KhachHang kh = new KhachHang("KH" + txtTenKH.getText() + maKH, txtTenKH.getText(), txtSDTKH.getText(), 1);
+            maKH = "KH" + daoKH.initID();
+            maHD = "HD" + daoHD.initID();
+            KhachHang kh = new KhachHang(maKH, txtTenKH.getText(), txtSDTKH.getText(), 1);
             daoKH.insert(kh);
-            HoaDon hd = new HoaDon("HD" + txtTenKH.getText() + maHD, 0, new Date(), "", "NV01", kh.getMaKH());
+            HoaDon hd = new HoaDon(maHD,0, new Date(),"dss", "NV01", maKH);
             daoHD.insert(hd);
 
             for (HoaDonChiTiet hdct : listHDCT) {
