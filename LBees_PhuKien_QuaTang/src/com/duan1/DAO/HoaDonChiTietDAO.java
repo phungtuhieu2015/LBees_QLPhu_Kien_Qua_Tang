@@ -39,7 +39,7 @@ public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String>{
 
     @Override
     public List<HoaDonChiTiet> selectAll() {
-        return selectBySql(insert_SQL);
+        return selectBySql(select_All_SQL);
     }
 
     @Override
