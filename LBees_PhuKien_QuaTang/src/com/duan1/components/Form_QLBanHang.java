@@ -25,9 +25,10 @@ import javax.swing.table.DefaultTableModel;
 public class Form_QLBanHang extends javax.swing.JPanel {
 
     SanPhamDAO daoSP = new SanPhamDAO();
-    List<SanPham> listSP = daoSP.selectAll();
+    List<SanPham> listSP = null;
     List<HoaDonChiTiet> listHDCT = new ArrayList<>();
     HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
+    String keyword = "";
     String sl;
     int index = -1;
     MainJFrame f = new MainJFrame();
@@ -39,14 +40,17 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         initComponents();
         init();
     }
+
     public void init() {
         Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
         Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
         loadData();
     }
+
     public void loadData() {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
+        listSP = daoSP.selectByKeyword(keyword);
         try {
             for (SanPham sp : listSP) {
                 Object[] row = {
@@ -61,6 +65,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     }
 // Nếu trùng mã sẽ câp nhập số lượng
     // ngược lại sẽ thêm
+
     public void addDataGH(int index) {
         SanPham sp = listSP.get(index);
         HoaDonChiTiet hdct = new HoaDonChiTiet();
@@ -77,18 +82,18 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         boolean check = true;
         MainJFrame frame = new MainJFrame();
         sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
-        if(sl == null){
+        if (sl == null) {
             return;
         }
         for (HoaDonChiTiet hd : listHDCT) {
             if (hd.getMaSP().equals(sp.getMaSP())) {
                 boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
-                if(choice) {
+                if (choice) {
                     hd.setSoLuong(hd.getSoLuong() + Integer.parseInt(sl));
-                hd.setThanhTien(hd.getSoLuong() * sp.getDonGia());
-                check = false;
-                loadDataToGH();
-                break;
+                    hd.setThanhTien(hd.getSoLuong() * sp.getDonGia());
+                    check = false;
+                    loadDataToGH();
+                    break;
                 }
             }
         }
@@ -145,10 +150,11 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         }
 
     }
-    
+
     public void insert() {
-        
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -172,6 +178,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         btnDatHang = new com.duan1.swing.Button();
         btnDatHang1 = new com.duan1.swing.Button();
         jLabel2 = new javax.swing.JLabel();
+        txtTimKiem = new com.duan1.swing.TextFieldAnimation();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -301,6 +308,25 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         jLabel2.setText("Camera");
         jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        txtTimKiem.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtTimKiemCaretUpdate(evt);
+            }
+        });
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -310,17 +336,19 @@ public class Form_QLBanHang extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Tabpane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(242, 242, 242))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(pnlThemSuaXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Tabpane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(174, 174, 174)))
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(180, 180, 180)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(pnlThemSuaXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Tabpane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(174, 174, 174)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -335,9 +363,11 @@ public class Form_QLBanHang extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(57, 57, 57)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(pnlThemSuaXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlThemSuaXoa1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTimKiem, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tabpane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -361,7 +391,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void btnDatHang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHang1ActionPerformed
-        if(listHDCT.isEmpty()){
+        if (listHDCT.isEmpty()) {
             Msgbox.waring(f, "Chưa có sản phẩm trong giỏ hàng!");
             return;
         }
@@ -369,6 +399,24 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         bh.getList(listHDCT);
         bh.setVisible(true);
     }//GEN-LAST:event_btnDatHang1ActionPerformed
+
+    private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
+        keyword = txtTimKiem.getText();
+        loadData();
+    }//GEN-LAST:event_txtTimKiemCaretUpdate
+
+    private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
+
+    }//GEN-LAST:event_txtTimKiemKeyTyped
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+        keyword = txtTimKiem.getText();
+        loadData();
+    }//GEN-LAST:event_txtTimKiemActionPerformed
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -386,5 +434,6 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     private javax.swing.JPanel pnlThemSuaXoa1;
     private com.duan1.swing.Table tblGioHang;
     private com.duan1.swing.Table tblSanPham;
+    private com.duan1.swing.TextFieldAnimation txtTimKiem;
     // End of variables declaration//GEN-END:variables
 }
