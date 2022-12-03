@@ -13,24 +13,28 @@ import com.duan1.ui.MainJFrame;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
+import com.duan1.Helper.ImgHelper;
 import java.awt.Image;
 import java.io.File;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.RowFilter;
+
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author ASUS
  */
 public class Form_QLNhanVien extends javax.swing.JPanel {
-
+    
     DefaultTableModel modelNV = new DefaultTableModel();
     List<NhanVien> listNV = new ArrayList<>();
     NhanVienDAO daoNV = new NhanVienDAO();
     MainJFrame frame = new MainJFrame();
     int index;
-
     /**
      * Creates new form Form_QLKhachHang
      */
@@ -39,14 +43,14 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         init();
         TimKiem();
     }
-
+    
     public void init() {
         setHint();
         initTable();
         loadDaTa();
         initComboBox();
     }
-
+    
     public void setHint() {
         txtMaNV.setLabelText("Mã nhân viên");
         txtSDT.setLabelText("Số điện thoại");
@@ -55,9 +59,10 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         txtGmail.setLabelText("Gmail");
         txtTieuDeGhiChu.setLabelText("Ghi chú");
         txtTimKiem.setHintText("Tìm theo mã, tên nhân viên");
-
+        txtHinh.setVisible(false);
     }
 
+    
     public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã hoặc tên tài khoản");
         txtTimKiem.addEvent(new EventTextField() {
@@ -66,7 +71,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                 //  Test
                 try {
                     for (int i = 1; i <= 100; i++) {
-
+                        
                         Thread.sleep(5);
                     }
                     call.done();
@@ -74,25 +79,25 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                     System.err.println(e);
                 }
             }
-
+            
             @Override
             public void onCancel() {
-
+                
             }
         });
     }
-
+    
     public void initComboBox() {
         Object[] rows = new Object[]{"Quản lý", "Nhân viên"};
         cboChucVu.setModel(new DefaultComboBoxModel(rows));
     }
-
+    
     public void initTable() {
         String[] cols = new String[]{"Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "CCCD", "SDT", "Gmail", "Chức Vụ", "Ghi chú", "Hình ảnh"};
         modelNV.setColumnIdentifiers(cols);
         tblNhanVien.setModel(modelNV);
     }
-
+    
     public void loadDaTa() {
         while (modelNV.getRowCount() > 0) {
             modelNV.removeRow(0);
@@ -103,7 +108,13 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             modelNV.addRow(Rows);
         }
     }
-
+        public void findIdAndName(String IdAndName) {
+        modelNV = (DefaultTableModel) tblNhanVien.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(modelNV);
+        tblNhanVien.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
+    }
+    
     public NhanVien getForm() {
         NhanVien n = new NhanVien();
         n.setMaNV(txtMaNV.getText());
@@ -121,10 +132,11 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         } else {
             n.setChucVu(false);
         }
+        n.setHinhAnh(txtHinh.getText());
         n.setGhiChu(txtGhiChu.getText());
         return n;
     }
-
+    
     public void setForm(NhanVien n) {
         txtMaNV.setText(n.getMaNV());
         txtTenNV.setText(n.getTenNV());
@@ -136,6 +148,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         txtCCCD.setText(n.getCCCD());
         txtSDT.setText(txtSDT.getText());
         txtGmail.setText(n.getGmail());
+        txtHinh.setText(n.getHinhAnh());
         if (n.isChucVu()) {
             cboChucVu.setSelectedItem("Quản lý");
         } else {
@@ -143,7 +156,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         }
         txtGhiChu.setText(n.getGhiChu());
     }
-
+    
     public void display(int index) {
         NhanVien n = listNV.get(index);
         txtMaNV.setText(n.getMaNV());
@@ -155,29 +168,35 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             rdoNu.setSelected(true);
         }
         txtCCCD.setText(n.getCCCD());
-        txtSDT.setText(txtSDT.getText());
+        txtSDT.setText(n.getSDT());
         txtGmail.setText(n.getGmail());
+        txtHinh.setText(n.getHinhAnh());
         if (n.isChucVu()) {
             cboChucVu.setSelectedItem("Quản lý");
         } else {
             cboChucVu.setSelectedItem("Nhân viên");
         }
         txtGhiChu.setText(n.getGhiChu());
+        if (n.getHinhAnh() != null) {
+            ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(n.getHinhAnh()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
+            lblHinh.setIcon(hinhanh);
+            // lblHinh.setIcon(ImgHelper.readLogo(cd.getHinhString()));
+        }
     }
-
+    
     public void clear() {
         txtMaNV.setText("");
         txtTenNV.setText("");
         rdoNam.setSelected(true);
-
+        
         txtCCCD.setText("");
         txtSDT.setText("");
         txtGmail.setText("");
         cboChucVu.setSelectedItem("Quản lý");
-
+        txtHinh.setText("");
         txtGhiChu.setText("");
     }
-
+    
     public void insert() {
         try {
             NhanVien n = new NhanVien();
@@ -187,13 +206,13 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                 loadDaTa();
                 Msgbox.success(frame, "Thêm thành công");
                 clear();
-
+                
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
     }
-
+    
     public void update() {
         try {
             NhanVien n = new NhanVien();
@@ -208,7 +227,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             throw new RuntimeException(ex);
         }
     }
-
+    
     public void delete() {
         try {
             if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
@@ -221,7 +240,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             throw new RuntimeException(ex);
         }
     }
-
+    
     public void edit() {
         tblNhanVien.setRowSelectionInterval(index, index);
         display(index);
@@ -247,7 +266,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             index--;
         }
         edit();
-
+        
     }
 
     //next
@@ -258,7 +277,22 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             index++;
         }
         edit();
-
+        
+    }
+    private javax.swing.JFileChooser FileChooser;
+    
+    public void ChonHinh() {
+        FileChooser = new javax.swing.JFileChooser();
+        if (FileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File file = FileChooser.getSelectedFile();
+            
+            if (ImgHelper.saveLogo(file)) {
+                // Hiển thị hình lên form 
+                ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(file.getName()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
+                lblHinh.setIcon(hinhanh);
+                txtHinh.setText(file.getName());
+            }
+        }
     }
 
     /**
@@ -305,6 +339,12 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(923, 604));
         setMinimumSize(new java.awt.Dimension(923, 604));
         setPreferredSize(new java.awt.Dimension(923, 604));
+
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
+            }
+        });
 
         pnls.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -566,6 +606,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         Tabpane.setSelectedIndex(0);
         index = tblNhanVien.getSelectedRow();
         display(index);
+        loadDaTa();
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
@@ -595,7 +636,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
 
     private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked
         // TODO add your handling code here:
-
+        ChonHinh();
     }//GEN-LAST:event_lblHinhMouseClicked
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
@@ -618,6 +659,10 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         next();
     }//GEN-LAST:event_button2ActionPerformed
 
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        // TODO add your handling code here:
+        findIdAndName(txtTimKiem.getText());
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.duan1.swing.MaterialTabbed Tabpane;
