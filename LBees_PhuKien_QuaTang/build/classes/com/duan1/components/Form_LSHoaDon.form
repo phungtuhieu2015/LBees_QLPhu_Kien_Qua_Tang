@@ -125,6 +125,11 @@
       </Events>
     </Component>
     <Component class="com.duan1.swing.TextFieldAnimation" name="textFieldAnimationTK">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="d6" green="d6" red="de" type="rgb"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="textFieldAnimationTKCaretUpdate"/>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textFieldAnimationTKMouseClicked"/>

@@ -1,19 +1,9 @@
-﻿CREATE DATABASE QL_PHU_KIEN_QUA_TANG;
-GO
+﻿/*CREATE DATABASE QL_PHU_KIEN_QUA_TANG;
+GO*/
 USE QL_PHU_KIEN_QUA_TANG;
 GO
 --I. TẠO BẢNG
-
---1. Tạo bảng TaiKhoan
-CREATE TABLE TaiKhoan
-(
-    MaTK VARCHAR(10) NOT NULL,
-    TenTK NVARCHAR(50) NOT NULL,
-    MatKhau VARCHAR(50) NOT NULL,
-);
-GO
-
---2. Tạo bảng NhanVien
+--1. Tạo bảng NhanVien
 CREATE TABLE NhanVien
 (
     MaNV VARCHAR(10) NOT NULL,
@@ -25,10 +15,17 @@ CREATE TABLE NhanVien
     ChucVu BIT NOT NULL,
     GhiChu NVARCHAR(200),
     HinhAnh NVARCHAR(200),
-    MaTK VARCHAR(10) NOT NULL
 );
 GO
-
+--2. Tạo bảng TaiKhoan
+CREATE TABLE TaiKhoan
+(
+    MaTK VARCHAR(10) NOT NULL,
+    TenTK NVARCHAR(50) NOT NULL,
+    MatKhau VARCHAR(50) NOT NULL,
+	MaNV VARCHAR(10) NOT NULL,
+);
+GO
 --3. Tạo bảng DanhMuc
 CREATE TABLE DanhMuc
 (
@@ -70,15 +67,16 @@ CREATE TABLE HoaDonChiTiet
     SoLuong INT NOT NULL,
     ThanhTien FLOAT NOT NULL,
     MaSP VARCHAR(10) NOT NULL,
-    MaHD VARCHAR(10) NOT NULL
+    MaHD VARCHAR(15) NOT NULL
 );
 GO
 
 --7. Tạo bảng HoaDon
 CREATE TABLE HoaDon
 (
-    MaHD VARCHAR(10) NOT NULL,
+    MaHD VARCHAR(15) NOT NULL,
     NgayTao DATE NOT NULL,
+	TienShip FLOAT NOT NULL,
     GhiChu NVARCHAR(200),
     MaNV VARCHAR(10) NOT NULL,
     MaKH varchar(10) NOT NULL,
@@ -99,7 +97,7 @@ GO
 --9. Tạo bảng QuaTang
 CREATE TABLE QuaTang
 (
-    MaDH VARCHAR(10) NOT NULL,
+    MaDH VARCHAR(15) NOT NULL,
     TenNN NVARCHAR(50) NOT NULL,
     DiaChiNN NVARCHAR(200) NOT NULL,
 	SDTNN varchar(12) not null,
@@ -107,16 +105,22 @@ CREATE TABLE QuaTang
     TrangThai NVARCHAR(50) NOT NULL,
     GhiChu NVARCHAR(200),
     MaNGH VARCHAR(10) NOT NULL,
-    MaHD VARCHAR(10)NOT NULL
+    MaHD VARCHAR(15)NOT NULL
 );
 --10. Tạo bảng phiếu nhập kho
 create table PhieuNhapKho(
-	MaPNK varchar(10) not null,
-	SoLuong int not null,
-	ThanhTien float not null,
+	MaPNK varchar(15) not null,
 	NgayNhap date not null,
-	MaSP varchar(10) not null
 )
+GO
+--11. Tạo bảng PhieuNhapChiTiet
+CREATE TABLE PhieuNhapChiTiet(
+	MaPNK VARCHAR(15) NOT NULL,
+	MaSP VARCHAR(10) NOT NULL,
+	SoLuong INT NOT NULL,
+	thanhTien FLOAT NOT NULL,
+)
+
 GO
 
 --II. TẠO KHÓA CHÍNH
@@ -161,6 +165,8 @@ GO
 --9. Tạo khóa chính cho bảnh phiếu nhập kho
 ALTER TABLE dbo.PhieuNhapKho ADD CONSTRAINT PK_PNK PRIMARY KEY(MaPNK)
 
+GO
+
 --III. RÀNG BUỘC DUY NHẤT
 --1. Tạo ràng buộc duy nhất cho bảng TaiKhoan
 ALTER TABLE dbo.TaiKhoan ADD CONSTRAINT UQ_TaiKhoan UNIQUE (TenTK);
@@ -170,7 +176,6 @@ GO
 ALTER TABLE dbo.NhanVien ADD CONSTRAINT UQ_NhanVien_CCCD UNIQUE (CCCD);
 ALTER TABLE dbo.NhanVien ADD CONSTRAINT UQ_NhanVien_SDT UNIQUE (SDT);
 ALTER TABLE dbo.NhanVien ADD CONSTRAINT UQ_NhanVien_Gmail UNIQUE (Gmail);
-ALTER TABLE dbo.NhanVien ADD CONSTRAINT UQ_NhanVien_MaTK UNIQUE (MaTK)
 GO
 
 --3. Tạo ràng buộc duy nhất cho bảng DanhMuc
@@ -191,7 +196,6 @@ ALTER TABLE dbo.NguoiGiaoHang ADD CONSTRAINT UQ_NGH_SDT UNIQUE (SDT);
 ALTER TABLE dbo.NguoiGiaoHang ADD CONSTRAINT UQ_NGH_Gmail UNIQUE (Gmail);
 GO
 --7. Tạo ràng buộc duy nhất cho bảng QuaTang
-ALTER TABLE dbo.QuaTang ADD CONSTRAINT UQ_QuaTang_MaHD UNIQUE (MaHD)
 ALTER TABLE dbo.QuaTang ADD CONSTRAINT UQ_QuaTang_SDT UNIQUE (SDTNN)
 --IV. TẠO KHÓA NGOẠI
 
@@ -207,7 +211,7 @@ ALTER TABLE dbo.HoaDon
 ADD CONSTRAINT FK_HoaDon_KhachHang
     FOREIGN KEY (MaKH)
     REFERENCES dbo.KhachHang (MaKH);
-
+Go
 ALTER TABLE dbo.HoaDon
 ADD CONSTRAINT FK_HoaDon_NhanVien
     FOREIGN KEY (MaNV)
@@ -219,7 +223,7 @@ ALTER TABLE dbo.HoaDonChiTiet
 ADD CONSTRAINT FK_HoaDonChiTiet_SanPhamBan
     FOREIGN KEY (MaSP)
     REFERENCES dbo.SanPhamBan (MaSP);
-
+Go
 ALTER TABLE dbo.HoaDonChiTiet
 ADD CONSTRAINT FK_HoaDonChiTiet_HoaDon
     FOREIGN KEY (MaHD)
@@ -240,14 +244,32 @@ ADD CONSTRAINT FK_SanPhamBan_DanhMuc
     FOREIGN KEY (MaDM)
     REFERENCES DanhMuc (MaDM);
 GO
---6. Tạo khóa ngoại cho bảng Phiếu nhập kho vs Sản phẩm bán
-ALTER TABLE dbo.PhieuNhapKho
-ADD CONSTRAINT FK_PhieuNhapKho_SanPhamBan
-    FOREIGN KEY (MaSP)
-    REFERENCES  SanPhamBan(MaSP);
+--6. Tạo khóa ngoại cho bảng PhieuNhapChiTiet vs Phiếu nhập kho 
+ALTER TABLE dbo.PhieuNhapChiTiet
+ADD CONSTRAINT FK_HoaDonpnk_PhieuNhapKho
+    FOREIGN KEY (MaPNK)
+    REFERENCES  dbo.PhieuNhapKho(MaPNK);
 GO
+--7. Tạo khóa ngoại cho bảng PhieuNhapChiTiet vs  sản phẩm ban
+ALTER TABLE dbo.PhieuNhapChiTiet
+ADD CONSTRAINT FK_HoaDonPNK_SanPhamBan
+FOREIGN KEY(MaSP)
+REFERENCES dbo.SanPhamBan(MaSP)
+GO
+--8. tạo liên kết khóa ngoại cho bảng Tài khoản vs nhân viên
+ALTER TABLE dbo.TaiKhoan
+ADD CONSTRAINT FK_TaiKhoan_NhanVien
+FOREIGN KEY(MaNV)
+REFERENCES dbo.NhanVien(MaNV)
+GO
+--9. Tạo liên kết khóa ngoại cho bảng qua Tang vs HoaDon
+ALTER TABLE QuaTang
+ADD CONSTRAINT FK_HoaDon_QuaTang
+    FOREIGN KEY (MaHD)
+    REFERENCES HoaDon (MaHD);
+GO
+/*
 --IV. LIÊN KẾT 1-1
-
 --1. TaiKhoan - NhanVien
 ALTER TABLE dbo.NhanVien
 ADD CONSTRAINT FK_NhanVien_TaiKhoang
@@ -262,25 +284,13 @@ ADD CONSTRAINT FK_HoaDon_QuaTang
     REFERENCES HoaDon (MaHD);
 GO
 
+*/
+
+
+
 
 --VI. THÊM DỮ LIỆU VÀO BẢNG
---1. Thêm dữ liệu vào bảng TaiKhoan
-INSERT INTO dbo.TaiKhoan
-(
-    MaTK,
-    TenTK,
-    MatKhau
-)
-VALUES
-('TK01', 'MinhKhoi', 'minhkhoi123'),
-('TK02', 'NhutDong', 'nhutdong123'),
-('TK03', 'TanKhanh', 'tankhanh123'),
-('TK04', 'TuHieu', 'tuhieu123'),
-('TK05', 'HuuTai', 'huutai123');
-
-GO
-
---2. Thêm dữ liệu vào bảng NhanVien
+--1. Thêm dữ liệu vào bảng NhanVien
 INSERT INTO dbo.NhanVien
 (
     MaNV,
@@ -291,15 +301,30 @@ INSERT INTO dbo.NhanVien
     Gmail,
     ChucVu,
     GhiChu,
-    HinhAnh,
-    MaTK
+    HinhAnh
 )
 VALUES
-('NV01', N'Nguyễn Minh Khôi', 0, '393718371631', '0983781631', 'khoi@gmail.com', '1', N'hay cải ae', '', 'TK01'),
-('NV02', N'Nguyễn Nhựt Đông', 1, '393718371632', '0983781632', 'dong@gmail.com', '0', N'Chơi ire non', '', 'TK02'),
-('NV03', N'Trần Tấn Khanh', 1, '393718371633', '2995929958', 'khanh@gmail.com', '0', N'Best ad', '', 'TK03'),
-('NV04', N'Phùng Tự Hiếu', 1, '393718371634', '0983781633', 'hieu@gmail.com', '0', N'SP bỏ ad hay bị team chửi', '','TK04'),
-('NV05', N'Nguyễn Văn Hữu Tài', 1, '393718371635', '0983781634', 'tai@gmail.com', '0', N'Hay troll game', '', 'TK05');
+('NV01', N'Nguyễn Minh Khôi', 0, '393718371631', '0983781631', 'khoi@gmail.com', '1', N'hay cải ae', ''),
+('NV02', N'Nguyễn Nhựt Đông', 1, '393718371632', '0983781632', 'dong@gmail.com', '0', N'Chơi ire non', ''),
+('NV03', N'Trần Tấn Khanh', 1, '393718371633', '2995929958', 'khanh@gmail.com', '0', N'Best ad', ''),
+('NV04', N'Phùng Tự Hiếu', 1, '393718371634', '0983781633', 'hieu@gmail.com', '0', N'SP bỏ ad hay bị team chửi', ''),
+('NV05', N'Nguyễn Văn Hữu Tài', 1, '393718371635', '0983781634', 'tai@gmail.com', '0', N'Hay troll game', '');
+
+GO
+--2. Thêm dữ liệu vào bảng TaiKhoan
+INSERT INTO dbo.TaiKhoan
+(
+    MaTK,
+    TenTK,
+    MatKhau,
+	MaNV
+)
+VALUES
+('TK01', 'MinhKhoi', 'minhkhoi123','NV01'),
+('TK02', 'NhutDong', 'nhutdong123','NV02'),
+('TK03', 'TanKhanh', 'tankhanh123','NV03'),
+('TK04', 'TuHieu', 'tuhieu123','NV04'),
+('TK05', 'HuuTai', 'huutai123','NV05');
 
 GO
 
@@ -319,7 +344,7 @@ VALUES
 
 GO
 --4. Thêm dữ liệu vào bảng SanPhamBan
-DELETE dbo.SanPhamBan;
+--DELETE dbo.SanPhamBan;
 INSERT INTO dbo.SanPhamBan
 (
     MaSP,
@@ -380,28 +405,29 @@ VALUES
 ('KH00008',N'Đinh Trọng Quyết', '0984781984', '1'),
 ('KH00009',N'Nguyễn Duy Khánh', '0984711746', '2'),
 ('KH00010',N'Vĩ Phạm', '0984781743', '0');
-
+GO
 --6. Thêm dữ liệu vào bảng HoaDon
 INSERT INTO dbo.HoaDon
 (
     MaHD,
     NgayTao,
+	TienShip,
     GhiChu,
     MaNV,
     MaKH
 )
 VALUES
-('HD001', '10/20/2022', '', 'NV02','KH00001'),
-('HD002', '10/10/2022', '', 'NV02','KH00002'),
-('HD003', '10/3/2022', '', 'NV01', 'KH00010'),
-('HD004', '10/2/2022', '', 'NV01', 'KH00004'),
-('HD005', '10/4/2022', '', 'NV03', 'KH00006'),
-('HD006', '10/20/2022', '', 'NV03', 'KH00007'),
-('HD007', '10/22/2022', '', 'NV04', 'KH00009'),
-('HD008', '10/20/2022', '', 'NV04', 'KH00010'),
-('HD009', '10/1/2022', '', 'NV05','KH00002'),
-('HD010', '10/20/2022', '', 'NV05','KH00001');
-
+('HD2010220001', '10/20/2022',10000, '', 'NV02','KH00001'),
+('HD1010220002', '10/10/2022',10000, '', 'NV02','KH00002'),
+('HD0310220003', '10/3/2022', 10000,'', 'NV01', 'KH00010'),
+('HD0210220004', '10/2/2022',10000, '', 'NV01', 'KH00004'),
+('HD0410220005', '10/4/2022',20000, '', 'NV03', 'KH00006'),
+('HD2010220006', '10/20/2022',15000,'', 'NV03', 'KH00007'),
+('HD2210220007', '10/22/2022',12000, '', 'NV04', 'KH00009'),
+('HD2010220008', '10/20/2022', 22000,'', 'NV04', 'KH00010'),
+('HD0110220009', '10/1/2022', 10000,'', 'NV05','KH00002'),
+('HD2010220010', '10/20/2022', 15000,'', 'NV05','KH00001');
+GO
 --7. Thêm dữ liệu vào bảng HoaDonChiTiet
 INSERT INTO dbo.HoaDonChiTiet
 (
@@ -411,12 +437,12 @@ INSERT INTO dbo.HoaDonChiTiet
     MaHD
 )
 VALUES
-(N'3', '210000', 'GB01', 'HD001'),
-(N'3', '150000', 'GB02', 'HD001'),
-(N'3', '270000', 'GB03', 'HD002'),
-(N'2', '120000', 'GB04', 'HD002'),
-(N'2', '160000', 'GB05', 'HD003');
-
+(N'3', '210000', 'GB01', 'HD2010220001'),
+(N'3', '150000', 'GB02', 'HD2010220001'),
+(N'3', '270000', 'GB03', 'HD1010220002'),
+(N'2', '120000', 'GB04', 'HD1010220002'),
+(N'2', '160000', 'GB05', 'HD0310220003');
+GO
 
 --8. Thêm dữ liệu vào bảng NguoiGiaoHang
 
@@ -431,7 +457,7 @@ INSERT INTO dbo.NguoiGiaoHang
 VALUES
 ('NGH001', N'Đoàn Phúc Hậu', '298471849184', '0918471846', 'hau@gmail.com'),
 ('NGH002', N'Đoàn Phúc Nghĩa', '298471849384', '0918471146', 'nghia@gmail.com');
-
+GO
 --9. Thêm dữ liệu vào bảng QuaTang
 INSERT INTO dbo.QuaTang
 (
@@ -446,26 +472,49 @@ INSERT INTO dbo.QuaTang
     MaHD
 )
 VALUES
-('DH001', N'Nguyễn Đức Trí', N'An Khánh Ninh Kiều','0984716471', '10/22/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH001', 'HD001'),
-('DH002', N'Nguyễn Hữu bằng', N'Cầu Bà Bộ','0984716472', '10/22/2022', N'Chưa giao', N'Dễ vỡ', N'NGH002', 'HD002'),
-('DH003', N'Trần Văn Được', N'An Khánh Ninh Kiều','0984716473', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD003'),
-('DH004', N'Võ Minh Phong', N'Thời Bình - Cà Mau','0984716474', '10/20/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH001', 'HD004'),
-('DH005', N'Nguyễn Minh Lộc', N'Bạc Liêu','0984716475', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD005'),
-('DH006', N'Bùi Quốc Huy', N'TP-HCM','0984716476','10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD006');
-
+('DH001', N'Nguyễn Đức Trí', N'An Khánh Ninh Kiều','0984716471', '10/22/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH001', 'HD2010220001'),
+('DH002', N'Nguyễn Hữu bằng', N'Cầu Bà Bộ','0984716472', '10/22/2022', N'Chưa giao', N'Dễ vỡ', N'NGH002', 'HD1010220002'),
+('DH003', N'Trần Văn Được', N'An Khánh Ninh Kiều','0984716473', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD0310220003'),
+('DH004', N'Võ Minh Phong', N'Thời Bình - Cà Mau','0984716474', '10/20/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH001', 'HD0210220004'),
+('DH005', N'Nguyễn Minh Lộc', N'Bạc Liêu','0984716475', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD0410220005'),
+('DH006', N'Bùi Quốc Huy', N'TP-HCM','0984716476','10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD2010220006');
+GO
 --10. Thêm dữ liệu vào bảng PhieuNhapKho
 
 INSERT INTO dbo.PhieuNhapKho(
 	MaPNK,
-	MaSP,
-	SoLuong,
-	ThanhTien,
 	NgayNhap
 )
 Values
-('MP00001','GB01',4,280000,'10/16/2022'),
-('MP00002','GB02',2,100000,'10/12/2022'),
-('MP00003','GB03',6,540000,'10/2/2022'),
-('MP00004','GB04',8,480000,'10/14/2022'),
-('MP00005','GB01',3,210000,'10/28/2022'),
-('MP00006','GB01',6,420000,'10/15/2022')
+('MP00001','10/16/2022'),
+('MP00002','10/12/2022'),
+('MP00003','10/2/2022'),
+('MP00004','10/14/2022'),
+('MP00005','10/28/2022'),
+('MP00006','10/15/2022')
+GO
+--11. Thêm dữ liệu vào bảng PhieuNhapChiTiet
+INSERT INTO dbo.PhieuNhapChiTiet
+(
+    MaPNK,
+    MaSP,
+	soLuong,
+    thanhTien
+)
+VALUES
+('MP00001','GB01',4,280000),
+('MP00002','GB02',4,200000),
+('MP00003','GB03',3,270000),
+('MP00004','GB04',5,300000),
+('MP00005','GB05',2,160000)
+GO
+
+SELECT * FROM dbo.NhanVien
+SELECT * FROM dbo.KhachHang
+SELECT * FROM dbo.DanhMuc
+SELECT * FROM dbo.SanPhamBan
+SELECT * FROM dbo.QuaTang
+SELECT * FROM dbo.HoaDon
+SELECT * FROM dbo.HoaDonChiTiet
+SELECT * FROM dbo.PhieuNhapKho
+SELECT * FROM dbo.PhieuNhapChiTiet

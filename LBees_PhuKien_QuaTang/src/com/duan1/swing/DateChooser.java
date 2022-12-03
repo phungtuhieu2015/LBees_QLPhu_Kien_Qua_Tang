@@ -64,7 +64,7 @@ public final class DateChooser extends javax.swing.JPanel {
     private void setText(boolean runEvent, int act) {
         if (textRefernce != null) {
             try {
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");           
                 Date date = df.parse(DAY + "-" + MONTH + "-" + YEAR);
                 textRefernce.setText(new SimpleDateFormat(dateFormat).format(date));
             } catch (ParseException e) {

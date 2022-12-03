@@ -43,9 +43,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     void loadDuLieu() {
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
-
         try {
-
             for (SanPham sp : listsp) {
                 Object[] row = {
                     sp.getMaSP(),

@@ -9,7 +9,9 @@ import com.duan1.Entity.KhachHang;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class KhachHangDAO extends QLPK<KhachHang, String> {
     String delete_SQL = "DELETE dbo.KhachHang WHERE MaKH =?";
     String select_All_SQL = "SELECT * FROM dbo.KhachHang";
     String select_ByID_SQL = "SELECT * FROM dbo.KhachHang WHERE MaKH=?";
+//    String select_Max_ID = "SELECT MAX(SUBSTRING(MaKH,LEN(MaKH) - 4,LEN(MaKH))) FROM dbo.KhachHang";
     String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
 
     @Override
@@ -53,10 +56,27 @@ public class KhachHangDAO extends QLPK<KhachHang, String> {
         }
         return list.get(0);
     }
-    public String select_Last_ID() throws SQLException{
-        ResultSet rs =  XJdbc.executeQuery(select_Max_ID);
+
+    public String select_Last_ID() throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_Max_ID);
         return rs.getString("MaKH");
     }
+
+    public String getLastID() throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_Max_ID);
+        if (rs.next()) {
+            return rs.getString(1);
+        }
+        return null;
+    }
+
+    public String initID() throws SQLException {
+        String id = getLastID();
+        int idNumber = Integer.parseInt(id.replaceAll("\\D+",""));
+        String newID = String.format("%05d", idNumber += 1);
+        return newID;
+    }
+
     @Override
     protected List<KhachHang> selectBySql(String sql, Object... args) {
         List<KhachHang> list = new ArrayList<>();
@@ -77,4 +97,3 @@ public class KhachHangDAO extends QLPK<KhachHang, String> {
         }
     }
 }
-
