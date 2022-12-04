@@ -7,7 +7,9 @@ package com.duan1.DAO;
 
 import com.duan1.Entity.QuaTang;
 import com.duan1.Helper.XJdbc;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class QuaTangDAO extends QLPK<QuaTang, String> {
     String delete_SQL = "DELETE dbo.QuaTang WHERE MaDH =?";
     String select_All_SQL = "SELECT * FROM dbo.QuaTang";
     String select_ByID_SQL = "SELECT * FROM dbo.QuaTang WHERE MaDH=?";
-
+    
     @Override
     public void insert(QuaTang entity) {
         XJdbc.executeUpdate(insert_SQL, entity.getMaDH(), entity.getTenNN(), entity.getDiaChiNN(), entity.getSDTNN(), entity.getNgayGiao(), entity.getTrangThai(), entity.getGhiChu(), entity.getMaNGH(), entity.getMaHD());
@@ -77,4 +79,6 @@ public class QuaTangDAO extends QLPK<QuaTang, String> {
             throw new RuntimeException(e);
         }
     }
+    
+   
 }

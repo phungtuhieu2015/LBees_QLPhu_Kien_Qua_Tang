@@ -108,7 +108,7 @@ public String select_Last_ID() throws SQLException{
         return sl;
     }
 
-    public int s() throws SQLException {
+    public int tongSLHoaDD() throws SQLException {
         String tong = "SELECT  COUNT(MaHD) as'tong'  FROM dbo.HoaDon";
         return tongSLHoaDon(tong);
     }

@@ -16,7 +16,6 @@ import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  *
@@ -105,7 +104,6 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         txtTienTraLai = new com.duan1.swing.MyTextField2();
         btnThanhToan = new com.duan1.swing.Button();
         btnHuy = new com.duan1.swing.Button();
-        btnGuiQua = new com.duan1.swing.Button();
         btnTongTien = new com.duan1.swing.Button();
         jLabel1 = new javax.swing.JLabel();
 
@@ -121,7 +119,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
         txtTienTraLai.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
 
-        btnThanhToan.setBackground(new java.awt.Color(123, 181, 74));
+        btnThanhToan.setBackground(new java.awt.Color(0, 242, 96));
         btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToan.setText("Thanh Toán");
         btnThanhToan.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
@@ -131,23 +129,13 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             }
         });
 
-        btnHuy.setBackground(new java.awt.Color(204, 0, 51));
+        btnHuy.setBackground(new java.awt.Color(204, 204, 204));
         btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setText("Hủy");
         btnHuy.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
-            }
-        });
-
-        btnGuiQua.setBackground(new java.awt.Color(0, 255, 255));
-        btnGuiQua.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuiQua.setText("Gửi Quà");
-        btnGuiQua.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        btnGuiQua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuiQuaActionPerformed(evt);
             }
         });
 
@@ -170,18 +158,12 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
                 .addContainerGap(50, Short.MAX_VALUE)
-                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTenKH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtSDTKH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTienKhachDua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
-                        .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTrang1Layout.createSequentialGroup()
-                                .addComponent(btnGuiQua, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTienTraLai, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -212,8 +194,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuiQua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -245,10 +226,6 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         thanhToan();
     }//GEN-LAST:event_btnThanhToanActionPerformed
-
-    private void btnGuiQuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuiQuaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnGuiQuaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,7 +270,6 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.duan1.swing.Button btnGuiQua;
     private com.duan1.swing.Button btnHuy;
     private com.duan1.swing.Button btnThanhToan;
     private com.duan1.swing.Button btnTongTien;

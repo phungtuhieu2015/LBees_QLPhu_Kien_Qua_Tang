@@ -414,4 +414,11 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelMenuu;
     private javax.swing.JPanel panelThoat;
     // End of variables declaration//GEN-END:variables
+
+    public void show(Form_QuaTang qt) {
+       body.removeAll();
+        body.add(qt);
+        body.repaint();
+        body.revalidate();
+    }
 }

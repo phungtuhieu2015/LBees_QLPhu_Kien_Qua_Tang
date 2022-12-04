@@ -26,7 +26,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
     public void setHin() throws SQLException {
         txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
-        int x = daoTK.s();
+        int x = daoTK.tongSLHoaDD();
         lblSLHoadon.setText("Tổng số lượng hoá đơn : " +String.valueOf(x));
 
     }
