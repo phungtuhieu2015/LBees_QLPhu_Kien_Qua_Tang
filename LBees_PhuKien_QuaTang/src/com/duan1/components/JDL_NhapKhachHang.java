@@ -107,7 +107,17 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             Msgbox.waring(f, "Bạn chưa nhập tiền khách đưa!");
             check = false;
         } else {
-
+            
+            try {
+                int so = Integer.parseInt(txtTienKhachDua.getText());
+            } catch (Exception e) {
+                Msgbox.waring(f, "Tiền khách đưa phải là số!");
+                check = false;
+            }
+            if(txtTienKhachDua.getText().length() > 10){
+                Msgbox.waring(f, "Tiền khách đưa vượt quá kí tự cho phép!");
+                check = false;
+            }
         }
         return check;
     }
