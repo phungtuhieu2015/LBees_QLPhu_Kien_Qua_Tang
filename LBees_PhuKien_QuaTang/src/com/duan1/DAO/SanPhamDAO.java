@@ -76,4 +76,8 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
             throw new RuntimeException(e);
         }
     }
+    public List<SanPham> selectByKeyword(String keyword) {
+        String sql = "SELECT * FROM dbo.SanPhamBan WHERE MaSP LIKE ? OR TenSP LIKE  ?";
+        return this.selectBySql(sql, "%" + keyword + "%","%" + keyword + "%");
+    }
 }

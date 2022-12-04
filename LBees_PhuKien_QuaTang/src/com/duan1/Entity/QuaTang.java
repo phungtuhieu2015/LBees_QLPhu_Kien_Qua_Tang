@@ -12,53 +12,53 @@ import java.util.Date;
  */
 public class QuaTang {
 
-    String MaDH;
-    String TenNN;
-    String DiaChiNN;
+    String maDH;
+    String tenNN;
+    String diaChiNN;
     String SDTNN;
-    Date NgayGiao;
-    String TrangThai;
-    String GhiChu;
-    String MaNGH;
-    String MaHD;
+    Date ngayGiao;
+    String trangThai;
+    String ghiChu;
+    String maNGH;
+    String maHD;
 
     public QuaTang() {
     }
 
-    public QuaTang(String MaDH, String TenNN, String DiaChiNN, String SDTNN, Date NgayGiao, String TrangThai, String GhiChu, String MaNGH, String MaHD) {
-        this.MaDH = MaDH;
-        this.TenNN = TenNN;
-        this.DiaChiNN = DiaChiNN;
+    public QuaTang(String maDH, String tenNN, String diaChiNN, String SDTNN, Date ngayGiao, String trangThai, String ghiChu, String maNGH, String maHD) {
+        this.maDH = maDH;
+        this.tenNN = tenNN;
+        this.diaChiNN = diaChiNN;
         this.SDTNN = SDTNN;
-        this.NgayGiao = NgayGiao;
-        this.TrangThai = TrangThai;
-        this.GhiChu = GhiChu;
-        this.MaNGH = MaNGH;
-        this.MaHD = MaHD;
+        this.ngayGiao = ngayGiao;
+        this.trangThai = trangThai;
+        this.ghiChu = ghiChu;
+        this.maNGH = maNGH;
+        this.maHD = maHD;
     }
 
     public String getMaDH() {
-        return MaDH;
+        return maDH;
     }
 
-    public void setMaDH(String MaDH) {
-        this.MaDH = MaDH;
+    public void setMaDH(String maDH) {
+        this.maDH = maDH;
     }
 
     public String getTenNN() {
-        return TenNN;
+        return tenNN;
     }
 
-    public void setTenNN(String TenNN) {
-        this.TenNN = TenNN;
+    public void setTenNN(String tenNN) {
+        this.tenNN = tenNN;
     }
 
     public String getDiaChiNN() {
-        return DiaChiNN;
+        return diaChiNN;
     }
 
-    public void setDiaChiNN(String DiaChiNN) {
-        this.DiaChiNN = DiaChiNN;
+    public void setDiaChiNN(String diaChiNN) {
+        this.diaChiNN = diaChiNN;
     }
 
     public String getSDTNN() {
@@ -70,44 +70,43 @@ public class QuaTang {
     }
 
     public Date getNgayGiao() {
-        return NgayGiao;
+        return ngayGiao;
     }
 
-    public void setNgayGiao(Date NgayGiao) {
-        this.NgayGiao = NgayGiao;
+    public void setNgayGiao(Date ngayGiao) {
+        this.ngayGiao = ngayGiao;
     }
 
     public String getTrangThai() {
-        return TrangThai;
+        return trangThai;
     }
 
-    public void setTrangThai(String TrangThai) {
-        this.TrangThai = TrangThai;
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
 
     public String getGhiChu() {
-        return GhiChu;
+        return ghiChu;
     }
 
-    public void setGhiChu(String GhiChu) {
-        this.GhiChu = GhiChu;
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
     }
 
     public String getMaNGH() {
-        return MaNGH;
+        return maNGH;
     }
 
-    public void setMaNGH(String MaNGH) {
-        this.MaNGH = MaNGH;
+    public void setMaNGH(String maNGH) {
+        this.maNGH = maNGH;
     }
 
     public String getMaHD() {
-        return MaHD;
+        return maHD;
     }
 
-    public void setMaHD(String MaHD) {
-        this.MaHD = MaHD;
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
 
-    
 }

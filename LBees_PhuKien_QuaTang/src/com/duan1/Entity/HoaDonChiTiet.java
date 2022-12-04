@@ -9,53 +9,53 @@ package com.duan1.Entity;
  * @author MSI PC
  */
 public class HoaDonChiTiet {
-   int SoLuong;	
-   double ThanhTien;	
-   String MaSP;	
-   String MaHD;	
+   int soLuong;	
+   double thanhTien;	
+   String maSP;	
+   String maHD;	
 
     public HoaDonChiTiet() {
     }
 
-    public HoaDonChiTiet(int SoLuong, double ThanhTien, String MaSP, String MaHD) {
-        this.SoLuong = SoLuong;
-        this.ThanhTien = ThanhTien;
-        this.MaSP = MaSP;
-        this.MaHD = MaHD;
+    public HoaDonChiTiet(int soLuong, double thanhTien, String maSP, String maHD) {
+        this.soLuong = soLuong;
+        this.thanhTien = thanhTien;
+        this.maSP = maSP;
+        this.maHD = maHD;
     }
 
     public int getSoLuong() {
-        return SoLuong;
+        return soLuong;
     }
 
-    public void setSoLuong(int SoLuong) {
-        this.SoLuong = SoLuong;
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
     }
 
     public double getThanhTien() {
-        return ThanhTien;
+        return thanhTien;
     }
 
-    public void setThanhTien(double ThanhTien) {
-        this.ThanhTien = ThanhTien;
+    public void setThanhTien(double thanhTien) {
+        this.thanhTien = thanhTien;
     }
 
     public String getMaSP() {
-        return MaSP;
+        return maSP;
     }
 
-    public void setMaSP(String MaSP) {
-        this.MaSP = MaSP;
+    public void setMaSP(String maSP) {
+        this.maSP = maSP;
     }
 
     public String getMaHD() {
-        return MaHD;
+        return maHD;
     }
 
-    public void setMaHD(String MaHD) {
-        this.MaHD = MaHD;
+    public void setMaHD(String maHD) {
+        this.maHD = maHD;
     }
-   
-   
+
+    
 	
 }

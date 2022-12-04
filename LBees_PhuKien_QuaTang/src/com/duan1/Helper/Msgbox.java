@@ -30,7 +30,7 @@ public class Msgbox {
     
     public static void waring(Component parentComponent,String mes){
         Notification no = new Notification((Frame) parentComponent, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, mes);
-        no.showNotification();
+    no.showNotification();
     }
     
      public static boolean yesNo(String tieuDe, String text){

@@ -58,6 +58,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         TimKiem();
         ThanhTruotTb();
         loadData();
+        
 
     }
 

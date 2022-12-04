@@ -8,7 +8,9 @@ import com.duan1.Entity.HoaDon;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,21 +19,22 @@ import java.util.List;
  */
 public class HoaDonDAO extends QLPK<HoaDon, String> {
 
-    String insert_SQL = "INSERT dbo.HoaDon(MaHD,NgayTao,GhiChu,MaNV,MaKH)VALUES(?,?,?,?,?)";
-    String update_SQL = "UPDATE dbo.HoaDon SET NgayTao=? ,GhiChu=?,MaNV=?,MaKH=? WHERE MaHD =?";
+    String insert_SQL = "INSERT dbo.HoaDon(MaHD,NgayTao,TienShip,GhiChu,MaNV,MaKH)VALUES(?,?,?,?,?,?)";
+    String update_SQL = "UPDATE dbo.HoaDon SET NgayTao=?,TienShip ,GhiChu=?,MaNV=?,MaKH=? WHERE MaHD =?";
     String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDon";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
-String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
- String select_ByID_SQL_TK = "SELECT * FROM dbo.HoaDon WHERE NgayTao=?";
+    String select_Max_ID = "SELECT MAX(SUBSTRING(MaHD,LEN(MaHD) - 3,LEN(MaHD)))FROM HOADON";
+    String select_ByID_SQL_TK = "SELECT * FROM dbo.HoaDon WHERE NgayTao=?";
+
     @Override
     public void insert(HoaDon entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getTienShip(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
     }
 
     @Override
     public void update(HoaDon entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
+        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(), entity.getTienShip(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
     }
 
     @Override
@@ -52,35 +55,39 @@ String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
         }
         return list.get(0);
     }
-public String select_Last_ID() throws SQLException{
-        ResultSet rs =  XJdbc.executeQuery(select_Max_ID);
-        return rs.getString("MaHD");
-    }
+
+//    public String select_Last_ID() throws SQLException {
+//        ResultSet rs = XJdbc.executeQuery(select_Max_ID);
+//        return rs.getString("MaHD");
+//    }
+
     @Override
     protected List<HoaDon> selectBySql(String sql, Object... args) {
-                        List<HoaDon> list = new ArrayList<>();
+        List<HoaDon> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
-            while (rs.next()) {                
-                HoaDon entity  = new HoaDon();
+            while (rs.next()) {
+                HoaDon entity = new HoaDon();
                 entity.setMaHD(rs.getString("MaHD"));
                 entity.setNgayTao(rs.getDate("NgayTao"));
+                entity.setTienShip(rs.getFloat("TienShip"));
                 entity.setGhiChu(rs.getString("GhiChu"));
                 entity.setMaNV(rs.getString("MaNV"));
                 entity.setMaKH(rs.getString("MaKH"));
                 list.add(entity);
-            } 
+            }
             rs.getStatement().getConnection().close();
             return list;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public List<HoaDon> selectByKeyword(String keyword){
+
+    public List<HoaDon> selectByKeyword(String keyword) {
         String sql = "SELECT * FROM HoaDon WHERE MaHD LIKE ?";
-        return this.selectBySql(sql, "%"+keyword+'%');
+        return this.selectBySql(sql, "%" + keyword + '%');
     }
-    
+
     public HoaDon selectByid_tk(String NgayTao) {
         List<HoaDon> list = this.selectBySql(select_ByID_SQL_TK, NgayTao);
         if (list.isEmpty()) {
@@ -88,11 +95,13 @@ public String select_Last_ID() throws SQLException{
         }
         return list.get(0);
     }
-    public List<HoaDon> selectByKeyword_tk(String keyword){
+
+    public List<HoaDon> selectByKeyword_tk(String keyword) {
         String sql = "SELECT * FROM HoaDon WHERE NgayTao LIKE ?";
-        return  this.selectBySql(sql, "%"+keyword+'%' );
+        return this.selectBySql(sql, "%" + keyword + '%');
     }
-  protected Integer tongSLHoaDon(String sql) throws SQLException {
+
+    protected Integer tongSLHoaDon(String sql) throws SQLException {
 
         int sl = 0;
         try {
@@ -112,6 +121,21 @@ public String select_Last_ID() throws SQLException{
         String tong = "SELECT  COUNT(MaHD) as'tong'  FROM dbo.HoaDon";
         return tongSLHoaDon(tong);
     }
-   
+    public String getLastID() throws SQLException {
+            ResultSet rs = XJdbc.executeQuery(select_Max_ID);
+            String id = null;
+            if (rs.next()) {
+                id = rs.getString(1);
+            }
+            rs.getStatement().getConnection().close();
+            return id;
+    }
+    public String initID () throws SQLException {
+        String id = getLastID();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+        int idNumber = Integer.parseInt(id);
+        String newID = String.format(sdf.format(date)+"%04d", idNumber+=1);
+        return newID;
+    }
 }
-

@@ -16,7 +16,8 @@ import java.sql.SQLException;
  * @author vanvi
  */
 public class XJdbc {
-     private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+
+    private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static String dburl = "jdbc:sqlserver://localhost:1433;databaseName=QL_PHU_KIEN_QUA_TANG;encrypt=true;trustServerCertificate=true";
     private static String username = "sa";
     private static String password = "123";
@@ -27,6 +28,7 @@ public class XJdbc {
             throw new RuntimeException(ex);
         }
     }
+
     public static PreparedStatement prepareStatement(String sql, Object... args) throws SQLException {
         Connection connection = DriverManager.getConnection(dburl, username, password);
         PreparedStatement pstmt = null;
@@ -40,7 +42,8 @@ public class XJdbc {
         }
         return pstmt;
     }
-     public static void executeUpdate(String sql, Object... args) {
+
+    public static void executeUpdate(String sql, Object... args) {
         try {
             PreparedStatement stmt = prepareStatement(sql, args);
             try {
@@ -52,7 +55,8 @@ public class XJdbc {
             e.printStackTrace();
         }
     }
-     public static ResultSet executeQuery(String sql, Object... args) {
+
+    public static ResultSet executeQuery(String sql, Object... args) {
         try {
             PreparedStatement stmt = prepareStatement(sql, args);
             return stmt.executeQuery();
@@ -60,5 +64,5 @@ public class XJdbc {
             throw new RuntimeException(e);
         }
     }
-   
+
 }
