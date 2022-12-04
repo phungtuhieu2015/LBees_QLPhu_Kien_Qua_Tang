@@ -35,9 +35,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
     MainJFrame f = new MainJFrame();
 
-    /**
-     * Creates new form JDL_NhapKhachHang
-     */
+ 
     public JDL_NhapKhachHang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

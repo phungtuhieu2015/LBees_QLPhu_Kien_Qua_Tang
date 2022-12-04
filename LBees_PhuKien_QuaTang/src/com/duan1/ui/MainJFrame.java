@@ -148,7 +148,7 @@ public class MainJFrame extends javax.swing.JFrame {
         panelMenuu = new javax.swing.JPanel();
         menu = new com.duan1.swing.Menu();
         panelThoat = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblThoat = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         lblAvatar = new javax.swing.JLabel();
         lblDongHo = new javax.swing.JLabel();
@@ -171,11 +171,17 @@ public class MainJFrame extends javax.swing.JFrame {
 
         panelThoat.setBackground(new java.awt.Color(27, 178, 222));
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/16_Thoat_16.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblThoat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/16_Thoat_16.png"))); // NOI18N
+        lblThoat.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                lblThoatMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblThoatMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblThoatMouseExited(evt);
             }
         });
 
@@ -184,12 +190,12 @@ public class MainJFrame extends javax.swing.JFrame {
         panelThoatLayout.setHorizontalGroup(
             panelThoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThoatLayout.createSequentialGroup()
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelThoatLayout.setVerticalGroup(
             panelThoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+            .addComponent(lblThoat, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelMenuuLayout = new javax.swing.GroupLayout(panelMenuu);
@@ -340,10 +346,10 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         thoiGian.start();
     }
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         MyWebCam.check = 0;
         System.exit(0);
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_lblThoatMouseClicked
 
     private void lblBaChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBaChamMouseClicked
         int mPoX = MouseInfo.getPointerInfo().getLocation().x;
@@ -364,6 +370,16 @@ public class MainJFrame extends javax.swing.JFrame {
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
    
     }//GEN-LAST:event_formKeyReleased
+
+    private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
+       lblThoat.setBackground(Color.GRAY);
+       lblThoat.setOpaque(true);
+    }//GEN-LAST:event_lblThoatMouseEntered
+
+    private void lblThoatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseExited
+          lblThoat.setBackground(panelThoat.getBackground());
+          lblThoat.setOpaque(true);
+    }//GEN-LAST:event_lblThoatMouseExited
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -401,11 +417,11 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JPanel body;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBaCham;
     private javax.swing.JLabel lblDongHo;
+    private javax.swing.JLabel lblThoat;
     private com.duan1.swing.Menu menu;
     private javax.swing.JPanel panelMenuu;
     private javax.swing.JPanel panelThoat;

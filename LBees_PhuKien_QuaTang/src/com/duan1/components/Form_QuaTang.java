@@ -1,9 +1,11 @@
 package com.duan1.components;
 
+import com.duan1.DAO.HoaDonChiTietDAO;
 import com.duan1.DAO.HoaDonDAO;
 import com.duan1.DAO.KhachHangDAO;
 import com.duan1.DAO.NguoiGiaoHangDAO;
 import com.duan1.DAO.QuaTangDAO;
+import com.duan1.DAO.SanPhamDAO;
 import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Entity.KhachHang;
@@ -23,6 +25,7 @@ import com.duan1.ui.MainJFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.Action;
@@ -59,12 +62,21 @@ public class Form_QuaTang extends javax.swing.JPanel {
     private int DAY = 1;
     Date date = new Date();
 
+    SanPhamDAO daoSP = new SanPhamDAO();
+    List<SanPham> listSP = null;
+    String sl;
+    List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+    HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
+    String keyword = "";
+    MainJFrame f = new MainJFrame();
+
     public Form_QuaTang() {
         initComponents();
         setHint();
         TimKiem();
         init();
         ThanhTruotQT();
+        String keyword = "";
 
     }
 
@@ -75,6 +87,8 @@ public class Form_QuaTang extends javax.swing.JPanel {
         fillComboboxTrangThai();
         fillComboboxNGH();
         fillComboboxTrangThaiGiaoHang();
+        loadDataBH();
+       
     }
 
     public void setHint() {
@@ -94,6 +108,26 @@ public class Form_QuaTang extends javax.swing.JPanel {
         txtTimKiem.setHintText("Nhập ");
         txtTimKiemGH.setHintText("Nhập tên đơn hàng");
         txtTimKiem.addEvent(new EventTextField() {
+            @Override
+            public void onPressed(EventCallBack call) {
+                //  Test
+                try {
+                    for (int i = 1; i <= 100; i++) {
+
+                        Thread.sleep(5);
+                    }
+                    call.done();
+                } catch (Exception e) {
+                    System.err.println(e);
+                }
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+        txtTimKiemGH.addEvent(new EventTextField() {
             @Override
             public void onPressed(EventCallBack call) {
                 //  Test
@@ -209,23 +243,23 @@ public class Form_QuaTang extends javax.swing.JPanel {
     }
 
     public void fillComboboxTrangThaiGiaoHang() {
-       String trangThai_GH[] = {"Lọc trạng thái","Đã giao xong", "Chưa giao", "Đang giao hàng", "Đã huỷ"};
+        String trangThai_GH[] = {"Lọc trạng thái", "Đã giao xong", "Chưa giao", "Đang giao hàng", "Đã huỷ"};
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLocTheoTrangThai.getModel();
         model.removeAllElements();
 
         for (String string : trangThai_GH) {
             model.addElement(string);
         }
-    
+
     }
-    
+
     public void Load_Cbb_TrangTh(String IdAndName) {
         model = (DefaultTableModel) tblQuaTang.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblQuaTang.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName,   7));
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 7));
     }
-    
+
     public void fillComboboxNGH() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboNGH.getModel();
         model.removeAllElements();
@@ -388,7 +422,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
             noti.showNotification();
             return false;
         }
-       
+
         if (txtMaHD.getText().trim().isEmpty()) {
             Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mã hoá đơn");
             noti.showNotification();
@@ -397,7 +431,139 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
         return true;
     }
-   
+    ////////////////////////////////////////////Bán hàng////////////////////////////////
+
+    public void updateGH(int index) {
+        SanPham sp = listSP.get(index);
+        boolean check = true;
+        MainJFrame frame = new MainJFrame();
+        String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
+        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
+        if (sl == null) {
+            return;
+        }
+        try {
+            if (sl.trim().isEmpty()) {
+                Msgbox.waring(frame, "Bạn chưa nhập số lượng");
+                return;
+            }
+            int s = Integer.parseInt(sl);
+        } catch (NumberFormatException e) {
+            Msgbox.waring(frame, "Vui lòng nhập số!");
+            return;
+        }
+
+        for (HoaDonChiTiet h : listHDCT) {
+            if (h.getMaSP().equals(sp.getMaSP())) {
+                boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
+                if (choice) {
+                    h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
+                    h.setThanhTien(h.getSoLuong() * sp.getDonGia());
+                    check = false;
+                    loadDataToGH();
+                    break;
+                }
+            }
+        }
+        if (check) {
+            addDataGH(index);
+        }
+    }
+
+    public void loadDataToGH() {
+        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
+        model.setRowCount(0);
+        try {
+            for (HoaDonChiTiet hdct : listHDCT) {
+                SanPham sp = daoSP.selectByid(hdct.getMaSP());
+                Object[] row = {
+                    hdct.getMaSP(),
+                    sp.getTenSP(),
+                    hdct.getSoLuong(),
+                    sp.getDonGia(),
+                    hdct.getThanhTien()
+                };
+                model.addRow(row);
+                model.fireTableDataChanged();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void addDataGH(int index) {
+        SanPham sp = listSP.get(index);
+        HoaDonChiTiet hdct = new HoaDonChiTiet();
+        hdct.setMaHD(sp.getMaSP());
+        hdct.setMaSP(sp.getMaSP());
+        hdct.setSoLuong(Integer.parseInt(sl));
+        hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
+        listHDCT.add(hdct);
+        loadDataToGH();
+    }
+
+    public void loadDataBH() {
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        listSP = daoSP.selectByKeyword(keyword);
+        try {
+            for (SanPham sp : listSP) {
+                Object[] row = {
+                    sp.getMaSP(),
+                    sp.getTenSP(),
+                    sp.getSoLuong(),
+                    sp.getDonGia(),};
+                model.addRow(row);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void deleteBH(int index) {
+        if (listHDCT.isEmpty()) {
+            Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
+            return;
+        }
+        if (index < 0) {
+            Msgbox.waring(f, "Bạn chưa chọn sản phẩm để xóa!");
+            return;
+        }
+        boolean chon = Msgbox.yesNo("Xóa khỏi giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
+        if (chon) {
+            listHDCT.remove(index);
+            loadDataToGH();
+        }
+
+    }
+
+    public void deleteAllBH() {
+        if (listHDCT.isEmpty()) {
+            Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
+            return;
+        }
+        boolean chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
+        if (chon) {
+            listHDCT.removeAll(listHDCT);
+            loadDataToGH();
+        }
+    }
+
+    public void findIdAndNameBH(String IdAndName) {
+        model = (DefaultTableModel) tblSanPham.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+        tblSanPham.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 1));
+    }
+    public void checkDatHang(int index){
+        if (index < 0) {
+            Msgbox.waring(f, "Bạn chưa có sản phẩm để thanh toán!");
+            return;
+        }else {
+             panelQuaTang.setSelectedIndex(1);
+              
+        }
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -921,10 +1087,10 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         MainJFrame m = new MainJFrame();
-        if (check()) {
+      if (check()) {
         insert();
         new JDL_XacNhanThongTin_QuaTang(m, true).setVisible(true);
-        }
+       }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -976,30 +1142,6 @@ public class Form_QuaTang extends javax.swing.JPanel {
         findIdAndName(timKiem);
     }//GEN-LAST:event_txtTimKiemMousePressed
 
-    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-
-    }//GEN-LAST:event_tblSanPhamMouseClicked
-
-    private void btnXoaKhoiGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKhoiGioActionPerformed
-//        index = tblGioHang.getSelectedRow();
-//        delete(index);
-    }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
-
-    private void btnDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHangActionPerformed
-        // TODO add your handling code here:
-//        deleteAll();
-    }//GEN-LAST:event_btnDatHangActionPerformed
-
-    private void btnDatHang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHang1ActionPerformed
-//        if (listHDCT.isEmpty()) {
-//            Msgbox.waring(f, "Chưa có sản phẩm trong giỏ hàng!");
-//            return;
-//        }
-//        JDL_NhapKhachHang bh = new JDL_NhapKhachHang(f, true);
-//        bh.getList(listHDCT);
-//        bh.setVisible(true);
-    }//GEN-LAST:event_btnDatHang1ActionPerformed
-
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
@@ -1013,17 +1155,43 @@ public class Form_QuaTang extends javax.swing.JPanel {
         Load_Cbb_TrangTh(load);
     }//GEN-LAST:event_cboLocTheoTrangThaiActionPerformed
 
-    private void txtTimKiemGHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemGHMousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemGHMousePressed
+    private void txtTimKiemGHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemGHKeyReleased
+         String timKiem = txtTimKiemGH.getText();
+        findIdAndNameBH(timKiem);
+    }//GEN-LAST:event_txtTimKiemGHKeyReleased
 
     private void txtTimKiemGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemGHActionPerformed
-        // TODO add your handling code here:
+         String timKiem = txtTimKiemGH.getText();
+        findIdAndNameBH(timKiem);
     }//GEN-LAST:event_txtTimKiemGHActionPerformed
 
-    private void txtTimKiemGHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemGHKeyReleased
+    private void txtTimKiemGHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemGHMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemGHKeyReleased
+      String timKiem = txtTimKiemGH.getText();
+        findIdAndNameBH(timKiem);
+    }//GEN-LAST:event_txtTimKiemGHMousePressed
+
+    private void btnXoaKhoiGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKhoiGioActionPerformed
+        index = tblGioHang.getSelectedRow();
+        deleteBH(index);
+    }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
+
+    private void btnDatHang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHang1ActionPerformed
+         panelQuaTang.setSelectedIndex(1);
+      
+      
+    }//GEN-LAST:event_btnDatHang1ActionPerformed
+
+    private void btnDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHangActionPerformed
+        deleteAllBH();
+    }//GEN-LAST:event_btnDatHangActionPerformed
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+        index = tblSanPham.getSelectedRow();
+        if (evt.getClickCount() == 2) {
+            updateGH(index);
+        }
+    }//GEN-LAST:event_tblSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
