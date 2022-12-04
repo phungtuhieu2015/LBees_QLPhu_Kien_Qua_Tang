@@ -44,6 +44,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     public void init() {
         Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
         Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
+        txtTimKiem.setHintText("Nhập mã, tên sản phẩm...");
         loadData();
     }
 
@@ -63,9 +64,14 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         } catch (Exception e) {
         }
     }
+
+    public void clearGH() {
+        listHDCT.removeAll(listHDCT);
+        loadDataToGH();
+    }
 // Nếu trùng mã sẽ câp nhập số lượng
     // ngược lại sẽ thêm
-    
+
     public void addDataGH(int index) {
         SanPham sp = listSP.get(index);
         HoaDonChiTiet hdct = new HoaDonChiTiet();
@@ -82,7 +88,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         boolean check = true;
         MainJFrame frame = new MainJFrame();
         String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
-         sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
+        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
         if (sl == null) {
             return;
         }
@@ -405,17 +411,19 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         }
         int tongTien = 0;
         for (HoaDonChiTiet hdct : listHDCT) {
-             tongTien += hdct.getThanhTien();
+            tongTien += hdct.getThanhTien();
         }
         JDL_NhapKhachHang bh = new JDL_NhapKhachHang(f, true);
         bh.getList(listHDCT);
         bh.setTongTienSP(tongTien);
         bh.setVisible(true);
+        if (bh.isSuscess()) {
+            clearGH();
+        }
     }//GEN-LAST:event_btnDatHang1ActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
-        keyword = txtTimKiem.getText();
-        loadData();
+
     }//GEN-LAST:event_txtTimKiemCaretUpdate
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
@@ -428,7 +436,8 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-        // TODO add your handling code here:
+        keyword = txtTimKiem.getText();
+        loadData();
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
