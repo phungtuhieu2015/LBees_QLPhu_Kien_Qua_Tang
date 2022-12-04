@@ -44,6 +44,7 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     public void init() {
         Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
         Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
+        txtTimKiem.setHintText("Nhập mã, tên sản phẩm...");
         loadData();
     }
 
@@ -63,6 +64,11 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         } catch (Exception e) {
         }
     }
+
+    public void clearGH() {
+        listHDCT.removeAll(listHDCT);
+        loadDataToGH();
+    }
 // Nếu trùng mã sẽ câp nhập số lượng
     // ngược lại sẽ thêm
 
@@ -81,16 +87,28 @@ public class Form_QLBanHang extends javax.swing.JPanel {
         SanPham sp = listSP.get(index);
         boolean check = true;
         MainJFrame frame = new MainJFrame();
-        sl = JOptionPane.showInputDialog(frame, "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ", JOptionPane.INFORMATION_MESSAGE);
+        String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
+        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
         if (sl == null) {
             return;
         }
-        for (HoaDonChiTiet hd : listHDCT) {
-            if (hd.getMaSP().equals(sp.getMaSP())) {
+        try {
+            if (sl.trim().isEmpty()) {
+                Msgbox.waring(frame, "Bạn chưa nhập số lượng");
+                return;
+            }
+            int s = Integer.parseInt(sl);
+        } catch (NumberFormatException e) {
+            Msgbox.waring(frame, "Vui lòng nhập số!");
+            return;
+        }
+
+        for (HoaDonChiTiet h : listHDCT) {
+            if (h.getMaSP().equals(sp.getMaSP())) {
                 boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
                 if (choice) {
-                    hd.setSoLuong(hd.getSoLuong() + Integer.parseInt(sl));
-                    hd.setThanhTien(hd.getSoLuong() * sp.getDonGia());
+                    h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
+                    h.setThanhTien(h.getSoLuong() * sp.getDonGia());
                     check = false;
                     loadDataToGH();
                     break;
@@ -148,10 +166,6 @@ public class Form_QLBanHang extends javax.swing.JPanel {
             listHDCT.remove(index);
             loadDataToGH();
         }
-
-    }
-
-    public void insert() {
 
     }
 
@@ -395,14 +409,21 @@ public class Form_QLBanHang extends javax.swing.JPanel {
             Msgbox.waring(f, "Chưa có sản phẩm trong giỏ hàng!");
             return;
         }
+        int tongTien = 0;
+        for (HoaDonChiTiet hdct : listHDCT) {
+            tongTien += hdct.getThanhTien();
+        }
         JDL_NhapKhachHang bh = new JDL_NhapKhachHang(f, true);
         bh.getList(listHDCT);
+        bh.setTongTienSP(tongTien);
         bh.setVisible(true);
+        if (bh.isSuscess()) {
+            clearGH();
+        }
     }//GEN-LAST:event_btnDatHang1ActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
-        keyword = txtTimKiem.getText();
-        loadData();
+
     }//GEN-LAST:event_txtTimKiemCaretUpdate
 
     private void txtTimKiemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyTyped
@@ -415,7 +436,8 @@ public class Form_QLBanHang extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-        // TODO add your handling code here:
+        keyword = txtTimKiem.getText();
+        loadData();
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
