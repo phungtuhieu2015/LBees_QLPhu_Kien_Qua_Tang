@@ -117,7 +117,7 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         return sl;
     }
 
-    public int s() throws SQLException {
+    public int tongSLHoaDD() throws SQLException {
         String tong = "SELECT  COUNT(MaHD) as'tong'  FROM dbo.HoaDon";
         return tongSLHoaDon(tong);
     }

@@ -112,7 +112,7 @@ public class MessageDialog extends javax.swing.JDialog {
         background1.setBorder(javax.swing.BorderFactory.createEmptyBorder(3, 3, 3, 3));
         background1.setForeground(new java.awt.Color(51, 204, 255));
 
-        cmdCancel.setBackground(new java.awt.Color(245, 71, 71));
+        cmdCancel.setBackground(new java.awt.Color(255, 102, 102));
         cmdCancel.setText("Hủy");
         cmdCancel.setColorHover(new java.awt.Color(255, 74, 74));
         cmdCancel.setColorPressed(new java.awt.Color(235, 61, 61));
@@ -123,7 +123,7 @@ public class MessageDialog extends javax.swing.JDialog {
             }
         });
 
-        cmdOK.setBackground(new java.awt.Color(27, 177, 220));
+        cmdOK.setBackground(new java.awt.Color(0, 153, 255));
         cmdOK.setText("OK");
         cmdOK.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
         cmdOK.addActionListener(new java.awt.event.ActionListener() {
