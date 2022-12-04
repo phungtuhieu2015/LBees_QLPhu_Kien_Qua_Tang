@@ -210,6 +210,83 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
     }
 
+    public boolean check() {
+        String MANGH_REGEX = "(?i)[ngh]{3}\\d{5}";
+        boolean MANGH = txtMaNGH.getText().matches(MANGH_REGEX);
+        if (txtMaNGH.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Mã người giao hàng không được để trống");
+            txtMaNGH.requestFocus();
+            return false;
+        }
+        if (MANGH != true) {
+            Msgbox.waring(frame, "Mã người giao hàng không đúng định dạng (NGH00001)");
+            txtMaNGH.requestFocus();
+            return false;
+        }
+
+        
+        //^([a-z]+)((\s{1}[a-z]+){1,})$
+        String TENNGH_REGEX = "^([A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\s{1}[A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+        boolean TENNGH = txtTenNGH.getText().matches(TENNGH_REGEX);
+        if (txtTenNGH.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Tên người giao hàng không được để trống");
+            txtTenNGH.requestFocus();
+            return false;
+        }
+        if (TENNGH != true) {
+            Msgbox.waring(frame, "Tên người giao hàng không đúng định dạng (Nguyễn Văn A)");
+            txtTenNGH.requestFocus();
+            return false;
+        }
+        
+        //
+        
+        String CCCD_REGEX = "^\\d{12}$";
+        boolean CCCD = txtCCCD.getText().matches(CCCD_REGEX);
+        if (txtCCCD.getText().trim().trim().isEmpty()) {
+            Msgbox.waring(frame, "Căn cước công dân không được để trống");
+            txtCCCD.requestFocus();
+            return false;
+        }
+        if (CCCD != true) {
+            Msgbox.waring(frame, "Căn cước công dân không đúng định dạng (CCCC gồm 12 số)");
+            txtCCCD.requestFocus();
+            return false;
+        }
+        
+        //
+        
+        String SDTNGH_REGEX = "^(0|\\\\+84)(\\\\s|\\\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\\\d)(\\\\s|\\\\.)?(\\\\d{3})(\\\\s|\\\\.)?(\\\\d{3})";
+        boolean SDTNGH = txtSDT.getText().matches(SDTNGH_REGEX);
+        if (txtSDT.getText().trim().trim().isEmpty()) {
+            Msgbox.waring(frame, "Số điện thoại không được để trống");
+            txtSDT.requestFocus();
+            return false;
+        }
+        if (SDTNGH != true) {
+            Msgbox.waring(frame, "Số điện thoại không đúng định dạng");
+            txtSDT.requestFocus();
+            return false;
+        }
+        
+        //
+        
+        String EMAILNGH_REGEX = "^[a-z0-9]+@([a-z]+\\\\.[a-z]{2,3}){1,3}$";
+        boolean EMAILNGH = txtEmail.getText().matches(EMAILNGH_REGEX);
+        if (txtEmail.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Email người giao hàng không được để trống");
+            txtEmail.requestFocus();
+            return false;
+        }
+        if (EMAILNGH != true) {
+            Msgbox.waring(frame, "Email người giao hàng không đúng định dạng (a123@gmail.com)");
+            txtEmail.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -475,12 +552,17 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblNGHMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+        if (check()) {
+            insert();
+        }
+
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-
-        update();
+        if(check()){
+            update();
+        }
+       
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed

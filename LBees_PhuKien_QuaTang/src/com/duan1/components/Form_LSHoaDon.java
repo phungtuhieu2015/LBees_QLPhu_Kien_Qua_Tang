@@ -22,14 +22,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class Form_LSHoaDon extends javax.swing.JPanel {
 
+    HoaDonDAO daoHD = new HoaDonDAO();
+    String strTK = "";
 
-     HoaDonDAO daoHD = new HoaDonDAO();
-     String strTK = "";
-
-   
     public Form_LSHoaDon() {
         initComponents();
         init();
@@ -41,8 +38,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     public  void TimKiemHD (){
         textFieldAnimationTK.setHintText("Nhập mã hóa đơn");
         textFieldAnimationTK.addEvent(new EventTextField() {
-            
-            
+
             @Override
             public void onPressed(EventCallBack call) {
                 //  Test
@@ -56,24 +52,20 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     System.err.println(e);
                 }
             }
-            
-            
 
             @Override
             public void onCancel() {
 
             }
         });
-       
+
     }
-   
-    
     public void init(){
         txtTuNgay1.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
-        
+
     }
-    
+
     void loadDuLieu() {
         DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
         model.setRowCount(0);
@@ -89,22 +81,18 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     hd.getMaKH(),
                     hd.getNgayTao(),
                     hd.getGhiChu()
-                
+                    
                 };
                 model.addRow(row);
-                if (true) {
-                    
-                }
+                
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "lỗi");
         }
     }
+
+
     
-   
-   public void showDetails(int index){
-     
-   }
    public void timKiemTheoNgay(){
         DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
         model.setRowCount(0);
@@ -125,12 +113,12 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     
                 }
             }
-       } catch (Exception e) {
+        } catch (Exception e) {
            JOptionPane.showMessageDialog(this, "lỗi");
-       }
+        }
         
-   }
-   
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -228,11 +216,11 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 906, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 911, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
         );
 
         materialTabbed1.addTab("Lịch sử hóa đơn", jPanel1);
@@ -258,7 +246,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(materialTabbed1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(materialTabbed1, javax.swing.GroupLayout.DEFAULT_SIZE, 911, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblTuNgay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -296,7 +284,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
     private void lblTuNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTuNgayMouseClicked
         TuNgay_Date.showPopup();
-        
+
     }//GEN-LAST:event_lblTuNgayMouseClicked
 
     private void lblDenNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDenNgayMouseClicked
@@ -306,37 +294,35 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private void tblLSHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLSHDMouseClicked
         // TODO add your handling code here:
         int index = tblLSHD.getSelectedRow();
-      
+
     }//GEN-LAST:event_tblLSHDMouseClicked
 
     private void textFieldAnimationTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAnimationTKActionPerformed
         // TODO add your handling code here:
-      
-      
-      
+
+
     }//GEN-LAST:event_textFieldAnimationTKActionPerformed
 
     private void textFieldAnimationTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textFieldAnimationTKMouseClicked
-         // TODO add your handling code here:
+        // TODO add your handling code here:
          strTK = textFieldAnimationTK.getText();
         TimKiemHD();
-         
+
     }//GEN-LAST:event_textFieldAnimationTKMouseClicked
 
     private void txtDenNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseClicked
-        // TODO add your handling code here:
-       
+      
     }//GEN-LAST:event_txtDenNgayMouseClicked
 
     private void txtDenNgayMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseReleased
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_txtDenNgayMouseReleased
 
     private void textFieldAnimationTKCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_textFieldAnimationTKCaretUpdate
         // TODO add your handling code here:
          strTK = textFieldAnimationTK.getText();
-        loadDuLieu();
+           loadDuLieu();
     }//GEN-LAST:event_textFieldAnimationTKCaretUpdate
 
     private void txtDenNgayCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDenNgayCaretUpdate

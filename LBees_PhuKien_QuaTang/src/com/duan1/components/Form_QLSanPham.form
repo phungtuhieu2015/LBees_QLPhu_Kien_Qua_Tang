@@ -28,20 +28,15 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Tabpane" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="772" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="txtTimKiem" min="-2" pref="261" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="Tabpane" alignment="1" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -53,9 +48,9 @@
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               <Component id="txtTimKiem" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="34" max="32767" attributes="0"/>
+              <EmptySpace pref="26" max="32767" attributes="0"/>
               <Component id="Tabpane" min="-2" pref="450" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -107,7 +102,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="pnlThemSuaXoa" min="-2" pref="285" max="-2" attributes="0"/>
-                                  <EmptySpace pref="298" max="32767" attributes="0"/>
+                                  <EmptySpace pref="304" max="32767" attributes="0"/>
                                   <Component id="pnlDieuHuong" min="-2" pref="270" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
@@ -360,7 +355,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scroll_SPBan" alignment="0" pref="906" max="32767" attributes="0"/>
+                  <Component id="scroll_SPBan" alignment="0" pref="912" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="comboBoxSuggestion1" min="-2" pref="198" max="-2" attributes="0"/>

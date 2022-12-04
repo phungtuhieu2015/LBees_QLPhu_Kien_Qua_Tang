@@ -61,6 +61,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
         ThanhTruotQT();
         fillComboboxTrangThai();
         fillComboboxNGH();
+       
 
     }
 
@@ -292,7 +293,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
         trs.setRowFilter(RowFilter.regexFilter("(?i)"+IdAndName, 0, 3, 4, 5, 6, 7, 8));
     }
     //kiểm trả lỗi
-
+         
     public boolean check() {
         if (txtTenKH.getText().trim().isEmpty()) {
             Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống tên khách hàng");
@@ -592,7 +593,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollQT, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
+            .addComponent(ScrollQT, javax.swing.GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
         );
 
         Tabpane.addTab("Danh Sách", pnlDanhSach);

@@ -57,7 +57,7 @@ public class MainJFrame extends javax.swing.JFrame {
         creatPopupMenu(this);
        
     }
-    
+            
 
     private void init() {
         mainJFrame = this;
