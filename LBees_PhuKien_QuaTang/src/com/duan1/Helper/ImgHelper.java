@@ -5,6 +5,7 @@
  */
 package com.duan1.Helper;
 
+import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
 import java.nio.file.Files;
@@ -12,6 +13,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,7 +29,6 @@ public class ImgHelper {
 //        String file = "LBees_PhuKien_QuaTang\\Picture\\tray.png";
 ////        APP_ICON = new ImageIcon(ImgHelper.class.getResource(file)).getImage();
 //    }
-
     public static boolean saveLogo(File file) {
         File dir = new File("Picture");
         if (!dir.exists()) {   //Không tìm thấy tệp!  .check file có tồn tại không.
@@ -53,23 +56,27 @@ public class ImgHelper {
         File path = new File("Picture", fileName);
         return new ImageIcon(path.getAbsolutePath());
     }
+    private javax.swing.JFileChooser FileChooser;
 
-    /**
-     * * Đối tượng này chứa thông tin người sử dụng sau khi đăng nhập
-     */
-    //public static NhanVien USER = null;
+    public void ChonHinh(Component parentComponent, JLabel lblHinh, JTextField txtHinh) {
+        FileChooser = new javax.swing.JFileChooser();
+        if (FileChooser.showOpenDialog(parentComponent) == JFileChooser.APPROVE_OPTION) {
+            File file = FileChooser.getSelectedFile();
 
-    /**
-     * * Xóa thông tin của người sử dụng khi có yêu cầu đăng xuất
-     */
-    public static void logoff() {
-        // ImgHelper.USER = null;
+            if (ImgHelper.saveLogo(file)) {
+                // Hiển thị hình lên form 
+                ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(file.getName()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
+                lblHinh.setIcon(hinhanh);
+                txtHinh.setText(file.getName());
+            }
+        }
     }
+        public void loadHinhVaoForm(String s,JLabel lblHinh){
+                    if (!s.equals("")) {
+            ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(s))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
+            lblHinh.setIcon(hinhanh);
+            // lblHinh.setIcon(ImgHelper.readLogo(cd.getHinhString()));
+        }
+        }
 
-    /**
-     * * Kiểm tra xem đăng nhập hay chưa * @return đăng nhập hay chưa
-     */
-    // public static boolean authenticated() {
-    //return ImgHelper.USER != null;
-    //}
 }

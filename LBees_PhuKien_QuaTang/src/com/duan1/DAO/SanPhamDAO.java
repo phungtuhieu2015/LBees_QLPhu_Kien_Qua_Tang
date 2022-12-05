@@ -24,12 +24,12 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
 
     @Override
     public void insert(SanPham entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaSP(), entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.isTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaSP(), entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM());
     }
 
     @Override
     public void update(SanPham entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.isTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM(), entity.getMaSP());
+        XJdbc.executeUpdate(update_SQL, entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM(), entity.getMaSP());
     }
 
     @Override
@@ -63,7 +63,7 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
                 entity.setSoLuong(rs.getInt("SoLuong"));
                 entity.setDonViTinh(rs.getString("DonViTinh"));
                 entity.setDonGia(rs.getFloat("DonGia"));
-                entity.setTrangThai(rs.getBoolean("TrangThai"));
+                entity.setTrangThai(rs.getString("TrangThai"));
                 entity.setMaVach(rs.getString("MaVach"));
                 entity.setHinhAnh(rs.getString("HinhAnh"));
                 entity.setMaNV(rs.getString("MaNV"));

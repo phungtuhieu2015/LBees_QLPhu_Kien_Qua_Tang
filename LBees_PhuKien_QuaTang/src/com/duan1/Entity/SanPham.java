@@ -14,17 +14,21 @@ public class SanPham {
     String tenSP;
     int soLuong;
     String donViTinh;
-    double donGia ;
-    boolean trangThai;
+    double donGia;
+    String trangThai;
     String maVach;
     String hinhAnh;
     String maNV;
     String maDM;
 
+    public String toString() {
+        return this.maDM;
+    }
+
     public SanPham() {
     }
 
-    public SanPham(String maSP, String tenSP, int soLuong, String donViTinh, double donGia, boolean trangThai, String maVach, String hinhAnh, String maNV, String maDM) {
+    public SanPham(String maSP, String tenSP, int soLuong, String donViTinh, double donGia, String trangThai, String maVach, String hinhAnh, String maNV, String maDM) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.soLuong = soLuong;
@@ -77,11 +81,11 @@ public class SanPham {
         this.donGia = donGia;
     }
 
-    public boolean isTrangThai() {
+    public String getTrangThai() {
         return trangThai;
     }
 
-    public void setTrangThai(boolean trangThai) {
+    public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
     }
 
@@ -116,6 +120,5 @@ public class SanPham {
     public void setMaDM(String maDM) {
         this.maDM = maDM;
     }
-    
-    
+
 }
