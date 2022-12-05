@@ -76,7 +76,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             Msgbox.waring(frame, "Tên nhân viên không được để trống!");
             return false;
         }
-        if (!txtTenNV.getText().matches("^([A-Za-Đzỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơưăêâưôđ']+)((\s{1}[A-Za-zĐỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ']+){1,})$")) {
+        if (!txtTenNV.getText().matches("^([A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơưăêâưôđ']+)((\s{1}[A-Za-zĐỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ']+){1,})$")) {
             Msgbox.waring(frame, "Tên nhân viên không hợp lệ!(Trần Tấn Khanh)");
             return false;
         }
@@ -272,11 +272,8 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             cboChucVu.setSelectedItem("Nhân viên");
         }
         txtGhiChu.setText(n.getGhiChu());
-        if (n.getHinhAnh() != null) {
-            ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(n.getHinhAnh()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
-            lblHinh.setIcon(hinhanh);
-            // lblHinh.setIcon(ImgHelper.readLogo(cd.getHinhString()));
-        }
+        ImgHelper m = new ImgHelper();
+        m.loadHinhVaoForm(String.valueOf(n.getHinhAnh()), lblHinh);
     }
 
     public void clear() {
@@ -381,19 +378,19 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     }
     private javax.swing.JFileChooser FileChooser;
 
-    public void ChonHinh() {
-        FileChooser = new javax.swing.JFileChooser();
-        if (FileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File file = FileChooser.getSelectedFile();
-
-            if (ImgHelper.saveLogo(file)) {
-                // Hiển thị hình lên form 
-                ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(file.getName()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
-                lblHinh.setIcon(hinhanh);
-                txtHinh.setText(file.getName());
-            }
-        }
-    }
+//    public void ChonHinh() {
+//        FileChooser = new javax.swing.JFileChooser();
+//        if (FileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+//            File file = FileChooser.getSelectedFile();
+//
+//            if (ImgHelper.saveLogo(file)) {
+//                // Hiển thị hình lên form 
+//                ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(file.getName()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
+//                lblHinh.setIcon(hinhanh);
+//                txtHinh.setText(file.getName());
+//            }
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -747,7 +744,8 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
 
     private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked
         // TODO add your handling code here:
-        ChonHinh();
+        ImgHelper n = new ImgHelper();
+        n.ChonHinh(frame, lblHinh, txtHinh);
     }//GEN-LAST:event_lblHinhMouseClicked
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed

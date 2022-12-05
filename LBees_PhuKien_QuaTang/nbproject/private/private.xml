@@ -5,9 +5,13 @@
         <group>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLSanPham.java</file>
+>>>>>>> 0e7b7ac0b1eeb4bdd69f1ba8ac3d67aa44455b5a
             <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLNhanVien.java</file>
-            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/Form_QLNguoiGiaoHang.java</file>
             <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainJFrame.java</file>
+<<<<<<< HEAD
 =======
             <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/ui/MainThemSuaXoaCoppy.java</file>
             <file>file:/H:/FPT%20polytechnic/HK_4/Block_2/PRO1041_DuAn_1/Code/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/components/JDL_NhapKhachHang.java</file>
@@ -23,6 +27,9 @@
 >>>>>>> 76cac8a6414865cf4cd5111036481781015348f0
 =======
 >>>>>>> 4fd7e7bf512792b25613ef4b64eec9c24127e5b2
+=======
+            <file>file:/D:/Code/DuAn1/SaveGit/LBees_QLPhu_Kien_Qua_Tang/LBees_PhuKien_QuaTang/src/com/duan1/DAO/SanPhamDAO.java</file>
+>>>>>>> 0e7b7ac0b1eeb4bdd69f1ba8ac3d67aa44455b5a
         </group>
     </open-files>
 </project-private>

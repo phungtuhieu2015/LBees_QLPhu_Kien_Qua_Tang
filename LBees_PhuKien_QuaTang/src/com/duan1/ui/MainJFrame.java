@@ -55,9 +55,8 @@ public class MainJFrame extends javax.swing.JFrame {
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
-       
+
     }
-    
 
     private void init() {
         mainJFrame = this;
@@ -83,7 +82,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (index == 1 && indexSubMenu == 5) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLDanhMuc());
-                    
+
                 } else if (index == 2 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLSanPham());
@@ -348,6 +347,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         MyWebCam.check = 0;
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         System.exit(0);
     }//GEN-LAST:event_lblThoatMouseClicked
 
@@ -356,7 +356,7 @@ public class MainJFrame extends javax.swing.JFrame {
         int mPoY = MouseInfo.getPointerInfo().getLocation().y;
 
         //showw popupmenu
-        popupMenu.show(this, 1050,45);
+        popupMenu.show(this, 1050, 45);
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
@@ -368,7 +368,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-   
+
     }//GEN-LAST:event_formKeyReleased
 
     private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
