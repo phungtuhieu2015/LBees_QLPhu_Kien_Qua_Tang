@@ -124,6 +124,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             s = getForm();
             daoSP.insert(s);
             Msgbox.success(frame, "Thêm thành công sản phẩm !");
+            loadDaTa();
             clear();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -137,6 +138,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             daoSP.update(s);
             Msgbox.success(frame, "Cập nhật thành công sản phẩm !");
             clear();
+            loadDaTa();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -214,9 +216,8 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         model = (DefaultTableModel) tblSanPham.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName,0,4));
-    
-        
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 4));
+
     }
 
     public void filterByStatus(String IdAndName) {
@@ -636,7 +637,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         findIdAndName(txtTimKiem.getText());
         System.out.println(txtTimKiem.getText());
-        
+
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
 

@@ -1,5 +1,6 @@
 package com.duan1.ui;
 
+import com.duan1.Helper.ImgHelper;
 import com.duan1.components.Form_LSHoaDon;
 import com.duan1.components.Form_QLBanHang;
 import com.duan1.components.Form_QLDanhMuc;
@@ -16,13 +17,14 @@ import com.duan1.swing.EventMenuSelected;
 import java.awt.Component;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.components.Main_Form;
-import com.duan1.components.MyWebCam;
+import com.duan1.components.Form_QLBanHang;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -55,8 +57,9 @@ public class MainJFrame extends javax.swing.JFrame {
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
-
+        this.setIconImage(ImgHelper.APP_ICON);
     }
+    int indexx = 0;
 
     private void init() {
         mainJFrame = this;
@@ -65,44 +68,58 @@ public class MainJFrame extends javax.swing.JFrame {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    if (indexx == 3) {
+                        Form_QLBanHang.checks = 0;
+                        System.out.println("0");
+                    }
                     showForm(new Main_Form());
                 } else if (index == 1 && indexSubMenu == 1) {
-                    MyWebCam.check = 1;
+                    Form_QLBanHang.checks = 0;
+                    System.out.println("1");
                     showForm(new Form_QLKhachHang());
                 } else if (index == 1 && indexSubMenu == 2) {
-                    MyWebCam.check = 0;
+                    System.out.println("1.2");
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNhanVien());
                 } else if (index == 1 && indexSubMenu == 3) {
-                    MyWebCam.check = 0;
+                    System.out.println("1.3");
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNguoiGiaoHang());
                 } else if (index == 1 && indexSubMenu == 4) {
-                    MyWebCam.check = 0;
+                    System.out.println("1.4");
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLTaiKhoan());
                 } else if (index == 1 && indexSubMenu == 5) {
-                    MyWebCam.check = 0;
+                    System.out.println("1.5");
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLDanhMuc());
-
                 } else if (index == 2 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
+                    System.out.println("2");
                     showForm(new Form_QLSanPham());
                 } else if (index == 3 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    indexx = index;
+                    Form_QLBanHang.checks = 1;
                     showForm(new Form_QLBanHang());
                 } else if (index == 4 && indexSubMenu == 0) {
+                    System.out.println("4");
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_LSHoaDon());
                 } else if (index == 5 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    System.out.println("5");
+                    Form_QLBanHang.checks = 0;
                     try {
                         showForm(new Form_ThongKe());
+                        System.out.println("6");
                     } catch (SQLException ex) {
                         Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if (index == 6 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
+                    System.out.println("7");
                     showForm(new Form_QuaTang());
                 } else {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 1;
                 }
             }
         });
@@ -139,7 +156,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -346,7 +363,7 @@ public class MainJFrame extends javax.swing.JFrame {
         thoiGian.start();
     }
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
-        MyWebCam.check = 0;
+        Form_QLBanHang.checks = 0;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         System.exit(0);
     }//GEN-LAST:event_lblThoatMouseClicked
@@ -372,13 +389,13 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyReleased
 
     private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
-       lblThoat.setBackground(Color.GRAY);
-       lblThoat.setOpaque(true);
+        lblThoat.setBackground(Color.GRAY);
+        lblThoat.setOpaque(true);
     }//GEN-LAST:event_lblThoatMouseEntered
 
     private void lblThoatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseExited
-          lblThoat.setBackground(panelThoat.getBackground());
-          lblThoat.setOpaque(true);
+        lblThoat.setBackground(panelThoat.getBackground());
+        lblThoat.setOpaque(true);
     }//GEN-LAST:event_lblThoatMouseExited
 
     public static void main(String args[]) {
@@ -428,7 +445,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void show(Form_QuaTang qt) {
-       body.removeAll();
+        body.removeAll();
         body.add(qt);
         body.repaint();
         body.revalidate();
