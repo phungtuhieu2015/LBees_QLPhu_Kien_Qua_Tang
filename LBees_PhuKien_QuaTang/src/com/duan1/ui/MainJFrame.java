@@ -282,7 +282,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblBaCham)))
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
                 .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.duan1.DAO;
 
 
@@ -10,13 +7,12 @@ import com.duan1.Helper.XJdbc;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author asus
- */
+
 public class QuaTangDAO extends QLPK<QuaTang, String> {
 
     String insert_SQL = "INSERT INTO dbo.QuaTang(MaDH,TenNN,DiaChiNN,SDTNN,NgayGiao,TrangThai,GhiChu,MaNGH,MaHD)VALUES(?,?,?,?,?,?,?,?,?)";
@@ -24,7 +20,7 @@ public class QuaTangDAO extends QLPK<QuaTang, String> {
     String delete_SQL = "DELETE dbo.QuaTang WHERE MaDH =?";
     String select_All_SQL = "SELECT * FROM dbo.QuaTang";
     String select_ByID_SQL = "SELECT * FROM dbo.QuaTang WHERE MaDH=?";
-    
+    String select_Max_Id = "SELECT Max(SUBSTRING(MaDH,LEN(MaDH) - 3,LEN(MaDH)))FROM QuaTang";
     @Override
     public void insert(QuaTang entity) {
         XJdbc.executeUpdate(insert_SQL, entity.getMaDH(), entity.getTenNN(), entity.getDiaChiNN(), entity.getSDTNN(), entity.getNgayGiao(), entity.getTrangThai(), entity.getGhiChu(), entity.getMaNGH(), entity.getMaHD());
@@ -80,5 +76,21 @@ public class QuaTangDAO extends QLPK<QuaTang, String> {
         }
     }
     
-   
+    public String getLastID() throws SQLException {
+            ResultSet rs = XJdbc.executeQuery(select_Max_Id);
+            String id = null;
+            if (rs.next()) {
+                id = rs.getString(1);
+            }
+            rs.getStatement().getConnection().close();
+            return id;
+    }
+    public String initID () throws SQLException {
+        String id = getLastID();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+        int idNumber = Integer.parseInt(id);
+        String newID = String.format(sdf.format(date) + "%04d", idNumber += 1);
+        return newID;
+    }
 }
