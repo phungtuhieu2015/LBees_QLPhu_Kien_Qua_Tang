@@ -70,6 +70,11 @@ public class Form_QuaTang extends javax.swing.JPanel {
     String keyword = "";
     MainJFrame f = new MainJFrame();
 
+    String maDH = "";
+    String maHD = "";
+
+    String maKH = "";
+
     public Form_QuaTang() {
         initComponents();
         setHint();
@@ -88,7 +93,18 @@ public class Form_QuaTang extends javax.swing.JPanel {
         fillComboboxNGH();
         fillComboboxTrangThaiGiaoHang();
         loadDataBH();
-       
+
+        try {
+            maDH = "DH" + daoQT.initID();
+            maHD = "HD" + daoHD.initID();
+            maKH = "KH" + daoKH.initID();
+            txtMaDH.setText(maDH);
+            txtMaHD.setText(maHD);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void setHint() {
@@ -106,7 +122,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
     public void TimKiem() {
         txtTimKiem.setHintText("Nhập ");
-        txtTimKiemGH.setHintText("Nhập tên đơn hàng");
+        txtTimKiemGH.setHintText("Nhập tên sản phẩm");
         txtTimKiem.addEvent(new EventTextField() {
             @Override
             public void onPressed(EventCallBack call) {
@@ -156,8 +172,9 @@ public class Form_QuaTang extends javax.swing.JPanel {
     public void loadData() {
         DefaultTableModel model = (DefaultTableModel) tblQuaTang.getModel();
         model.setRowCount(0);
-
+        listQT = daoQT.selectAll();
         try {
+
             for (QuaTang qt : listQT) {
 
                 Object[] row = {
@@ -212,19 +229,36 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
         cboTrangThai.setSelectedItem(qt.getTrangThai());
         cboNGH.setSelectedItem(ngh.getTenNGH() + " - " + ngh.getMaNGH());
+
+//        String s = (String) cboNGH.getSelectedItem();
+//        String aa = s.substring(s.length() - 8, s.length());
+//        System.out.println(aa);
     }
 
     public QuaTang getForm() {
+        String s = String.valueOf(cboNGH.getSelectedItem());
+        String maNGH = s.substring(s.length() - 8, s.length());
         QuaTang qt = new QuaTang();
         qt.setMaDH(txtMaDH.getText());
+        try {
+            KhachHang kh = new KhachHang(maKH, txtTenKH.getText(), txtSDTKH.getText(), 0);
+            daoKH.insert(kh);
+            HoaDon hd = new HoaDon(maHD, 0, new Date(), txtGhiChu.getText(), "NV00001", kh.getMaKH());
+            daoHD.insert(hd);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         qt.setMaHD(txtMaHD.getText());
-        qt.setMaNGH(String.valueOf(cboNGH.getSelectedItem()));
-        qt.setTenNN(txtTenKH.getText());
+        qt.setMaNGH(maNGH);
+        qt.setTenNN(txtTenNN.getText());
         qt.setDiaChiNN(txtDiaChiNN.getText());
         qt.setSDTNN(txtSDTNN.getText());
         qt.setNgayGiao(XDate.toDate(txtNgayGiao.getText(), mauNgay));
-        qt.setGhiChu(txtMaDH.getText());
+        qt.setGhiChu(txtGhiChu.getText());
+        qt.setTrangThai((String) cboTrangThai.getSelectedItem());
+
         return qt;
+
     }
 
     public void display(int index) {
@@ -386,48 +420,83 @@ public class Form_QuaTang extends javax.swing.JPanel {
     //kiểm trả lỗi
 
     public boolean check() {
+
+        String Ten_REG = "\"^([A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\\\s{1}[A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+        boolean TenKH = txtTenKH.getText().matches(Ten_REG);
+        boolean TenNN = txtTenNN.getText().matches(Ten_REG);
+
+        String SDT_REG = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})";
+        boolean sdtKH = txtSDTKH.getText().matches(SDT_REG);
+        boolean sdtNN = txtSDTNN.getText().matches(SDT_REG);
+
+        String date_REG = "\\d{2}[-|/]\\\\d{2}[-|/]\\\\d{4}";
+        boolean NgayGiao = txtNgayGiao.getText().matches(date_REG);
+
+        /////////////////////////TenKH/////////////////
         if (txtTenKH.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống tên khách hàng");
-            noti.showNotification();
+            Msgbox.waring(frame, "Không được để trống tên khách hàng!");
+            txtTenKH.requestFocus();
             return false;
         }
-
+        if (TenKH != true) {
+            Msgbox.waring(frame, "Tên chưa đúng định dạng Vidu: Nguyen Van A!");
+            txtTenKH.requestFocus();
+            return false;
+        }
+        /////////////////////////////SDTKH//////////////////////
         if (txtSDTKH.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống số điện thoại khách hàng");
-            noti.showNotification();
+            Msgbox.waring(frame, "Không được để trống số điện thoại khách hàng!");
+            return false;
+
+        }
+        if (sdtKH != true) {
+            Msgbox.waring(frame, "Số điện thoại chưa đúng định dạng!");
+            txtSDTKH.requestFocus();
             return false;
         }
+        /////////////////////////////TENNN//////////////////////
         if (txtTenNN.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống tên người nhận");
-            noti.showNotification();
+            Msgbox.waring(frame, "Không được để trống tên người nhận!");
+            txtTenNN.requestFocus();
+            return false;
+
+        }
+        if (TenNN != true) {
+            Msgbox.waring(frame, "Tên chưa đúng định dạng Vidu: Nguyen Van A!");
+            txtTenNN.requestFocus();
             return false;
         }
+        /////////////////////////SDTNN////////////////////////////////
         if (txtSDTNN.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để số điện thoại người nhận");
-            noti.showNotification();
+            Msgbox.waring(frame, "Không được để trống số điện thoại người nhận!");
+            txtSDTNN.requestFocus();
             return false;
+
         }
-        if (txtDiaChiNN.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống địa chỉ người nhận");
-            noti.showNotification();
-            return false;
-        }
-        if (txtMaDH.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mã đơn hàng");
-            noti.showNotification();
-            return false;
-        }
-        if (txtNgayGiao.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống ngày giao");
-            noti.showNotification();
+        if (sdtNN != true) {
+            Msgbox.waring(frame, "Số điện thoại chưa đúng định dạng!");
+            txtSDTNN.requestFocus();
             return false;
         }
 
-        if (txtMaHD.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mã hoá đơn");
-            noti.showNotification();
+        //////////////////////////DiaChiNN/////////////////////////////
+        if (txtDiaChiNN.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Không được để trống địa chỉ người nhận!");
+            txtDiaChiNN.requestFocus();
             return false;
         }
+        //////////////////////////NgayGiao////////////////////////////
+        if (txtNgayGiao.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Không được để trống ngày giao!");
+            txtNgayGiao.requestFocus();
+            return false;
+        }
+        if (NgayGiao != true) {
+            Msgbox.waring(frame, "Ngày giao chưa đúng định dạng!");
+            txtNgayGiao.requestFocus();
+            return false;
+        }
+        /////////////////////////////////////////////////////////////////////
 
         return true;
     }
@@ -454,15 +523,18 @@ public class Form_QuaTang extends javax.swing.JPanel {
         }
 
         for (HoaDonChiTiet h : listHDCT) {
+            
             if (h.getMaSP().equals(sp.getMaSP())) {
                 boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
-                if (choice) {
+                if (choice ) {
                     h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
                     h.setThanhTien(h.getSoLuong() * sp.getDonGia());
                     check = false;
                     loadDataToGH();
                     break;
                 }
+                
+                
             }
         }
         if (check) {
@@ -553,17 +625,8 @@ public class Form_QuaTang extends javax.swing.JPanel {
         tblSanPham.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 1));
     }
-    public void checkDatHang(int index){
-        if (index < 0) {
-            Msgbox.waring(f, "Bạn chưa có sản phẩm để thanh toán!");
-            return;
-        }else {
-             panelQuaTang.setSelectedIndex(1);
-              
-        }
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -908,6 +971,12 @@ public class Form_QuaTang extends javax.swing.JPanel {
         cboTrangThai.setToolTipText("");
         cboTrangThai.setDoubleBuffered(true);
 
+        txtMaDH.setEditable(false);
+        txtMaDH.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMaHD.setEditable(false);
+        txtMaHD.setBackground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout btnLayout = new javax.swing.GroupLayout(btn);
         btn.setLayout(btnLayout);
         btnLayout.setHorizontalGroup(
@@ -917,7 +986,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
                 .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(btnLayout.createSequentialGroup()
                         .addComponent(pnlThemSuaXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(174, 174, 174)
+                        .addGap(171, 171, 171)
                         .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(ahihi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1086,17 +1155,26 @@ public class Form_QuaTang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblQuaTangMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        MainJFrame m = new MainJFrame();
-      if (check()) {
-        insert();
-        new JDL_XacNhanThongTin_QuaTang(m, true).setVisible(true);
-       }
+        JDL_XacNhanThongTin_QuaTang xn = new JDL_XacNhanThongTin_QuaTang(frame, true);
+        // if (check()) {       
+        xn.seta(maKH, txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText());
+
+        int tongTien = 0;
+        for (HoaDonChiTiet hdct : listHDCT) {
+            tongTien += hdct.getThanhTien();
+        }
+
+        xn.setTongTienSP(tongTien);
+        xn.setVisible(true);
+
+        // }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         int vitri = tblQuaTang.getSelectedRow();
         if (vitri >= 0) {
             update();
+
         } else {
             Msgbox.waring(frame, "Bạn chưa chọn đơn hàng nào để cập nhật");
         }
@@ -1106,6 +1184,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
         int vitri = tblQuaTang.getSelectedRow();
         if (vitri >= 0) {
             delete();
+
         } else {
             Msgbox.waring(frame, "Bạn chưa chọn đơn hàng nào để xoá");
         }
@@ -1156,18 +1235,18 @@ public class Form_QuaTang extends javax.swing.JPanel {
     }//GEN-LAST:event_cboLocTheoTrangThaiActionPerformed
 
     private void txtTimKiemGHKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemGHKeyReleased
-         String timKiem = txtTimKiemGH.getText();
+        String timKiem = txtTimKiemGH.getText();
         findIdAndNameBH(timKiem);
     }//GEN-LAST:event_txtTimKiemGHKeyReleased
 
     private void txtTimKiemGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemGHActionPerformed
-         String timKiem = txtTimKiemGH.getText();
+        String timKiem = txtTimKiemGH.getText();
         findIdAndNameBH(timKiem);
     }//GEN-LAST:event_txtTimKiemGHActionPerformed
 
     private void txtTimKiemGHMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemGHMousePressed
         // TODO add your handling code here:
-      String timKiem = txtTimKiemGH.getText();
+        String timKiem = txtTimKiemGH.getText();
         findIdAndNameBH(timKiem);
     }//GEN-LAST:event_txtTimKiemGHMousePressed
 
@@ -1177,9 +1256,14 @@ public class Form_QuaTang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
 
     private void btnDatHang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHang1ActionPerformed
-         panelQuaTang.setSelectedIndex(1);
-      
-      
+
+        if (listHDCT.isEmpty()) {
+            Msgbox.waring(frame, "Bạn chưa có đơn hàng nào để thanh toán");
+            return;
+        } else {
+            panelQuaTang.setSelectedIndex(1);
+
+        }
     }//GEN-LAST:event_btnDatHang1ActionPerformed
 
     private void btnDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHangActionPerformed

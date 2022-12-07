@@ -379,7 +379,7 @@
                           <Group type="103" groupAlignment="1" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="pnlThemSuaXoa" min="-2" pref="285" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
                                   <Component id="pnlDieuHuong" min="-2" pref="270" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -605,6 +605,12 @@
                 <Component class="com.duan1.swing.MyTextField2" name="txtDiaChiNN">
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtMaDH">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtSDTKH">
                 </Component>
@@ -613,6 +619,12 @@
                 <Component class="com.duan1.swing.MyTextField2" name="txtNgayGiao">
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtMaHD">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtTenKH">
                 </Component>

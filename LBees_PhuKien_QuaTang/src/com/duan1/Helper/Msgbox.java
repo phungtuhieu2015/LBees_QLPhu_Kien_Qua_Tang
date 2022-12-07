@@ -38,6 +38,7 @@ public class Msgbox {
                 MessageDialog mdl = new MessageDialog(f);
                 mdl.showMessage(tieuDe, text);
                 return mdl.getMessageType() == MessageDialog.MessageType.OK;
+              
        
      }
 }
