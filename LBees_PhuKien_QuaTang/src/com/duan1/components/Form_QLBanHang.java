@@ -24,6 +24,7 @@ import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URI;
@@ -80,12 +81,14 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     DefaultTableModel model;
 
     public void loadData() {
+        int tt = 0;
         model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
         listSP = daoSP.selectAll();
         try {
             for (SanPham sp : listSP) {
                 Object[] row = {
+                    tt++,
                     sp.getMaSP(),
                     sp.getTenSP(),
                     sp.getSoLuong(),
@@ -178,23 +181,21 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             Msgbox.waring(frame, "Vui lòng nhập số!");
             return;
         }
-        int a = 0;
+        if (checkSL() == false) {
+            return;
+        }
         for (HoaDonChiTiet h : listHDCT) {
             if (h.getMaSP().equals(sp.getMaSP())) {
                 h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
                 h.setThanhTien(h.getSoLuong() * sp.getDonGia());
                 daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
                 check = false;
+                setTrangThai();
                 loadDataToGH();
                 loadData();
-                a++;
-                System.out.println(a);
                 break;
             }
         }
-        setTrangThaiHH();
-        setTrangThaiDKD();
-
         if (check) {
             addDataGHMV(maVach);
         }
@@ -209,10 +210,9 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
         daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
         listHDCT.add(hdct);
+        setTrangThai();
         loadDataToGH();
         loadData();
-        setTrangThaiHH();
-        setTrangThaiDKD();
 
     }
 
@@ -220,14 +220,16 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
         model.setRowCount(0);
         try {
+            int tt = 0;
             for (HoaDonChiTiet hdct : listHDCT) {
                 SanPham sp = daoSP.selectByid(hdct.getMaSP());
                 Object[] row = {
+                    tt++,
                     hdct.getMaSP(),
-                    sp.getTenSP(),
-                    hdct.getSoLuong(),
-                    sp.getDonGia(),
-                    hdct.getThanhTien()
+                     sp.getTenSP(),
+                     hdct.getSoLuong(),
+                     sp.getDonGia(),
+                     hdct.getThanhTien()
                 };
                 model.addRow(row);
                 model.fireTableDataChanged();
@@ -241,7 +243,13 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
             return;
         }
-        boolean chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
+        boolean chon;
+        if (checks == 0) {
+            chon = true;
+        } else {
+            chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
+        }
+
         if (chon) {
             listSP = daoSP.selectAll();
 
@@ -252,12 +260,10 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
                         n = daoSP.selectByid(sp.getMaSP());
                         daoSP.updateSL(sp.getMaSP(), n.getSoLuong() + h.getSoLuong());
                     }
-
                 }
             }
             listHDCT.removeAll(listHDCT);
-            setTrangThaiHH();
-            setTrangThaiDKD();
+            setTrangThai();
             loadData();
             loadDataToGH();
         }
@@ -284,13 +290,12 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         if (chon) {
             SanPham n = new SanPham();
             listHDCT.remove(index);
-            String maSP = (String) tblGioHang.getValueAt(this.index, 0);
+            String maSP = (String) tblGioHang.getValueAt(this.index, 1);
             n = daoSP.selectByid(maSP);
-            int sl = (int) tblGioHang.getValueAt(index, 2);
+            int sl = (int) tblGioHang.getValueAt(index, 3);
             JOptionPane.showMessageDialog(frame, sl);
             daoSP.updateSL(maSP, n.getSoLuong() + sl);
-            setTrangThaiHH();
-            setTrangThaiDKD();
+            setTrangThai();
             loadData();
             loadDataToGH();
         }
@@ -321,8 +326,10 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         do {
             try {
                 Thread.sleep(100);
+
             } catch (InterruptedException ex) {
-                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(com.duan1.components.MyWebCam.class
+                        .getName()).log(Level.SEVERE, null, ex);
             }
             Result result = null;
             BufferedImage image = null;
@@ -339,6 +346,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 //                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
                 if (checks == 0) {
                     webcam.close();
+                    deleteAll();
                     return;
                 }
             }
@@ -363,23 +371,26 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         return t;
     }
 
-    public void setTrangThaiHH() {
+    public void setTrangThai() {
         listSP = daoSP.selectAll();
         for (SanPham s : listSP) {
             if (s.getSoLuong() <= 0) {
                 daoSP.updateTT(s.getMaSP(), "Hết hàng");
             }
-        }
-        loadData();
-    }
-
-    public void setTrangThaiDKD() {
-        for (SanPham s : listSP) {
             if (s.getSoLuong() != 0 && !s.getTrangThai().equalsIgnoreCase("Không còn bán")) {
-                 daoSP.updateTT(s.getMaSP(), "Đang kinh doanh");
+                daoSP.updateTT(s.getMaSP(), "Đang kinh doanh");
             }
         }
-        loadData();
+    }
+
+    public boolean checkSL() {
+        int soLuong = (int) tblSanPham.getValueAt(index, 3);
+
+        if (soLuong < Integer.parseInt(sl)) {
+            Msgbox.waring(frame, "Số lượng sản phẩm hiện tại không đủ!");
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -412,6 +423,9 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         btnRead = new com.duan1.swing.Button();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(923, 604));
+        setMinimumSize(new java.awt.Dimension(923, 604));
+        setPreferredSize(new java.awt.Dimension(923, 604));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("QUẢN LÝ BÁN HÀNG");
@@ -420,17 +434,17 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
         tblGioHang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Thành Tiền"
+                "TT", "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Thành Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                true, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -462,17 +476,17 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Mã Vạch", "Trạng thái"
+                "TT", "Mã SP", "Tên SP", "Số Lượng", "Đơn Giá", "Mã Vạch", "Trạng thái"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -488,16 +502,23 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             }
         });
         Scroll_SPBan.setViewportView(tblSanPham);
+        if (tblSanPham.getColumnModel().getColumnCount() > 0) {
+            tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblSanPham.getColumnModel().getColumn(1).setPreferredWidth(30);
+            tblSanPham.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(5);
+            tblSanPham.getColumnModel().getColumn(4).setPreferredWidth(20);
+        }
 
         javax.swing.GroupLayout pnlDanhSach1Layout = new javax.swing.GroupLayout(pnlDanhSach1);
         pnlDanhSach1.setLayout(pnlDanhSach1Layout);
         pnlDanhSach1Layout.setHorizontalGroup(
             pnlDanhSach1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 961, Short.MAX_VALUE)
+            .addGap(0, 906, Short.MAX_VALUE)
             .addGroup(pnlDanhSach1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDanhSach1Layout.createSequentialGroup()
-                    .addComponent(Scroll_SPBan, javax.swing.GroupLayout.DEFAULT_SIZE, 949, Short.MAX_VALUE)
-                    .addContainerGap()))
+                    .addComponent(Scroll_SPBan, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 71, Short.MAX_VALUE)))
         );
         pnlDanhSach1Layout.setVerticalGroup(
             pnlDanhSach1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,7 +592,15 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtMaVach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaVachActionPerformed(evt);
+            }
+        });
         txtMaVach.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtMaVachKeyPressed(evt);
+            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtMaVachKeyReleased(evt);
             }
@@ -624,11 +653,11 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Tabpane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Tabpane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(180, 180, 180)
@@ -636,15 +665,11 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(pnlThemSuaXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(Tabpane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(449, 449, 449)
-                                .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)))))
-                .addContainerGap())
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(99, 99, 99))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -671,18 +696,20 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     private void btnXoaKhoiGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKhoiGioActionPerformed
         index = tblGioHang.getSelectedRow();
         delete(index);
-        
-        
+
+
     }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
 
     private void btnDatHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHangActionPerformed
         // TODO add your handling code here:
+
         deleteAll();
     }//GEN-LAST:event_btnDatHangActionPerformed
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+
         index = tblSanPham.getSelectedRow();
-        String mv = (String) tblSanPham.getValueAt(index, 4);
+        String mv = (String) tblSanPham.getValueAt(index, 5);
         txtMaVach.setText(mv);
         updateGHMV(mv);
     }//GEN-LAST:event_tblSanPhamMouseClicked
@@ -723,8 +750,8 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
     private void btnReadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReadActionPerformed
-//        Barcodes s = new Barcodes();
-//        s.Read_IMG(f, txtMaVach);
+        Barcodes s = new Barcodes();
+        s.Read_IMG(f, txtMaVach);
         loadDataToGH();
     }//GEN-LAST:event_btnReadActionPerformed
 
@@ -733,10 +760,29 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     }//GEN-LAST:event_tblSanPhamMouseEntered
 
     private void txtMaVachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaVachKeyReleased
-        // TODO add your handling code here:
-        updateGHMV(txtMaVach.getText());
+
 
     }//GEN-LAST:event_txtMaVachKeyReleased
+
+    private void txtMaVachKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaVachKeyPressed
+        if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
+            List<SanPham> s = new ArrayList<>();
+            s = daoSP.selectAll();
+            for (SanPham sanPham : s) {
+                if (sanPham.getMaVach().equals(txtMaVach.getText())) {
+
+                    updateGHMV(txtMaVach.getText());
+                    return;
+                }
+            }
+            Msgbox.waring(frame, "Mã vạch không tồn tại!");
+        }
+    }//GEN-LAST:event_txtMaVachKeyPressed
+
+    private void txtMaVachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaVachActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(f, "ss");
+    }//GEN-LAST:event_txtMaVachActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

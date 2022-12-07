@@ -4,7 +4,7 @@
  */
 package com.duan1.DAO;
 
-
+import com.duan1.Entity.NhanVien;
 import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
@@ -22,6 +22,7 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
     String delete_SQL = "DELETE dbo.TaiKhoan WHERE MaTK =?";
     String select_All_SQL = "SELECT * FROM dbo.TaiKhoan";
     String select_ByID_SQL = "SELECT * FROM dbo.TaiKhoan WHERE MaTK=?";
+    String Select_CV = "select chucvu from TaiKhoan t inner join nhanvien n on t.MaNV = n.maNV where t.manv =?";
 
     @Override
     public void insert(TaiKhoan entity) {
@@ -45,16 +46,26 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
 
     @Override
     public TaiKhoan selectByid(String key) {
-        List<TaiKhoan> list = this.selectBySql(select_ByID_SQL,key);
+        List<TaiKhoan> list = this.selectBySql(select_ByID_SQL, key);
         if (list.isEmpty()) {
             return null;
         }
         return list.get(0);
     }
 
+    public boolean selectByCV(String key) {
+        List<NhanVien> list = this.selectBySqll(Select_CV, key);
+        boolean s = false;
+        for (NhanVien t : list) {
+            s = t.isChucVu();
+        }
+        return s;
+        
+    }
+
     @Override
     protected List<TaiKhoan> selectBySql(String sql, Object... args) {
-                List<TaiKhoan> list = new ArrayList<>();
+        List<TaiKhoan> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
@@ -72,4 +83,19 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
         }
     }
 
+    protected List<NhanVien> selectBySqll(String sql, Object... args) {
+        List<NhanVien> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                NhanVien entity = new NhanVien();
+                entity.setChucVu(rs.getBoolean("ChucVu"));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
