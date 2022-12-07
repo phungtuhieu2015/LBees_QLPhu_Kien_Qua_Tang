@@ -31,11 +31,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -55,9 +62,8 @@ public class MainJFrame extends javax.swing.JFrame {
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
-       
+
     }
-    
 
     private void init() {
         mainJFrame = this;
@@ -71,15 +77,19 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (index == 1 && indexSubMenu == 1) {
                     MyWebCam.check = 1;
                     showForm(new Form_QLKhachHang());
+                    
                 } else if (index == 1 && indexSubMenu == 2) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLNhanVien());
+                    
                 } else if (index == 1 && indexSubMenu == 3) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLNguoiGiaoHang());
+                    
                 } else if (index == 1 && indexSubMenu == 4) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLTaiKhoan());
+                     
                 } else if (index == 1 && indexSubMenu == 5) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLDanhMuc());
@@ -87,11 +97,14 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (index == 2 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLSanPham());
+                    
                 } else if (index == 3 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLBanHang());
+                     
                 } else if (index == 4 && indexSubMenu == 0) {
                     showForm(new Form_LSHoaDon());
+                    
                 } else if (index == 5 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     try {
@@ -99,9 +112,11 @@ public class MainJFrame extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
+                     
                 } else if (index == 6 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QuaTang());
+                     
                 } else {
                     MyWebCam.check = 0;
                 }
@@ -346,6 +361,8 @@ public class MainJFrame extends javax.swing.JFrame {
         });
         thoiGian.start();
     }
+
+   
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         MyWebCam.check = 0;
         System.exit(0);
@@ -356,7 +373,7 @@ public class MainJFrame extends javax.swing.JFrame {
         int mPoY = MouseInfo.getPointerInfo().getLocation().y;
 
         //showw popupmenu
-        popupMenu.show(this, 1050,45);
+        popupMenu.show(this, 1050, 45);
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
@@ -368,17 +385,17 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-   
+
     }//GEN-LAST:event_formKeyReleased
 
     private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
-       lblThoat.setBackground(Color.GRAY);
-       lblThoat.setOpaque(true);
+        lblThoat.setBackground(Color.GRAY);
+        lblThoat.setOpaque(true);
     }//GEN-LAST:event_lblThoatMouseEntered
 
     private void lblThoatMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseExited
-          lblThoat.setBackground(panelThoat.getBackground());
-          lblThoat.setOpaque(true);
+        lblThoat.setBackground(panelThoat.getBackground());
+        lblThoat.setOpaque(true);
     }//GEN-LAST:event_lblThoatMouseExited
 
     public static void main(String args[]) {
@@ -428,7 +445,7 @@ public class MainJFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     public void show(Form_QuaTang qt) {
-       body.removeAll();
+        body.removeAll();
         body.add(qt);
         body.repaint();
         body.revalidate();

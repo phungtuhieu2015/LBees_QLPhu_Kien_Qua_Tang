@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.duan1.components;
 
 import com.duan1.DAO.HoaDonDAO;
@@ -9,19 +6,22 @@ import com.duan1.DAO.KhachHangDAO;
 import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.KhachHang;
 import com.duan1.Entity.QuaTang;
+import com.duan1.Helper.Msgbox;
+import com.duan1.ui.MainJFrame;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
-
-/**
- *
- * @author ASUS
- */
+import javax.sound.sampled.*;
+        
 public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
 
     QuaTang qt = new QuaTang();
@@ -35,13 +35,14 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     String MaKH = ""; 
     String MaHD = ""; 
     
+     MainJFrame f = new MainJFrame();
     public JDL_XacNhanThongTin_QuaTang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
          this.setBackground(new Color(0,0,0,0));
          setHint();
          setForm();
-        System.out.println(qt.getMaDH());
+       
     }
     
     public void  setHint(){
@@ -76,6 +77,45 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         this.tenKH = tenKH;
         this.SDTKH = SDTKH;
     }
+    
+    public void seta(String makh,String tenkh, String sdtkh,String tenn,String diachi,String sdtnn){
+        lblMaKH.setText(makh);
+        lblTenKH.setText(tenkh);
+        lblSDTKH.setText(sdtkh);
+        lblTenNN.setText(tenn);
+        lblDiaChi.setText(diachi);
+        lblSDTNN.setText(sdtnn);
+    }
+    
+    public long lamTron(int tongTien) {
+        int tienTT = tongTien;
+        int donViTram = tongTien % 1000;
+        if (donViTram != 0) {
+            if (donViTram >= 500) {
+                tienTT = tongTien + (1000 - donViTram);
+            } else {
+                tienTT = tongTien - donViTram;
+            }
+        }
+        return tienTT;
+    }
+     
+    long tongTien = 0;
+    long tienThanhToan = 0;
+    public void setTongTienSP(int tongTien) {
+        this.tongTien = tongTien;
+        tienThanhToan = tongTien;
+        lblTongTien.setText(tongTien + "");        
+        lblThanhToan.setText(tienThanhToan + "");
+    }
+    public void music () throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+        File file = new File("./src/com/duan1/icon/sound_ThanhToanThanhCong (1).wav");
+        AudioInputStream ad = AudioSystem.getAudioInputStream(file);
+        Clip  clip =  AudioSystem.getClip();
+        clip.open(ad);
+        clip.start();
+
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -107,6 +147,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         jLabel18 = new javax.swing.JLabel();
         lblTienThua = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -120,26 +161,41 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(102, 102, 102));
         jLabel2.setText("Mã khách hàng : ");
 
+        jLabel3.setForeground(new java.awt.Color(102, 102, 102));
         jLabel3.setText("Tên khách hàng :");
 
+        jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Số điện thoại khách hàng :");
 
-        jLabel5.setText("Tổng tiền :");
+        txtTienPhiShip.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTienPhiShipKeyReleased(evt);
+            }
+        });
 
-        lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txttTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txttTienKhachDuaKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setText("Tổng tiền SP :");
+
+        lblTongTien.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblTongTien.setText("0");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel7.setText("Thanh toán :");
+        jLabel7.setText("Cần Thanh toán :");
 
         lblThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblThanhToan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lblThanhToan.setText("0");
 
-        lblMaKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblMaKH.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
 
         lblTenKH.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
@@ -166,14 +222,17 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
 
         lblSDTNN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
+        jLabel13.setForeground(new java.awt.Color(102, 102, 102));
         jLabel13.setText("Số điện thoại :");
 
+        jLabel14.setForeground(new java.awt.Color(102, 102, 102));
         jLabel14.setText("Địa chỉ người nhận :");
 
         lblDiaChi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
         lblTenNN.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
+        jLabel17.setForeground(new java.awt.Color(102, 102, 102));
         jLabel17.setText("Tên người nhận : ");
 
         jLabel18.setText("Tiền thừa :");
@@ -184,6 +243,9 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("VNĐ");
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("VNĐ");
 
         javax.swing.GroupLayout panelTrang1Layout = new javax.swing.GroupLayout(panelTrang1);
         panelTrang1.setLayout(panelTrang1Layout);
@@ -227,8 +289,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                                     .addGap(23, 23, 23)
                                     .addComponent(jLabel17)
                                     .addGap(12, 12, 12)
-                                    .addComponent(lblTenNN, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(lblTenNN, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelTrang1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -241,7 +302,9 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(lblThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel1)
+                                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel6))
                                 .addGap(47, 47, 47)
                                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txttTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -257,7 +320,8 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
                                 .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jSeparator1))
                 .addContainerGap())
         );
         panelTrang1Layout.setVerticalGroup(
@@ -314,16 +378,17 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                                 .addComponent(lblSDTNN)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelTrang1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txttTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(70, 70, 70))
                             .addGroup(panelTrang1Layout.createSequentialGroup()
                                 .addGap(29, 29, 29)
                                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel5)
-                                    .addComponent(lblTongTien))
+                                    .addComponent(lblTongTien)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblThanhToan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,11 +396,15 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                                         .addComponent(jLabel7)
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
-                .addGap(10, 10, 10)
-                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(lblTienThua))
-                .addGap(10, 10, 10)
+                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTrang1Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel18)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -349,7 +418,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(panelTrang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,12 +437,66 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     }//GEN-LAST:event_lblXacNhanMouseClicked
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        // TODO add your handling code here:
+        try {
+            music();
+            dispose();
+        } catch (UnsupportedAudioFileException ex) {
+            
+        } catch (IOException ex) {
+         
+        } catch (LineUnavailableException ex) {
+         
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
     dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
+
+    private void txttTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttTienKhachDuaKeyReleased
+      
+        if (txttTienKhachDua.getText().trim().isEmpty()) {
+            lblTienThua.setText("");
+            return;
+        }
+        long tienTT = tienThanhToan;
+        try {
+            long tienKhachDua = Long.parseLong(txttTienKhachDua.getText());
+            long tienTraLai = tienKhachDua - tienTT;
+
+            if (tienTraLai >= 0) {
+                lblTienThua.setText(tienTraLai + "  VNĐ");
+            }
+            if (txtTienPhiShip.getText().trim().isEmpty()) {
+            Msgbox.waring(f, "Không được để trống tiền ship!");
+            txtTienPhiShip.requestFocus();
+          
+        }
+        } catch (NumberFormatException e) {
+            Msgbox.waring(new MainJFrame(), "Nhập quá ký tự cho phép!");
+            return;
+        }
+    }//GEN-LAST:event_txttTienKhachDuaKeyReleased
+
+    private void txtTienPhiShipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienPhiShipKeyReleased
+       
+        try {
+             long tienTT = tienThanhToan;
+             long tienship = Long.parseLong(txtTienPhiShip.getText());
+            if(tienship > 10000 || tienship < 100000){
+                tienThanhToan = tongTien + tienship;
+                lblThanhToan.setText(tienThanhToan + "");
+                if(txtTienPhiShip.getText().trim().length() < 5){
+                lblThanhToan.setText(tongTien + "");
+            }
+            }else{
+                    Msgbox.waring(f, "Tiền ship phải (10000 - 100000)");
+                }
+        } catch (Exception e) {
+                    Msgbox.waring(f, "Tiền ship phải là số");
+                    return;
+        }
+    }//GEN-LAST:event_txtTienPhiShipKeyReleased
 
    
     public static void main(String args[]) {
@@ -427,6 +550,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

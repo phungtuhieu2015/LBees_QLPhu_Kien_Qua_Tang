@@ -190,6 +190,7 @@ public class MessageDialog extends javax.swing.JDialog {
     private void cmdCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCancelActionPerformed
         messageType = MessageType.CANCEL;
         closeMessage();
+        
     }//GEN-LAST:event_cmdCancelActionPerformed
 
     private void cmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOKActionPerformed
