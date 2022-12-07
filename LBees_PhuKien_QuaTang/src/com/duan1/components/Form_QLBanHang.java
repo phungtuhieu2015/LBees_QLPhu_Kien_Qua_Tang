@@ -46,7 +46,7 @@ import javax.swing.table.TableRowSorter;
  * @author ASUS
  */
 public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
-
+    
     SanPhamDAO daoSP = new SanPhamDAO();
     List<SanPham> listSP = null;
     List<HoaDonChiTiet> listHDCT = new ArrayList<>();
@@ -69,7 +69,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         init();
     }
     MainJFrame frame = new MainJFrame();
-
+    
     public void init() {
         Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
         Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
@@ -79,7 +79,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         loadData();
     }
     DefaultTableModel model;
-
+    
     public void loadData() {
         int tt = 0;
         model = (DefaultTableModel) tblSanPham.getModel();
@@ -100,7 +100,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         } catch (Exception e) {
         }
     }
-
+    
     public void clearGH() {
         listHDCT.removeAll(listHDCT);
         loadDataToGH();
@@ -200,7 +200,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             addDataGHMV(maVach);
         }
     }
-
+    
     public void addDataGHMV(String maVach) {
         SanPham sp = daoSP.selectByMV(maVach);
         HoaDonChiTiet hdct = new HoaDonChiTiet();
@@ -213,9 +213,9 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         setTrangThai();
         loadDataToGH();
         loadData();
-
+        
     }
-
+    
     public void loadDataToGH() {
         DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
         model.setRowCount(0);
@@ -226,10 +226,10 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
                 Object[] row = {
                     tt++,
                     hdct.getMaSP(),
-                     sp.getTenSP(),
-                     hdct.getSoLuong(),
-                     sp.getDonGia(),
-                     hdct.getThanhTien()
+                    sp.getTenSP(),
+                    hdct.getSoLuong(),
+                    sp.getDonGia(),
+                    hdct.getThanhTien()
                 };
                 model.addRow(row);
                 model.fireTableDataChanged();
@@ -237,7 +237,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         } catch (Exception e) {
         }
     }
-
+    
     public void deleteAll() {
         if (listHDCT.isEmpty()) {
             Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
@@ -249,10 +249,10 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         } else {
             chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
         }
-
+        
         if (chon) {
             listSP = daoSP.selectAll();
-
+            
             SanPham n = new SanPham();
             for (HoaDonChiTiet h : listHDCT) {
                 for (SanPham sp : listSP) {
@@ -267,16 +267,16 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             loadData();
             loadDataToGH();
         }
-
+        
     }
-
+    
     public void findIdAndName(String IdAndName) {
         model = (DefaultTableModel) tblSanPham.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblSanPham.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
     }
-
+    
     public void delete(int index) {
         if (listHDCT.isEmpty()) {
             Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
@@ -299,9 +299,9 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             loadData();
             loadDataToGH();
         }
-
+        
     }
-
+    
     private void initWebcam() {
         Dimension size = WebcamResolution.VGA.getSize();
         webcam = Webcam.getWebcams().get(0);
@@ -313,7 +313,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         panel.setFPSDisplayed(true);
 //2592, 1944
         jPanel2.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 200));
-
+        
         executor.execute(this);
     }
 
@@ -326,7 +326,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         do {
             try {
                 Thread.sleep(100);
-
+                
             } catch (InterruptedException ex) {
                 Logger.getLogger(com.duan1.components.MyWebCam.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -344,6 +344,16 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
                 result = new MultiFormatReader().decode(bitmap);
             } catch (NotFoundException ex) {
 //                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
+                if (checks == 1) {
+                    List<SanPham> s = new ArrayList<>();
+                    s = daoSP.selectAll();
+                    for (SanPham sanPham : s) {
+                        if (sanPham.getMaVach().equals(txtMaVach.getText())) {
+                            updateGHMV(txtMaVach.getText());
+                            txtMaVach.setText("");
+                        }
+                    }
+                }
                 if (checks == 0) {
                     webcam.close();
                     deleteAll();
@@ -356,21 +366,21 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             if (txtMaVach.getText().length() > 0) {
                 try {
                     Desktop.getDesktop().browse(new URI(txtMaVach.getText()));
-                    i = false;
+                    i = true;
                 } catch (IOException | URISyntaxException ex) {
 //                    i = true;
                 }
             }
         } while (i);
     }
-
+    
     @Override
     public Thread newThread(Runnable r) {
         Thread t = new Thread(r, "My Thread");
         t.setDaemon(true);
         return t;
     }
-
+    
     public void setTrangThai() {
         listSP = daoSP.selectAll();
         for (SanPham s : listSP) {
@@ -382,10 +392,10 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             }
         }
     }
-
+    
     public boolean checkSL() {
         int soLuong = (int) tblSanPham.getValueAt(index, 3);
-
+        
         if (soLuong < Integer.parseInt(sl)) {
             Msgbox.waring(frame, "Số lượng sản phẩm hiện tại không đủ!");
             return false;
@@ -696,7 +706,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     private void btnXoaKhoiGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKhoiGioActionPerformed
         index = tblGioHang.getSelectedRow();
         delete(index);
-
+        
 
     }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
 
@@ -707,7 +717,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     }//GEN-LAST:event_btnDatHangActionPerformed
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-
+        
         index = tblSanPham.getSelectedRow();
         String mv = (String) tblSanPham.getValueAt(index, 5);
         txtMaVach.setText(mv);
@@ -760,7 +770,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     }//GEN-LAST:event_tblSanPhamMouseEntered
 
     private void txtMaVachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaVachKeyReleased
-
+        
 
     }//GEN-LAST:event_txtMaVachKeyReleased
 
@@ -770,7 +780,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             s = daoSP.selectAll();
             for (SanPham sanPham : s) {
                 if (sanPham.getMaVach().equals(txtMaVach.getText())) {
-
+                    
                     updateGHMV(txtMaVach.getText());
                     return;
                 }
