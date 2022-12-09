@@ -13,6 +13,7 @@ public class loginJFrame extends javax.swing.JFrame {
     public loginJFrame() {
         initComponents();
         this.setIconImage(ImgHelper.APP_ICON);
+        
     }
 
     TaiKhoanDAO dao = new TaiKhoanDAO();

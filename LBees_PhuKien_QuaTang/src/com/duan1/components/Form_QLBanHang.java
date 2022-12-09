@@ -293,7 +293,6 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             String maSP = (String) tblGioHang.getValueAt(this.index, 1);
             n = daoSP.selectByid(maSP);
             int sl = (int) tblGioHang.getValueAt(index, 3);
-            JOptionPane.showMessageDialog(frame, sl);
             daoSP.updateSL(maSP, n.getSoLuong() + sl);
             setTrangThai();
             loadData();
@@ -720,7 +719,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         
         index = tblSanPham.getSelectedRow();
         String mv = (String) tblSanPham.getValueAt(index, 5);
-        txtMaVach.setText(mv);
+//        txtMaVach.setText(mv);
         updateGHMV(mv);
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
