@@ -143,41 +143,39 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }
 
     public void insert() {
-        KhachHang kh = new KhachHang();
-        kh = getForm();
-        if (kh != null) {
+        KhachHang kh = getForm();
+        if(Msgbox.yesNo("Bạn có muốn thêm khách hàng", "bạn chắc chắn không?")){
             daoKH.insert(kh);
             loadData();
             clear();
             Msgbox.success(frame, "Thêm khách hàng thành công");
-
+            Tabpane.setSelectedIndex(1);
+            
+        }else{
+            Msgbox.waring(frame, "Thêm khách hàng không thành công");
         }
-
     }
-
+    public void update() {
+        KhachHang kh = getForm();
+         if (Msgbox.yesNo("bạn có muốn cập nhật khách hàng", "bạn chắc chắn không???")) {
+            daoKH.update(kh);
+            loadData();
+            clear();
+            Msgbox.success(frame, "cập nhật khách hàng thành công");
+            Tabpane.setSelectedIndex(1);
+        } else {
+            Msgbox.waring(frame, "cập nhật khách hàng không thành công");
+        }
+    }
     public void delete() {
-
-        if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {         
+        if (Msgbox.yesNo("bạn có muốn xóa khách hàng", "bạn chắc chắn không???")) {         
             String maKH = txtMaKhachHang.getText();
             daoKH.delete(maKH);
             loadData();
             clear();
             Msgbox.success(frame, "Xóa khách hàng thành công");
-
         } else {
             Msgbox.waring(frame, "Xóa khách hàng không thành công");
-        }
-    }
-
-    public void update() {
-        KhachHang modelKH = getForm();
-        try {
-            daoKH.update(modelKH);
-            loadData();
-            clear();
-
-        } catch (RuntimeException e) {
-
         }
     }
 
@@ -241,6 +239,74 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         trs.setRowFilter(RowFilter.regexFilter("(?i)"+IdAndName, 0,1));
         
     }
+     public boolean check() {
+        String MAKH_REGEX = "(?i)[kh]{2}\\d{5}"; 
+        boolean MAKH = txtMaKhachHang.getText().matches(MAKH_REGEX);
+        if (txtMaKhachHang.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Mã khách hàng không được để trống");
+            txtMaKhachHang.requestFocus();
+            return false;
+        }
+        if (MAKH != true) {
+            Msgbox.waring(frame, "Mã khách hàng không đúng định dạng (KH00001)");
+            txtMaKhachHang.requestFocus();
+            return false;
+        }
+        
+        
+        //^([a-z]+)((\s{1}[a-z]+){1,})$
+        String TENKH_REGEX = "^([A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\s{1}[A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+
+        boolean TENKH = txtTenKhachHang.getText().matches(TENKH_REGEX);
+        if (txtTenKhachHang.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Tên khách hàng không được để trống");
+            txtTenKhachHang.requestFocus();
+            return false;
+        }
+        if (TENKH != true) {
+            Msgbox.waring(frame, "Tên khách hàng không đúng định dạng (Nguyễn Văn A)");
+            txtTenKhachHang.requestFocus();
+            return false;
+        }
+        
+        //
+        
+        String SDTKH_REGEX = "^0[9834]\\d{8}";
+        boolean SDTKH = txtSDT.getText().matches(SDTKH_REGEX);
+        if (txtSDT.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Số điện thoại không được để trống");
+            txtSDT.requestFocus();
+            return false;
+        }
+        if (SDTKH != true) {
+            Msgbox.waring(frame, "Số điện thoại không đúng định dạng");
+            txtSDT.requestFocus();
+            return false;
+        }
+        
+        //
+        
+        if (txtDiemTichLuy.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Điểm tích lũy không được để trống");
+            txtDiemTichLuy.requestFocus();
+            return false;
+        } else {
+            try {
+                double diem = Integer.parseInt(txtDiemTichLuy.getText());
+                if (diem < 0) {
+                    Msgbox.waring(frame, "Điểm tích lũy phải lớn hơn 0");
+                    txtDiemTichLuy.requestFocus();
+                    return false;
+                }
+            } catch (Exception e) {
+                Msgbox.waring(frame, "Vui lòng nhập điểm tích lũy bằng số");
+                txtDiemTichLuy.requestFocus();
+                return false;
+            }
+        }
+
+        return true;
+     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -516,35 +582,25 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-
-        if (evt.getClickCount() == 2) {
-            Tabpane.setSelectedIndex(0);
             int index = tblKhachHang.getSelectedRow();
-            display(index);
-        }
-
+             if (evt.getClickCount() == 2) {
+                display(index);  
+             Tabpane.setSelectedIndex(0);
+            }
+           
+            
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-
-        insert();
-
-
+        if (check()) {
+            insert();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-//        mdl.showMessage("SỬA KHÁCH HÀNG", "Bạn có chắc chắn sửa khách hàng không");
-//
-//        if (mdl.getMessageType() == MessageDialog.MessageType.OK) {
-//            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Sửa khách hàng thành công");
-//            noti.showNotification();
-//        } else {
-//            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Sửa khách hàng không thành công");
-//            noti.showNotification();
-//        }
-        update();
-
-
+        if (check()) {
+            update();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
@@ -552,24 +608,13 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-
+        clear();
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-        
-        if(tblKhachHang.getRowHeight(0) == 0){
             String ID = txtTimKiem.getText().trim();
             findIdAndName(ID);
             loadData();
-        }else{
-            Msgbox.waring(frame, "thông tìm thấy");
-        }
-        
-        
-//        listKH = daoKH.selectByKeyword(keyID);
-//        if (list.size() == 0) {
-//            Msgbox.error(this, "Người học không tồn tại !");
-//        }
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void txtTimKiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMousePressed
