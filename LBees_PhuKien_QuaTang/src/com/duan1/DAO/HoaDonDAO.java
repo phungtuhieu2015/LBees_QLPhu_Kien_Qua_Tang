@@ -5,6 +5,7 @@
 package com.duan1.DAO;
 
 import com.duan1.Entity.HoaDon;
+import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,16 +23,16 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
     String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDon";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
-String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
- String select_ByID_SQL_TK = "SELECT * FROM dbo.HoaDon WHERE NgayTao=?";
+    String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
+
     @Override
     public void insert(HoaDon entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(),entity.getTienShip(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getTienShip(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
     }
 
     @Override
     public void update(HoaDon entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(),entity.getTienShip(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
+        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(), entity.getTienShip(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
     }
 
     @Override
@@ -52,17 +53,19 @@ String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
         }
         return list.get(0);
     }
-public String select_Last_ID() throws SQLException{
-        ResultSet rs =  XJdbc.executeQuery(select_Max_ID);
+
+    public String select_Last_ID() throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_Max_ID);
         return rs.getString("MaHD");
     }
+
     @Override
     protected List<HoaDon> selectBySql(String sql, Object... args) {
-                        List<HoaDon> list = new ArrayList<>();
+        List<HoaDon> list = new ArrayList<>();
         try {
             ResultSet rs = XJdbc.executeQuery(sql, args);
-            while (rs.next()) {                
-                HoaDon entity  = new HoaDon();
+            while (rs.next()) {
+                HoaDon entity = new HoaDon();
                 entity.setMaHD(rs.getString("MaHD"));
                 entity.setNgayTao(rs.getDate("NgayTao"));
                 entity.setTienShip(rs.getFloat("TienShip"));
@@ -70,30 +73,25 @@ public String select_Last_ID() throws SQLException{
                 entity.setMaNV(rs.getString("MaNV"));
                 entity.setMaKH(rs.getString("MaKH"));
                 list.add(entity);
-            } 
+            }
             rs.getStatement().getConnection().close();
             return list;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public List<HoaDon> selectByKeyword(String keyword){
+
+    public List<HoaDon> selectByKeyword(String keyword) {
         String sql = "SELECT * FROM HoaDon WHERE MaHD LIKE ?";
-        return this.selectBySql(sql, "%"+keyword+'%');
+        return this.selectBySql(sql, "%" + keyword + '%');
     }
-    
-    public HoaDon selectByid_tk(String NgayTao) {
-        List<HoaDon> list = this.selectBySql(select_ByID_SQL_TK, NgayTao);
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
+
+    public List<HoaDon> selectByDate(String tuNgay, String denNgay) {
+        String sql = "SELECT * FROM dbo.HoaDon WHERE NgayTao BETWEEN ? AND ?";
+        return this.selectBySql(sql, tuNgay, denNgay);
     }
-    public List<HoaDon> selectByKeyword_tk(String keyword){
-        String sql = "SELECT * FROM HoaDon WHERE NgayTao LIKE ?";
-        return  this.selectBySql(sql, "%"+keyword+'%' );
-    }
-  protected Integer tongSLHoaDon(String sql) throws SQLException {
+
+    protected Integer tongSLHoaDon(String sql) throws SQLException {
 
         int sl = 0;
         try {
@@ -108,11 +106,14 @@ public String select_Last_ID() throws SQLException{
         }
         return sl;
     }
-
+    
     public int s() throws SQLException {
         String tong = "SELECT  COUNT(MaHD) as'tong'  FROM dbo.HoaDon";
         return tongSLHoaDon(tong);
     }
-   
+//    public List<HoaDon> tuNgayDenNgay(String tuNgay, String denNgay){
+//        String ngay = "select * from hoadon where NgayTao BETWEEN '?' and '?'";
+//        return this.selectBySql(ngay, tuNgay,denNgay);
+//    }
+//   
 }
-

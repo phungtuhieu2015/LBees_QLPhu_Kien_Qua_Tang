@@ -1,5 +1,6 @@
 package com.duan1.ui;
 
+import com.duan1.Helper.Msgbox;
 import com.duan1.components.Form_LSHoaDon;
 import com.duan1.components.Form_QLBanHang;
 import com.duan1.components.Form_QLDanhMuc;
@@ -55,9 +56,8 @@ public class MainJFrame extends javax.swing.JFrame {
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
-       
+
     }
-    
 
     private void init() {
         mainJFrame = this;
@@ -83,7 +83,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 } else if (index == 1 && indexSubMenu == 5) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLDanhMuc());
-                    
+
                 } else if (index == 2 && indexSubMenu == 0) {
                     MyWebCam.check = 0;
                     showForm(new Form_QLSanPham());
@@ -345,8 +345,10 @@ public class MainJFrame extends javax.swing.JFrame {
         thoiGian.start();
     }
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        MyWebCam.check = 0;
+
+          MyWebCam.check = 0;
         System.exit(0);
+        
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void lblBaChamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblBaChamMouseClicked
@@ -354,7 +356,7 @@ public class MainJFrame extends javax.swing.JFrame {
         int mPoY = MouseInfo.getPointerInfo().getLocation().y;
 
         //showw popupmenu
-        popupMenu.show(this, 1050,45);
+        popupMenu.show(this, 1050, 45);
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
@@ -366,7 +368,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel4MouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-   
+
     }//GEN-LAST:event_formKeyReleased
 
     public static void main(String args[]) {

@@ -163,4 +163,8 @@ public class MyTextField2 extends JTextField {
         }
         super.setText(string);
     }
+
+    public String getText(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

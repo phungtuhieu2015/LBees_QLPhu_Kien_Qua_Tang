@@ -6,6 +6,7 @@
 package com.duan1.Helper;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -59,6 +60,10 @@ public class XJdbc {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void setDate(Date valueOf) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
    
 }

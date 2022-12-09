@@ -34,6 +34,10 @@ public class XDate {
         cal.add(Calendar.DAY_OF_MONTH,days);
         return cal.getTime();
     }
+
+    public static String toString(Date ngayTao) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
    
     
 }
