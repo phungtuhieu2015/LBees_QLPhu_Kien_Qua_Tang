@@ -21,15 +21,26 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
     String delete_SQL = "DELETE dbo.SanPhamBan WHERE MaSP =?";
     String select_All_SQL = "SELECT * FROM dbo.SanPhamBan";
     String select_ByID_SQL = "SELECT * FROM dbo.SanPhamBan WHERE MaSP=?";
+    String select_ByMV_SQL = "SELECT * FROM dbo.SanPhamBan WHERE MaVach=?";
+    String select_BySL_SQL = "Update dbo.SanPhamBan set SoLuong=? WHERE MaSP= ?";
+    String select_ByTT_SQL = "Update dbo.SanPhamBan set TrangThai=? WHERE MaSP= ?";
 
     @Override
     public void insert(SanPham entity) {
         XJdbc.executeUpdate(insert_SQL, entity.getMaSP(), entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM());
     }
 
+    public void updateTT(String maSP, String trangThai) {
+        XJdbc.executeUpdate(select_ByTT_SQL, trangThai, maSP);
+    }
+
     @Override
     public void update(SanPham entity) {
         XJdbc.executeUpdate(update_SQL, entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM(), entity.getMaSP());
+    }
+
+    public void updateSL(String MaSP, int sl) {
+        XJdbc.executeUpdate(select_BySL_SQL, sl, MaSP);
     }
 
     @Override
@@ -45,6 +56,14 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
     @Override
     public SanPham selectByid(String key) {
         List<SanPham> list = this.selectBySql(select_ByID_SQL, key);
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
+    }
+
+    public SanPham selectByMV(String key) {
+        List<SanPham> list = this.selectBySql(select_ByMV_SQL, key);
         if (list.isEmpty()) {
             return null;
         }
@@ -76,8 +95,9 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
             throw new RuntimeException(e);
         }
     }
+
     public List<SanPham> selectByKeyword(String keyword) {
         String sql = "SELECT * FROM dbo.SanPhamBan WHERE MaSP LIKE ? OR TenSP LIKE  ?";
-        return this.selectBySql(sql, "%" + keyword + "%","%" + keyword + "%");
+        return this.selectBySql(sql, "%" + keyword + "%", "%" + keyword + "%");
     }
 }

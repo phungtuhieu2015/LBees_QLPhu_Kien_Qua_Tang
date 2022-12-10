@@ -23,12 +23,14 @@ import javax.swing.JTextField;
  */
 public class ImgHelper {
 
-//    public static final Image APP_ICON;
-//
-//    static {
-//        String file = "LBees_PhuKien_QuaTang\\Picture\\tray.png";
-////        APP_ICON = new ImageIcon(ImgHelper.class.getResource(file)).getImage();
-//    }
+    public static final Image APP_ICON;
+
+    static {
+        String file = "/Bird.jpg";
+        APP_ICON = new ImageIcon(ImgHelper.class.getResource(file)).getImage();
+
+    }
+
     public static boolean saveLogo(File file) {
         File dir = new File("Picture");
         if (!dir.exists()) {   //Không tìm thấy tệp!  .check file có tồn tại không.
@@ -62,7 +64,7 @@ public class ImgHelper {
         FileChooser = new javax.swing.JFileChooser();
         if (FileChooser.showOpenDialog(parentComponent) == JFileChooser.APPROVE_OPTION) {
             File file = FileChooser.getSelectedFile();
-
+            System.out.println(file);
             if (ImgHelper.saveLogo(file)) {
                 // Hiển thị hình lên form 
                 ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(file.getName()))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
@@ -71,12 +73,13 @@ public class ImgHelper {
             }
         }
     }
-        public void loadHinhVaoForm(String s,JLabel lblHinh){
-                    if (!s.equals("")) {
+
+    public void loadHinhVaoForm(String s, JLabel lblHinh) {
+        if (!s.equals("")) {
             ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(s))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
             lblHinh.setIcon(hinhanh);
             // lblHinh.setIcon(ImgHelper.readLogo(cd.getHinhString()));
         }
-        }
+    }
 
 }

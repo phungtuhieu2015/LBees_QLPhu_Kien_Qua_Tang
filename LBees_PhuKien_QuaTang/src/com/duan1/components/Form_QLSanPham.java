@@ -52,6 +52,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         txtSoLuong.setHint("Số lượng");
         txtDonGia.setHint("Đơn giá");
     }
+    int tt = 0;
 
     void loadDaTa() {
         listSP = daoSP.selectAll();
@@ -60,6 +61,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         try {
             for (SanPham sp : listSP) {
                 Object[] row = {
+                    tt++,
                     sp.getMaSP(),
                     sp.getTenSP(),
                     sp.getSoLuong(),
@@ -98,7 +100,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         s.setDonViTinh(String.valueOf(cboDonViTinh.getSelectedItem()));
         s.setTrangThai(String.valueOf(cboTrangThai.getSelectedItem()));
         s.setMaDM(String.valueOf(cboDanhMuc.getSelectedItem()));
-        s.setMaVach("Barcode" + txtMaSP.getText());
+        s.setMaVach(txtMaSP.getText());
         s.setMaNV("NV00001");
         s.setHinhAnh(txtHinh.getText());
         return s;
@@ -124,6 +126,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             s = getForm();
             daoSP.insert(s);
             Msgbox.success(frame, "Thêm thành công sản phẩm !");
+            loadDaTa();
             clear();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -137,6 +140,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             daoSP.update(s);
             Msgbox.success(frame, "Cập nhật thành công sản phẩm !");
             clear();
+            loadDaTa();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
@@ -214,9 +218,8 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         model = (DefaultTableModel) tblSanPham.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName,0,4));
-    
-        
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 4));
+
     }
 
     public void filterByStatus(String IdAndName) {
@@ -457,28 +460,28 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
         tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã  SP", "Tên SP", "Số Lượng", "Đơn Giá", "Trạng Thái", "Mã Danh Mục", "Mã Nhân Viên", "Hình Ảnh"
+                "TT", "Mã  SP", "Tên SP", "Số Lượng", "Đơn Giá", "Trạng Thái", "Mã Danh Mục", "Mã Nhân Viên", "Hình Ảnh"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -495,6 +498,10 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             }
         });
         scroll_SPBan.setViewportView(tblSanPham);
+        if (tblSanPham.getColumnModel().getColumnCount() > 0) {
+            tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(30);
+        }
 
         cboTab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đang kinh doanh", "Không còn bán", "Hết hàng" }));
         cboTab.addActionListener(new java.awt.event.ActionListener() {
@@ -636,7 +643,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
         findIdAndName(txtTimKiem.getText());
         System.out.println(txtTimKiem.getText());
-        
+
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
 

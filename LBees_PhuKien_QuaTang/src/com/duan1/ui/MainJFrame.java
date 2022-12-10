@@ -1,5 +1,8 @@
 package com.duan1.ui;
 
+import com.duan1.Helper.Auth;
+import com.duan1.Helper.ImgHelper;
+import com.duan1.Helper.Msgbox;
 import com.duan1.components.Form_LSHoaDon;
 import com.duan1.components.Form_QLBanHang;
 import com.duan1.components.Form_QLDanhMuc;
@@ -16,13 +19,14 @@ import com.duan1.swing.EventMenuSelected;
 import java.awt.Component;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.components.Main_Form;
-import com.duan1.components.MyWebCam;
+import com.duan1.components.Form_QLBanHang;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.MouseInfo;
 import java.awt.RenderingHints;
 import java.awt.event.ActionEvent;
@@ -46,6 +50,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.Timer;
 
@@ -57,56 +62,72 @@ public class MainJFrame extends javax.swing.JFrame {
     private static MainJFrame mainJFrame;
 
     public MainJFrame() {
+
         initComponents();
+        checkDN();
         init();
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
+        this.setIconImage(ImgHelper.APP_ICON);
+    }
+    int indexx = 0;
 
+    public void checkDN() {
+        if (Auth.isLogin()) {
+            lblCVFN.setText(Auth.role());
+
+            lblTen.setText(Auth.tk.getTenTK());
+        } else {
+//            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập", "Hệ thống", JOptionPane.ERROR_MESSAGE);
+//            System.exit(0);
+        }
     }
 
     private void init() {
         mainJFrame = this;
-
         menu.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
                 if (index == 0 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    if (indexx == 3) {
+                        Form_QLBanHang.checks = 0;
+                    }
                     showForm(new Main_Form());
                 } else if (index == 1 && indexSubMenu == 1) {
-                    MyWebCam.check = 1;
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLKhachHang());
                     
                 } else if (index == 1 && indexSubMenu == 2) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNhanVien());
                     
                 } else if (index == 1 && indexSubMenu == 3) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNguoiGiaoHang());
                     
                 } else if (index == 1 && indexSubMenu == 4) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLTaiKhoan());
                      
                 } else if (index == 1 && indexSubMenu == 5) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLDanhMuc());
-
                 } else if (index == 2 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_QLSanPham());
                     
                 } else if (index == 3 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    indexx = index;
+                    Form_QLBanHang.checks = 1;
                     showForm(new Form_QLBanHang());
                      
                 } else if (index == 4 && indexSubMenu == 0) {
+                    Form_QLBanHang.checks = 0;
                     showForm(new Form_LSHoaDon());
                     
                 } else if (index == 5 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                     try {
                         showForm(new Form_ThongKe());
                     } catch (SQLException ex) {
@@ -114,11 +135,11 @@ public class MainJFrame extends javax.swing.JFrame {
                     }
                      
                 } else if (index == 6 && indexSubMenu == 0) {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 2;
                     showForm(new Form_QuaTang());
                      
                 } else {
-                    MyWebCam.check = 0;
+                    Form_QLBanHang.checks = 0;
                 }
             }
         });
@@ -155,7 +176,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -167,8 +188,9 @@ public class MainJFrame extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         lblAvatar = new javax.swing.JLabel();
         lblDongHo = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblCVFN = new javax.swing.JLabel();
         lblBaCham = new javax.swing.JLabel();
+        lblTen = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -245,11 +267,11 @@ public class MainJFrame extends javax.swing.JFrame {
         lblDongHo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDongHo.setText("00:00:00");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        jLabel4.setText("admin");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblCVFN.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblCVFN.setText("admin");
+        lblCVFN.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                lblCVFNMouseClicked(evt);
             }
         });
 
@@ -259,6 +281,8 @@ public class MainJFrame extends javax.swing.JFrame {
                 lblBaChamMouseClicked(evt);
             }
         });
+
+        lblTen.setText("Khanh");
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
@@ -275,8 +299,11 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(lblAvatar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDongHo)
-                            .addComponent(jLabel4))
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCVFN))
+                            .addComponent(lblDongHo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -290,7 +317,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addGroup(backgroundLayout.createSequentialGroup()
                             .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(0, 0, 0)
-                            .addComponent(jLabel4))
+                            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblCVFN)
+                                .addComponent(lblTen)))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(lblAvatar)))
@@ -364,8 +393,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
    
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
-        MyWebCam.check = 0;
+        Form_QLBanHang.checks = 0;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Auth.clear();
         System.exit(0);
     }//GEN-LAST:event_lblThoatMouseClicked
 
@@ -381,9 +411,9 @@ public class MainJFrame extends javax.swing.JFrame {
         new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
     }//GEN-LAST:event_lblAvatarMouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void lblCVFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCVFNMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_lblCVFNMouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
 
@@ -435,10 +465,11 @@ public class MainJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel background;
     private javax.swing.JPanel body;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBaCham;
+    private javax.swing.JLabel lblCVFN;
     private javax.swing.JLabel lblDongHo;
+    private javax.swing.JLabel lblTen;
     private javax.swing.JLabel lblThoat;
     private com.duan1.swing.Menu menu;
     private javax.swing.JPanel panelMenuu;
