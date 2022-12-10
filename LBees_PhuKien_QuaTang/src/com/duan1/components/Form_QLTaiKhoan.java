@@ -581,6 +581,7 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
 
             display(sec);
             Tabpane.setSelectedIndex(0);
+           
 
         }
     }//GEN-LAST:event_tblQLTKMouseClicked

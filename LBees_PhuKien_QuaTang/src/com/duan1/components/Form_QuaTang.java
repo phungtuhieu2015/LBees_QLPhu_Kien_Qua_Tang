@@ -200,8 +200,8 @@ public class Form_QuaTang extends javax.swing.JPanel {
     public void clear() {
         txtDiaChiNN.setText("");
         txtGhiChu.setText("");
-        txtMaDH.setText("");
-        txtMaHD.setText("");
+//        txtMaDH.setText("");
+//        txtMaHD.setText("");
         txtNgayGiao.setText("");
         txtSDTKH.setText("");
         txtSDTNN.setText("");
@@ -237,7 +237,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
     public QuaTang getForm() {
         String s = String.valueOf(cboNGH.getSelectedItem());
-        String maNGH = s.substring(s.length() - 8, s.length());
+        String maNGH = s.substring(s.length() - 10, s.length());
         QuaTang qt = new QuaTang();
         qt.setMaDH(txtMaDH.getText());
         try {
@@ -421,7 +421,7 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
     public boolean check() {
 
-        String Ten_REG = "\"^([A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\\\s{1}[A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+        String Ten_REG = "\"^([A-ZĐa-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\\\s{1}[A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
         boolean TenKH = txtTenKH.getText().matches(Ten_REG);
         boolean TenNN = txtTenNN.getText().matches(Ten_REG);
 
@@ -649,11 +649,6 @@ public class Form_QuaTang extends javax.swing.JPanel {
         txtTimKiemGH = new com.duan1.swing.TextFieldAnimation();
         pnlCapNhat = new javax.swing.JPanel();
         btn = new javax.swing.JPanel();
-        pnlThemSuaXoa = new javax.swing.JPanel();
-        btnThem = new com.duan1.swing.Button();
-        btnSua = new com.duan1.swing.Button();
-        btnXoa = new com.duan1.swing.Button();
-        btnMoi = new com.duan1.swing.Button();
         pnlDieuHuong = new javax.swing.JPanel();
         btnFirst = new com.duan1.swing.Button();
         btnPrev = new com.duan1.swing.Button();
@@ -671,6 +666,10 @@ public class Form_QuaTang extends javax.swing.JPanel {
         txtNgayGiao = new com.duan1.swing.MyTextField2();
         txtMaHD = new com.duan1.swing.MyTextField2();
         txtTenKH = new com.duan1.swing.MyTextField2();
+        btnMoi = new com.duan1.swing.Button();
+        btnXoa = new com.duan1.swing.Button();
+        btnThem = new com.duan1.swing.Button();
+        btnSua = new com.duan1.swing.Button();
         pnlDanhSach = new javax.swing.JPanel();
         ScrollQT = new javax.swing.JScrollPane();
         tblQuaTang = new com.duan1.swing.Table();
@@ -886,45 +885,6 @@ public class Form_QuaTang extends javax.swing.JPanel {
 
         btn.setBackground(new java.awt.Color(255, 255, 255));
 
-        pnlThemSuaXoa.setBackground(new java.awt.Color(255, 255, 255));
-        pnlThemSuaXoa.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
-
-        btnThem.setText("Thêm");
-        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(btnThem);
-
-        btnSua.setText("Sửa");
-        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(btnSua);
-
-        btnXoa.setText("Xóa");
-        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(btnXoa);
-
-        btnMoi.setText("Mới");
-        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnMoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoiActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(btnMoi);
-
         pnlDieuHuong.setBackground(new java.awt.Color(255, 255, 255));
         pnlDieuHuong.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
@@ -977,34 +937,71 @@ public class Form_QuaTang extends javax.swing.JPanel {
         txtMaHD.setEditable(false);
         txtMaHD.setBackground(new java.awt.Color(255, 255, 255));
 
+        btnMoi.setText("Mới");
+        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnMoi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoiActionPerformed(evt);
+            }
+        });
+
+        btnXoa.setText("Xóa");
+        btnXoa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
+
+        btnThem.setText("Xác nhận");
+        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
+
+        btnSua.setText("Sửa");
+        btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSuaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout btnLayout = new javax.swing.GroupLayout(btn);
         btn.setLayout(btnLayout);
         btnLayout.setHorizontalGroup(
             btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(btnLayout.createSequentialGroup()
                 .addGap(60, 60, 60)
-                .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(btnLayout.createSequentialGroup()
-                        .addComponent(pnlThemSuaXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(171, 171, 171)
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                         .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(ahihi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(btnLayout.createSequentialGroup()
-                            .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cboTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                    .addComponent(txtTenKH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addComponent(txtSDTKH, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtSDTNN, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTenNN, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(113, 113, 113)
+                    .addComponent(ahihi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, btnLayout.createSequentialGroup()
+                        .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtMaDH, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                .addComponent(cboNGH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                .addComponent(txtMaHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtDiaChiNN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtNgayGiao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(cboTrangThai, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                .addComponent(txtTenKH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtSDTKH, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSDTNN, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTenNN, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(113, 113, 113)
+                        .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtMaDH, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(cboNGH, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(txtMaHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtDiaChiNN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNgayGiao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(129, Short.MAX_VALUE))
         );
         btnLayout.setVerticalGroup(
@@ -1037,8 +1034,12 @@ public class Form_QuaTang extends javax.swing.JPanel {
                 .addComponent(ahihi, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlThemSuaXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlDieuHuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 121, Short.MAX_VALUE))
         );
 
@@ -1151,6 +1152,10 @@ public class Form_QuaTang extends javax.swing.JPanel {
             int sec = tblQuaTang.getSelectedRow();
             display(sec);
             panelQuaTang.setSelectedIndex(1);
+            btnSua.setVisible(true);
+            btnXoa.setVisible(true);
+            btnThem.setVisible(false);
+            
         }
     }//GEN-LAST:event_tblQuaTangMouseClicked
 
@@ -1262,7 +1267,9 @@ public class Form_QuaTang extends javax.swing.JPanel {
             return;
         } else {
             panelQuaTang.setSelectedIndex(1);
-
+            btnSua.setVisible(false);
+            btnXoa.setVisible(false);
+            btnThem.setVisible(true);
         }
     }//GEN-LAST:event_btnDatHang1ActionPerformed
 
@@ -1309,7 +1316,6 @@ public class Form_QuaTang extends javax.swing.JPanel {
     private javax.swing.JPanel pnlDanhSach1;
     private javax.swing.JPanel pnlDanhSach2;
     private javax.swing.JPanel pnlDieuHuong;
-    private javax.swing.JPanel pnlThemSuaXoa;
     private com.duan1.swing.Table tblGioHang;
     private com.duan1.swing.Table tblQuaTang;
     private com.duan1.swing.Table tblSanPham;
