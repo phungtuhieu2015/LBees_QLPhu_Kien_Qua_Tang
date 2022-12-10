@@ -1,4 +1,3 @@
-
 package com.duan1.components;
 
 import com.duan1.DAO.HoaDonDAO;
@@ -21,49 +20,50 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.sound.sampled.*;
-        
+
 public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
 
     QuaTang qt = new QuaTang();
     KhachHang kh = new KhachHang();
     HoaDon hd = new HoaDon();
     KhachHangDAO daoKH = new KhachHangDAO();
-    HoaDonDAO daoHD  = new HoaDonDAO();
-    
-    String tenKH = ""; 
-    String SDTKH = ""; 
-    String MaKH = ""; 
-    String MaHD = ""; 
-    
-     MainJFrame f = new MainJFrame();
+    HoaDonDAO daoHD = new HoaDonDAO();
+
+    String tenKH = "";
+    String SDTKH = "";
+    String MaKH = "";
+    String MaHD = "";
+
+    MainJFrame f = new MainJFrame();
+
     public JDL_XacNhanThongTin_QuaTang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-         this.setBackground(new Color(0,0,0,0));
-         setHint();
-         setForm();
-       
+        this.setBackground(new Color(0, 0, 0, 0));
+        setHint();
+        setForm();
+
     }
-    
-    public void  setHint(){
+
+    public void setHint() {
         txttTienKhachDua.setLabelText("Tiền khách đưa");
         txtTienPhiShip.setLabelText("Tiền phí ship");
     }
-    
-    public QuaTang getData (QuaTang qt){
+
+    public QuaTang getData(QuaTang qt) {
         return this.qt = qt;
     }
-    
-    public void  setForm (){
-         try {
+
+    public void setForm() {
+        try {
             MaKH = "KH" + daoKH.initID();
-            MaHD ="HD" + daoHD.initID();
+            MaHD = "HD" + daoHD.initID();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         kh = new KhachHang(MaKH, tenKH, SDTKH, 0);
-        hd =  new HoaDon(MaHD, 0, new Date(), "", "NV0001", MaKH);
+        hd = new HoaDon(MaHD, 0, new Date(), "", "NV0001", MaKH);
         //set dữ liệu khh
         lblMaKH.setText(MaKH);
         lblTenKH.setText(tenKH);
@@ -73,12 +73,13 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         lblDiaChi.setText(qt.getDiaChiNN());
         lblSDTNN.setText(qt.getSDTNN());
     }
-    public void getForm (String tenKH,String SDTKH){
+
+    public void getForm(String tenKH, String SDTKH) {
         this.tenKH = tenKH;
         this.SDTKH = SDTKH;
     }
-    
-    public void seta(String makh,String tenkh, String sdtkh,String tenn,String diachi,String sdtnn){
+
+    public void seta(String makh, String tenkh, String sdtkh, String tenn, String diachi, String sdtnn) {
         lblMaKH.setText(makh);
         lblTenKH.setText(tenkh);
         lblSDTKH.setText(sdtkh);
@@ -86,7 +87,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         lblDiaChi.setText(diachi);
         lblSDTNN.setText(sdtnn);
     }
-    
+
     public long lamTron(int tongTien) {
         int tienTT = tongTien;
         int donViTram = tongTien % 1000;
@@ -99,23 +100,26 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         }
         return tienTT;
     }
-     
+
     long tongTien = 0;
     long tienThanhToan = 0;
+
     public void setTongTienSP(int tongTien) {
         this.tongTien = tongTien;
         tienThanhToan = tongTien;
-        lblTongTien.setText(tongTien + "");        
+        lblTongTien.setText(tongTien + "");
         lblThanhToan.setText(tienThanhToan + "");
     }
-    public void music () throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+
+    public void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
         File file = new File("./src/com/duan1/icon/sound_ThanhToanThanhCong (1).wav");
         AudioInputStream ad = AudioSystem.getAudioInputStream(file);
-        Clip  clip =  AudioSystem.getClip();
+        Clip clip = AudioSystem.getClip();
         clip.open(ad);
         clip.start();
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -171,6 +175,11 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Số điện thoại khách hàng :");
 
+        txtTienPhiShip.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtTienPhiShipMousePressed(evt);
+            }
+        });
         txtTienPhiShip.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtTienPhiShipKeyReleased(evt);
@@ -431,7 +440,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void lblXacNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblXacNhanMouseClicked
 
     }//GEN-LAST:event_lblXacNhanMouseClicked
@@ -441,20 +450,20 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             music();
             dispose();
         } catch (UnsupportedAudioFileException ex) {
-            
+
         } catch (IOException ex) {
-         
+
         } catch (LineUnavailableException ex) {
-         
+
         }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-    dispose();
+        dispose();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void txttTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txttTienKhachDuaKeyReleased
-      
+
         if (txttTienKhachDua.getText().trim().isEmpty()) {
             lblTienThua.setText("");
             return;
@@ -468,10 +477,10 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                 lblTienThua.setText(tienTraLai + "  VNĐ");
             }
             if (txtTienPhiShip.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Không được để trống tiền ship!");
-            txtTienPhiShip.requestFocus();
-          
-        }
+                Msgbox.waring(f, "Không được để trống tiền ship!");
+                txtTienPhiShip.requestFocus();
+
+            }
         } catch (NumberFormatException e) {
             Msgbox.waring(new MainJFrame(), "Nhập quá ký tự cho phép!");
             return;
@@ -479,26 +488,39 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     }//GEN-LAST:event_txttTienKhachDuaKeyReleased
 
     private void txtTienPhiShipKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienPhiShipKeyReleased
-       
+            if (txtTienPhiShip.getText().trim().isEmpty()) {
+                    lblThanhToan.setText(tongTien+"");
+                    return;
+                }
         try {
-             long tienTT = tienThanhToan;
-             long tienship = Long.parseLong(txtTienPhiShip.getText());
-            if(tienship > 10000 || tienship < 100000){
+            long tienTT = tienThanhToan;
+            long tienship = Long.parseLong(txtTienPhiShip.getText());
+            if (tienship > 10000 || tienship < 100000) {
                 tienThanhToan = tongTien + tienship;
                 lblThanhToan.setText(tienThanhToan + "");
-                if(txtTienPhiShip.getText().trim().length() < 5){
-                lblThanhToan.setText(tongTien + "");
+                
+            } else {
+                Msgbox.waring(f, "Tiền ship phải (10000 - 100000)");
             }
-            }else{
-                    Msgbox.waring(f, "Tiền ship phải (10000 - 100000)");
-                }
         } catch (Exception e) {
-                    Msgbox.waring(f, "Tiền ship phải là số");
-                    return;
+            Msgbox.waring(f, "Tiền ship phải là số");
+            return;
         }
     }//GEN-LAST:event_txtTienPhiShipKeyReleased
 
+    private void txtTienPhiShipMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTienPhiShipMousePressed
+//        long tienTT = tienThanhToan;
+//        long tienship = Long.parseLong(txtTienPhiShip.getText());
+//        tienThanhToan = tongTien + tienship;
+//        lblThanhToan.setText(tienThanhToan + "");
+//        if (txtTienPhiShip.getText().trim().length() == 0) {
+//            lblThanhToan.setText(tongTien + "");
+//        }
+    }//GEN-LAST:event_txtTienPhiShipMousePressed
+
    
+    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

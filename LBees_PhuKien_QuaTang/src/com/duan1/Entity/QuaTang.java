@@ -19,13 +19,13 @@ public class QuaTang {
     Date ngayGiao;
     String trangThai;
     String ghiChu;
-    String maNGH;
+    String MaNGH;
     String maHD;
 
     public QuaTang() {
     }
 
-    public QuaTang(String maDH, String tenNN, String diaChiNN, String SDTNN, Date ngayGiao, String trangThai, String ghiChu, String maNGH, String maHD) {
+    public QuaTang(String maDH, String tenNN, String diaChiNN, String SDTNN, Date ngayGiao, String trangThai, String ghiChu, String MaNGH, String maHD) {
         this.maDH = maDH;
         this.tenNN = tenNN;
         this.diaChiNN = diaChiNN;
@@ -33,7 +33,7 @@ public class QuaTang {
         this.ngayGiao = ngayGiao;
         this.trangThai = trangThai;
         this.ghiChu = ghiChu;
-        this.maNGH = maNGH;
+        this.MaNGH = MaNGH;
         this.maHD = maHD;
     }
 
@@ -94,11 +94,11 @@ public class QuaTang {
     }
 
     public String getMaNGH() {
-        return maNGH;
+        return MaNGH;
     }
 
-    public void setMaNGH(String maNGH) {
-        this.maNGH = maNGH;
+    public void setMaNGH(String MaNGH) {
+        this.MaNGH = MaNGH;
     }
 
     public String getMaHD() {
@@ -109,4 +109,9 @@ public class QuaTang {
         this.maHD = maHD;
     }
 
+   
+
+   
+
+   
 }
