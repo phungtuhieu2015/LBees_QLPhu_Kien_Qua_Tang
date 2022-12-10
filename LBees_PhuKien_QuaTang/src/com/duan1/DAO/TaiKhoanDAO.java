@@ -22,7 +22,7 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
     String delete_SQL = "DELETE dbo.TaiKhoan WHERE MaTK =?";
     String select_All_SQL = "SELECT * FROM dbo.TaiKhoan";
     String select_ByID_SQL = "SELECT * FROM dbo.TaiKhoan WHERE MaTK=?";
-    String Select_CV = "select chucvu from TaiKhoan t inner join nhanvien n on t.MaNV = n.maNV where t.manv =?";
+    String Select_CV = "select  tenNV,chucvu from TaiKhoan t inner join nhanvien n on t.MaNV = n.maNV where t.manv =?";
 
     @Override
     public void insert(TaiKhoan entity) {
@@ -60,7 +60,15 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
             s = t.isChucVu();
         }
         return s;
-        
+    }
+
+    public String selectByTen(String key) {
+        List<NhanVien> list = this.selectBySqlTen(Select_CV, key);
+        String s ="";
+        for (NhanVien t : list) {
+            s = t.getTenNV();
+        }
+        return s;
     }
 
     @Override
@@ -90,6 +98,22 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
             while (rs.next()) {
                 NhanVien entity = new NhanVien();
                 entity.setChucVu(rs.getBoolean("ChucVu"));
+                list.add(entity);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    protected List<NhanVien> selectBySqlTen(String sql, Object... args) {
+        List<NhanVien> list = new ArrayList<>();
+        try {
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                NhanVien entity = new NhanVien();
+                entity.setTenNV(rs.getString("tenNV"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

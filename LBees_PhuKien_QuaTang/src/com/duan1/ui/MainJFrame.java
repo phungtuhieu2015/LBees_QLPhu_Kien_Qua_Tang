@@ -85,56 +85,45 @@ public class MainJFrame extends javax.swing.JFrame {
                 if (index == 0 && indexSubMenu == 0) {
                     if (indexx == 3) {
                         Form_QLBanHang.checks = 0;
-                        System.out.println("0");
                     }
                     showForm(new Main_Form());
                 } else if (index == 1 && indexSubMenu == 1) {
                     Form_QLBanHang.checks = 0;
-                    System.out.println("1");
                     showForm(new Form_QLKhachHang());
                 } else if (index == 1 && indexSubMenu == 2) {
-                    System.out.println("1.2");
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNhanVien());
                 } else if (index == 1 && indexSubMenu == 3) {
-                    System.out.println("1.3");
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNguoiGiaoHang());
                 } else if (index == 1 && indexSubMenu == 4) {
-                    System.out.println("1.4");
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLTaiKhoan());
                 } else if (index == 1 && indexSubMenu == 5) {
-                    System.out.println("1.5");
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLDanhMuc());
                 } else if (index == 2 && indexSubMenu == 0) {
                     Form_QLBanHang.checks = 0;
-                    System.out.println("2");
                     showForm(new Form_QLSanPham());
                 } else if (index == 3 && indexSubMenu == 0) {
                     indexx = index;
                     Form_QLBanHang.checks = 1;
                     showForm(new Form_QLBanHang());
                 } else if (index == 4 && indexSubMenu == 0) {
-                    System.out.println("4");
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_LSHoaDon());
                 } else if (index == 5 && indexSubMenu == 0) {
-                    System.out.println("5");
                     Form_QLBanHang.checks = 0;
                     try {
                         showForm(new Form_ThongKe());
-                        System.out.println("6");
                     } catch (SQLException ex) {
                         Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else if (index == 6 && indexSubMenu == 0) {
-                    Form_QLBanHang.checks = 0;
-                    System.out.println("7");
+                    Form_QLBanHang.checks = 2;
                     showForm(new Form_QuaTang());
                 } else {
-                    Form_QLBanHang.checks = 1;
+                    Form_QLBanHang.checks = 0;
                 }
             }
         });

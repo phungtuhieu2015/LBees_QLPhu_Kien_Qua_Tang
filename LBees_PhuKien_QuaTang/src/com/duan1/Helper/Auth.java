@@ -30,8 +30,20 @@ public class Auth {
     //Kiểm tra vai trò của nhân viên đó
     public static String role() {
         TaiKhoanDAO daoTK = new TaiKhoanDAO();
-        String name = daoTK.selectByCV(tk.getMaNV()) ? "QUẢN LÝ" :"NHÂN VIÊN" ;
-        System.out.println(tk.getMaNV());
+        String name = daoTK.selectByCV(tk.getMaNV()) ? "QUẢN LÝ" : "NHÂN VIÊN";
+        String names = daoTK.selectByTen(tk.getMaNV());
+
+        System.out.println(names);
+
+        return name;
+    }
+
+    public static String tenNV() {
+
+        TaiKhoanDAO daoTK = new TaiKhoanDAO();
+        String name = daoTK.selectByTen(tk.getMaNV());
+
+        System.out.println(name);
         return name;
     }
 }

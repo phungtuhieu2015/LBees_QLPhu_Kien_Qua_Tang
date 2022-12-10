@@ -46,9 +46,9 @@ import javax.swing.table.TableRowSorter;
  * @author ASUS
  */
 public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
-    
+
     SanPhamDAO daoSP = new SanPhamDAO();
-    List<SanPham> listSP = null;
+    List<SanPham> listSP = new ArrayList<>();
     List<HoaDonChiTiet> listHDCT = new ArrayList<>();
     DefaultTableModel tblVoHang;
     HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
@@ -69,22 +69,22 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         init();
     }
     MainJFrame frame = new MainJFrame();
-    
+
     public void init() {
         Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
         Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
         txtTimKiem.setHintText("Nhập mã, tên sản phẩm...");
         txtMaVach.setLabelText("Mã vạch");
+        listSP = daoSP.selectAll();
         initWebcam();
         loadData();
     }
     DefaultTableModel model;
-    
+
     public void loadData() {
         int tt = 0;
         model = (DefaultTableModel) tblSanPham.getModel();
         model.setRowCount(0);
-        listSP = daoSP.selectAll();
         try {
             for (SanPham sp : listSP) {
                 Object[] row = {
@@ -100,7 +100,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         } catch (Exception e) {
         }
     }
-    
+
     public void clearGH() {
         listHDCT.removeAll(listHDCT);
         loadDataToGH();
@@ -156,6 +156,14 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     public void updateGHMV(String maVach) {
         SanPham sp = daoSP.selectByMV(maVach);
         boolean check = true;
+        for (SanPham s : listSP) {
+            if (s.getMaVach().equalsIgnoreCase(sp.getMaVach())) {
+                if (s.getSoLuong() <= 0) {
+                    Msgbox.waring(frame, "Đã hết hàng !");
+                    return;
+                }
+            }
+        }
         for (HoaDonChiTiet h : listHDCT) {
             if (h.getMaSP().equals(sp.getMaSP())) {
                 boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
@@ -166,6 +174,8 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
                 }
             }
         }
+
+        MainJFrame frame = new MainJFrame();
         String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
         sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
         if (sl == null) {
@@ -181,41 +191,49 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             Msgbox.waring(frame, "Vui lòng nhập số!");
             return;
         }
-        if (checkSL() == false) {
+        if (checkSL()) {
+
+        } else {
+            Msgbox.waring(frame, "Số lượng không đủ!");
             return;
         }
+
         for (HoaDonChiTiet h : listHDCT) {
             if (h.getMaSP().equals(sp.getMaSP())) {
                 h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
                 h.setThanhTien(h.getSoLuong() * sp.getDonGia());
-                daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
+//                daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
                 check = false;
-                setTrangThai();
-                loadDataToGH();
-                loadData();
+
                 break;
             }
         }
+        for (SanPham s : listSP) {
+            if (s.getMaVach().equalsIgnoreCase(sp.getMaVach())) {
+                s.setSoLuong(s.getSoLuong() - Integer.parseInt(sl));
+                break;
+            }
+        }
+        loadDataToGH();
+        loadData();
+        setTrangThai();
         if (check) {
-            addDataGHMV(maVach);
+            addDataGH(maVach);
         }
     }
-    
-    public void addDataGHMV(String maVach) {
+
+    public void addDataGH(String maVach) {
         SanPham sp = daoSP.selectByMV(maVach);
         HoaDonChiTiet hdct = new HoaDonChiTiet();
         hdct.setMaHD(sp.getMaSP());
         hdct.setMaSP(sp.getMaSP());
         hdct.setSoLuong(Integer.parseInt(sl));
         hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
-        daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
         listHDCT.add(hdct);
-        setTrangThai();
         loadDataToGH();
-        loadData();
-        
+        setTrangThai();
     }
-    
+
     public void loadDataToGH() {
         DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
         model.setRowCount(0);
@@ -237,47 +255,39 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         } catch (Exception e) {
         }
     }
-    
+
     public void deleteAll() {
         if (listHDCT.isEmpty()) {
             Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
             return;
         }
-        boolean chon;
-        if (checks == 0) {
-            chon = true;
-        } else {
-            chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
-        }
-        
+        boolean chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
         if (chon) {
-            listSP = daoSP.selectAll();
-            
-            SanPham n = new SanPham();
-            for (HoaDonChiTiet h : listHDCT) {
-                for (SanPham sp : listSP) {
-                    if (sp.getMaSP().equalsIgnoreCase(h.getMaSP())) {
-                        n = daoSP.selectByid(sp.getMaSP());
-                        daoSP.updateSL(sp.getMaSP(), n.getSoLuong() + h.getSoLuong());
+            for (int i = 0; i < tblGioHang.getRowCount(); i++) {
+                int sl = (int) tblGioHang.getValueAt(i, 3);
+                String maSP = (String) tblGioHang.getValueAt(i, 1);
+                for (SanPham s : listSP) {
+                    if (s.getMaSP().equalsIgnoreCase(maSP)) {
+                        s.setSoLuong(s.getSoLuong() + sl);
                     }
                 }
             }
+
             listHDCT.removeAll(listHDCT);
-            setTrangThai();
             loadData();
             loadDataToGH();
+            setTrangThai();
         }
-        
     }
-    
+
     public void findIdAndName(String IdAndName) {
         model = (DefaultTableModel) tblSanPham.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblSanPham.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
     }
-    
-    public void delete(int index) {
+
+    public void deleteBH(int index) {
         if (listHDCT.isEmpty()) {
             Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
             return;
@@ -288,19 +298,21 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         }
         boolean chon = Msgbox.yesNo("Xóa khỏi giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
         if (chon) {
-            SanPham n = new SanPham();
-            listHDCT.remove(index);
-            String maSP = (String) tblGioHang.getValueAt(this.index, 1);
-            n = daoSP.selectByid(maSP);
             int sl = (int) tblGioHang.getValueAt(index, 3);
-            daoSP.updateSL(maSP, n.getSoLuong() + sl);
-            setTrangThai();
-            loadData();
+            String maSP = (String) tblGioHang.getValueAt(index, 1);
+            for (SanPham s : listSP) {
+                if (s.getMaSP().equalsIgnoreCase(maSP)) {
+                    s.setSoLuong(s.getSoLuong() + sl);
+                }
+            }
+            listHDCT.remove(index);
             loadDataToGH();
+            loadData();
+            setTrangThai();
         }
-        
+
     }
-    
+
     private void initWebcam() {
         Dimension size = WebcamResolution.VGA.getSize();
         webcam = Webcam.getWebcams().get(0);
@@ -312,7 +324,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         panel.setFPSDisplayed(true);
 //2592, 1944
         jPanel2.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 200));
-        
+
         executor.execute(this);
     }
 
@@ -325,10 +337,10 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         do {
             try {
                 Thread.sleep(100);
-                
+
             } catch (InterruptedException ex) {
-                Logger.getLogger(com.duan1.components.MyWebCam.class
-                        .getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(com.duan1.components.Form_QLBanHang.class
+//                        .getName()).log(Level.SEVERE, null, ex);
             }
             Result result = null;
             BufferedImage image = null;
@@ -353,9 +365,8 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
                         }
                     }
                 }
-                if (checks == 0) {
+                if (checks == 0 || checks == 2) {
                     webcam.close();
-                    deleteAll();
                     return;
                 }
             }
@@ -372,29 +383,29 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             }
         } while (i);
     }
-    
+
     @Override
     public Thread newThread(Runnable r) {
         Thread t = new Thread(r, "My Thread");
         t.setDaemon(true);
         return t;
     }
-    
+
     public void setTrangThai() {
-        listSP = daoSP.selectAll();
         for (SanPham s : listSP) {
             if (s.getSoLuong() <= 0) {
-                daoSP.updateTT(s.getMaSP(), "Hết hàng");
+                s.setTrangThai("Hết hàng");
             }
-            if (s.getSoLuong() != 0 && !s.getTrangThai().equalsIgnoreCase("Không còn bán")) {
-                daoSP.updateTT(s.getMaSP(), "Đang kinh doanh");
+            if (s.getSoLuong() > 0 && !s.getTrangThai().equalsIgnoreCase("Không còn bán")) {
+                s.setTrangThai("Đang kinh doanh");
             }
         }
+        loadData();
     }
-    
+
     public boolean checkSL() {
         int soLuong = (int) tblSanPham.getValueAt(index, 3);
-        
+
         if (soLuong < Integer.parseInt(sl)) {
             Msgbox.waring(frame, "Số lượng sản phẩm hiện tại không đủ!");
             return false;
@@ -704,8 +715,8 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
     private void btnXoaKhoiGioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaKhoiGioActionPerformed
         index = tblGioHang.getSelectedRow();
-        delete(index);
-        
+        deleteBH(index);
+
 
     }//GEN-LAST:event_btnXoaKhoiGioActionPerformed
 
@@ -714,14 +725,6 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
         deleteAll();
     }//GEN-LAST:event_btnDatHangActionPerformed
-
-    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-        
-        index = tblSanPham.getSelectedRow();
-        String mv = (String) tblSanPham.getValueAt(index, 5);
-//        txtMaVach.setText(mv);
-        updateGHMV(mv);
-    }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void btnDatHang1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatHang1ActionPerformed
         if (listHDCT.isEmpty()) {
@@ -733,12 +736,16 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             tongTien += hdct.getThanhTien();
         }
         JDL_NhapKhachHang bh = new JDL_NhapKhachHang(f, true);
+
         bh.getList(listHDCT);
+
+        bh.geList(listSP);
         bh.setTongTienSP(tongTien);
         bh.setVisible(true);
         if (bh.isSuscess()) {
             clearGH();
         }
+        JDL_NhapKhachHang bhh = new JDL_NhapKhachHang(f, true);
     }//GEN-LAST:event_btnDatHang1ActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
@@ -764,22 +771,17 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         loadDataToGH();
     }//GEN-LAST:event_btnReadActionPerformed
 
-    private void tblSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tblSanPhamMouseEntered
-
     private void txtMaVachKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaVachKeyReleased
-        
+
 
     }//GEN-LAST:event_txtMaVachKeyReleased
 
     private void txtMaVachKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaVachKeyPressed
         if (evt.getKeyChar() == KeyEvent.VK_ENTER) {
             List<SanPham> s = new ArrayList<>();
-            s = daoSP.selectAll();
             for (SanPham sanPham : s) {
                 if (sanPham.getMaVach().equals(txtMaVach.getText())) {
-                    
+
                     updateGHMV(txtMaVach.getText());
                     return;
                 }
@@ -792,6 +794,18 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(f, "ss");
     }//GEN-LAST:event_txtMaVachActionPerformed
+
+    private void tblSanPhamMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblSanPhamMouseEntered
+
+    private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
+
+        index = tblSanPham.getSelectedRow();
+        String mv = (String) tblSanPham.getValueAt(index, 5);
+        //        txtMaVach.setText(mv);
+        updateGHMV(mv);
+    }//GEN-LAST:event_tblSanPhamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
