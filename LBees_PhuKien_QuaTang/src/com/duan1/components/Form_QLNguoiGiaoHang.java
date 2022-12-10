@@ -29,7 +29,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     MainJFrame frame = new MainJFrame();
     DefaultTableModel tblModel = new DefaultTableModel();
     List<NguoiGiaoHang> listNGH = new ArrayList<>();
-    NguoiGiaoHangDAO dao = new NguoiGiaoHangDAO();
+    NguoiGiaoHangDAO daoNGH = new NguoiGiaoHangDAO();
     int index = 0;
 
     /**
@@ -86,32 +86,42 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }
 
     public void insert() {
-        NguoiGiaoHang n = new NguoiGiaoHang();
-        n = getForm();
-        if (n != null) {
-            dao.insert(n);
+        NguoiGiaoHang ngh = getForm();
+        if (Msgbox.yesNo("Bạn có muốn thêm người giao hàng", "bạn chắc chắn không?")) {
+            daoNGH.insert(ngh);
             loadData();
-            Msgbox.success(frame, "Thêm thành công!");
             clear();
+            Msgbox.success(frame, "Thêm người giao hàng thành công");
+            tabPane.setSelectedIndex(1);
+
+        } else {
+            Msgbox.waring(frame, "Thêm người giao hàng không thành công");
         }
     }
 
     public void update() {
-        NguoiGiaoHang n = new NguoiGiaoHang();
-        n = getForm();
-        dao.update(n);
-        loadData();
-        Msgbox.success(frame, "Update thành công!");
-        clear();
-
+        NguoiGiaoHang ngh = getForm();
+        if (Msgbox.yesNo("bạn có muốn cập nhật người giao hàng", "bạn chắc chắn không???")) {
+            daoNGH.update(ngh);
+            loadData();
+            clear();
+            Msgbox.success(frame, "cập nhật người giao hàng thành công");
+            tabPane.setSelectedIndex(1);
+        } else {
+            Msgbox.waring(frame, "cập nhật người giao hàng không thành công");
+        }
     }
 
     public void delete() {
-        if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
-            dao.delete(txtMaNGH.getText());
+        if (Msgbox.yesNo("bạn có muốn xóa người giao hàng", "bạn chắc chắn không???")) {
+            String maKH = txtMaNGH.getText();
+            daoNGH.delete(maKH);
             loadData();
-            Msgbox.success(frame, "Xóa thành công?");
             clear();
+            Msgbox.success(frame, "Xóa người giao hàng thành công");
+            tabPane.setSelectedIndex(1);
+        } else {
+            Msgbox.waring(frame, "Xóa người giao hàng không thành công");
         }
     }
 
@@ -130,7 +140,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
-        listNGH = dao.selectAll();
+        listNGH = daoNGH.selectAll();
         for (NguoiGiaoHang ngh : listNGH) {
             Object[] cols = new Object[]{ngh.getMaNGH(), ngh.getTenNGH(), ngh.getCCCD(), ngh.getSDT(), ngh.getGmail()};
             tblModel.addRow(cols);
@@ -210,6 +220,79 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
 
     }
 
+    public boolean check() {
+        String MANGH_REGEX = "(?i)[ngh]{3}\\d{5}";
+        boolean MANGH = txtMaNGH.getText().matches(MANGH_REGEX);
+        if (txtMaNGH.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Mã người giao hàng không được để trống");
+            txtMaNGH.requestFocus();
+            return false;
+        }
+        if (MANGH != true) {
+            Msgbox.waring(frame, "Mã người giao hàng không đúng định dạng (NGH00001)");
+            txtMaNGH.requestFocus();
+            return false;
+        }
+
+        //^([a-z]+)((\s{1}[a-z]+){1,})$
+        String TENNGH_REGEX = "^([A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\s{1}[A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+        boolean TENNGH = txtTenNGH.getText().matches(TENNGH_REGEX);
+        if (txtTenNGH.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Tên người giao hàng không được để trống");
+            txtTenNGH.requestFocus();
+            return false;
+        }
+        if (TENNGH != true) {
+            Msgbox.waring(frame, "Tên người giao hàng không đúng định dạng (Nguyễn Văn A)");
+            txtTenNGH.requestFocus();
+            return false;
+        }
+
+        //
+        String CCCD_REGEX = "^\\d{12}$";
+        boolean CCCD = txtCCCD.getText().matches(CCCD_REGEX);
+        if (txtCCCD.getText().trim().trim().isEmpty()) {
+            Msgbox.waring(frame, "Căn cước công dân không được để trống");
+            txtCCCD.requestFocus();
+            return false;
+        }
+        if (CCCD != true) {
+            Msgbox.waring(frame, "Căn cước công dân không đúng định dạng (CCCC gồm 12 số)");
+            txtCCCD.requestFocus();
+            return false;
+        }
+
+        //
+        String SDTNGH_REGEX = "^(0|\\\\+84)(\\\\s|\\\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\\\d)(\\\\s|\\\\.)?(\\\\d{3})(\\\\s|\\\\.)?(\\\\d{3})";
+        boolean SDTNGH = txtSDT.getText().matches(SDTNGH_REGEX);
+        if (txtSDT.getText().trim().trim().isEmpty()) {
+            Msgbox.waring(frame, "Số điện thoại không được để trống");
+            txtSDT.requestFocus();
+            return false;
+        }
+        if (SDTNGH != true) {
+            Msgbox.waring(frame, "Số điện thoại không đúng định dạng");
+            txtSDT.requestFocus();
+            return false;
+        }
+
+        //
+        String EMAILNGH_REGEX = "^[a-z0-9]+@([a-z]+\\\\.[a-z]{2,3}){1,3}$";
+        boolean EMAILNGH = txtEmail.getText().matches(EMAILNGH_REGEX);
+        if (txtEmail.getText().trim().isEmpty()) {
+            Msgbox.waring(frame, "Email người giao hàng không được để trống");
+            txtEmail.requestFocus();
+            return false;
+        }
+        if (EMAILNGH != true) {
+            Msgbox.waring(frame, "Email người giao hàng không đúng định dạng (a123@gmail.com)");
+            txtEmail.requestFocus();
+            return false;
+        }
+
+        return true;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -224,10 +307,10 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         txtEmail = new com.duan1.swing.MyTextField();
         txtCCCD = new com.duan1.swing.MyTextField();
         pnlThemSuaXoa = new javax.swing.JPanel();
-        button6 = new com.duan1.swing.Button();
         button7 = new com.duan1.swing.Button();
-        button8 = new com.duan1.swing.Button();
+        button6 = new com.duan1.swing.Button();
         button2 = new com.duan1.swing.Button();
+        button8 = new com.duan1.swing.Button();
         pnlDieuHuong = new javax.swing.JPanel();
         btnThem = new com.duan1.swing.Button();
         btnSua = new com.duan1.swing.Button();
@@ -260,15 +343,6 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         pnlThemSuaXoa.setBackground(new java.awt.Color(255, 255, 255));
         pnlThemSuaXoa.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
-        button6.setText("<");
-        button6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        button6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button6ActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(button6);
-
         button7.setText("|<");
         button7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         button7.addActionListener(new java.awt.event.ActionListener() {
@@ -278,14 +352,14 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         });
         pnlThemSuaXoa.add(button7);
 
-        button8.setText(">|");
-        button8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        button8.addActionListener(new java.awt.event.ActionListener() {
+        button6.setText("<");
+        button6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        button6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button8ActionPerformed(evt);
+                button6ActionPerformed(evt);
             }
         });
-        pnlThemSuaXoa.add(button8);
+        pnlThemSuaXoa.add(button6);
 
         button2.setText(">");
         button2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -295,6 +369,15 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
             }
         });
         pnlThemSuaXoa.add(button2);
+
+        button8.setText(">|");
+        button8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        button8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                button8ActionPerformed(evt);
+            }
+        });
+        pnlThemSuaXoa.add(button8);
 
         pnlDieuHuong.setBackground(new java.awt.Color(255, 255, 255));
         pnlDieuHuong.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
@@ -475,12 +558,16 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }//GEN-LAST:event_tblNGHMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        insert();
+        if (check()) {
+            insert();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+        if (check()) {
+            update();
+        }
 
-        update();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed

@@ -127,6 +127,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
            
             String DenNgay = (txtDenNgay.getText());
             String tuNgay = (txtTuNgay1.getText());
+            System.out.println(DenNgay + "----" + tuNgay );
             List<HoaDon> listhd = daoHD.selectByDate(tuNgay,DenNgay);
 
            for (HoaDon hd : listhd) {
@@ -149,8 +150,8 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
             }
         } catch (Exception e) {
-
-            Msgbox.info(this, "Lỗi!");
+            e.printStackTrace();
+            Msgbox.info(new MainJFrame(), "Lỗi!");
         }
 
     }
