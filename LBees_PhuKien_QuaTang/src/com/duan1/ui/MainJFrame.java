@@ -64,7 +64,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-        checkDN();
+//        checkDN();
         init();
         initMoving(this);
         dongHo();
@@ -128,12 +128,11 @@ public class MainJFrame extends javax.swing.JFrame {
                     
                 } else if (index == 5 && indexSubMenu == 0) {
                     Form_QLBanHang.checks = 0;
-                    try {
+//                    try {
                         showForm(new Form_ThongKe());
-                    } catch (SQLException ex) {
-                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                     
+//                    } catch (SQLException ex) {
+//                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
                 } else if (index == 6 && indexSubMenu == 0) {
                     Form_QLBanHang.checks = 2;
                     showForm(new Form_QuaTang());

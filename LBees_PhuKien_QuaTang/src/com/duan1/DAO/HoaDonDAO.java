@@ -5,6 +5,7 @@
 package com.duan1.DAO;
 
 import com.duan1.Entity.HoaDon;
+import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -88,17 +89,9 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         return this.selectBySql(sql, "%" + keyword + '%');
     }
 
-    public HoaDon selectByid_tk(String NgayTao) {
-        List<HoaDon> list = this.selectBySql(select_ByID_SQL_TK, NgayTao);
-        if (list.isEmpty()) {
-            return null;
-        }
-        return list.get(0);
-    }
-
-    public List<HoaDon> selectByKeyword_tk(String keyword) {
-        String sql = "SELECT * FROM HoaDon WHERE NgayTao LIKE ?";
-        return this.selectBySql(sql, "%" + keyword + '%');
+    public List<HoaDon> selectByDate(String tuNgay, String denNgay) {
+        String sql = "SELECT * FROM dbo.HoaDon WHERE NgayTao BETWEEN ? AND ?";
+        return this.selectBySql(sql, tuNgay, denNgay);
     }
 
     protected Integer tongSLHoaDon(String sql) throws SQLException {

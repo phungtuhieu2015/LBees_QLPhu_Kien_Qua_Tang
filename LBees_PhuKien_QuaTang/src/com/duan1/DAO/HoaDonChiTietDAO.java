@@ -7,6 +7,7 @@ package com.duan1.DAO;
 import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,14 @@ import java.util.List;
  *
  * @author phung
  */
-public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String>{
-    
+public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String> {
+
     String insert_SQL = "INSERT INTO dbo.HoaDonChiTiet(SoLuong,ThanhTien,MaSP,MaHD)VALUES(?,?,?,?)";
     String update_SQL = "UPDATE dbo.HoaDonChiTiet SET SoLuong=?,ThanhTien=?,MaSP=?WHERE MaHD =?";
     String delete_SQL = "DELETE dbo.HoaDonChiTiet WHERE MaHD =?";
     String select_All_SQL = "SELECT * FROM dbo.HoaDonChiTiet";
     String select_ByID_SQL = "SELECT * FROM dbo.HoaDonChiTiet WHERE MaHD=?";
+    String select_tongTien = "SELECT  SUM(ThanhTien) FROM dbo.HoaDonChiTiet WHERE MaHD like ?";
 
     @Override
     public void insert(HoaDonChiTiet entity) {
@@ -51,6 +53,19 @@ public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String>{
         return list.get(0);
     }
 
+    public long getTongTien(String maHD) throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_tongTien,"%" +maHD +"%");
+        if(rs.next()){
+            return (long) rs.getDouble(1);
+        }
+        return 0;
+    }
+
+    public List<HoaDonChiTiet> selectByKeyword(String keyword) {
+        String sql = "SELECT * FROM dbo.HoaDonChiTiet WHERE MaHD LIKE ?";
+        return this.selectBySql(sql, "%" + keyword + '%');
+    }
+
     @Override
     protected List<HoaDonChiTiet> selectBySql(String sql, Object... args) {
         List<HoaDonChiTiet> list = new ArrayList<>();
@@ -60,7 +75,7 @@ public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String>{
                 HoaDonChiTiet entity = new HoaDonChiTiet();
                 entity.setSoLuong(rs.getInt("SoLuong"));
                 entity.setThanhTien(rs.getFloat("ThanhTien"));
-                entity.setMaSP(rs.getString("MaSp"));
+                entity.setMaSP(rs.getString("MaSP"));
                 entity.setMaHD(rs.getString("MaHD"));
                 list.add(entity);
             }

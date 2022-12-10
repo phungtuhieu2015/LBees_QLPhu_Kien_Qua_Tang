@@ -14,8 +14,9 @@ import java.util.logging.Logger;
 public class Form_ThongKe extends javax.swing.JPanel {
 
     HoaDonDAO daoTK = new HoaDonDAO();
-   //String a = tongSLHoaDon;
-    public Form_ThongKe() throws SQLException {
+    //String a = tongSLHoaDon;
+
+    public Form_ThongKe() {
         initComponents();
         setHin();
         TimKiem();
@@ -23,14 +24,18 @@ public class Form_ThongKe extends javax.swing.JPanel {
         txtDenNgay.setText("");
     }
 
-    public void setHin() throws SQLException {
+    public void setHin() {
         txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
-        int x = daoTK.tongSLHoaDD();
-        lblSLHoadon.setText("Tổng số lượng hoá đơn : " +String.valueOf(x));
-
+        
+        try {
+            int x = daoTK.tongSLHoaDD();
+            lblSLHoadon.setText("Tổng số lượng hoá đơn : " + String.valueOf(x));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    
+
     public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã để tìm kiếm");
         txtTimKiem.addEvent(new EventTextField() {
