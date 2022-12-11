@@ -5,6 +5,7 @@
  */
 package com.duan1.Helper;
 
+import com.barcodelib.barcode.Linear;
 import java.awt.Component;
 import java.awt.Image;
 import java.io.File;
@@ -79,6 +80,26 @@ public class ImgHelper {
             ImageIcon hinhanh = new ImageIcon(new ImageIcon(String.valueOf(ImgHelper.readLogo(s))).getImage().getScaledInstance(lblHinh.getWidth(), lblHinh.getHeight(), Image.SCALE_SMOOTH));
             lblHinh.setIcon(hinhanh);
             // lblHinh.setIcon(ImgHelper.readLogo(cd.getHinhString()));
+        }
+    }
+
+    public static void Write(String text) {
+        try {
+
+            File dir = new File("barcodePicture");
+            if (!dir.exists()) {   //Không tìm thấy tệp!  .check file có tồn tại không.
+                dir.mkdirs();    //Phương thức mkdir() được sử dụng để tạo ra dường dẫn thư mục và tất cả các đường dẫn thư mục con của nó.
+            }
+            File newFile = new File(dir, text);
+            Linear barcode = new Linear();
+            barcode.setType(Linear.CODE128B);
+            barcode.setData(text);
+            barcode.setI(11.0f);
+            String fname = text;
+
+            barcode.renderBarcode(newFile + ".png");
+        } catch (Exception e) {
+
         }
     }
 

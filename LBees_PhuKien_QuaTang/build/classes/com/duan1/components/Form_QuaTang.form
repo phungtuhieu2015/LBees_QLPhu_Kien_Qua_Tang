@@ -412,7 +412,7 @@
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Web Cam">
+                        <TitledBorder title="WebCam">
                           <Font PropertyName="font" name="Dialog" size="14" style="1"/>
                           <Color PropertyName="color" blue="de" green="b2" red="1b" type="rgb"/>
                         </TitledBorder>

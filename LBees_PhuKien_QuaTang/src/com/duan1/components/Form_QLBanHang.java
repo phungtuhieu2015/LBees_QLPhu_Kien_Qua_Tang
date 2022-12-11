@@ -404,7 +404,14 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
     }
 
     public boolean checkSL() {
-        int soLuong = (int) tblSanPham.getValueAt(index, 3);
+        int soLuong;
+        if (txtMaVach.getText().trim().isEmpty()) {
+            soLuong = (int) tblSanPham.getValueAt(index, 3);
+        } else {
+            SanPham s = new SanPham();
+            s = daoSP.selectByMV(txtMaVach.getText());
+            soLuong = s.getSoLuong();
+        }
 
         if (soLuong < Integer.parseInt(sl)) {
             Msgbox.waring(frame, "Số lượng sản phẩm hiện tại không đủ!");
@@ -601,7 +608,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Web Cam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(27, 178, 222))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "WebCam", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 1, 14), new java.awt.Color(27, 178, 222))); // NOI18N
         jPanel1.setMaximumSize(new java.awt.Dimension(300, 300));
         jPanel1.setMinimumSize(new java.awt.Dimension(300, 300));
 
@@ -803,7 +810,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
         index = tblSanPham.getSelectedRow();
         String mv = (String) tblSanPham.getValueAt(index, 5);
-        //        txtMaVach.setText(mv);
+//        txtMaVach.setText(mv);
         updateGHMV(mv);
     }//GEN-LAST:event_tblSanPhamMouseClicked
 

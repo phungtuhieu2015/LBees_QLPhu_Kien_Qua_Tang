@@ -203,12 +203,12 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         pdf += "In lúc: " + dinhDang.format(hienTai) + "\n\n";
 
         pdf += "  TT   |Sản phẩm   |   Số lượng   |        Đơn vị tính   |        Giá      |          Tiền\n";
-        pdf += " ............................................................................................\n";
+        pdf += " ................................................................................................................\n";
         for (HoaDonChiTiet h : listHDCT) {
             SanPham sp = daoSP.selectByid(h.getMaSP());
             pdf += "." + tt++ + "         " + sp.getTenSP() + "              " + h.getSoLuong() + "                   " + sp.getDonViTinh() + "                    " + sp.getDonGia() + "             " + h.getThanhTien() + "\n";
         }
-        pdf += "\n\n .............................................................................................\n\n\n";
+        pdf += "\n\n .................................................................................................................\n\n\n";
         pdf += "Tổng tiền: " + lblTongTien.getText() + "VNĐ";
         pdf += "\t\tTiền khách đưa: " + txtTienKhachDua.getText() + "VNĐ" + "\n\n";
         pdf += "Thanh toán: " + lblThanhToan.getText() + "VNĐ";
