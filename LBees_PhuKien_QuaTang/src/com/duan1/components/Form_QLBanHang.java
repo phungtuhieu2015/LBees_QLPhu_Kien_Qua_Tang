@@ -752,7 +752,6 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         if (bh.isSuscess()) {
             clearGH();
         }
-        JDL_NhapKhachHang bhh = new JDL_NhapKhachHang(f, true);
     }//GEN-LAST:event_btnDatHang1ActionPerformed
 
     private void txtTimKiemCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtTimKiemCaretUpdate
