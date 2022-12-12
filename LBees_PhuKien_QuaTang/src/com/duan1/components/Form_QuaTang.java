@@ -1494,6 +1494,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         for (HoaDonChiTiet hdct : listHDCT) {
             tongTien += hdct.getThanhTien();
         }
+        xn.geList(listSP);
         xn.setTongTienSP(tongTien);
         xn.setVisible(true);
 

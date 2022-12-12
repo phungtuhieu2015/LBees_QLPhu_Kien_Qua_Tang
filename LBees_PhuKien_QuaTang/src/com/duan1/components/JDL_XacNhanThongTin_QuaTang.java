@@ -3,9 +3,11 @@ package com.duan1.components;
 import com.duan1.DAO.HoaDonDAO;
 import com.duan1.DAO.KhachHangDAO;
 import com.duan1.DAO.QuaTangDAO;
+import com.duan1.DAO.SanPhamDAO;
 import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.KhachHang;
 import com.duan1.Entity.QuaTang;
+import com.duan1.Entity.SanPham;
 import com.duan1.Helper.Msgbox;
 import com.duan1.Helper.XDate;
 import com.duan1.ui.MainJFrame;
@@ -33,7 +35,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     HoaDonDAO daoHD = new HoaDonDAO();
     QuaTangDAO daoQT = new QuaTangDAO();
     List<KhachHang> listKH = new ArrayList<>();
-
+    SanPhamDAO daosp = new SanPhamDAO();
     String tenKH = "";
     String SDTKH = "";
     String MaKH = "";
@@ -44,6 +46,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     String maHD;
 
     MainJFrame f = new MainJFrame();
+    List<SanPham> listSP = null;
 
     public JDL_XacNhanThongTin_QuaTang(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -52,6 +55,10 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         setHint();
         getForm();
 
+    }
+
+    public List<SanPham> geList(List<SanPham> listSP) {
+        return this.listSP = listSP;
     }
 
     public void setHint() {
@@ -144,14 +151,13 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             daoKH.insert(k);
         }
         HoaDon hd = new HoaDon(MaHD, 0, new Date(), "", "NV00001", k.getMaKH());
-
         daoHD.insert(hd);
         XDate.toDate(lblNgayNhan.getText(), mauNgay);
-
         QuaTang qt = new QuaTang(daoQT.initID(), lblTenNN.getText(), lblDiaChi.getText(), lblSDTNN.getText(), XDate.toDate(lblNgayNhan.getText(), mauNgay), trangThaiString, "", maNGH, MaHD);
-
         daoQT.insert(qt);
-
+        for (SanPham sanPham : listSP) {
+            daosp.update(sanPham);
+        }
     }
 
     @SuppressWarnings("unchecked")
