@@ -2,6 +2,8 @@ package com.duan1.components;
 
 import com.duan1.DAO.HoaDonDAO;
 import com.duan1.DAO.ThongKeDAO;
+import com.duan1.Entity.HoaDon;
+import com.duan1.Helper.XDate;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
 import java.awt.Color;
@@ -10,9 +12,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,13 +26,16 @@ import javax.swing.Icon;
 public class Form_ThongKe extends javax.swing.JPanel {
 
     ThongKeDAO daoTKe = new ThongKeDAO();
-
+    HoaDon hd = new HoaDon();
+    HoaDonDAO daoHD = new HoaDonDAO();
     public Form_ThongKe() {
         initComponents();
         setHin();
         TimKiem();
         txtTuNgay.setText("");
         txtDenNgay.setText("");
+        fillTableDoanhThu();
+        fillComboBoxNam();
     }
 
     public void setHin() {
@@ -80,6 +88,35 @@ public class Form_ThongKe extends javax.swing.JPanel {
             }
         });
     }
+      void fillTableDoanhThu() {
+        DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
+        model.setRowCount(0);
+
+        if (cboDoanhThuu.getSelectedItem() == null) {
+            return;
+        } else {
+            int nam = Integer.parseInt(cboDoanhThuu.getSelectedItem().toString());
+            List<Object[]> list = daoTKe.getDoanhThu(XDate.toDate("01-10-2022", "dd-MM-yyyy"),XDate.toDate("13-12-2022", "dd-MM-yyyy"));
+            for (Object[] row : list) {
+                model.addRow(row);
+            }
+        }
+
+    }
+       void fillComboBoxNam() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboDoanhThuu.getModel();
+        model.removeAllElements();
+
+        List<HoaDon> list = daoHD.selectAll();
+        for (HoaDon kh : list) {
+            int nam = kh.getNgayTao().getYear() + 1900;
+            if (model.getIndexOf(nam) < 0) {
+                model.addElement(nam);
+            }
+        }
+
+        cboDoanhThuu.setSelectedIndex(0);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -91,14 +128,14 @@ public class Form_ThongKe extends javax.swing.JPanel {
         table3 = new com.duan1.swing.MaterialTabbed();
         pnlCapNhat1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        table4 = new com.duan1.swing.Table();
+        tblDoanhThu = new com.duan1.swing.Table();
         pnlDanhSach1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         table5 = new com.duan1.swing.Table();
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         lblTuNgay1 = new javax.swing.JLabel();
         lblDenNgay1 = new javax.swing.JLabel();
-        comboBoxSuggestion2 = new com.duan1.swing.ComboBoxSuggestion();
+        cboDoanhThuu = new com.duan1.swing.ComboBoxSuggestion();
         txtTuNgay = new com.duan1.swing.MyTextField2();
         txtDenNgay = new com.duan1.swing.MyTextField2();
         kGradientPanel4 = new keeptoo.KGradientPanel();
@@ -134,7 +171,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
 
         jScrollPane3.setBorder(null);
 
-        table4.setModel(new javax.swing.table.DefaultTableModel(
+        tblDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -145,7 +182,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 "Mã doanh thu", "Ngày tạo", "Tổng tiền"
             }
         ));
-        jScrollPane3.setViewportView(table4);
+        jScrollPane3.setViewportView(tblDoanhThu);
 
         javax.swing.GroupLayout pnlCapNhat1Layout = new javax.swing.GroupLayout(pnlCapNhat1);
         pnlCapNhat1.setLayout(pnlCapNhat1Layout);
@@ -208,9 +245,13 @@ public class Form_ThongKe extends javax.swing.JPanel {
             }
         });
 
-        comboBoxSuggestion2.setEditable(false);
-        comboBoxSuggestion2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sắp Xếp Mã", "Tăng ", "Giảm " }));
-        comboBoxSuggestion2.setToolTipText("112");
+        cboDoanhThuu.setEditable(false);
+        cboDoanhThuu.setToolTipText("112");
+        cboDoanhThuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDoanhThuuActionPerformed(evt);
+            }
+        });
 
         kGradientPanel4.setkEndColor(new java.awt.Color(207, 61, 226));
         kGradientPanel4.setkStartColor(new java.awt.Color(117, 81, 251));
@@ -409,7 +450,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboDoanhThuu, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
@@ -428,7 +469,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                     .addComponent(lblDenNgay1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDenNgay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboDoanhThuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -469,11 +510,15 @@ public class Form_ThongKe extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void cboDoanhThuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDoanhThuuActionPerformed
+      fillTableDoanhThu();
+    }//GEN-LAST:event_cboDoanhThuuActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.duan1.swing.DateChooser DenNgay_Date;
     private com.duan1.swing.DateChooser TuNgay_Date;
-    private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion2;
+    private com.duan1.swing.ComboBoxSuggestion cboDoanhThuu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -500,8 +545,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCapNhat1;
     private javax.swing.JPanel pnlDanhSach1;
     private com.duan1.swing.MaterialTabbed table3;
-    private com.duan1.swing.Table table4;
     private com.duan1.swing.Table table5;
+    private com.duan1.swing.Table tblDoanhThu;
     private com.duan1.swing.MyTextField2 txtDenNgay;
     private com.duan1.swing.TextFieldAnimation txtTimKiem;
     private com.duan1.swing.MyTextField2 txtTuNgay;

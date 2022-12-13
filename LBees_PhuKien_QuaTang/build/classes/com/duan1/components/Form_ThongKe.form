@@ -91,7 +91,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtDenNgay" min="-2" pref="149" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="comboBoxSuggestion2" min="-2" pref="128" max="-2" attributes="0"/>
+                                  <Component id="cboDoanhThuu" min="-2" pref="128" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -117,7 +117,7 @@
                       <Component id="lblDenNgay1" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtDenNgay" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                          <Component id="comboBoxSuggestion2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cboDoanhThuu" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtTimKiem" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -175,7 +175,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="com.duan1.swing.Table" name="table4">
+                    <Component class="com.duan1.swing.Table" name="tblDoanhThu">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="3" rowCount="4">
@@ -263,18 +263,17 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblDenNgay1MouseClicked"/>
           </Events>
         </Component>
-        <Component class="com.duan1.swing.ComboBoxSuggestion" name="comboBoxSuggestion2">
+        <Component class="com.duan1.swing.ComboBoxSuggestion" name="cboDoanhThuu">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="S&#x1eaf;p X&#x1ebf;p M&#xe3;"/>
-                <StringItem index="1" value="T&#x103;ng "/>
-                <StringItem index="2" value="Gi&#x1ea3;m "/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="112"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboDoanhThuuActionPerformed"/>
+          </Events>
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txtTuNgay">
         </Component>
