@@ -1,6 +1,7 @@
 package com.duan1.components;
 
 import com.duan1.DAO.HoaDonDAO;
+import com.duan1.DAO.ThongKeDAO;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
 import java.awt.Color;
@@ -18,9 +19,8 @@ import javax.swing.Icon;
  * @author ASUS
  */
 public class Form_ThongKe extends javax.swing.JPanel {
-  
-    HoaDonDAO daoTK = new HoaDonDAO();
-    //String a = tongSLHoaDon;
+
+    ThongKeDAO daoTKe = new ThongKeDAO();
 
     public Form_ThongKe() {
         initComponents();
@@ -33,13 +33,28 @@ public class Form_ThongKe extends javax.swing.JPanel {
     public void setHin() {
         txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
-        
+
         try {
-            int x = daoTK.tongSLHoaDD();
-            lblSLHoadon.setText("Tổng số lượng hoá đơn : " + String.valueOf(x));
+            int TongHD = daoTKe.tongSLHoaDD();
+            lblSLHoadon.setText("Tổng số lượng hoá đơn : " + String.valueOf(TongHD));
+            
+            int tongNhap = daoTKe.tongSLNhapKho();
+            lblNhapKho.setText(String.valueOf(tongNhap)+" SP");
+            
+            int XuatNhap = daoTKe.tongSLXuatK();
+            lblXuatKho.setText(String.valueOf(XuatNhap)+" SP");
+            
+            int TongDT = daoTKe.tongDoanhThu();
+            lblTongDoanhThu.setText(String.valueOf(TongDT)+" VNĐ");
+            
+            int TonKho = daoTKe.tongToanKho();
+            lblTonKho.setText(String.valueOf(TonKho)+" SP");
         } catch (Exception e) {
             e.printStackTrace();
         }
+       
+           
+       
     }
 
     public void TimKiem() {
@@ -66,8 +81,6 @@ public class Form_ThongKe extends javax.swing.JPanel {
         });
     }
 
-   
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -90,10 +103,10 @@ public class Form_ThongKe extends javax.swing.JPanel {
         txtDenNgay = new com.duan1.swing.MyTextField2();
         kGradientPanel4 = new keeptoo.KGradientPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTonKho = new javax.swing.JLabel();
         kGradientPanel5 = new keeptoo.KGradientPanel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lblTongDoanhThu = new javax.swing.JLabel();
         lblSLHoadon = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -102,11 +115,9 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
+        lblNhapKho = new javax.swing.JLabel();
+        lblXuatKho = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         TuNgay_Date.setForeground(new java.awt.Color(0, 204, 255));
@@ -208,9 +219,9 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("TỒN KHO");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("2 000");
+        lblTonKho.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+        lblTonKho.setForeground(new java.awt.Color(255, 255, 255));
+        lblTonKho.setText("2 000");
 
         javax.swing.GroupLayout kGradientPanel4Layout = new javax.swing.GroupLayout(kGradientPanel4);
         kGradientPanel4.setLayout(kGradientPanel4Layout);
@@ -219,9 +230,9 @@ public class Form_ThongKe extends javax.swing.JPanel {
             .addGroup(kGradientPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(137, Short.MAX_VALUE))
+                    .addComponent(lblTonKho, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         kGradientPanel4Layout.setVerticalGroup(
             kGradientPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,21 +240,22 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblTonKho)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        kGradientPanel5.setkEndColor(new java.awt.Color(54, 99, 250));
-        kGradientPanel5.setkStartColor(new java.awt.Color(0, 0, 153));
+        kGradientPanel5.setkEndColor(new java.awt.Color(153, 204, 255));
+        kGradientPanel5.setkStartColor(new java.awt.Color(0, 0, 102));
 
         jLabel11.setBackground(new java.awt.Color(204, 204, 204));
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
         jLabel11.setText("TỔNG DOANH THU");
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("2000000 VNĐ");
+        lblTongDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 25)); // NOI18N
+        lblTongDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
+        lblTongDoanhThu.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblTongDoanhThu.setText("0 VNĐ");
 
         lblSLHoadon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblSLHoadon.setForeground(new java.awt.Color(204, 204, 204));
@@ -261,7 +273,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addComponent(lblTongDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(kGradientPanel5Layout.createSequentialGroup()
                         .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -278,16 +290,16 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(lblSLHoadon)
+                .addComponent(lblTongDoanhThu, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(kGradientPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(kGradientPanel5Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(lblSLHoadon)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
         kGradientPanel6.setkEndColor(new java.awt.Color(252, 215, 146));
@@ -307,81 +319,67 @@ public class Form_ThongKe extends javax.swing.JPanel {
 
         jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/1x_NhappXuat.png"))); // NOI18N
 
-        jLabel21.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("2 000");
+        lblNhapKho.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblNhapKho.setForeground(new java.awt.Color(255, 255, 255));
+        lblNhapKho.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblNhapKho.setText("0");
+        lblNhapKho.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setText("1 000");
+        lblXuatKho.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblXuatKho.setForeground(new java.awt.Color(255, 255, 255));
+        lblXuatKho.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblXuatKho.setText("0");
 
+        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Cái");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Cái");
 
         javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
         kGradientPanel6.setLayout(kGradientPanel6Layout);
         kGradientPanel6Layout.setHorizontalGroup(
             kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel6Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                                .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                                        .addComponent(jLabel16)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel22)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(jLabel4)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addComponent(jLabel20))
-                            .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel21)
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel5)
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel14)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblXuatKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblNhapKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel20)
+                .addGap(35, 35, 35))
+            .addGroup(kGradientPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel6Layout.setVerticalGroup(
             kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel6Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addComponent(jLabel14)
-                .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel20)
-                        .addContainerGap())
+                        .addGap(8, 8, 8)
+                        .addComponent(lblNhapKho, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(6, 6, 6)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblXuatKho)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel20)
+                .addContainerGap())
         );
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -413,9 +411,9 @@ public class Form_ThongKe extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(kGradientPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                            .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -455,7 +453,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 111, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -478,18 +476,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -499,8 +491,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel5;
     private keeptoo.KGradientPanel kGradientPanel6;
     private javax.swing.JLabel lblDenNgay1;
+    private javax.swing.JLabel lblNhapKho;
     private javax.swing.JLabel lblSLHoadon;
+    private javax.swing.JLabel lblTonKho;
+    private javax.swing.JLabel lblTongDoanhThu;
     private javax.swing.JLabel lblTuNgay1;
+    private javax.swing.JLabel lblXuatKho;
     private javax.swing.JPanel pnlCapNhat1;
     private javax.swing.JPanel pnlDanhSach1;
     private com.duan1.swing.MaterialTabbed table3;

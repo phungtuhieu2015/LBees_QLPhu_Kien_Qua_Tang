@@ -24,7 +24,7 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
     String select_ByMV_SQL = "SELECT * FROM dbo.SanPhamBan WHERE MaVach=?";
     String select_BySL_SQL = "Update dbo.SanPhamBan set SoLuong=? WHERE MaSP= ?";
     String select_ByTT_SQL = "Update dbo.SanPhamBan set TrangThai=? WHERE MaSP= ?";
-
+    String select_ThongKeSP = "SELECT MaSP ,SoLuong, (SoLuong * DonGia ) AS N'Tổng tiền' FROM dbo.SanPhamBan";
     @Override
     public void insert(SanPham entity) {
         XJdbc.executeUpdate(insert_SQL, entity.getMaSP(), entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM());

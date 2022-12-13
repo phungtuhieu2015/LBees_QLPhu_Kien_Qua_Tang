@@ -313,11 +313,11 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="886" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1009" max="32767" attributes="0"/>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="Scroll_SPBan" min="-2" pref="835" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="51" max="32767" attributes="0"/>
+                                      <Component id="ScrollQT1" min="-2" pref="906" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="103" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -327,7 +327,7 @@
                               <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
                               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="Scroll_SPBan" min="-2" pref="200" max="-2" attributes="0"/>
+                                      <Component id="ScrollQT1" min="-2" pref="200" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
@@ -335,7 +335,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Container class="javax.swing.JScrollPane" name="Scroll_SPBan">
+                        <Container class="javax.swing.JScrollPane" name="ScrollQT1">
                           <AuxValues>
                             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
@@ -876,7 +876,7 @@
                       <Table columnCount="9" rowCount="0">
                         <Column editable="false" title="M&#xe3; DH" type="java.lang.Object"/>
                         <Column editable="false" title="M&#xe3; HD" type="java.lang.Object"/>
-                        <Column editable="false" title="M&#xe3; NGH" type="java.lang.Object"/>
+                        <Column editable="false" title="T&#xea;n NGH" type="java.lang.Object"/>
                         <Column editable="false" title="T&#xea;n NN" type="java.lang.Object"/>
                         <Column editable="false" title="&#x110;&#x1ecb;a ch&#x1ec9; NN" type="java.lang.Object"/>
                         <Column editable="false" title="S&#x110;T NN" type="java.lang.Object"/>

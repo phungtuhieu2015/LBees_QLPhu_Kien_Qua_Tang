@@ -94,26 +94,7 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         return this.selectBySql(sql, tuNgay, denNgay);
     }
 
-    protected Integer tongSLHoaDon(String sql) throws SQLException {
-
-        int sl = 0;
-        try {
-            ResultSet rs = XJdbc.executeQuery(sql);
-            while (rs.next()) {
-                sl = rs.getInt("tong");
-                System.out.println(rs.getInt(0));
-            }
-            rs.getStatement().getConnection().close();
-
-        } catch (Exception e) {
-        }
-        return sl;
-    }
-
-    public int tongSLHoaDD() throws SQLException {
-        String tong = "SELECT  COUNT(MaHD) as'tong'  FROM dbo.HoaDon";
-        return tongSLHoaDon(tong);
-    }
+   
     public String getLastID() throws SQLException {
             ResultSet rs = XJdbc.executeQuery(select_Max_ID);
             String id = null;

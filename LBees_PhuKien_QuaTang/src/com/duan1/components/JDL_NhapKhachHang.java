@@ -71,6 +71,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         txtTienKhachDua.setLabelText("Tiền khách đưa");
         txtGhiChu.setLabelText("Ghi chú");
         txtpdf.setVisible(false);
+        
     }
 
     public long lamTron(int tongTien) {
@@ -228,6 +229,8 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtpdf = new javax.swing.JTextArea();
         panelTrang1 = new com.duan1.components.panelTrang();
         txtTenKH = new com.duan1.swing.MyTextField2();
         txtSDTKH = new com.duan1.swing.MyTextField2();
@@ -247,8 +250,10 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         lblMaKH = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtpdf = new javax.swing.JTextArea();
+
+        txtpdf.setColumns(20);
+        txtpdf.setRows(5);
+        jScrollPane1.setViewportView(txtpdf);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setUndecorated(true);
@@ -338,10 +343,6 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         lblMaKH.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblMaKH.setForeground(new java.awt.Color(202, 202, 202));
 
-        txtpdf.setColumns(20);
-        txtpdf.setRows(5);
-        jScrollPane1.setViewportView(txtpdf);
-
         javax.swing.GroupLayout panelTrang1Layout = new javax.swing.GroupLayout(panelTrang1);
         panelTrang1.setLayout(panelTrang1Layout);
         panelTrang1Layout.setHorizontalGroup(
@@ -355,21 +356,16 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                             .addComponent(txtSDTKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtGhiChu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelTrang1Layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTrang1Layout.createSequentialGroup()
-                                .addGap(35, 35, 35)
-                                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                                    .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel8))
-                            .addGroup(panelTrang1Layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
                         .addGap(26, 26, 26)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -436,9 +432,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel5))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 

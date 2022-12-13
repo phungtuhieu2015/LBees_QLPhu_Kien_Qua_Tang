@@ -1,8 +1,10 @@
 package com.duan1.components;
 
 import com.duan1.DAO.TaiKhoanDAO;
+import com.duan1.Entity.KhachHang;
 import com.duan1.Entity.QuaTang;
 import com.duan1.Entity.TaiKhoan;
+import com.duan1.Helper.Msgbox;
 import com.duan1.Helper.XDate;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
@@ -187,17 +189,18 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
 
     //tạo nút cập nhật
     public void capNhat() {
+     
         TaiKhoan tk = getForm();
-        try {
+         if (Msgbox.yesNo("bạn có muốn cập nhật tài khoản", "bạn chắc chắn không???")) {
             daoTK.update(tk);
             loadDataQLTK();
             clear();
-            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Cập nhật tài khoản  thành công");
-            noti.showNotification();
-        } catch (Exception e) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Cập nhật tài khoản không thành công");
-            noti.showNotification();
+            Msgbox.success(frame, "cập nhật tài khoản thành công");
+            Tabpane.setSelectedIndex(1);
+        } else {
+            Msgbox.waring(frame, "cập nhật tài khoản không thành công");
         }
+   
     }
     
     //tạo nút xoá
@@ -323,6 +326,8 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
         });
 
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMaTaiKhoan.setEditable(false);
 
         txtTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -608,6 +613,8 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
             capNhat();
             loadDataQLTK();
         }
+            
+       
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
