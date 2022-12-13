@@ -293,7 +293,6 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
-        txtTienKhachDua.setText("333333");
         txtTienKhachDua.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtTienKhachDuaCaretUpdate(evt);

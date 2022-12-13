@@ -14,26 +14,30 @@ import java.util.Date;
  * @author vanvi
  */
 public class XDate {
+
     static SimpleDateFormat formater = new SimpleDateFormat();
-    static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd/MM/yyyy");
-    public static Date toDate(String date, String pattern){
+    static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat("dd-MM-yyyy");
+
+    public static Date toDate(String date, String pattern) {
         try {
             formater.applyPattern(pattern);
             formater.setLenient(false);
             return formater.parse(date);
         } catch (Exception e) {
-            throw new RuntimeException(e);        }
-    }
- 
-    public static Date now() {
-            return new Date();
+            throw new RuntimeException(e);
         }
-    
-    public static Date add(int days){
-        Calendar cal=Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH,days);
+    }
+
+    public static Date now() {
+        return new Date();
+    }
+
+    public static Date add(int days) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DAY_OF_MONTH, days);
         return cal.getTime();
     }
+
     public static String toString(Date date, String... pattern) {
         if (pattern.length > 0) {
             DATE_FORMATER.applyPattern(pattern[0]);
@@ -43,5 +47,5 @@ public class XDate {
         }
         return DATE_FORMATER.format(date);
     }
-    
+
 }

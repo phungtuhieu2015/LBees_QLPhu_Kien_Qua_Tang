@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.lang.System.Logger.Level;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -133,7 +134,19 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    public void initIDForm() {
+        try {
+            maDH = "DH" + daoQT.initID();
+            maHD = "HD" + daoHD.initID();
+            maKH = "KH" + daoKH.initID();
+            txtMaDH.setText(maDH);
+            txtMaHD.setText(maHD);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void setHint() {
@@ -213,7 +226,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
                     qt.getTenNN(),
                     qt.getDiaChiNN(),
                     qt.getSDTNN(),
-                    qt.getNgayGiao(),
+                    XDate.toString(qt.getNgayGiao(), mauNgay),
                     qt.getTrangThai(),
                     qt.getGhiChu()
                 };
@@ -249,13 +262,11 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         txtTenNN.setText(qt.getTenNN());
         txtDiaChiNN.setText(qt.getDiaChiNN());
         txtSDTNN.setText(qt.getSDTNN());
-        txtNgayGiao.setText(String.valueOf(qt.getNgayGiao()));
+        txtNgayGiao.setText(String.valueOf(XDate.toString(qt.getNgayGiao(), mauNgay)));
         txtMaHD.setText(qt.getMaHD());
         txtGhiChu.setText(qt.getGhiChu());
-
         txtTenKH.setText(kh.getTenKH());
         txtSDTKH.setText(kh.getSDT());
-
         cboTrangThai.setSelectedItem(qt.getTrangThai());
         cboNGH.setSelectedItem(ngh.getTenNGH() + " - " + ngh.getMaNGH());
 
@@ -264,19 +275,27 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 //        System.out.println(aa);
     }
 
-    public QuaTang getForm() {
+    public QuaTang getFormUpdate() {
         String s = String.valueOf(cboNGH.getSelectedItem());
-        String maNGH = s.substring(s.length() - 10, s.length());
+        String maNGH = s.substring(s.length() - 8, s.length());
         QuaTang qt = new QuaTang();
         qt.setMaDH(txtMaDH.getText());
         try {
-            KhachHang kh = new KhachHang(maKH, txtTenKH.getText(), txtSDTKH.getText(), 0);
-            daoKH.insert(kh);
-            HoaDon hd = new HoaDon(maHD, 0, new Date(), txtGhiChu.getText(), "NV00001", kh.getMaKH());
-            daoHD.insert(hd);
+            KhachHang kh = new KhachHang();
+            listKH = daoKH.selectAll();
+            for (KhachHang khachHang : listKH) {
+                if (khachHang.getSDT().equals(txtSDTKH.getText())) {
+                    kh.setMaKH(khachHang.getMaKH());
+                    kh.setTenKH(txtTenKH.getText());
+                    kh.setSDT(txtSDTKH.getText());
+                    kh.setDiemTichLuy(0);
+                    daoKH.update(kh);
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         qt.setMaHD(txtMaHD.getText());
         qt.setMaNGH(maNGH);
         qt.setTenNN(txtTenNN.getText());
@@ -285,7 +304,6 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         qt.setNgayGiao(XDate.toDate(txtNgayGiao.getText(), mauNgay));
         qt.setGhiChu(txtGhiChu.getText());
         qt.setTrangThai((String) cboTrangThai.getSelectedItem());
-
         return qt;
 
     }
@@ -336,24 +354,23 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }
 
     //tạo nút thêm
-    public void insert() {
-        QuaTang tk = getForm();
-
-        if (tk != null) {
-            try {
-                daoQT.insert(tk);
-                loadData();
-                clear();
-                Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm quà tặng thành công");
-                noti.showNotification();
-            } catch (Exception e) {
-                Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm quà tặng không thành công");
-                noti.showNotification();
-            }
-        }
-
-    }
-
+//    public void insert() {
+//        QuaTang tk = getForm();
+//
+//        if (tk != null) {
+//            try {
+//                daoQT.insert(tk);
+//                loadData();
+//                clear();
+//                Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm quà tặng thành công");
+//                noti.showNotification();
+//            } catch (Exception e) {
+//                Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm quà tặng không thành công");
+//                noti.showNotification();
+//            }
+//        }
+//
+//    }
     public void delete() {
         if (Msgbox.yesNo("BẠN CÓ CHẮC CHẮN", "muốn xoá đi đơn hàng không")) {
 
@@ -370,7 +387,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }
 
     public void update() {
-        QuaTang modelQT = getForm();
+        QuaTang modelQT = getFormUpdate();
         try {
             daoQT.update(modelQT);
             loadData();
@@ -1148,12 +1165,12 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         pnlBanHang.setLayout(pnlBanHangLayout);
         pnlBanHangLayout.setHorizontalGroup(
             pnlBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 918, Short.MAX_VALUE)
+            .addGap(0, 915, Short.MAX_VALUE)
             .addGroup(pnlBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlBanHangLayout.createSequentialGroup()
-                    .addGap(0, 1, Short.MAX_VALUE)
+                    .addGap(0, 0, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 915, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 2, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         pnlBanHangLayout.setVerticalGroup(
             pnlBanHangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1288,7 +1305,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
                             .addComponent(txtMaHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtDiaChiNN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtNgayGiao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         btnLayout.setVerticalGroup(
             btnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1398,7 +1415,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         pnlDanhSach.setLayout(pnlDanhSachLayout);
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ScrollQT, javax.swing.GroupLayout.DEFAULT_SIZE, 918, Short.MAX_VALUE)
+            .addComponent(ScrollQT, javax.swing.GroupLayout.DEFAULT_SIZE, 915, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cboLocTheoTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1423,7 +1440,10 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelQuaTang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelQuaTang, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1447,14 +1467,34 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         JDL_XacNhanThongTin_QuaTang xn = new JDL_XacNhanThongTin_QuaTang(frame, true);
+        boolean ss= false;
+        String s = String.valueOf(cboNGH.getSelectedItem());
+        String maNGH = s.substring(s.length() - 8, s.length());
+
         // if (check()) {       
-        xn.seta(maKH, txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText());
+        listKH = daoKH.selectAll();
+        for (KhachHang kh : listKH) {
+            if (kh.getSDT().equalsIgnoreCase(txtSDTKH.getText())) {
+                xn.seta(kh.getMaKH(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()),maNGH,txtMaHD.getText());
+                ss = true;
+                break;
+            }
+        }
+        if (ss == false) {
+            try {
+                xn.seta("KH"+daoKH.initID(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()),maNGH,txtMaHD.getText());
+                System.out.println(daoKH.initID());
+                System.out.println("ss false");
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(Form_QuaTang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+        }
 
         int tongTien = 0;
         for (HoaDonChiTiet hdct : listHDCT) {
             tongTien += hdct.getThanhTien();
         }
-
+        xn.geList(listSP);
         xn.setTongTienSP(tongTien);
         xn.setVisible(true);
 
@@ -1552,6 +1592,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
             Msgbox.waring(frame, "Bạn chưa có đơn hàng nào để thanh toán");
             return;
         } else {
+            initIDForm();
             panelQuaTang.setSelectedIndex(1);
             btnSua.setVisible(false);
             btnXoa.setVisible(false);
