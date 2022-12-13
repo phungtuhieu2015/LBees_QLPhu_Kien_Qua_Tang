@@ -18,7 +18,7 @@ import java.util.List;
 public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
 
     String insert_SQL = "INSERT INTO dbo.TaiKhoan(MaTK,TenTK,MatKhau,MaNV)VALUES(?,?,?,?)";
-    String update_SQL = "UPDATE dbo.TaiKhoan SET TenTK=?,MatKhau=?,MaNV=?  WHERE MaTK =?";
+    String update_SQL = "UPDATE dbo.TaiKhoan SET TenTK=?,MatKhau=?  WHERE MaTK =?";
     String delete_SQL = "DELETE dbo.TaiKhoan WHERE MaTK =?";
     String select_All_SQL = "SELECT * FROM dbo.TaiKhoan";
     String select_ByID_SQL = "SELECT * FROM dbo.TaiKhoan WHERE MaTK=?";
@@ -31,7 +31,7 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
 
     @Override
     public void update(TaiKhoan entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getTenTK(), entity.getMaTK(), entity.getMaTK());
+        XJdbc.executeUpdate(update_SQL, entity.getTenTK(), entity.getMatKhau(), entity.getMaTK());
     }
 
     @Override

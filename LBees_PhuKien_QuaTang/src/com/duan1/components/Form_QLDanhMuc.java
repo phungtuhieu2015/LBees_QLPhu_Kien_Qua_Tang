@@ -312,6 +312,8 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
 
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtMaDanhMuc.setEditable(false);
+
         btnMoi.setText("Mới");
         btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnMoi.addActionListener(new java.awt.event.ActionListener() {

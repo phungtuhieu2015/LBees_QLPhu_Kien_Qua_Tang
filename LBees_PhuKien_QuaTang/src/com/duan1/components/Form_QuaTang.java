@@ -196,6 +196,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
     public void ThanhTruotQT() {
         ScrollQT.setVerticalScrollBar(new ScrollBarCustom());
+        ScrollQT1.setVerticalScrollBar(new ScrollBarCustom());
     }
 
     public void loadData() {
@@ -205,11 +206,11 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         try {
 
             for (QuaTang qt : listQT) {
-
+            NguoiGiaoHang ngh = daoNGH.selectByid(qt.getMaNGH());
                 Object[] row = {
                     qt.getMaDH(),
                     qt.getMaHD(),
-                    qt.getMaNGH(),
+                    ngh.getTenNGH(),
                     qt.getTenNN(),
                     qt.getDiaChiNN(),
                     qt.getSDTNN(),
@@ -847,7 +848,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         txtTimKiemGH = new com.duan1.swing.TextFieldAnimation();
         Tabpane3 = new com.duan1.swing.MaterialTabbed();
         pnlDanhSach3 = new javax.swing.JPanel();
-        Scroll_SPBan = new javax.swing.JScrollPane();
+        ScrollQT1 = new javax.swing.JScrollPane();
         tblSanPham = new com.duan1.swing.Table();
         jPanel1 = new javax.swing.JPanel();
         lblWebcam = new javax.swing.JPanel();
@@ -1003,7 +1004,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
                 tblSanPhamMouseEntered(evt);
             }
         });
-        Scroll_SPBan.setViewportView(tblSanPham);
+        ScrollQT1.setViewportView(tblSanPham);
         if (tblSanPham.getColumnModel().getColumnCount() > 0) {
             tblSanPham.getColumnModel().getColumn(0).setPreferredWidth(30);
         }
@@ -1012,18 +1013,18 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         pnlDanhSach3.setLayout(pnlDanhSach3Layout);
         pnlDanhSach3Layout.setHorizontalGroup(
             pnlDanhSach3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 886, Short.MAX_VALUE)
+            .addGap(0, 1009, Short.MAX_VALUE)
             .addGroup(pnlDanhSach3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDanhSach3Layout.createSequentialGroup()
-                    .addComponent(Scroll_SPBan, javax.swing.GroupLayout.PREFERRED_SIZE, 835, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 51, Short.MAX_VALUE)))
+                    .addComponent(ScrollQT1, javax.swing.GroupLayout.PREFERRED_SIZE, 906, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 103, Short.MAX_VALUE)))
         );
         pnlDanhSach3Layout.setVerticalGroup(
             pnlDanhSach3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 200, Short.MAX_VALUE)
             .addGroup(pnlDanhSach3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pnlDanhSach3Layout.createSequentialGroup()
-                    .addComponent(Scroll_SPBan, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ScrollQT1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -1352,7 +1353,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
             },
             new String [] {
-                "Mã DH", "Mã HD", "Mã NGH", "Tên NN", "Địa chỉ NN", "SĐT NN", "Ngày giao", "Trạng thái", "Ghi Chú"
+                "Mã DH", "Mã HD", "Tên NGH", "Tên NN", "Địa chỉ NN", "SĐT NN", "Ngày giao", "Trạng thái", "Ghi Chú"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1610,8 +1611,8 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollQT;
+    private javax.swing.JScrollPane ScrollQT1;
     private javax.swing.JScrollPane Scroll_GioHang;
-    private javax.swing.JScrollPane Scroll_SPBan;
     private com.duan1.swing.MaterialTabbed Tabpane1;
     private com.duan1.swing.MaterialTabbed Tabpane3;
     private com.duan1.swing.TextAreaScroll ahihi;
