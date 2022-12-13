@@ -1,4 +1,7 @@
 package com.duan1.ui;
+import com.duan1.DAO.NhanVienDAO;
+import com.duan1.DAO.TaiKhoanDAO;
+import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
@@ -19,6 +22,7 @@ import java.awt.Component;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.components.Main_Form;
 import com.duan1.components.Form_QLBanHang;
+import com.duan1.components.JDL_ThongTinChiTiet_LSHoaDon;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
@@ -69,6 +73,7 @@ public class MainJFrame extends javax.swing.JFrame {
         dongHo();
         creatPopupMenu(this);
         this.setIconImage(ImgHelper.APP_ICON);
+        setform();
     }
     int indexx = 0;
 
@@ -174,6 +179,10 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
+    public void setform(){
+        lblTen.setText(Auth.tenNV());
+        lblCVFN.setText(Auth.role());
+    }
     @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -288,12 +297,9 @@ public class MainJFrame extends javax.swing.JFrame {
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(panelMenuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(backgroundLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAvatar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -302,8 +308,11 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblCVFN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,9 +332,9 @@ public class MainJFrame extends javax.swing.JFrame {
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lblBaCham)))
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -405,11 +414,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
-        new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
+      new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
+      
     }//GEN-LAST:event_lblAvatarMouseClicked
 
     private void lblCVFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCVFNMouseClicked
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_lblCVFNMouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
