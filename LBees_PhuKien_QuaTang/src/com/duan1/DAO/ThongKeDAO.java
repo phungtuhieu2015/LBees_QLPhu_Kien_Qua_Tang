@@ -1,4 +1,3 @@
-
 package com.duan1.DAO;
 
 import com.duan1.Helper.XJdbc;
@@ -7,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 
 public class ThongKeDAO {
 
@@ -33,7 +31,6 @@ public class ThongKeDAO {
         return tongSLHoaDon(tong);
     }
 
-    
     ///////////////////////Thống kê tổng nhập khho
     protected Integer tongSLNP(String sql) throws SQLException {
 
@@ -55,43 +52,70 @@ public class ThongKeDAO {
         String tong = "SELECT COUNT(MaPNK) AS'Tong' FROM dbo.PhieuNhapKho";
         return tongSLNP(tong);
     }
-    
-    
-   ///thống kê tổng xuất kho
-    
+
+    ///thống kê tổng xuất kho
     public int tongSLXuatK() throws SQLException {
-         String tong = "SELECT COUNT(MaHD) AS'Tong' FROM dbo.HoaDon";
+        String tong = "SELECT COUNT(MaHD) AS'Tong' FROM dbo.HoaDon";
         return tongSLNP(tong);
     }
-    
-     public int tongDoanhThu() throws SQLException {
-         String tong = " SELECT  SUM(ThanhTien) -SUM(TienShip) AS'tong'  FROM dbo.HoaDon INNER JOIN dbo.HoaDonChiTiet ON HoaDonChiTiet.MaHD = HoaDon.MaHD";
+
+    public int tongDoanhThu() throws SQLException {
+        String tong = " SELECT  SUM(ThanhTien) -SUM(TienShip) AS'tong'  FROM dbo.HoaDon INNER JOIN dbo.HoaDonChiTiet ON HoaDonChiTiet.MaHD = HoaDon.MaHD";
         return tongSLNP(tong);
     }
-     public int tongToanKho() throws SQLException {
-         String tong = "SELECT SUM(SoLuong) AS'tong' FROM dbo.SanPhamBan";
+
+    public int tongToanKho() throws SQLException {
+        String tong = "SELECT SUM(SoLuong) AS'tong' FROM dbo.SanPhamBan";
         return tongSLNP(tong);
     }
-   
-     public List<Object[]> getDoanhThu(Date tuNgay , Date denNgay) {
-        List<Object[]> list = new ArrayList<>();
-          
+
+//     public List<Object[]> getDoanhThu(Date tuNgay , Date denNgay) {
+//        List<Object[]> list = new ArrayList<>();
+//          
+//        try {
+//            ResultSet rs = null;
+//            try {
+//                String sql = "{call sp_ThongKeDoanhThu (?),(?)}";
+//                rs = XJdbc.executeQuery(sql, tuNgay, denNgay);
+//                while (rs.next()) {
+//                    Object[] row = {
+//                        rs.getString("MaHD"), rs.getDate("NgayTao"), rs.getDouble("DoanhThu")};
+//                    list.add(row);
+//                }
+//            } finally {
+//                rs.getStatement().getConnection().close();
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return list;
+//    }
+    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
-            ResultSet rs = null;
-            try {
-                String sql = "{call sp_ThongKeDoanhThu (?),(?)}";
-                rs = XJdbc.executeQuery(sql, tuNgay, denNgay);
-                while (rs.next()) {
-                    Object[] model = {
-                        rs.getString("MaHD"), rs.getDate("NgayTao"), rs.getDouble("DThu")};
-                    list.add(model);
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
                 }
-            } finally {
-                rs.getStatement().getConnection().close();
+                list.add(vals);
             }
+            rs.getStatement().getConnection().close();
+            return list;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return list;
+    }
+
+    public List<Object[]> getDoanhThu(Date tuNgay, Date denNgay) {
+        String sql = "{CALL sp_ThongKeDoanhThu (?,?)}";
+        String[] cols = {"MaHD", "NgayTao", "TongTien"};
+        return this.getListOfArray(sql, cols, tuNgay, denNgay);
+    }
+    public List<Object[]> getDoanhThu() {
+        String sql = "{CALL sp_ThongKeDoanhThu (?,?)}";
+        String[] cols = {"MaHD", "NgayTao", "TongTien"};
+        return this.getListOfArray(sql, cols );
     }
 }

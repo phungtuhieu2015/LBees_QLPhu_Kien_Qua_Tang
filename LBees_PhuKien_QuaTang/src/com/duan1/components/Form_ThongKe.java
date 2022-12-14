@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +30,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
     ThongKeDAO daoTKe = new ThongKeDAO();
     HoaDon hd = new HoaDon();
     HoaDonDAO daoHD = new HoaDonDAO();
+    String mauNgay = "dd-MM-yyyy";
+
     public Form_ThongKe() {
         initComponents();
         setHin();
@@ -45,24 +49,22 @@ public class Form_ThongKe extends javax.swing.JPanel {
         try {
             int TongHD = daoTKe.tongSLHoaDD();
             lblSLHoadon.setText("Tổng số lượng hoá đơn : " + String.valueOf(TongHD));
-            
+
             int tongNhap = daoTKe.tongSLNhapKho();
-            lblNhapKho.setText(String.valueOf(tongNhap)+" SP");
-            
+            lblNhapKho.setText(String.valueOf(tongNhap) + " SP");
+
             int XuatNhap = daoTKe.tongSLXuatK();
-            lblXuatKho.setText(String.valueOf(XuatNhap)+" SP");
-            
+            lblXuatKho.setText(String.valueOf(XuatNhap) + " SP");
+
             int TongDT = daoTKe.tongDoanhThu();
-            lblTongDoanhThu.setText(String.valueOf(TongDT)+" VNĐ");
-            
+            lblTongDoanhThu.setText(String.valueOf(TongDT) + " VNĐ");
+
             int TonKho = daoTKe.tongToanKho();
-            lblTonKho.setText(String.valueOf(TonKho)+" SP");
+            lblTonKho.setText(String.valueOf(TonKho) + " SP");
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
-           
-       
+
     }
 
     public void TimKiem() {
@@ -88,22 +90,29 @@ public class Form_ThongKe extends javax.swing.JPanel {
             }
         });
     }
-      void fillTableDoanhThu() {
+
+    void fillTableDoanhThu() {
         DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
         model.setRowCount(0);
+        Date d = new Date();
+        String tn = "01-01-1975";
+        String dn = XDate.toString(d, mauNgay);
 
-        if (cboDoanhThuu.getSelectedItem() == null) {
-            return;
-        } else {
-            int nam = Integer.parseInt(cboDoanhThuu.getSelectedItem().toString());
-            List<Object[]> list = daoTKe.getDoanhThu(XDate.toDate("01-10-2022", "dd-MM-yyyy"),XDate.toDate("13-12-2022", "dd-MM-yyyy"));
-            for (Object[] row : list) {
-                model.addRow(row);
-            }
+        if (!txtDenNgay.getText().trim().isEmpty() && !txtTuNgay.getText().trim().isEmpty()) {
+            tn = txtTuNgay.getText();
+            dn = txtDenNgay.getText();
+        }
+
+        Date tuNgay = XDate.toDate(tn, mauNgay);
+        Date denNgay = XDate.toDate(dn, mauNgay);
+        List<Object[]> list = daoTKe.getDoanhThu(tuNgay, denNgay);
+        for (Object[] row : list) {
+            model.addRow(row);
         }
 
     }
-       void fillComboBoxNam() {
+
+    void fillComboBoxNam() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboDoanhThuu.getModel();
         model.removeAllElements();
 
@@ -252,6 +261,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 cboDoanhThuuActionPerformed(evt);
             }
         });
+
+        txtTuNgay.setText("");
 
         kGradientPanel4.setkEndColor(new java.awt.Color(207, 61, 226));
         kGradientPanel4.setkStartColor(new java.awt.Color(117, 81, 251));
@@ -511,7 +522,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void cboDoanhThuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDoanhThuuActionPerformed
-      fillTableDoanhThu();
+        fillTableDoanhThu();
     }//GEN-LAST:event_cboDoanhThuuActionPerformed
 
 
