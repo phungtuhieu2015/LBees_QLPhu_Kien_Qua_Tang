@@ -82,7 +82,7 @@ public class MainJFrame extends javax.swing.JFrame {
 //            System.exit(0);
         }
     }
-
+    
     private void init() {
         mainJFrame = this;
         menu.addEvent(new EventMenuSelected() {
@@ -279,8 +279,6 @@ public class MainJFrame extends javax.swing.JFrame {
                 lblBaChamMouseClicked(evt);
             }
         });
-
-        lblTen.setText("Khanh");
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);

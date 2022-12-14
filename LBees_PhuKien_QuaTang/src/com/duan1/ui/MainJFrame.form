@@ -230,9 +230,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTen">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Khanh"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

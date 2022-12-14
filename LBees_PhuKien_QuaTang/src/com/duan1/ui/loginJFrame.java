@@ -34,7 +34,7 @@ public class loginJFrame extends javax.swing.JFrame {
                         return;
                     } else {
                         Msgbox.waring(this, "Sai mật khẩu");
-                        lbldn.setText("Hãy thử lại");
+                        
                     }
 
                 }
@@ -44,7 +44,7 @@ public class loginJFrame extends javax.swing.JFrame {
             i++;
         }
         Msgbox.waring(this, "Nhân viên không tồn tại");
-        lbldn.setText("Hãy thử lại");
+       
 
     }
 
@@ -61,12 +61,12 @@ public class loginJFrame extends javax.swing.JFrame {
         panelBorder1 = new com.duan1.components.panelLogin_Border();
         jLabel1 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         lblThoat = new javax.swing.JLabel();
         panelLogin_left2 = new com.duan1.components.panelLogin_left();
         txtTenTK = new com.duan1.swing.MyTextField();
         txtMatKhau = new com.duan1.swing.MyPassField();
         jLabel2 = new javax.swing.JLabel();
-        lbldn = new javax.swing.JLabel();
         button2 = new com.duan1.swing.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,10 +78,16 @@ public class loginJFrame extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Pristina", 1, 48)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Welcome to LBEES");
-        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 360, 100));
+        panelBorder1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 360, 70));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8_bee_127px.png"))); // NOI18N
-        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 140, 130));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8_Bumblebee_100px.png"))); // NOI18N
+        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 100, 130));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Nhanh chóng - dễ dàng - tiện lợi");
+        panelBorder1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 260, 30));
 
         lblThoat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/16_Thoat_16.png"))); // NOI18N
@@ -105,10 +111,6 @@ public class loginJFrame extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("ĐĂNG NHẬP");
         panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 160, 49));
-
-        lbldn.setForeground(new java.awt.Color(0, 0, 204));
-        lbldn.setText("Quên mật khẩu?");
-        panelBorder1.add(lbldn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 90, 30));
 
         button2.setBackground(new java.awt.Color(51, 153, 255));
         button2.setForeground(new java.awt.Color(255, 255, 255));
@@ -185,8 +187,8 @@ public class loginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel lblThoat;
-    private javax.swing.JLabel lbldn;
     private com.duan1.components.panelLogin_Border panelBorder1;
     private com.duan1.components.panelLogin_left panelLogin_left2;
     private com.duan1.swing.MyPassField txtMatKhau;

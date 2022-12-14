@@ -321,10 +321,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         txtSDT = new com.duan1.swing.MyTextField();
         txtDiemTichLuy = new com.duan1.swing.MyTextField();
         pnlThemSuaXoa = new javax.swing.JPanel();
-        btnThem = new com.duan1.swing.Button();
         btnSua = new com.duan1.swing.Button();
         btnXoa = new com.duan1.swing.Button();
-        btnMoi = new com.duan1.swing.Button();
         pnlDieuHuong = new javax.swing.JPanel();
         btnFirst = new com.duan1.swing.Button();
         btnPrev = new com.duan1.swing.Button();
@@ -361,15 +359,6 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         pnlThemSuaXoa.setBackground(new java.awt.Color(255, 255, 255));
         pnlThemSuaXoa.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
-        btnThem.setText("Thêm");
-        btnThem.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(btnThem);
-
         btnSua.setText("Sửa");
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -387,15 +376,6 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             }
         });
         pnlThemSuaXoa.add(btnXoa);
-
-        btnMoi.setText("Mới");
-        btnMoi.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnMoi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMoiActionPerformed(evt);
-            }
-        });
-        pnlThemSuaXoa.add(btnMoi);
 
         pnlDieuHuong.setBackground(new java.awt.Color(255, 255, 255));
         pnlDieuHuong.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
@@ -591,12 +571,6 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (check()) {
-            insert();
-        }
-    }//GEN-LAST:event_btnThemActionPerformed
-
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (check()) {
             update();
@@ -606,10 +580,6 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         delete();
     }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-        clear();
-    }//GEN-LAST:event_btnMoiActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
             String ID = txtTimKiem.getText().trim();
@@ -644,11 +614,9 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     private com.duan1.swing.MaterialTabbed Tabpane;
     private com.duan1.swing.Button btnFirst;
     private com.duan1.swing.Button btnLast;
-    private com.duan1.swing.Button btnMoi;
     private com.duan1.swing.Button btnNext;
     private com.duan1.swing.Button btnPrev;
     private com.duan1.swing.Button btnSua;
-    private com.duan1.swing.Button btnThem;
     private com.duan1.swing.Button btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField jPasswordField1;
