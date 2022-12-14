@@ -14,7 +14,9 @@ import com.duan1.Entity.SanPham;
 import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
+import com.duan1.ui.DoiMatKhauJFrame;
 import com.duan1.ui.MainJFrame;
+import com.duan1.ui.loginJFrame;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,6 +91,7 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
         lbltkkk = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         lblmatkhau = new javax.swing.JLabel();
+        btnLogin = new com.duan1.swing.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -148,6 +151,14 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
         lblmatkhau.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblmatkhau.setText("th");
 
+        btnLogin.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        btnLogin.setText("Đổi mật khẩu");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -188,6 +199,10 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,7 +244,9 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(lblmatkhau))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,6 +265,13 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new DoiMatKhauJFrame().setVisible(true);
+        
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,6 +317,7 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.duan1.swing.Button btnLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

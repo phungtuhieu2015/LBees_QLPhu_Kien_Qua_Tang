@@ -372,6 +372,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 "Đổi mật khẩu",
                 new ImageIcon(".\\src\\com\\duan1\\icon\\16_quenmatkhau_16.png")
         );
+     
         //apply desc
         menuItem.getAccessibleContext().setAccessibleDescription("Đổi mật khẩu");
         //Add an Action Listener
