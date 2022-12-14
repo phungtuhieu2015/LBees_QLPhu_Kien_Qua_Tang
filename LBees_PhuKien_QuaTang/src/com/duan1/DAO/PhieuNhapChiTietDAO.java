@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class PhieuNhapChiTietDAO extends QLPK<PhieuNhapChiTiet, String> {
 
-    String insert_SQL = "INSERT INTO dbo.PhieuNhapChiTiet(MaPNK,MaSP,SoLuong,ThanhTien)VALUES(?,?,?,?))";
+    String insert_SQL = "INSERT INTO dbo.PhieuNhapChiTiet(MaPNK,MaSP,SoLuong,ThanhTien)VALUES(?,?,?,?)";
     String update_SQL = "UPDATE dbo.PhieuNhapChiTiet SET MaSP=?,SoLuong=?,ThanhTien=? WHERE MaPNK =?";
     String delete_SQL = "DELETE dbo.PhieuNhapChiTiet WHERE MaPNK =?";
     String select_All_SQL = "SELECT * FROM dbo.PhieuNhapChiTiet";

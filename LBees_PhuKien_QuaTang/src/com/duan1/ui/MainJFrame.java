@@ -88,6 +88,10 @@ public class MainJFrame extends javax.swing.JFrame {
         menu.addEvent(new EventMenuSelected() {
             @Override
             public void menuSelected(int index, int indexSubMenu) {
+               if(!Form_QLSanPham.checkBtn) {
+                   Msgbox.waring(mainJFrame, "Vui lòng kết thúc lần nhập kho!");
+                   return;
+               }
                 if (index == 0 && indexSubMenu == 0) {
                     if (indexx == 3) {
                         Form_QLBanHang.checks = 0;

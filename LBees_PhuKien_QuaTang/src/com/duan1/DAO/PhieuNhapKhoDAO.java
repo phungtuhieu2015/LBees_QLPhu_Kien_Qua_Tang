@@ -24,7 +24,8 @@ public class PhieuNhapKhoDAO extends QLPK<PhieuNhapKho, String> {
     String delete_SQL = "DELETE dbo.PhieuNhapKho WHERE MaPNK =?";
     String select_All_SQL = "SELECT * FROM dbo.PhieuNhapKho";
     String select_ByID_SQL = "SELECT * FROM dbo.PhieuNhapKho WHERE MaPNK=?";
-    String select_Max_ID = "SELECT MAX(SUBSTRING(MaPNK,LEN(MaPNK) - 4 ,LEN(MaPNK)))FROM dbo.PhieuNhapKho";
+//    String select_Max_ID = "SELECT MAX(SUBSTRING(MaPNK,LEN(MaPNK) - 4 ,LEN(MaPNK)))FROM dbo.PhieuNhapKho";
+    String select_Max_ID = "SELECT MAX(MaPNK) FROM dbo.PhieuNhapKho";
 
     @Override
     public void insert(PhieuNhapKho entity) {
@@ -83,6 +84,7 @@ public class PhieuNhapKhoDAO extends QLPK<PhieuNhapKho, String> {
     }
     public String initID () throws SQLException {
         String id = getLastID();
+        id = id.replaceAll("\\D+","");
         int idNumber = Integer.parseInt(id);
         String newID = String.format("%05d", idNumber+=1);
         return newID;

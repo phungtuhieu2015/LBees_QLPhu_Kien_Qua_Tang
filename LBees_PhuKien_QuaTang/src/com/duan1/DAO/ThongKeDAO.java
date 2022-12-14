@@ -69,27 +69,6 @@ public class ThongKeDAO {
         return tongSLNP(tong);
     }
 
-//     public List<Object[]> getDoanhThu(Date tuNgay , Date denNgay) {
-//        List<Object[]> list = new ArrayList<>();
-//          
-//        try {
-//            ResultSet rs = null;
-//            try {
-//                String sql = "{call sp_ThongKeDoanhThu (?),(?)}";
-//                rs = XJdbc.executeQuery(sql, tuNgay, denNgay);
-//                while (rs.next()) {
-//                    Object[] row = {
-//                        rs.getString("MaHD"), rs.getDate("NgayTao"), rs.getDouble("DoanhThu")};
-//                    list.add(row);
-//                }
-//            } finally {
-//                rs.getStatement().getConnection().close();
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return list;
-//    }
     private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
         try {
             List<Object[]> list = new ArrayList<>();
@@ -113,9 +92,5 @@ public class ThongKeDAO {
         String[] cols = {"MaHD", "NgayTao", "TongTien"};
         return this.getListOfArray(sql, cols, tuNgay, denNgay);
     }
-    public List<Object[]> getDoanhThu() {
-        String sql = "{CALL sp_ThongKeDoanhThu (?,?)}";
-        String[] cols = {"MaHD", "NgayTao", "TongTien"};
-        return this.getListOfArray(sql, cols );
-    }
+  
 }
