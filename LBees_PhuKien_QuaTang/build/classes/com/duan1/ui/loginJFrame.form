@@ -98,7 +98,7 @@
         </Component>
         <Component class="com.duan1.swing.MyTextField" name="txtTenTK">
           <Properties>
-            <Property name="text" type="java.lang.String" value="TanKhanh"/>
+            <Property name="text" type="java.lang.String" value="MinhKhoi"/>
             <Property name="iconTrc" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/duan1/icon/32_User.png"/>
             </Property>
@@ -111,7 +111,7 @@
         </Component>
         <Component class="com.duan1.swing.MyPassField" name="txtMatKhau">
           <Properties>
-            <Property name="text" type="java.lang.String" value="tankhanh123"/>
+            <Property name="text" type="java.lang.String" value="minhkhoi123"/>
             <Property name="iconTrc" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/duan1/icon/32_Pass.png"/>
             </Property>

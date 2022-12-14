@@ -66,7 +66,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.duan1.swing.MyTextField" name="MyTextField1">
+        <Component class="com.duan1.swing.MyTextField" name="txtTenTK">
           <Properties>
             <Property name="iconTrc" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/duan1/icon/32_User.png"/>
@@ -78,7 +78,7 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.duan1.swing.MyPassField" name="MyPassField_DMK">
+        <Component class="com.duan1.swing.MyPassField" name="txtMK02">
           <Properties>
             <Property name="iconTrc" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/com/duan1/icon/32_Pass.png"/>
@@ -86,19 +86,19 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="500" y="300" width="240" height="36"/>
+              <AbsoluteConstraints x="500" y="340" width="240" height="36"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="com.duan1.swing.MyPassField" name="MyPassField2">
+        <Component class="com.duan1.swing.MyPassField" name="txtMatKhauCu">
           <Properties>
             <Property name="iconTrc" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/com/duan1/icon/32_Pass.png"/>
+              <Image iconType="3" name="/com/duan1/icon/30px_pincode.png"/>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="500" y="240" width="240" height="36"/>
+              <AbsoluteConstraints x="500" y="226" width="240" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -113,20 +113,32 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="610" y="410" width="-1" height="-1"/>
+              <AbsoluteConstraints x="610" y="440" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="com.duan1.swing.Button" name="button1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i"/>
+            <Property name="text" type="java.lang.String" value="&#x110;&#x1ed5;i m&#x1ead;t kh&#x1ea9;u"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button1ActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="570" y="360" width="110" height="40"/>
+              <AbsoluteConstraints x="570" y="390" width="110" height="30"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="com.duan1.swing.MyPassField" name="txtMK">
+          <Properties>
+            <Property name="iconTrc" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/com/duan1/icon/32_Pass.png"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="500" y="280" width="240" height="36"/>
             </Constraint>
           </Constraints>
         </Component>
