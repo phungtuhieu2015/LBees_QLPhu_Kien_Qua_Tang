@@ -19,6 +19,8 @@ import java.awt.Component;
 import com.duan1.components.Form_ThongKe;
 import com.duan1.components.Main_Form;
 import com.duan1.components.Form_QLBanHang;
+import com.duan1.components.JDL_ThongTinChiTiet_LSHoaDon;
+import com.duan1.components.jdl_GTQT;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
@@ -225,7 +227,7 @@ public class MainJFrame extends javax.swing.JFrame {
         panelThoatLayout.setHorizontalGroup(
             panelThoatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelThoatLayout.createSequentialGroup()
-                .addComponent(lblThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblThoat, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panelThoatLayout.setVerticalGroup(
@@ -374,6 +376,23 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
         popupMenu.add(menuItem);
+       
+        menuItem = new JMenuItem(
+                "Giới thiệu ứng dụng",
+                new ImageIcon(".\\src\\com\\duan1\\icon\\16_gif_16.png")
+        );
+        //apply desc
+        menuItem.getAccessibleContext().setAccessibleDescription("Giới thiệu ứng dụng");
+        //Add an Action Listener
+        menuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainJFrame m = new MainJFrame();
+            jdl_GTQT jdl = new jdl_GTQT(m, true);
+            jdl.setVisible(true);
+            }
+        });
+        popupMenu.add(menuItem);
     }
 
     public void dongHo() {
@@ -417,7 +436,7 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_formKeyReleased
 
     private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
-        lblThoat.setBackground(Color.GRAY);
+        lblThoat.setBackground(Color.red);
         lblThoat.setOpaque(true);
     }//GEN-LAST:event_lblThoatMouseEntered
 
