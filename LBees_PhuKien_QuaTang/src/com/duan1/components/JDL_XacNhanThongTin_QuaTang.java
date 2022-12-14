@@ -64,6 +64,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     public void setHint() {
         txttTienKhachDua.setLabelText("Tiền khách đưa");
         txtTienPhiShip.setLabelText("Tiền phí ship");
+
     }
 
     public QuaTang getData(QuaTang qt) {
@@ -124,8 +125,12 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
     public void setTongTienSP(int tongTien) {
         this.tongTien = tongTien;
         tienThanhToan = tongTien;
-        lblTongTien.setText(tongTien + "");
-        lblThanhToan.setText(tienThanhToan + "");
+        String tToan = String.format("%,d", tienThanhToan);
+        String tTien = String.format("%,d", tongTien);
+      
+        lblTongTien.setText(tTien + "");
+        lblThanhToan.setText(tToan + "");
+      //  txtTienPhiShip.setText(tienPhiShip);
     }
 
     public void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -520,9 +525,9 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         try {
             long tienKhachDua = Long.parseLong(txttTienKhachDua.getText());
             long tienTraLai = tienKhachDua - tienTT;
-
+            String tThua = String.format("%,d", tienTraLai);
             if (tienTraLai >= 0) {
-                lblTienThua.setText(tienTraLai + "  VNĐ");
+                lblTienThua.setText(tThua + "  VNĐ");
             }
             if (txtTienPhiShip.getText().trim().isEmpty()) {
                 Msgbox.waring(f, "Không được để trống tiền ship!");
@@ -543,9 +548,10 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         try {
             long tienTT = tienThanhToan;
             long tienship = Long.parseLong(txtTienPhiShip.getText());
+            String tThanhToan = String.format("%,d", tienThanhToan);
             if (tienship > 10000 || tienship < 100000) {
                 tienThanhToan = tongTien + tienship;
-                lblThanhToan.setText(tienThanhToan + "");
+                lblThanhToan.setText(tThanhToan + "");
 
             } else {
                 Msgbox.waring(f, "Tiền ship phải (10000 - 100000)");

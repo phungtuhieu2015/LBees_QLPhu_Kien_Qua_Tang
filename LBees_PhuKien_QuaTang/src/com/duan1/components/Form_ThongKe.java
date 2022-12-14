@@ -2,17 +2,24 @@ package com.duan1.components;
 
 import com.duan1.DAO.HoaDonDAO;
 import com.duan1.DAO.ThongKeDAO;
+import com.duan1.Entity.HoaDon;
+import com.duan1.Helper.XDate;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
+import com.duan1.ui.MainJFrame;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,6 +28,8 @@ import javax.swing.Icon;
 public class Form_ThongKe extends javax.swing.JPanel {
 
     ThongKeDAO daoTKe = new ThongKeDAO();
+    HoaDon hd = new HoaDon();
+    HoaDonDAO daoHD = new HoaDonDAO();
 
     public Form_ThongKe() {
         initComponents();
@@ -28,33 +37,35 @@ public class Form_ThongKe extends javax.swing.JPanel {
         TimKiem();
         txtTuNgay.setText("");
         txtDenNgay.setText("");
+//        fillTableDoanhThu();
+//        fillComboBoxNam();
     }
 
     public void setHin() {
         txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
-
+        lblSLHoadon.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lblIconNX.setCursor(new Cursor(Cursor.HAND_CURSOR));
         try {
             int TongHD = daoTKe.tongSLHoaDD();
             lblSLHoadon.setText("Tổng số lượng hoá đơn : " + String.valueOf(TongHD));
-            
+
             int tongNhap = daoTKe.tongSLNhapKho();
-            lblNhapKho.setText(String.valueOf(tongNhap)+" SP");
-            
+            lblNhapKho.setText(String.valueOf(tongNhap));
+
             int XuatNhap = daoTKe.tongSLXuatK();
-            lblXuatKho.setText(String.valueOf(XuatNhap)+" SP");
-            
+            lblXuatKho.setText(String.valueOf(XuatNhap));
+
             int TongDT = daoTKe.tongDoanhThu();
-            lblTongDoanhThu.setText(String.valueOf(TongDT)+" VNĐ");
-            
+            String tongDThu = String.format("%,d", TongDT);
+            lblTongDoanhThu.setText(String.valueOf(tongDThu) + " VNĐ");
+
             int TonKho = daoTKe.tongToanKho();
-            lblTonKho.setText(String.valueOf(TonKho)+" SP");
+            lblTonKho.setText(String.valueOf(TonKho) + " SP");
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
-           
-       
+
     }
 
     public void TimKiem() {
@@ -81,6 +92,37 @@ public class Form_ThongKe extends javax.swing.JPanel {
         });
     }
 
+    void fillTableDoanhThu() {
+        DefaultTableModel model = (DefaultTableModel) tblDoanhThu.getModel();
+        model.setRowCount(0);
+
+        if (cboDoanhThuu.getSelectedItem() == null) {
+            return;
+        } else {
+            int nam = Integer.parseInt(cboDoanhThuu.getSelectedItem().toString());
+            List<Object[]> list = daoTKe.getDoanhThu(XDate.toDate("01-10-2022", "dd-MM-yyyy"), XDate.toDate("13-12-2022", "dd-MM-yyyy"));
+            for (Object[] row : list) {
+                model.addRow(row);
+            }
+        }
+
+    }
+
+    void fillComboBoxNam() {
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cboDoanhThuu.getModel();
+        model.removeAllElements();
+
+        List<HoaDon> list = daoHD.selectAll();
+        for (HoaDon kh : list) {
+            int nam = kh.getNgayTao().getYear() + 1900;
+            if (model.getIndexOf(nam) < 0) {
+                model.addElement(nam);
+            }
+        }
+
+        cboDoanhThuu.setSelectedIndex(0);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -91,14 +133,14 @@ public class Form_ThongKe extends javax.swing.JPanel {
         table3 = new com.duan1.swing.MaterialTabbed();
         pnlCapNhat1 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        table4 = new com.duan1.swing.Table();
+        tblDoanhThu = new com.duan1.swing.Table();
         pnlDanhSach1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         table5 = new com.duan1.swing.Table();
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         lblTuNgay1 = new javax.swing.JLabel();
         lblDenNgay1 = new javax.swing.JLabel();
-        comboBoxSuggestion2 = new com.duan1.swing.ComboBoxSuggestion();
+        cboDoanhThuu = new com.duan1.swing.ComboBoxSuggestion();
         txtTuNgay = new com.duan1.swing.MyTextField2();
         txtDenNgay = new com.duan1.swing.MyTextField2();
         kGradientPanel4 = new keeptoo.KGradientPanel();
@@ -114,10 +156,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        lblIconNX = new javax.swing.JLabel();
         lblNhapKho = new javax.swing.JLabel();
         lblXuatKho = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
         TuNgay_Date.setForeground(new java.awt.Color(0, 204, 255));
@@ -134,7 +178,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
 
         jScrollPane3.setBorder(null);
 
-        table4.setModel(new javax.swing.table.DefaultTableModel(
+        tblDoanhThu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -145,7 +189,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 "Mã doanh thu", "Ngày tạo", "Tổng tiền"
             }
         ));
-        jScrollPane3.setViewportView(table4);
+        jScrollPane3.setViewportView(tblDoanhThu);
 
         javax.swing.GroupLayout pnlCapNhat1Layout = new javax.swing.GroupLayout(pnlCapNhat1);
         pnlCapNhat1.setLayout(pnlCapNhat1Layout);
@@ -208,9 +252,13 @@ public class Form_ThongKe extends javax.swing.JPanel {
             }
         });
 
-        comboBoxSuggestion2.setEditable(false);
-        comboBoxSuggestion2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sắp Xếp Mã", "Tăng ", "Giảm " }));
-        comboBoxSuggestion2.setToolTipText("112");
+        cboDoanhThuu.setEditable(false);
+        cboDoanhThuu.setToolTipText("112");
+        cboDoanhThuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboDoanhThuuActionPerformed(evt);
+            }
+        });
 
         kGradientPanel4.setkEndColor(new java.awt.Color(207, 61, 226));
         kGradientPanel4.setkStartColor(new java.awt.Color(117, 81, 251));
@@ -260,6 +308,11 @@ public class Form_ThongKe extends javax.swing.JPanel {
         lblSLHoadon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblSLHoadon.setForeground(new java.awt.Color(204, 204, 204));
         lblSLHoadon.setText("ton kho");
+        lblSLHoadon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSLHoadonMouseClicked(evt);
+            }
+        });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/1x_TongDT.png"))); // NOI18N
 
@@ -299,7 +352,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
 
         kGradientPanel6.setkEndColor(new java.awt.Color(252, 215, 146));
@@ -317,7 +370,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(204, 204, 204));
         jLabel16.setText("TỔNG  XUẤT :");
 
-        jLabel20.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/1x_NhappXuat.png"))); // NOI18N
+        lblIconNX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/1x_NhappXuat.png"))); // NOI18N
+        lblIconNX.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblIconNXMouseClicked(evt);
+            }
+        });
 
         lblNhapKho.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblNhapKho.setForeground(new java.awt.Color(255, 255, 255));
@@ -333,28 +391,42 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Cái");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Cái");
+
         javax.swing.GroupLayout kGradientPanel6Layout = new javax.swing.GroupLayout(kGradientPanel6);
         kGradientPanel6.setLayout(kGradientPanel6Layout);
         kGradientPanel6Layout.setHorizontalGroup(
             kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                .addGap(6, 6, 6)
+                .addContainerGap()
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addComponent(lblIconNX)
+                .addGap(8, 8, 8))
+            .addGroup(kGradientPanel6Layout.createSequentialGroup()
                 .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
                         .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel15)
                             .addComponent(jLabel16))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblXuatKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblXuatKho, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                             .addComponent(lblNhapKho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addComponent(jLabel20)
-                .addGap(35, 35, 35))
-            .addGroup(kGradientPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)))
+                    .addGroup(kGradientPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel14)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel6Layout.setVerticalGroup(
@@ -365,20 +437,24 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
-                        .addComponent(lblNhapKho, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNhapKho, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblXuatKho)
+                    .addGroup(kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblXuatKho)
+                        .addComponent(jLabel4))
                     .addComponent(jLabel16))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, kGradientPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel20)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblIconNX)
                 .addContainerGap())
         );
 
@@ -409,10 +485,10 @@ public class Form_ThongKe extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cboDoanhThuu, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -428,7 +504,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                     .addComponent(lblDenNgay1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtDenNgay, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(comboBoxSuggestion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboDoanhThuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -469,19 +545,40 @@ public class Form_ThongKe extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void cboDoanhThuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDoanhThuuActionPerformed
+        fillTableDoanhThu();
+    }//GEN-LAST:event_cboDoanhThuuActionPerformed
+
+    private void lblIconNXMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconNXMouseClicked
+        MainJFrame f = new MainJFrame();
+        jdl_BieuDoTron bdt = new jdl_BieuDoTron(f, true);
+        bdt.bieuDo(Integer.parseInt(lblNhapKho.getText()), Integer.parseInt(lblXuatKho.getText()));
+        bdt.setVisible(true);
+    }//GEN-LAST:event_lblIconNXMouseClicked
+
+    private void lblSLHoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSLHoadonMouseClicked
+        if (evt.getClickCount() == 2) {
+            MainJFrame m = new MainJFrame();
+            m.showForm(new Form_LSHoaDon());
+            m.setVisible(true);
+
+        }
+    }//GEN-LAST:event_lblSLHoadonMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.duan1.swing.DateChooser DenNgay_Date;
     private com.duan1.swing.DateChooser TuNgay_Date;
-    private com.duan1.swing.ComboBoxSuggestion comboBoxSuggestion2;
+    private com.duan1.swing.ComboBoxSuggestion cboDoanhThuu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -491,6 +588,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private keeptoo.KGradientPanel kGradientPanel5;
     private keeptoo.KGradientPanel kGradientPanel6;
     private javax.swing.JLabel lblDenNgay1;
+    private javax.swing.JLabel lblIconNX;
     private javax.swing.JLabel lblNhapKho;
     private javax.swing.JLabel lblSLHoadon;
     private javax.swing.JLabel lblTonKho;
@@ -500,8 +598,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCapNhat1;
     private javax.swing.JPanel pnlDanhSach1;
     private com.duan1.swing.MaterialTabbed table3;
-    private com.duan1.swing.Table table4;
     private com.duan1.swing.Table table5;
+    private com.duan1.swing.Table tblDoanhThu;
     private com.duan1.swing.MyTextField2 txtDenNgay;
     private com.duan1.swing.TextFieldAnimation txtTimKiem;
     private com.duan1.swing.MyTextField2 txtTuNgay;

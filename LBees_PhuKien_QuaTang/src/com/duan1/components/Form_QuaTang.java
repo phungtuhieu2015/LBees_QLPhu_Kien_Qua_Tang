@@ -315,7 +315,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }
 
     public void fillComboboxTrangThai() {
-        String trangThai_GH[] = {"Đã giao xong", "Chưa giao", "Đang giao hàng", "Đã huỷ"};
+        String trangThai_GH[] = {"Chưa giao", "Đang giao hàng","Đã giao xong",  "Đã huỷ"};
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboTrangThai.getModel();
         model.removeAllElements();
 
@@ -325,7 +325,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }
 
     public void fillComboboxTrangThaiGiaoHang() {
-        String trangThai_GH[] = {"Lọc trạng thái", "Đã giao xong", "Chưa giao", "Đang giao hàng", "Đã huỷ"};
+        String trangThai_GH[] = {"Lọc trạng thái", "Chưa giao", "Đang giao hàng","Đã giao xong",  "Đã huỷ"};
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLocTheoTrangThai.getModel();
         model.removeAllElements();
 
@@ -852,6 +852,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dateChooser1 = new com.duan1.swing.DateChooser();
         panelQuaTang = new com.duan1.swing.MaterialTabbed();
         pnlBanHang = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -900,6 +901,9 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         tblQuaTang = new com.duan1.swing.Table();
         cboLocTheoTrangThai = new com.duan1.swing.ComboBoxSuggestion();
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
+
+        dateChooser1.setForeground(new java.awt.Color(28, 181, 224));
+        dateChooser1.setTextRefernce(txtNgayGiao);
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(923, 604));
@@ -1443,7 +1447,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelQuaTang, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
+                .addComponent(panelQuaTang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1673,6 +1677,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     private com.duan1.swing.ComboBoxSuggestion cboLocTheoTrangThai;
     private com.duan1.swing.ComboBoxSuggestion cboNGH;
     private com.duan1.swing.ComboBoxSuggestion cboTrangThai;
+    private com.duan1.swing.DateChooser dateChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
