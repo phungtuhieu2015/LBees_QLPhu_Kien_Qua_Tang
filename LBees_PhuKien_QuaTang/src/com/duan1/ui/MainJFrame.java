@@ -2,6 +2,7 @@ package com.duan1.ui;
 
 import com.duan1.DAO.NhanVienDAO;
 import com.duan1.DAO.TaiKhoanDAO;
+import com.duan1.Entity.NhanVien;
 import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
@@ -66,18 +67,25 @@ public class MainJFrame extends javax.swing.JFrame {
     private JMenuItem menuItem = null;
     Timer thoiGian;
     private static MainJFrame mainJFrame;
+    NhanVienDAO daoNV = new NhanVienDAO();
 
     public MainJFrame() {
 
         initComponents();
-      
+
         init();
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
+        setavatar();
         this.setIconImage(ImgHelper.APP_ICON);
     }
     int indexx = 0;
+
+    public void setavatar() {
+        NhanVien nv = daoNV.selectByid(Auth.tk.getMaNV());
+        new ImgHelper().loadHinhVaoForm(nv.getHinhAnh(), lblAvatar);
+    }
 
     public void checkDN() {
 
@@ -297,14 +305,14 @@ public class MainJFrame extends javax.swing.JFrame {
         body.setOpaque(false);
         body.setLayout(new java.awt.BorderLayout());
 
-        lblAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_avatar_32.png"))); // NOI18N
+        lblAvatar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/48_avatar_48.png"))); // NOI18N
         lblAvatar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblAvatarMouseClicked(evt);
             }
         });
 
-        lblDongHo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDongHo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDongHo.setText("00:00:00");
 
         lblCVFN.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
@@ -330,21 +338,19 @@ public class MainJFrame extends javax.swing.JFrame {
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(panelMenuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(lblAvatar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblDongHo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lblTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblCVFN)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCVFN, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblDongHo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         backgroundLayout.setVerticalGroup(
@@ -352,20 +358,23 @@ public class MainJFrame extends javax.swing.JFrame {
             .addComponent(panelMenuu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(backgroundLayout.createSequentialGroup()
-                            .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, 0)
-                            .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(lblCVFN)
-                                .addComponent(lblTen)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lblAvatar)))
+                    .addGroup(backgroundLayout.createSequentialGroup()
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(lblTen)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCVFN, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblBaCham))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblBaCham)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -515,7 +524,7 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new Form_Load().setVisible(true);
+                new Form_Load().setVisible(true);
             }
         });
     }
