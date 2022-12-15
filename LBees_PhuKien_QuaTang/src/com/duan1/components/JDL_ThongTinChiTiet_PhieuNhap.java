@@ -1,26 +1,16 @@
 package com.duan1.components;
 
-import com.duan1.DAO.HoaDonChiTietDAO;
-import com.duan1.DAO.HoaDonDAO;
-import com.duan1.DAO.KhachHangDAO;
-import com.duan1.DAO.NhanVienDAO;
 import com.duan1.DAO.PhieuNhapChiTietDAO;
+import com.duan1.DAO.PhieuNhapKhoDAO;
 import com.duan1.DAO.SanPhamDAO;
-import com.duan1.Entity.HoaDon;
-import com.duan1.Entity.HoaDonChiTiet;
-import com.duan1.Entity.KhachHang;
-import com.duan1.Entity.NhanVien;
 import com.duan1.Entity.PhieuNhapChiTiet;
 import com.duan1.Entity.PhieuNhapKho;
 import com.duan1.Entity.SanPham;
-import com.duan1.Helper.Msgbox;
+import com.duan1.Helper.XDate;
 import com.duan1.swing.ScrollBarCustom;
-import com.duan1.ui.MainJFrame;
 import java.awt.Color;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,9 +20,11 @@ import javax.swing.table.DefaultTableModel;
 public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
 
     PhieuNhapChiTietDAO daoPNK_CT = new PhieuNhapChiTietDAO();
+    PhieuNhapKhoDAO daoPNK = new PhieuNhapKhoDAO();
+    SanPhamDAO daoSP = new SanPhamDAO();
     List<PhieuNhapChiTiet> listPNCT = new ArrayList<>();
     int index;
-    
+
     public JDL_ThongTinChiTiet_PhieuNhap(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -53,20 +45,25 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
         tblModel.setRowCount(0);
         listPNCT = daoPNK_CT.selectByKeyword(maPNK);
         
+        double tongTien = 0;
         for (PhieuNhapChiTiet pnct : listPNCT) {
+            SanPham sp = daoSP.selectByid(pnct.getMaSP());
+            tongTien += pnct.getThanhTien();
             Object[] row = {
                 pnct.getMaSP(),
-                pnct.getMaSP(),
-                "1",
+                sp.getTenSP(),
+                sp.getDonViTinh(),
                 pnct.getSoLuong(),
-                pnct.getThanhTien(),
+                pnct.getThanhTien()
             };
             tblModel.addRow(row);
         }
+        lblMaPNK.setText(maPNK);
+        PhieuNhapKho pn = daoPNK.selectByid(maPNK);
+        lblNgayNhap.setText(XDate.toString(pn.getNgayNhap(), "dd-MM-yyyy"));
+        lblTongTien.setText(tongTien+"");
     }
 
- 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,9 +79,9 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPhieuNhapCT = new com.duan1.swing.Table();
         jLabel6 = new javax.swing.JLabel();
-        lblkhachhang = new javax.swing.JLabel();
+        lblNgayNhap = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMaPNK = new javax.swing.JLabel();
+        lblMaPNK = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         lblThoat = new javax.swing.JLabel();
 
@@ -127,14 +124,14 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel6.setText("Ngày nhập:");
 
-        lblkhachhang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblkhachhang.setText("hd");
+        lblNgayNhap.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNgayNhap.setText("hd");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         jLabel3.setText("Mã phiếu nhập:");
 
-        txtMaPNK.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtMaPNK.setText("hd");
+        lblMaPNK.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblMaPNK.setText("hd");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel8.setText("THÔNG TIN CHI TIẾT");
@@ -168,11 +165,11 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
                     .addGroup(panelTrang1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMaPNK, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMaPNK, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblkhachhang, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
                         .addGap(0, 577, Short.MAX_VALUE)
                         .addComponent(lblThoat)))
@@ -194,10 +191,10 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
-                        .addComponent(txtMaPNK))
+                        .addComponent(lblMaPNK))
                     .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
-                        .addComponent(lblkhachhang)))
+                        .addComponent(lblNgayNhap)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -293,12 +290,12 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMaPNK;
+    private javax.swing.JLabel lblNgayNhap;
     private javax.swing.JLabel lblThoat;
     private javax.swing.JLabel lblTongTien;
-    private javax.swing.JLabel lblkhachhang;
     private com.duan1.components.panelTrang panelTrang1;
     private com.duan1.swing.Table tblPhieuNhapCT;
-    private javax.swing.JLabel txtMaPNK;
     // End of variables declaration//GEN-END:variables
 
 }

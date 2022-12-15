@@ -19,7 +19,7 @@ public class DanhMucDAO extends QLPK<DanhMuc, String> {
     String insert_SQL = "INSERT dbo.DanhMuc(MaDM,TenDM)VALUES(?,?)";
     String update_SQL = "UPDATE dbo.DanhMuc SET TenDM=?  WHERE MaDM =?";
     String delete_SQL = "DELETE dbo.DanhMuc WHERE MaDM =?";
-    String select_All_SQL = "SELECT * FROM dbo.DanhMuc";
+    String select_All_SQL = "SELECT * FROM dbo.DanhMuc ORDER BY MaDM";
     String select_ByID_SQL = "SELECT * FROM dbo.DanhMuc WHERE MaDM=?";
 
     @Override
