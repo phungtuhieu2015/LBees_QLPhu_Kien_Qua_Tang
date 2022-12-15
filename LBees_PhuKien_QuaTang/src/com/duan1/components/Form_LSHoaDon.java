@@ -120,7 +120,10 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     }
 
     public void timKiemTheoNgay() {
-
+        if(txtTuNgay.getText().trim().isEmpty() || txtDenNgay.getText().trim().isEmpty()) {
+            Msgbox.waring(new MainJFrame(), "Vui lòng chọn ngày!");
+            return;
+        }
         DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
         model.setRowCount(0);
         String mauNgay = "dd-MM-yyyy";
