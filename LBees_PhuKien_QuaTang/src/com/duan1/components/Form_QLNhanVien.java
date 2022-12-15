@@ -315,7 +315,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                 daoNV.update(n);
                 loadDaTa();
                 clear();
-                Msgbox.success(frame, "Thêm thành công");
+                Msgbox.success(frame, "Cập nhật thành công");
             }
         } catch (Exception ex) {
             Msgbox.waring(frame, "Mã nhân viên không tồn tại");

@@ -241,6 +241,9 @@
     </Component>
     <Component class="com.duan1.swing.MyTextField2" name="txtDenNgay">
       <Events>
+        <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtDenNgayCaretUpdate"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDenNgayMouseClicked"/>
+        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDenNgayMouseEntered"/>
         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDenNgayMouseReleased"/>
       </Events>
     </Component>

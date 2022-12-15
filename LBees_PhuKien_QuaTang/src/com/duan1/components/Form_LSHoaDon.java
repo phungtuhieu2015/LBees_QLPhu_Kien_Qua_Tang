@@ -67,7 +67,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     for (int i = 1; i <= 100; i++) {
                         Thread.sleep(15);
                     }
-                   // loadDuLieu();
+                    // loadDuLieu();
                     call.done();
                 } catch (Exception e) {
                     System.err.println(e);
@@ -104,7 +104,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     hd.getMaHD(),
                     hd.getMaNV(),
                     hd.getMaKH(),
-                    hd.getNgayTao(),
+                    XDate.toString(hd.getNgayTao(), mauNgay),
                     kh.getTenKH(),
                     tongTien
                 };
@@ -118,35 +118,33 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         }
     }
 
+    String mauNgay = "dd-MM-yyyy";
+
     public void timKiemTheoNgay() {
 
         DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
         model.setRowCount(0);
         try {
 
-           
             String DenNgay = (txtDenNgay.getText());
             String tuNgay = (txtTuNgay1.getText());
-            System.out.println(DenNgay + "----" + tuNgay );
-            List<HoaDon> listhd = daoHD.selectByDate(tuNgay,DenNgay);
+            
+            List<HoaDon> listhd = daoHD.selectByDate(tuNgay, DenNgay);
 
-           for (HoaDon hd : listhd) {
-                HoaDonChiTiet ct = daoCT.selectByid(hd.getMaHD());
+            for (HoaDon hd : listhd) {
                 KhachHang kh = daoKH.selectByid(hd.getMaKH());
-                
+                long tongTien = daoCT.getTongTien(hd.getMaHD());
 
                 Object[] row = {
                     hd.getMaHD(),
                     hd.getMaNV(),
                     hd.getMaKH(),
-                    hd.getNgayTao(),
+                    XDate.toString(hd.getNgayTao(), mauNgay),
                     kh.getTenKH(),
-                    ct.getThanhTien()
+                   tongTien
 
-               
                 };
                 model.addRow(row);
-               
 
             }
         } catch (Exception e) {
@@ -155,6 +153,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         }
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -344,7 +343,18 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
         materialTabbed1.addTab("Lịch sử hóa đơn", jPanel1);
 
+        txtDenNgay.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtDenNgayCaretUpdate(evt);
+            }
+        });
         txtDenNgay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDenNgayMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtDenNgayMouseEntered(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 txtDenNgayMouseReleased(evt);
             }
@@ -416,21 +426,21 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private void tblLSHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLSHDMouseClicked
 
         int index = tblLSHD.getSelectedRow();
-       
-          String A = String.valueOf(tblLSHD.getValueAt(index, 0));
+
+        String A = String.valueOf(tblLSHD.getValueAt(index, 0));
         if (evt.getClickCount() == 2) {
             MainJFrame m = new MainJFrame();
 //
-            JDL_ThongTinChiTiet_LSHoaDon jdl = new JDL_ThongTinChiTiet_LSHoaDon (m, true);
+            JDL_ThongTinChiTiet_LSHoaDon jdl = new JDL_ThongTinChiTiet_LSHoaDon(m, true);
             try {
                 jdl.setFrom(listHD.get(index));
-               jdl.dulieu(A);
+                jdl.dulieu(A);
             } catch (ParseException ex) {
                 Logger.getLogger(Form_LSHoaDon.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             jdl.setVisible(true);
-          
+
             System.out.println(A);
 
         }
@@ -439,14 +449,14 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
     private void txtDenNgayMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseReleased
         // TODO add your handling code here:
-        timKiemTheoNgay();
+  // timKiemTheoNgay();
     }//GEN-LAST:event_txtDenNgayMouseReleased
 
     private void textFieldAnimationTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAnimationTKKeyReleased
         // TODO add your handling code here:
-         
+
         loadDuLieu();
-        
+
     }//GEN-LAST:event_textFieldAnimationTKKeyReleased
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
@@ -455,6 +465,21 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         txtTuNgay1.setText("");
         txtDenNgay.setText("");
     }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void txtDenNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseClicked
+       
+       timKiemTheoNgay();
+    }//GEN-LAST:event_txtDenNgayMouseClicked
+
+    private void txtDenNgayCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtDenNgayCaretUpdate
+        // TODO add your handling code here:
+      // timKiemTheoNgay();
+    }//GEN-LAST:event_txtDenNgayCaretUpdate
+
+    private void txtDenNgayMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseEntered
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_txtDenNgayMouseEntered
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

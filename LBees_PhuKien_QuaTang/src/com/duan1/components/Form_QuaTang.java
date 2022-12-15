@@ -87,6 +87,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     private int DAY = 1;
     Date date = new Date();
 
+    
     SanPhamDAO daoSP = new SanPhamDAO();
     List<SanPham> listSP = null;
     String sl;
