@@ -7,7 +7,9 @@ package com.duan1.DAO;
 import com.duan1.Entity.PhieuNhapChiTiet;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,4 +73,34 @@ public class PhieuNhapChiTietDAO extends QLPK<PhieuNhapChiTiet, String> {
         }
     }
 
+
+    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<Object[]> getSoLuong_TongTien() {
+        String sql = "{CALL sp_dsPhieuNhapKho}";
+        String[] cols = {"MaPNK","NgayNhap","SoLuong", "ThanhTien"};
+        return this.getListOfArray(sql, cols);
+    }
+    
+    public List<PhieuNhapChiTiet> selectByKeyword(String keyword) {
+        String sql = "SELECT * FROM dbo.PhieuNhapChiTiet WHERE MaPNK LIKE ?";
+        return this.selectBySql(sql, "%" + keyword + "%");
+    }
+
 }
+    
