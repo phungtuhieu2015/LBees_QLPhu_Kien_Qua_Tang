@@ -9,6 +9,9 @@ import com.duan1.Helper.XJdbc;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -21,6 +24,8 @@ public class PhieuNhapKhoDAO extends QLPK<PhieuNhapKho, String> {
     String delete_SQL = "DELETE dbo.PhieuNhapKho WHERE MaPNK =?";
     String select_All_SQL = "SELECT * FROM dbo.PhieuNhapKho";
     String select_ByID_SQL = "SELECT * FROM dbo.PhieuNhapKho WHERE MaPNK=?";
+//    String select_Max_ID = "SELECT MAX(SUBSTRING(MaPNK,LEN(MaPNK) - 4 ,LEN(MaPNK)))FROM dbo.PhieuNhapKho";
+    String select_Max_ID = "SELECT MAX(MaPNK) FROM dbo.PhieuNhapKho";
 
     @Override
     public void insert(PhieuNhapKho entity) {
@@ -67,5 +72,21 @@ public class PhieuNhapKhoDAO extends QLPK<PhieuNhapKho, String> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public String getLastID() throws SQLException {
+            ResultSet rs = XJdbc.executeQuery(select_Max_ID);
+            String id = null;
+            if (rs.next()) {
+                id = rs.getString(1);
+            }
+            rs.getStatement().getConnection().close();
+            return id;
+    }
+    public String initID () throws SQLException {
+        String id = getLastID();
+        id = id.replaceAll("\\D+","");
+        int idNumber = Integer.parseInt(id);
+        String newID = String.format("%05d", idNumber+=1);
+        return newID;
     }
 }

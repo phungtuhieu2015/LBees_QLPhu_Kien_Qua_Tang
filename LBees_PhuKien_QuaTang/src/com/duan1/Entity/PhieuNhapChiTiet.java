@@ -12,12 +12,12 @@ public class PhieuNhapChiTiet {
     String maPNK;
     String maSP;
     int soLuong;
-    float thanhTien;
+    double thanhTien;
 
     public PhieuNhapChiTiet() {
     }
 
-    public PhieuNhapChiTiet(String maPNK, String maSP, int soLuong, float thanhTien) {
+    public PhieuNhapChiTiet(String maPNK, String maSP, int soLuong, double thanhTien) {
         this.maPNK = maPNK;
         this.maSP = maSP;
         this.soLuong = soLuong;
@@ -48,11 +48,11 @@ public class PhieuNhapChiTiet {
         this.soLuong = soLuong;
     }
 
-    public float getThanhTien() {
+    public double getThanhTien() {
         return thanhTien;
     }
 
-    public void setThanhTien(float thanhTien) {
+    public void setThanhTien(double thanhTien) {
         this.thanhTien = thanhTien;
     }
 
