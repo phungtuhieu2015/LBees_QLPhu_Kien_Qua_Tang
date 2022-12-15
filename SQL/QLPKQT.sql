@@ -1,6 +1,7 @@
-﻿/*CREATE DATABASE QL_PHU_KIEN_QUA_TANG;
-GO*/
+﻿CREATE DATABASE QL_PHU_KIEN_QUA_TANG;
+GO
 USE QL_PHU_KIEN_QUA_TANG;
+
 GO
 --I. TẠO BẢNG
 --1. Tạo bảng NhanVien
@@ -42,7 +43,7 @@ CREATE TABLE SanPhamBan
     SoLuong INT NOT NULL,
     DonViTinh NVARCHAR(20) NOT NULL,
     DonGia FLOAT NOT NULL,
-    TrangThai BIT NOT NULL,
+    TrangThai nvarchar(50) NOT NULL,
     MaVach VARCHAR(50),
     HinhAnh NVARCHAR(200),
     MaNV VARCHAR(10) NOT NULL,
@@ -235,32 +236,32 @@ GO
 ALTER TABLE dbo.QuaTang
 ADD CONSTRAINT FK_QLQT_NGH
     FOREIGN KEY (MaNGH)
-    REFERENCES dbo.NguoiGiaoHang (MaNGH);
+    REFERENCES dbo.NguoiGiaoHang (MaNGH) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 GO
 --5. Tạo khóa ngoại cho bảng sản phẩm vs danh mục
 ALTER TABLE dbo.SanPhamBan
 ADD CONSTRAINT FK_SanPhamBan_DanhMuc
     FOREIGN KEY (MaDM)
-    REFERENCES DanhMuc (MaDM);
+    REFERENCES DanhMuc (MaDM) ON DELETE NO ACTION ON UPDATE CASCADE;
 GO
 --6. Tạo khóa ngoại cho bảng PhieuNhapChiTiet vs Phiếu nhập kho 
 ALTER TABLE dbo.PhieuNhapChiTiet
 ADD CONSTRAINT FK_HoaDonpnk_PhieuNhapKho
     FOREIGN KEY (MaPNK)
-    REFERENCES  dbo.PhieuNhapKho(MaPNK);
+    REFERENCES  dbo.PhieuNhapKho(MaPNK) ON DELETE NO ACTION 
 GO
 --7. Tạo khóa ngoại cho bảng PhieuNhapChiTiet vs  sản phẩm ban
 ALTER TABLE dbo.PhieuNhapChiTiet
 ADD CONSTRAINT FK_HoaDonPNK_SanPhamBan
 FOREIGN KEY(MaSP)
-REFERENCES dbo.SanPhamBan(MaSP)
+REFERENCES dbo.SanPhamBan(MaSP) ON DELETE NO ACTION ON UPDATE CASCADE
 GO
 --8. tạo liên kết khóa ngoại cho bảng Tài khoản vs nhân viên
 ALTER TABLE dbo.TaiKhoan
 ADD CONSTRAINT FK_TaiKhoan_NhanVien
 FOREIGN KEY(MaNV)
-REFERENCES dbo.NhanVien(MaNV)
+REFERENCES dbo.NhanVien(MaNV) ON DELETE NO ACTION 
 GO
 --9. Tạo liên kết khóa ngoại cho bảng qua Tang vs HoaDon
 ALTER TABLE QuaTang
@@ -304,11 +305,11 @@ INSERT INTO dbo.NhanVien
     HinhAnh
 )
 VALUES
-('NV01', N'Nguyễn Minh Khôi', 0, '393718371631', '0983781631', 'khoi@gmail.com', '1', N'hay cải ae', ''),
-('NV02', N'Nguyễn Nhựt Đông', 1, '393718371632', '0983781632', 'dong@gmail.com', '0', N'Chơi ire non', ''),
-('NV03', N'Trần Tấn Khanh', 1, '393718371633', '2995929958', 'khanh@gmail.com', '0', N'Best ad', ''),
-('NV04', N'Phùng Tự Hiếu', 1, '393718371634', '0983781633', 'hieu@gmail.com', '0', N'SP bỏ ad hay bị team chửi', ''),
-('NV05', N'Nguyễn Văn Hữu Tài', 1, '393718371635', '0983781634', 'tai@gmail.com', '0', N'Hay troll game', '');
+('NV00001', N'Nguyễn Minh Khôi', 0, '393718371631', '0983781631', 'khoi@gmail.com', '1', N'hay cải ae', ''),
+('NV00002', N'Nguyễn Nhựt Đông', 1, '393718371632', '0983781632', 'dong@gmail.com', '0', N'Chơi ire non', ''),
+('NV00003', N'Trần Tấn Khanh', 1, '393718371633', '2995929958', 'khanh@gmail.com', '0', N'Best ad', ''),
+('NV00004', N'Phùng Tự Hiếu', 1, '393718371634', '0983781633', 'hieu@gmail.com', '0', N'SP bỏ ad hay bị team chửi', ''),
+('NV00005', N'Nguyễn Văn Hữu Tài', 1, '393718371635', '0983781634', 'tai@gmail.com', '0', N'Hay troll game', '');
 
 GO
 --2. Thêm dữ liệu vào bảng TaiKhoan
@@ -320,11 +321,11 @@ INSERT INTO dbo.TaiKhoan
 	MaNV
 )
 VALUES
-('TK01', 'MinhKhoi', 'minhkhoi123','NV01'),
-('TK02', 'NhutDong', 'nhutdong123','NV02'),
-('TK03', 'TanKhanh', 'tankhanh123','NV03'),
-('TK04', 'TuHieu', 'tuhieu123','NV04'),
-('TK05', 'HuuTai', 'huutai123','NV05');
+('TK00001', 'MinhKhoi', 'minhkhoi123','NV00001'),
+('TK00002', 'NhutDong', 'nhutdong123','NV00002'),
+('TK00003', 'TanKhanh', 'tankhanh123','NV00003'),
+('TK00004', 'TuHieu', 'tuhieu123','NV00004'),
+('TK00005', 'HuuTai', 'huutai123','NV00005');
 
 GO
 
@@ -336,11 +337,11 @@ INSERT INTO dbo.DanhMuc
     TenDM
 )
 VALUES
-('DM01', N'Gấu bông'),
-('DM02', N'Da dụng'),
-('DM03', N'Móc khóa'),
-('DM04', N'Đồ dùng học tập'),
-('DM05', N'Thời trang');
+('DM00001', N'Gấu bông'),
+('DM00002', N'Da dụng'),
+('DM00003', N'Móc khóa'),
+('DM00004', N'Đồ dùng học tập'),
+('DM00005', N'Thời trang');
 
 GO
 --4. Thêm dữ liệu vào bảng SanPhamBan
@@ -359,31 +360,31 @@ INSERT INTO dbo.SanPhamBan
     MaDM
 )
 VALUES
-('GB01', N'Cá sấu', '20', 70000, N'Con', 1, '0', '', 'NV01', 'DM01'),
-('GB02', N'Chim', '10', 50000, N'Con', 1, '1', '', 'NV01', 'DM01'),
-('GB03', N'Bò tót', '22', 90000, N'Con', 1, '2', '', 'NV01', 'DM01'),
-('GB04', N'Mèo', '24', 60000, N'Con', 1, '3', '', 'NV01', 'DM01'),
-('GB05', N'Chó', '23', 80000, N'Con', 1, '4', '', 'NV01', 'DM01'),
-('GD01', N'Chén', '26', 20000, N'Bộ', 1, '5', '', 'NV02', 'DM02'),
-('GD02', N'Đũa', '10', 20000, N'Bộ', 1, '6', '', 'NV02', 'DM02'),
-('GD03', N'Giá', '10', 30000, N'Bộ', 1, '7', '', 'NV02', 'DM02'),
-('GD04', N'Bàn chải', '20', 10000, N'cái', 1, '8', '', 'NV02', 'DM02'),
-('GD05', N'Xà phòng', '15', 110000, N'Chai', 1, '9', '', 'NV02', 'DM02'),
-('MK01', N'Songoku', '10', 30000, N'Cái', 1, '10', '', 'NV03', 'DM03'),
-('MK02', N'Doraemon', '10', 30000, N'Cái', 1, '11', '', 'NV03', 'DM03'),
-('MK03', N'Dép lào', '10', 15000, N'Cái', 1, '12', '', 'NV03', 'DM03'),
-('MK04', N'Đầu lâu', '10', 22000, N'Cái', 1, '13', '', 'NV03', 'DM03'),
-('MK05', N'Thanh kiếm', '10', 200000, N'Cái', 1, '14', '', 'NV03', 'DM03'),
-('HT01', N'Búp bi', '40', 5000, N'Cây', 1, '15', '', 'NV04', 'DM04'),
-('HT02', N'Thước', '40', 5000, N'Cây', 1, '16', '', 'NV04', 'DM04'),
-('HT03', N'Gôm', '20', 2000, N'Cái', 1, '17', '', 'NV04', 'DM04'),
-('HT04', N'Bút chì', '40', 4000, N'Cây', 1, '18', '', 'NV04', 'DM04'),
-('HT05', N'cặp', '22', 200000, N'Cái', 1, '19', '', 'NV04', 'DM04'),
-('TT01', N'Giầy thép gai', '10', 200000, N'Cái', 1, '20', '', 'NV05', 'DM05'),
-('TT02', N'Dép', '10', 200000, N'Cái', 1, '21', '', 'NV05', 'DM05'),
-('TT03', N'Bông tay con bướm', '10', 200000, N'Cái', 1, '22', '', 'NV05', 'DM05'),
-('TT04', N'Bông tay bông hoa', '10', 200000, N'Cái', 1, '23', '', 'NV05', 'DM05'),
-('TT05', N'Dây chuyền chuộc tội', '10', 200000, N'Cái', 1, '24', '', 'NV05', 'DM05');
+('GB00001', N'Cá sấu', '20', 70000, N'Con', N'Đang kinh doanh', 'GB00001', '', 'NV00001', 'DM00001'),
+('GB00002', N'Chim', '10', 50000, N'Con', N'Đang kinh doanh', 'GB00002', '', 'NV00001', 'DM00001'),
+('GB00003', N'Bò tót', '22', 90000, N'Con',N'Đang kinh doanh', 'GB00003', '', 'NV00001', 'DM00001'),
+('GB00004', N'Mèo', '24', 60000, N'Con', N'Đang kinh doanh', 'GB00004', '', 'NV00001', 'DM00001'),
+('GB00005', N'Chó', '23', 80000, N'Con', N'Đang kinh doanh', 'GB00005', '', 'NV00001', 'DM00001'),
+('GD00001', N'Chén', '26', 20000, N'Bộ', N'Không còn bán', 'GD00001', '', 'NV00002', 'DM00002'),
+('GD00002', N'Đũa', '0', 20000, N'Bộ',N'Hết hàng', 'GD00002', '', 'NV00002', 'DM00002'),
+('GD00003', N'Giá', '0', 30000, N'Bộ', N'Hết hàng', 'GD00003', '', 'NV00002', 'DM00002'),
+('GD00004', N'Bàn chải', '20', 10000, N'cái',N'Không còn bán', 'GD00004', '', 'NV00002', 'DM00002'),
+('GD00005', N'Xà phòng', '15', 110000, N'Chai', N'Không còn bán', 'GD00005', '', 'NV00002', 'DM00002'),
+('MK00001', N'Songoku', '10', 30000, N'Cái',N'Đang kinh doanh', 'MK00001', '', 'NV00003', 'DM00003'),
+('MK00002', N'Doraemon', '10', 30000, N'Cái',N'Đang kinh doanh', 'MK00002', '', 'NV00003', 'DM00003'),
+('MK00003', N'Dép lào', '10', 15000, N'Cái', N'Đang kinh doanh', 'MK00003', '', 'NV00003', 'DM00003'),
+('MK00004', N'Đầu lâu', '10', 22000, N'Cái',N'Đang kinh doanh', 'MK00004', '', 'NV00003', 'DM00003'),
+('MK00005', N'Thanh kiếm', '10', 200000, N'Cái',N'Đang kinh doanh', 'MK00005', '', 'NV00003', 'DM00003'),
+('HT00001', N'Búp bi', '40', 5000, N'Cây', N'Đang kinh doanh', 'HT00001', '', 'NV00004', 'DM00004'),
+('HT00002', N'Thước', '0', 5000, N'Cây', N'Hết hàng', 'HT00002', '', 'NV00004', 'DM00004'),
+('HT00003', N'Gôm', '20', 2000, N'Cái', N'Đang kinh doanh', 'HT00003', '', 'NV00004', 'DM00004'),
+('HT00004', N'Bút chì', '40', 4000, N'Cây',N'Đang kinh doanh', 'HT00004', '', 'NV00004', 'DM00004'),
+('HT00005', N'cặp', '22', 200000, N'Cái',N'Đang kinh doanh', 'HT00005', '', 'NV00004', 'DM00004'),
+('TT00001', N'Giầy thép gai', '10', 200000, N'Cái', N'Đang kinh doanh', 'TT00001', '', 'NV00005', 'DM00005'),
+('TT00002', N'Dép', '10', 200000, N'Cái', N'Đang kinh doanh', 'TT00002', '', 'NV00005', 'DM00005'),
+('TT00003', N'Bông tay con bướm', '10', 200000, N'Cái',N'Đang kinh doanh', 'TT00003', '', 'NV00005', 'DM00005'),
+('TT00004', N'Bông tay bông hoa', '10', 200000, N'Cái',N'Không còn bán', 'TT00004', '', 'NV00005', 'DM00005'),
+('TT00005', N'Dây chuyền chuộc tội', '10', 200000, N'Cái',N'Không còn bán', 'TT00005', '', 'NV00005', 'DM00005');
 
 GO
 --5. Thêm dữ liệu vào bảng KhachHang
@@ -417,16 +418,16 @@ INSERT INTO dbo.HoaDon
     MaKH
 )
 VALUES
-('HD2010220001', '10/20/2022',10000, '', 'NV02','KH00001'),
-('HD1010220002', '10/10/2022',10000, '', 'NV02','KH00002'),
-('HD0310220003', '10/3/2022', 10000,'', 'NV01', 'KH00010'),
-('HD0210220004', '10/2/2022',10000, '', 'NV01', 'KH00004'),
-('HD0410220005', '10/4/2022',20000, '', 'NV03', 'KH00006'),
-('HD2010220006', '10/20/2022',15000,'', 'NV03', 'KH00007'),
-('HD2210220007', '10/22/2022',12000, '', 'NV04', 'KH00009'),
-('HD2010220008', '10/20/2022', 22000,'', 'NV04', 'KH00010'),
-('HD0110220009', '10/1/2022', 10000,'', 'NV05','KH00002'),
-('HD2010220010', '10/20/2022', 15000,'', 'NV05','KH00001');
+('HD2010220001', '10/20/2022',10000, '', 'NV00002','KH00001'),
+('HD1010220002', '10/10/2022',10000, '', 'NV00002','KH00002'),
+('HD0310220003', '10/3/2022', 10000,'', 'NV00001', 'KH00010'),
+('HD0210220004', '10/2/2022',10000, '', 'NV00001', 'KH00004'),
+('HD0410220005', '10/4/2022',20000, '', 'NV00003', 'KH00006'),
+('HD2010220006', '10/20/2022',15000,'', 'NV00003', 'KH00007'),
+('HD2210220007', '10/22/2022',12000, '', 'NV00004', 'KH00009'),
+('HD2010220008', '10/20/2022', 22000,'', 'NV00004', 'KH00010'),
+('HD0110220009', '10/1/2022', 10000,'', 'NV00005','KH00002'),
+('HD2010220010', '10/20/2022', 15000,'', 'NV00005','KH00001');
 GO
 --7. Thêm dữ liệu vào bảng HoaDonChiTiet
 INSERT INTO dbo.HoaDonChiTiet
@@ -437,11 +438,11 @@ INSERT INTO dbo.HoaDonChiTiet
     MaHD
 )
 VALUES
-(N'3', '210000', 'GB01', 'HD2010220001'),
-(N'3', '150000', 'GB02', 'HD2010220001'),
-(N'3', '270000', 'GB03', 'HD1010220002'),
-(N'2', '120000', 'GB04', 'HD1010220002'),
-(N'2', '160000', 'GB05', 'HD0310220003');
+('3', '210000', 'GB00001', 'HD2010220001'),
+('3', '150000', 'GB00002', 'HD2010220001'),
+('3', '270000', 'GB00003', 'HD1010220002'),
+('2', '120000', 'GB00004', 'HD1010220002'),
+('2', '160000', 'GB00005', 'HD0310220003');
 GO
 
 --8. Thêm dữ liệu vào bảng NguoiGiaoHang
@@ -455,8 +456,8 @@ INSERT INTO dbo.NguoiGiaoHang
     Gmail
 )
 VALUES
-('NGH001', N'Đoàn Phúc Hậu', '298471849184', '0918471846', 'hau@gmail.com'),
-('NGH002', N'Đoàn Phúc Nghĩa', '298471849384', '0918471146', 'nghia@gmail.com');
+('NGH00001', N'Đoàn Phúc Hậu', '298471849184', '0918471846', 'hau@gmail.com'),
+('NGH00003', N'Đoàn Phúc Nghĩa', '298471849384', '0918471146', 'nghia@gmail.com');
 GO
 --9. Thêm dữ liệu vào bảng QuaTang
 INSERT INTO dbo.QuaTang
@@ -472,12 +473,12 @@ INSERT INTO dbo.QuaTang
     MaHD
 )
 VALUES
-('DH001', N'Nguyễn Đức Trí', N'An Khánh Ninh Kiều','0984716471', '10/22/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH001', 'HD2010220001'),
-('DH002', N'Nguyễn Hữu bằng', N'Cầu Bà Bộ','0984716472', '10/22/2022', N'Chưa giao', N'Dễ vỡ', N'NGH002', 'HD1010220002'),
-('DH003', N'Trần Văn Được', N'An Khánh Ninh Kiều','0984716473', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD0310220003'),
-('DH004', N'Võ Minh Phong', N'Thời Bình - Cà Mau','0984716474', '10/20/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH001', 'HD0210220004'),
-('DH005', N'Nguyễn Minh Lộc', N'Bạc Liêu','0984716475', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD0410220005'),
-('DH006', N'Bùi Quốc Huy', N'TP-HCM','0984716476','10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH001', 'HD2010220006');
+('DH00001', N'Nguyễn Đức Trí', N'An Khánh Ninh Kiều','0984716471', '10/22/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH00001', 'HD2010220001'),
+('DH00002', N'Nguyễn Hữu bằng', N'Cầu Bà Bộ','0984716472', '10/22/2022', N'Chưa giao', N'Dễ vỡ', N'NGH00003', 'HD1010220002'),
+('DH00003', N'Trần Văn Được', N'An Khánh Ninh Kiều','0984716473', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD0310220003'),
+('DH00004', N'Võ Minh Phong', N'Thời Bình - Cà Mau','0984716474', '10/20/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH00001', 'HD0210220004'),
+('DH00005', N'Nguyễn Minh Lộc', N'Bạc Liêu','0984716475', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD0410220005'),
+('DH00006', N'Bùi Quốc Huy', N'TP-HCM','0984716476','10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD2010220006');
 GO
 --10. Thêm dữ liệu vào bảng PhieuNhapKho
 
@@ -493,6 +494,7 @@ Values
 ('MP00005','10/28/2022'),
 ('MP00006','10/15/2022')
 GO
+
 --11. Thêm dữ liệu vào bảng PhieuNhapChiTiet
 INSERT INTO dbo.PhieuNhapChiTiet
 (
@@ -502,19 +504,51 @@ INSERT INTO dbo.PhieuNhapChiTiet
     thanhTien
 )
 VALUES
-('MP00001','GB01',4,280000),
-('MP00002','GB02',4,200000),
-('MP00003','GB03',3,270000),
-('MP00004','GB04',5,300000),
-('MP00005','GB05',2,160000)
+('MP00001','GB00001',4,280000),
+('MP00002','GB00002',4,200000),
+('MP00002','GB00003',4,200000),
+('MP00003','GB00003',3,270000),
+('MP00004','GB00004',5,300000),
+('MP00005','GB00005',2,160000)
 GO
-
+SELECT * FROM dbo.TaiKhoan
 SELECT * FROM dbo.NhanVien
 SELECT * FROM dbo.KhachHang
-SELECT * FROM dbo.DanhMuc
+SELECT * FROM dbo.DanhMuc ORDER BY MaDM
 SELECT * FROM dbo.SanPhamBan
 SELECT * FROM dbo.QuaTang
-SELECT * FROM dbo.HoaDon
+SELECT * FROM dbo.HoaDon WHERE NgayTao BETWEEN '2022-10-10' AND '2022-12-13'
 SELECT * FROM dbo.HoaDonChiTiet
 SELECT * FROM dbo.PhieuNhapKho
 SELECT * FROM dbo.PhieuNhapChiTiet
+/*
+SELECT COUNT(SoLuong), SUM(thanhTien) FROM dbo.PhieuNhapChiTiet
+WHERE MaPNK = 'MP00001'
+GROUP BY MaSP*/
+
+/*CREATE PROC sp_dsPhieuNhapKho AS 
+SELECT pnct.MaPNK,pnk.NgayNhap, SUM (SoLuong) SoLuong, SUM(thanhTien) ThanhTien FROM dbo.PhieuNhapChiTiet pnct
+INNER JOIN dbo.PhieuNhapKho pnk ON pnk.MaPNK = pnct.MaPNK
+GROUP BY pnct.MaPNK,pnk.NgayNhap
+GO*/
+
+/*
+alter PROC sp_ThongKeDoanhThu @TuNgay DATE, @DenNgay DATE AS
+SELECT hdct.MaHD, hd.NgayTao, SUM(hdct.ThanhTien) TongTien
+FROM dbo.HoaDonChiTiet hdct INNER JOIN dbo.HoaDon hd ON hd.MaHD = hdct.MaHD
+--WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
+GROUP BY hdct.MaHD, hd.NgayTao
+GO
+*/
+
+EXEC dbo.sp_ThongKeDoanhThu @TuNgay = '2022-12-15', -- date
+                            @DenNgay = '2022-12-15' -- date
+
+/*
+SELECT MaSP,SoLuong,SUM(ThanhTien) FROM dbo.HoaDonChiTiet GROUP BY MaSP,SoLuong
+SELECT MAX(MaPNK) FROM dbo.PhieuNhapKho
+	
+SELECT MAX(SUBSTRING(MaHD,LEN(MaHD) - 3,LEN(MaHD)))FROM HOADON
+SELECT * FROM dbo.PhieuNhapChiTiet WHERE MaPNK LIKE '%MP00002%'
+SELECT * FROM dbo.PhieuNhapChiTiet WHERE MaPNK LIKE '%MP00002%'
+*/
