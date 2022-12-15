@@ -92,5 +92,10 @@ public class ThongKeDAO {
         String[] cols = {"MaHD", "NgayTao", "TongTien"};
         return this.getListOfArray(sql, cols, tuNgay, denNgay);
     }
+    public List<Object[]> getThongKeSanPham() {
+        String sql = "{CALL sp_ThongKeSanPham}";
+        String[] cols = {"MaSP", "TenSP", "SoLuong","TongTien"};
+        return this.getListOfArray(sql, cols);
+    }
   
 }

@@ -526,24 +526,30 @@ SELECT COUNT(SoLuong), SUM(thanhTien) FROM dbo.PhieuNhapChiTiet
 WHERE MaPNK = 'MP00001'
 GROUP BY MaSP*/
 
-/*CREATE PROC sp_dsPhieuNhapKho AS 
+CREATE PROC sp_dsPhieuNhapKho AS 
 SELECT pnct.MaPNK,pnk.NgayNhap, SUM (SoLuong) SoLuong, SUM(thanhTien) ThanhTien FROM dbo.PhieuNhapChiTiet pnct
 INNER JOIN dbo.PhieuNhapKho pnk ON pnk.MaPNK = pnct.MaPNK
 GROUP BY pnct.MaPNK,pnk.NgayNhap
-GO*/
+GO
 
-/*
-alter PROC sp_ThongKeDoanhThu @TuNgay DATE, @DenNgay DATE AS
+CREATE PROC sp_ThongKeDoanhThu @TuNgay DATE, @DenNgay DATE AS
 SELECT hdct.MaHD, hd.NgayTao, SUM(hdct.ThanhTien) TongTien
 FROM dbo.HoaDonChiTiet hdct INNER JOIN dbo.HoaDon hd ON hd.MaHD = hdct.MaHD
---WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
+WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
 GROUP BY hdct.MaHD, hd.NgayTao
 GO
-*/
 
-EXEC dbo.sp_ThongKeDoanhThu @TuNgay = '2022-12-15', -- date
+CREATE PROC sp_ThongKeSanPham
+SELECT hdct.MaSP,(SELECT TenSP FROM dbo.SanPhamBan WHERE MaSP LIKE hdct.MaSP) TenSP,
+SUM(SoLuong) SoLuong,SUM(hdct.ThanhTien) TongTien
+FROM dbo.HoaDonChiTiet hdct GROUP BY MaSP ORDER BY SUM(SoLuong) DESC
+GO
+
+
+
+/*EXEC dbo.sp_ThongKeDoanhThu @TuNgay = '2022-12-15', -- date
                             @DenNgay = '2022-12-15' -- date
-
+							*/
 /*
 SELECT MaSP,SoLuong,SUM(ThanhTien) FROM dbo.HoaDonChiTiet GROUP BY MaSP,SoLuong
 SELECT MAX(MaPNK) FROM dbo.PhieuNhapKho

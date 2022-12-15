@@ -40,7 +40,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
         TimKiem();
         txtTuNgay.setText("");
         txtDenNgay.setText("");
-//        fillTableDoanhThu();
+        fillTableDoanhThu();
+        fillTableSanPham();
 //        fillComboBoxNam();
     }
 
@@ -114,6 +115,15 @@ public class Form_ThongKe extends javax.swing.JPanel {
         }
 
     }
+    void fillTableSanPham() {
+        DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
+        model.setRowCount(0);
+        
+        List<Object[]> list = daoTKe.getThongKeSanPham();
+        for (Object[] row: list) {
+            model.addRow(row);
+        }
+    }
 
     void fillComboBoxNam() {
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboDoanhThuu.getModel();
@@ -143,7 +153,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
         tblDoanhThu = new com.duan1.swing.Table();
         pnlDanhSach1 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        table5 = new com.duan1.swing.Table();
+        tblSanPham = new com.duan1.swing.Table();
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         lblTuNgay1 = new javax.swing.JLabel();
         lblDenNgay1 = new javax.swing.JLabel();
@@ -206,25 +216,25 @@ public class Form_ThongKe extends javax.swing.JPanel {
         );
         pnlCapNhat1Layout.setVerticalGroup(
             pnlCapNhat1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
         );
 
         table3.addTab("Doanh thu", pnlCapNhat1);
 
         jScrollPane4.setBorder(null);
 
-        table5.setModel(new javax.swing.table.DefaultTableModel(
+        tblSanPham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Mã sản phẩm", "Số lượng bán ", "Tổng tiền"
+                "Mã sản phẩm", "Tên sản phẩm", "Số lượng bán ", "Tổng tiền"
             }
         ));
-        jScrollPane4.setViewportView(table5);
+        jScrollPane4.setViewportView(tblSanPham);
 
         javax.swing.GroupLayout pnlDanhSach1Layout = new javax.swing.GroupLayout(pnlDanhSach1);
         pnlDanhSach1.setLayout(pnlDanhSach1Layout);
@@ -266,8 +276,6 @@ public class Form_ThongKe extends javax.swing.JPanel {
                 cboDoanhThuuActionPerformed(evt);
             }
         });
-
-        txtTuNgay.setText("");
 
         kGradientPanel4.setkEndColor(new java.awt.Color(207, 61, 226));
         kGradientPanel4.setkStartColor(new java.awt.Color(117, 81, 251));
@@ -621,8 +629,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel pnlCapNhat1;
     private javax.swing.JPanel pnlDanhSach1;
     private com.duan1.swing.MaterialTabbed table3;
-    private com.duan1.swing.Table table5;
     private com.duan1.swing.Table tblDoanhThu;
+    private com.duan1.swing.Table tblSanPham;
     private com.duan1.swing.MyTextField2 txtDenNgay;
     private com.duan1.swing.TextFieldAnimation txtTimKiem;
     private com.duan1.swing.MyTextField2 txtTuNgay;

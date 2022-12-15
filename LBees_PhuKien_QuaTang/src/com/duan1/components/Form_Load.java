@@ -28,34 +28,19 @@ public class Form_Load extends javax.swing.JFrame {
 
      String check = "";
     void intit() {
-        new Timer(100, new ActionListener() {
+        new Timer(120, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setLocationRelativeTo(null);
-                int value = jProgressBar1.getValue();
+                int value = pgbLoading.getValue();
                 int a = 0;
 
-                if (value < 100) {
-                    jProgressBar1.setValue(value + 5);
-                    a = value + 5;
-                 //   lbln.setText(a + "%");
-
-                    if (value < 30) {
-                       // lblload.setText("Đang load dữ liệu ");
-                    } else {
-                      //  lblload.setText("Đang load dữ liệu");
-                    }
-                    if (value > 60) {
-                      //  lblload.setText("Đang load dữ liệu");
-                    }
-                    if (value > 90) {
-                      //  lblload.setText("Wellcom");
-                    }
+                if (value < pgbLoading.getMaximum()) {
+                    pgbLoading.setValue(value + 10);
                 } else {
                     check += "Stop";
                     checkwwin();
                     Form_Load.this.dispose();
-
                 }
             }
         }).start();
@@ -80,6 +65,7 @@ public class Form_Load extends javax.swing.JFrame {
         panelTrang1 = new com.duan1.components.panelTrang();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        pgbLoading = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -94,7 +80,10 @@ public class Form_Load extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/02.gif"))); // NOI18N
         panelTrang1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 330));
 
-        getContentPane().add(panelTrang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 370));
+        getContentPane().add(panelTrang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 360));
+
+        pgbLoading.setStringPainted(true);
+        getContentPane().add(pgbLoading, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 800, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -140,5 +129,6 @@ public class Form_Load extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
     private com.duan1.components.panelTrang panelTrang1;
+    private javax.swing.JProgressBar pgbLoading;
     // End of variables declaration//GEN-END:variables
 }

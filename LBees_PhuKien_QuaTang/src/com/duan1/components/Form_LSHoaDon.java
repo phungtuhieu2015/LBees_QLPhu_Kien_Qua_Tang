@@ -68,7 +68,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     for (int i = 1; i <= 100; i++) {
                         Thread.sleep(15);
                     }
-                   // loadDuLieu();
+                    // loadDuLieu();
                     call.done();
                 } catch (Exception e) {
                     System.err.println(e);
@@ -105,8 +105,8 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     hd.getMaHD(),
                     hd.getMaNV(),
                     hd.getMaKH(),
-                    hd.getNgayTao(),
                     kh.getTenKH(),
+                    hd.getNgayTao(),
                     tongTien
                 };
                 model.addRow(row);
@@ -126,10 +126,9 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         String mauNgay = "dd-MM-yyyy";
         try {
 
-           
             Date tuNgay = XDate.toDate(txtTuNgay.getText(), mauNgay);
             Date DenNgay = XDate.toDate(txtDenNgay.getText(), mauNgay);
-            List<Object[]> listhd = daoHD.findHDbyDate(tuNgay,DenNgay);
+            List<Object[]> listhd = daoHD.findHDbyDate(tuNgay, DenNgay);
 
             for (Object[] hd : listhd) {
                 model.addRow(hd);
@@ -140,6 +139,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         }
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -408,21 +408,21 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private void tblLSHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLSHDMouseClicked
 
         int index = tblLSHD.getSelectedRow();
-       
-          String A = String.valueOf(tblLSHD.getValueAt(index, 0));
+
+        String A = String.valueOf(tblLSHD.getValueAt(index, 0));
         if (evt.getClickCount() == 2) {
             MainJFrame m = new MainJFrame();
 //
-            JDL_ThongTinChiTiet_LSHoaDon jdl = new JDL_ThongTinChiTiet_LSHoaDon (m, true);
+            JDL_ThongTinChiTiet_LSHoaDon jdl = new JDL_ThongTinChiTiet_LSHoaDon(m, true);
             try {
                 jdl.setFrom(listHD.get(index));
-               jdl.dulieu(A);
+                jdl.dulieu(A);
             } catch (ParseException ex) {
                 Logger.getLogger(Form_LSHoaDon.class.getName()).log(Level.SEVERE, null, ex);
             }
 
             jdl.setVisible(true);
-          
+
             System.out.println(A);
 
         }
@@ -431,9 +431,9 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
     private void textFieldAnimationTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAnimationTKKeyReleased
         // TODO add your handling code here:
-         
+
         loadDuLieu();
-        
+
     }//GEN-LAST:event_textFieldAnimationTKKeyReleased
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed

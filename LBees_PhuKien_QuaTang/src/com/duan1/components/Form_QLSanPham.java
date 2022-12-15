@@ -1,10 +1,13 @@
 package com.duan1.components;
 
 import com.duan1.DAO.DanhMucDAO;
+import com.duan1.DAO.HoaDonChiTietDAO;
 import com.duan1.DAO.PhieuNhapChiTietDAO;
 import com.duan1.DAO.PhieuNhapKhoDAO;
 import com.duan1.DAO.SanPhamDAO;
 import com.duan1.Entity.DanhMuc;
+import com.duan1.Entity.HoaDon;
+import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Entity.PhieuNhapChiTiet;
 import com.duan1.Entity.PhieuNhapKho;
 import com.duan1.Entity.SanPham;
@@ -35,7 +38,6 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     PhieuNhapKhoDAO daoPNK = new PhieuNhapKhoDAO();
     PhieuNhapChiTietDAO daoPNK_ct = new PhieuNhapChiTietDAO();
     int index = -1;
-
     /**
      * Creates new form Form_QLSanPham
      */
