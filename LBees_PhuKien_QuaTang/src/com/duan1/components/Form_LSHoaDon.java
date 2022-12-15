@@ -94,7 +94,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         model.setRowCount(0);
 
         try {
-
+            
             String keywork = textFieldAnimationTK.getText();
             List<HoaDon> listhd = daoHD.selectByKeyword(keywork);
 
@@ -118,6 +118,12 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+//    public void findIdAndNameBH(String IdAndName) {
+//        model = (DefaultTableModel) tblSanPham.getModel();
+//        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+//        tblSanPham.setRowSorter(trs);
+//        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 2));
+//    }
 
     public void timKiemTheoNgay() {
         if(txtTuNgay.getText().trim().isEmpty() || txtDenNgay.getText().trim().isEmpty()) {

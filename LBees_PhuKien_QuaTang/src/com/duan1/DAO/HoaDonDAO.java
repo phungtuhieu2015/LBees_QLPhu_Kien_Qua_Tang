@@ -85,7 +85,7 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
     }
 
     public List<HoaDon> selectByKeyword(String keyword) {
-        String sql = "SELECT * FROM HoaDon WHERE MaHD LIKE ?";
+        String sql = "SELECT * FROM HoaDon WHERE MaHD LIKE ? ";
         return this.selectBySql(sql, "%" + keyword + '%');
     }
 

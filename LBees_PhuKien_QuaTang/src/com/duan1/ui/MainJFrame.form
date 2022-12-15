@@ -13,6 +13,7 @@
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="formKeyReleased"/>
   </Events>
   <AuxValues>
@@ -54,16 +55,16 @@
               <Group type="102" alignment="0" attributes="0">
                   <Component id="panelMenuu" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lblAvatar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblCVFN" min="-2" pref="121" max="-2" attributes="0"/>
-                              <Component id="lblTen" min="-2" pref="103" max="-2" attributes="0"/>
+                              <Component id="lblTen" min="-2" pref="155" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblDongHo" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblDongHo" min="-2" pref="180" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblBaCham" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
@@ -206,7 +207,6 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="00:00:00"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCVFN">

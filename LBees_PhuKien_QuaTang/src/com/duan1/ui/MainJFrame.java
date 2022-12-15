@@ -72,10 +72,9 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-
+        checkDN();
         init();
         initMoving(this);
-        dongHo();
         creatPopupMenu(this);
         setavatar();
         this.setIconImage(ImgHelper.APP_ICON);
@@ -243,6 +242,11 @@ public class MainJFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 formKeyReleased(evt);
@@ -313,7 +317,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
 
         lblDongHo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblDongHo.setText("00:00:00");
 
         lblCVFN.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         lblCVFN.setText("admin");
@@ -339,15 +342,15 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addComponent(panelMenuu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(lblAvatar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCVFN, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblDongHo)
+                        .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -446,15 +449,14 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public void dongHo() {
-        thoiGian = new Timer(1000, new ActionListener() {
+        new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 Date hienTai = new Date();
-                SimpleDateFormat dinhDang = new SimpleDateFormat("hh:mm:ss");
+                SimpleDateFormat dinhDang = new SimpleDateFormat("EEEE hh:mm:ss");
                 lblDongHo.setText(dinhDang.format(hienTai));
             }
-        });
-        thoiGian.start();
+        }).start();
     }
 
 
@@ -495,6 +497,10 @@ public class MainJFrame extends javax.swing.JFrame {
         lblThoat.setBackground(panelThoat.getBackground());
         lblThoat.setOpaque(true);
     }//GEN-LAST:event_lblThoatMouseExited
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        dongHo();
+    }//GEN-LAST:event_formWindowOpened
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -43,7 +43,6 @@ public class Auth {
         TaiKhoanDAO daoTK = new TaiKhoanDAO();
         String name = daoTK.selectByTen(tk.getMaNV());
 
-        System.out.println(name);
         return name;
     }
 }

@@ -78,7 +78,7 @@ public class Form_Load extends javax.swing.JFrame {
         panelTrang1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/02.gif"))); // NOI18N
-        panelTrang1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 330));
+        panelTrang1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 350));
 
         getContentPane().add(panelTrang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 360));
 
