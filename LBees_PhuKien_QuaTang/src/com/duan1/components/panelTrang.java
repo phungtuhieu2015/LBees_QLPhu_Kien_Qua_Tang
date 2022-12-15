@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package com.duan1.components;
 
 import java.awt.Color;
@@ -16,8 +13,8 @@ import java.awt.RenderingHints;
  */
 public class panelTrang extends javax.swing.JPanel {
 
-    private String bg_1 = "#FFFFFF";
-    private String bg_2 = "#FFFFFF";
+    private String bg_1 = "#E9E4F0";
+    private String bg_2 = "#E9E4F0";
 
     public panelTrang() {
         initComponents();

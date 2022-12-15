@@ -54,10 +54,10 @@ public class Form_ThongKe extends javax.swing.JPanel {
             lblSLHoadon.setText("Tổng số lượng hoá đơn : " + String.valueOf(TongHD));
 
             int tongNhap = daoTKe.tongSLNhapKho();
-            lblNhapKho.setText(String.valueOf(tongNhap) + " SP");
+            lblNhapKho.setText(String.valueOf(tongNhap) );
 
             int XuatNhap = daoTKe.tongSLXuatK();
-            lblXuatKho.setText(String.valueOf(XuatNhap) + " SP");
+            lblXuatKho.setText(String.valueOf(XuatNhap));
 
             int TongDT = daoTKe.tongDoanhThu();
             lblTongDoanhThu.setText(String.valueOf(TongDT) + " VNĐ");

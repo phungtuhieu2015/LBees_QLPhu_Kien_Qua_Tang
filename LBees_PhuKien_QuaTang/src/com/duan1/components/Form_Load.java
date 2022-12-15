@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.duan1.components;
 
 import com.duan1.ui.MainJFrame;
@@ -11,15 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
-/**
- *
- * @author ASUS
- */
+
 public class Form_Load extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Form_Load
-     */
     public Form_Load() {
         initComponents();
         this.setBackground(new Color(0,0,0,0));
@@ -28,7 +19,7 @@ public class Form_Load extends javax.swing.JFrame {
 
      String check = "";
     void intit() {
-        new Timer(200, new ActionListener() {
+        new Timer(150, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setLocationRelativeTo(null);
@@ -41,15 +32,15 @@ public class Form_Load extends javax.swing.JFrame {
                  //   lbln.setText(a + "%");
 
                     if (value < 30) {
-                       // lblload.setText("Đang load dữ liệu ");
+                       lblLoad.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
                     } else {
-                      //  lblload.setText("Đang load dữ liệu");
+                       lblLoad.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
                     }
                     if (value > 60) {
-                      //  lblload.setText("Đang load dữ liệu");
+                       lblLoad.setText("Sắp xong xin vui lòng đợi");
                     }
                     if (value > 90) {
-                      //  lblload.setText("Wellcom");
+                    lblLoad.setText("Wellcom");
                     }
                 } else {
                     check += "Stop";
@@ -77,24 +68,20 @@ public class Form_Load extends javax.swing.JFrame {
     private void initComponents() {
 
         jProgressBar1 = new javax.swing.JProgressBar();
-        panelTrang1 = new com.duan1.components.panelTrang();
-        jLabel2 = new javax.swing.JLabel();
+        lblLoad = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelTrang1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel2.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
-        panelTrang1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
+        lblLoad.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblLoad.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLoad.setText("0");
+        getContentPane().add(lblLoad, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 320, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/02.gif"))); // NOI18N
-        panelTrang1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 330));
-
-        getContentPane().add(panelTrang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 370));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 350));
 
         pack();
         setLocationRelativeTo(null);
@@ -137,8 +124,7 @@ public class Form_Load extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
-    private com.duan1.components.panelTrang panelTrang1;
+    private javax.swing.JLabel lblLoad;
     // End of variables declaration//GEN-END:variables
 }

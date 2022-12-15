@@ -276,9 +276,6 @@
           </Events>
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txtTuNgay">
-          <Properties>
-            <Property name="text" type="java.lang.String" value=""/>
-          </Properties>
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txtDenNgay">
         </Component>
