@@ -5,6 +5,9 @@ import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
+import com.duan1.components.Form_Load;
+import java.awt.Cursor;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +16,11 @@ public class loginJFrame extends javax.swing.JFrame {
     public loginJFrame() {
         initComponents();
         this.setIconImage(ImgHelper.APP_ICON);
+        lblThoat.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        txtMatKhau.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        txtTenTK.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnDangNhap.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        lbldn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
     }
 
@@ -29,7 +37,7 @@ public class loginJFrame extends javax.swing.JFrame {
                     tk = list.get(i);
                     if (t.getMatKhau().equals(txtMatKhau.getText())) {
                         Auth.tk = tk;
-                        new MainJFrame().setVisible(true);
+                        new Form_Load().setVisible(true);
                         this.dispose();
                         return;
                     } else {
@@ -50,8 +58,8 @@ public class loginJFrame extends javax.swing.JFrame {
 
     public void exit() {
         //if (Msgbox.yesNo("Thoát chương trình", "Bạn có muốn thoát hay không ?")) {
-            System.exit(0);
-       // }
+        System.exit(0);
+        // }
     }
 
     @SuppressWarnings("unchecked")
@@ -67,7 +75,7 @@ public class loginJFrame extends javax.swing.JFrame {
         txtMatKhau = new com.duan1.swing.MyPassField();
         jLabel2 = new javax.swing.JLabel();
         lbldn = new javax.swing.JLabel();
-        button2 = new com.duan1.swing.Button();
+        btnDangNhap = new com.duan1.swing.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -89,16 +97,24 @@ public class loginJFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblThoatMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblThoatMouseEntered(evt);
+            }
         });
         panelBorder1.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
         panelBorder1.add(panelLogin_left2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 452, 504));
 
-        txtTenTK.setText("MinhKhoi");
+        txtTenTK.setText("nhutdong");
         txtTenTK.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_User.png"))); // NOI18N
         panelBorder1.add(txtTenTK, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 180, 240, 36));
 
-        txtMatKhau.setText("minhkhoi123");
+        txtMatKhau.setText("nhutdong123");
         txtMatKhau.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_Pass.png"))); // NOI18N
+        txtMatKhau.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMatKhauKeyReleased(evt);
+            }
+        });
         panelBorder1.add(txtMatKhau, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 240, 36));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -108,18 +124,23 @@ public class loginJFrame extends javax.swing.JFrame {
 
         lbldn.setForeground(new java.awt.Color(0, 0, 204));
         lbldn.setText("Quên mật khẩu?");
-        panelBorder1.add(lbldn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 90, 30));
+        panelBorder1.add(lbldn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 280, 90, 30));
 
-        button2.setBackground(new java.awt.Color(51, 153, 255));
-        button2.setForeground(new java.awt.Color(255, 255, 255));
-        button2.setText("Đăng nhập");
-        button2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        button2.addActionListener(new java.awt.event.ActionListener() {
+        btnDangNhap.setBackground(new java.awt.Color(51, 153, 255));
+        btnDangNhap.setForeground(new java.awt.Color(255, 255, 255));
+        btnDangNhap.setText("Đăng nhập");
+        btnDangNhap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnDangNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                button2ActionPerformed(evt);
+                btnDangNhapActionPerformed(evt);
             }
         });
-        panelBorder1.add(button2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, 100, -1));
+        btnDangNhap.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnDangNhapKeyPressed(evt);
+            }
+        });
+        panelBorder1.add(btnDangNhap, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 330, 100, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,14 +157,32 @@ public class loginJFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
+    private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         // TODO add your handling code here:
         login();
-    }//GEN-LAST:event_button2ActionPerformed
+    }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         exit();
     }//GEN-LAST:event_lblThoatMouseClicked
+
+    private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
+
+    }//GEN-LAST:event_lblThoatMouseEntered
+
+    private void txtMatKhauKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatKhauKeyReleased
+      if (evt.getKeyChar()== KeyEvent.VK_ENTER){
+             login();
+        this.dispose();
+        }
+    }//GEN-LAST:event_txtMatKhauKeyReleased
+
+    private void btnDangNhapKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnDangNhapKeyPressed
+          if (evt.getKeyChar()== KeyEvent.VK_ENTER){
+             login();
+        this.dispose();
+        }
+    }//GEN-LAST:event_btnDangNhapKeyPressed
 
     /**
      * @param args the command line arguments
@@ -181,7 +220,7 @@ public class loginJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.duan1.swing.Button button2;
+    private com.duan1.swing.Button btnDangNhap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;

@@ -312,6 +312,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSLHoadonMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSLHoadonMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSLHoadonMouseExited(evt);
+            }
         });
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/1x_TongDT.png"))); // NOI18N
@@ -564,6 +570,14 @@ public class Form_ThongKe extends javax.swing.JPanel {
 
         }
     }//GEN-LAST:event_lblSLHoadonMouseClicked
+
+    private void lblSLHoadonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSLHoadonMouseEntered
+      lblSLHoadon.setForeground(Color.white);
+    }//GEN-LAST:event_lblSLHoadonMouseEntered
+
+    private void lblSLHoadonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSLHoadonMouseExited
+       lblSLHoadon.setForeground(new Color(204,204,204));
+    }//GEN-LAST:event_lblSLHoadonMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

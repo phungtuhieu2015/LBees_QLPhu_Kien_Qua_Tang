@@ -74,12 +74,12 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBorder1 = new com.duan1.components.panelLogin_Border();
+        lblthoat = new javax.swing.JLabel();
         panelLogin_left2 = new com.duan1.components.panelLogin_left();
         jLabel1 = new javax.swing.JLabel();
         txtTenTK = new com.duan1.swing.MyTextField();
         txtMK02 = new com.duan1.swing.MyPassField();
         txtMatKhauCu = new com.duan1.swing.MyPassField();
-        lblthoat = new javax.swing.JLabel();
         button1 = new com.duan1.swing.Button();
         txtMK = new com.duan1.swing.MyPassField();
 
@@ -88,6 +88,14 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
 
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblthoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/close1.png"))); // NOI18N
+        lblthoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblthoatMouseClicked(evt);
+            }
+        });
+        panelBorder1.add(lblthoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         panelBorder1.add(panelLogin_left2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 452, 504));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -103,14 +111,6 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
 
         txtMatKhauCu.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/30px_pincode.png"))); // NOI18N
         panelBorder1.add(txtMatKhauCu, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 226, 240, 40));
-
-        lblthoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/36px__logout.png"))); // NOI18N
-        lblthoat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblthoatMouseClicked(evt);
-            }
-        });
-        panelBorder1.add(lblthoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 440, -1, -1));
 
         button1.setText("Đổi mật khẩu");
         button1.addActionListener(new java.awt.event.ActionListener() {

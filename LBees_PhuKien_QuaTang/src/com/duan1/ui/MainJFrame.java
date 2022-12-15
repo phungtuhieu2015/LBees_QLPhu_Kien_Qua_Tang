@@ -181,8 +181,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public void setform(){
-        lblTen.setText(Auth.tenNV());
-        lblCVFN.setText(Auth.role());
+//        lblTen.setText(Auth.tenNV());
+//        lblCVFN.setText(Auth.role());
     }
     @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
