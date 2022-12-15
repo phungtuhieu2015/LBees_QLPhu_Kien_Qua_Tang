@@ -69,7 +69,7 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-        checkDN();
+      
         init();
         initMoving(this);
         dongHo();
@@ -510,7 +510,7 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainJFrame().setVisible(true);
+               new loginJFrame().setVisible(true);
             }
         });
     }

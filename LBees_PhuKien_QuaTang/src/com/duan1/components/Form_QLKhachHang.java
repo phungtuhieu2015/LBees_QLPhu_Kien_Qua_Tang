@@ -17,7 +17,7 @@ import com.duan1.swing.MessageDialog;
 import com.duan1.swing.Notification;
 import com.duan1.swing.ScrollBarCustom;
 import com.duan1.ui.MainJFrame;
-import com.duan1.ui.MainThemSuaXoaCoppy;
+
 import java.awt.Color;
 import java.awt.Frame;
 import java.awt.Rectangle;

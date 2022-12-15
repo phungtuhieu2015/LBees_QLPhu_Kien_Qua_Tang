@@ -68,7 +68,6 @@ public class loginJFrame extends javax.swing.JFrame {
         txtTenTK = new com.duan1.swing.MyTextField();
         txtMatKhau = new com.duan1.swing.MyPassField();
         jLabel2 = new javax.swing.JLabel();
-        lbldn = new javax.swing.JLabel();
         button2 = new com.duan1.swing.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -108,15 +107,6 @@ public class loginJFrame extends javax.swing.JFrame {
         jLabel2.setText("ĐĂNG NHẬP");
         panelBorder1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, 160, 49));
 
-        lbldn.setForeground(new java.awt.Color(0, 0, 204));
-        lbldn.setText("Quên mật khẩu?");
-        lbldn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lbldnMouseClicked(evt);
-            }
-        });
-        panelBorder1.add(lbldn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, 90, 30));
-
         button2.setBackground(new java.awt.Color(51, 153, 255));
         button2.setForeground(new java.awt.Color(255, 255, 255));
         button2.setText("Đăng nhập");
@@ -151,12 +141,6 @@ public class loginJFrame extends javax.swing.JFrame {
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         exit();
     }//GEN-LAST:event_lblThoatMouseClicked
-
-    private void lbldnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbldnMouseClicked
-        // TODO add your handling code here:
-       new QuenMatKhauJFrame().setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_lbldnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -199,7 +183,6 @@ public class loginJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblThoat;
-    private javax.swing.JLabel lbldn;
     private com.duan1.components.panelLogin_Border panelBorder1;
     private com.duan1.components.panelLogin_left panelLogin_left2;
     private com.duan1.swing.MyPassField txtMatKhau;
