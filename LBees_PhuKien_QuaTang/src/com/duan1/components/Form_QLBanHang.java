@@ -356,9 +356,9 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
             } catch (NotFoundException ex) {
 //                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
                 if (checks == 1) {
-                    List<SanPham> s = new ArrayList<>();
-                    s = daoSP.selectAll();
-                    for (SanPham sanPham : s) {
+//                    List<SanPham> s = new ArrayList<>();
+//                    s = daoSP.selectAll();
+                    for (SanPham sanPham : listSP) {
                         if (sanPham.getMaVach().equals(txtMaVach.getText())) {
                             updateGHMV(txtMaVach.getText());
                             txtMaVach.setText("");

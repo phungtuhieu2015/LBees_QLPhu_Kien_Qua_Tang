@@ -28,14 +28,14 @@ public class Auth {
     }
 
     //Kiểm tra vai trò của nhân viên đó
-    public static String role() {
+    public static boolean role() {
         TaiKhoanDAO daoTK = new TaiKhoanDAO();
         String name = daoTK.selectByCV(tk.getMaNV()) ? "QUẢN LÝ" : "NHÂN VIÊN";
-        String names = daoTK.selectByTen(tk.getMaNV());
-
-        System.out.println(names);
-
-        return name;
+        if (name.equals("QUẢN LÝ")) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public static String tenNV() {

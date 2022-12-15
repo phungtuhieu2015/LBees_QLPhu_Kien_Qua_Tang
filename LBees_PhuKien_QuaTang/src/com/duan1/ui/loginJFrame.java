@@ -13,7 +13,8 @@ public class loginJFrame extends javax.swing.JFrame {
     public loginJFrame() {
         initComponents();
         this.setIconImage(ImgHelper.APP_ICON);
-        
+        setLocationRelativeTo(null);
+
     }
 
     TaiKhoanDAO dao = new TaiKhoanDAO();
@@ -24,17 +25,19 @@ public class loginJFrame extends javax.swing.JFrame {
         list = dao.selectAll();
         for (TaiKhoan t : list) {
             try {
-                if (t.getTenTK().equalsIgnoreCase(txtTenTK.getText())) {
+                if (t.getTenTK().equals(txtTenTK.getText())) {
                     TaiKhoan tk = new TaiKhoan();
                     tk = list.get(i);
+
                     if (t.getMatKhau().equals(txtMatKhau.getText())) {
                         Auth.tk = tk;
                         new MainJFrame().setVisible(true);
                         this.dispose();
                         return;
                     } else {
+                        System.out.println("s");
                         Msgbox.waring(this, "Sai mật khẩu");
-                        lbldn.setText("Hãy thử lại");
+                        return;
                     }
 
                 }
@@ -44,14 +47,13 @@ public class loginJFrame extends javax.swing.JFrame {
             i++;
         }
         Msgbox.waring(this, "Nhân viên không tồn tại");
-        lbldn.setText("Hãy thử lại");
 
     }
 
     public void exit() {
         //if (Msgbox.yesNo("Thoát chương trình", "Bạn có muốn thoát hay không ?")) {
-            System.exit(0);
-       // }
+        System.exit(0);
+        // }
     }
 
     @SuppressWarnings("unchecked")
@@ -108,7 +110,12 @@ public class loginJFrame extends javax.swing.JFrame {
 
         lbldn.setForeground(new java.awt.Color(0, 0, 204));
         lbldn.setText("Quên mật khẩu?");
-        panelBorder1.add(lbldn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 90, 30));
+        lbldn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbldnMouseClicked(evt);
+            }
+        });
+        panelBorder1.add(lbldn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, 90, 30));
 
         button2.setBackground(new java.awt.Color(51, 153, 255));
         button2.setForeground(new java.awt.Color(255, 255, 255));
@@ -144,6 +151,12 @@ public class loginJFrame extends javax.swing.JFrame {
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         exit();
     }//GEN-LAST:event_lblThoatMouseClicked
+
+    private void lbldnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbldnMouseClicked
+        // TODO add your handling code here:
+       new QuenMatKhauJFrame().setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_lbldnMouseClicked
 
     /**
      * @param args the command line arguments

@@ -32,6 +32,11 @@ public class Msgbox {
         no.showNotification();
     }
 
+    public static void CheckDN(Component parentComponent, String mes) {
+        Notification no = new Notification((Frame) parentComponent, Notification.Type.WARNING, Notification.Location.CENTER, mes);
+        no.showNotification();
+    }
+
     public static boolean yesNo(String tieuDe, String text) {
         MainJFrame f = new MainJFrame();
         MessageDialog mdl = new MessageDialog(f);

@@ -1,4 +1,5 @@
 package com.duan1.ui;
+
 import com.duan1.DAO.NhanVienDAO;
 import com.duan1.DAO.TaiKhoanDAO;
 import com.duan1.Entity.TaiKhoan;
@@ -68,24 +69,27 @@ public class MainJFrame extends javax.swing.JFrame {
     public MainJFrame() {
 
         initComponents();
-//        checkDN();
+        checkDN();
         init();
         initMoving(this);
         dongHo();
         creatPopupMenu(this);
         this.setIconImage(ImgHelper.APP_ICON);
-        setform();
     }
     int indexx = 0;
 
     public void checkDN() {
-        if (Auth.isLogin()) {
-            lblCVFN.setText(Auth.role());
 
-            lblTen.setText(Auth.tk.getTenTK());
+        if (Auth.isLogin()) {
+            lblTen.setText("Xin chào: " + Auth.tenNV());
+            if (Auth.role()) {
+                lblCVFN.setText("Chức vụ: Quản lý");
+            } else {
+                lblCVFN.setText("Chức vụ: Nhân viên");
+            }
         } else {
-//            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập", "Hệ thống", JOptionPane.ERROR_MESSAGE);
-//            System.exit(0);
+            JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập", "Hệ thống", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
 
@@ -100,48 +104,71 @@ public class MainJFrame extends javax.swing.JFrame {
                     }
                     showForm(new Main_Form());
                 } else if (index == 1 && indexSubMenu == 1) {
+
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLKhachHang());
-                    
+
                 } else if (index == 1 && indexSubMenu == 2) {
+                    if (Auth.role()) {
+                    } else {
+                        Msgbox.waring(mainJFrame, "Phần này chỉ dành cho quản lý!");
+                        return;
+                    }
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNhanVien());
-                    
+
                 } else if (index == 1 && indexSubMenu == 3) {
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLNguoiGiaoHang());
-                    
+
                 } else if (index == 1 && indexSubMenu == 4) {
+                    if (Auth.role()) {
+                    } else {
+                        Msgbox.waring(mainJFrame, "Phần này chỉ dành cho quản lý!");
+                        return;
+                    }
                     Form_QLBanHang.checks = 0;
+
                     showForm(new Form_QLTaiKhoan());
-                     
+
                 } else if (index == 1 && indexSubMenu == 5) {
+                    if (Auth.role()) {
+                    } else {
+                        Msgbox.waring(mainJFrame, "Phần này chỉ dành cho quản lý!");
+                        return;
+                    }
                     Form_QLBanHang.checks = 0;
+
                     showForm(new Form_QLDanhMuc());
                 } else if (index == 2 && indexSubMenu == 0) {
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_QLSanPham());
-                    
+
                 } else if (index == 3 && indexSubMenu == 0) {
                     indexx = index;
                     Form_QLBanHang.checks = 1;
                     showForm(new Form_QLBanHang());
-                     
+
                 } else if (index == 4 && indexSubMenu == 0) {
                     Form_QLBanHang.checks = 0;
                     showForm(new Form_LSHoaDon());
-                    
+
                 } else if (index == 5 && indexSubMenu == 0) {
+                    if (Auth.role()) {
+                    } else {
+                        Msgbox.waring(mainJFrame, "Phần này chỉ dành cho quản lý!");
+                        return;
+                    }
                     Form_QLBanHang.checks = 0;
 //                    try {
-                        showForm(new Form_ThongKe());
+                    showForm(new Form_ThongKe());
 //                    } catch (SQLException ex) {
 //                        Logger.getLogger(MainJFrame.class.getName()).log(Level.SEVERE, null, ex);
 //                    }
                 } else if (index == 6 && indexSubMenu == 0) {
                     Form_QLBanHang.checks = 2;
                     showForm(new Form_QuaTang());
-                     
+
                 } else {
                     Form_QLBanHang.checks = 0;
                 }
@@ -180,10 +207,10 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-    public void setform(){
-        lblTen.setText(Auth.tenNV());
-        lblCVFN.setText(Auth.role());
-    }
+//    public void setform(){
+//        lblTen.setText(Auth.tenNV());
+//        lblCVFN.setText(Auth.role());
+//    }
     @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -373,19 +400,19 @@ public class MainJFrame extends javax.swing.JFrame {
                 "Đổi mật khẩu",
                 new ImageIcon(".\\src\\com\\duan1\\icon\\16_quenmatkhau_16.png")
         );
-     
+
         //apply desc
         menuItem.getAccessibleContext().setAccessibleDescription("Đổi mật khẩu");
         //Add an Action Listener
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // showForm(new panelTaiKhoanCuaBan ());
+                new DoiMatKhauJFrame().setVisible(true);
 
             }
         });
         popupMenu.add(menuItem);
-       
+
         menuItem = new JMenuItem(
                 "Giới thiệu ứng dụng",
                 new ImageIcon(".\\src\\com\\duan1\\icon\\16_gif_16.png")
@@ -397,8 +424,8 @@ public class MainJFrame extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MainJFrame m = new MainJFrame();
-            jdl_GTQT jdl = new jdl_GTQT(m, true);
-            jdl.setVisible(true);
+                jdl_GTQT jdl = new jdl_GTQT(m, true);
+                jdl.setVisible(true);
             }
         });
         popupMenu.add(menuItem);
@@ -416,7 +443,7 @@ public class MainJFrame extends javax.swing.JFrame {
         thoiGian.start();
     }
 
-   
+
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         Form_QLBanHang.checks = 0;
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -433,12 +460,12 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_lblBaChamMouseClicked
 
     private void lblAvatarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAvatarMouseClicked
-      new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
-      
+        new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
+
     }//GEN-LAST:event_lblAvatarMouseClicked
 
     private void lblCVFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCVFNMouseClicked
-        
+
     }//GEN-LAST:event_lblCVFNMouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased

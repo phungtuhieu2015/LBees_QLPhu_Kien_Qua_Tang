@@ -6,6 +6,7 @@ package com.duan1.components;
 
 import com.duan1.DAO.NhanVienDAO;
 import com.duan1.Entity.NhanVien;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
@@ -19,6 +20,7 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 
 import javax.swing.table.DefaultTableModel;
@@ -51,6 +53,8 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         loadDaTa();
         initComboBox();
     }
+
+    
 
     public void setHint() {
         txtMaNV.setLabelText("Mã nhân viên");
@@ -391,7 +395,6 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
 //            }
 //        }
 //    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -21,6 +21,7 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
     String delete_SQL = "DELETE dbo.NhanVien WHERE MaNV =?";
     String select_All_SQL = "SELECT * FROM dbo.NhanVien";
     String select_ByID_SQL = "SELECT * FROM dbo.NhanVien WHERE MaNV=?";
+    String update_SQL_HinhAnh = "UPDATE dbo.NhanVien SET HinhAnh=? WHERE MaNV =?";
 
     @Override
     public void insert(NhanVien entity) {
@@ -30,6 +31,9 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
     @Override
     public void update(NhanVien entity) {
         XJdbc.executeUpdate(update_SQL, entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVu(), entity.getGhiChu(), entity.getHinhAnh(), entity.getMaNV());
+    }
+    public void updateHA(String DuongDan , String maNV){
+        XJdbc.executeUpdate(update_SQL_HinhAnh,DuongDan,maNV);
     }
 
     @Override
