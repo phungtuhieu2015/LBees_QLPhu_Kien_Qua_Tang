@@ -79,13 +79,12 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         panelBorder1 = new com.duan1.components.panelLogin_Border();
-        jLabel4 = new javax.swing.JLabel();
+        lblthoat = new javax.swing.JLabel();
         panelLogin_left2 = new com.duan1.components.panelLogin_left();
         jLabel1 = new javax.swing.JLabel();
         txtTenTK = new com.duan1.swing.MyTextField();
         txtMK02 = new com.duan1.swing.MyPassField();
         txtMatKhauCu = new com.duan1.swing.MyPassField();
-        lblthoat = new javax.swing.JLabel();
         txtMK = new com.duan1.swing.MyPassField();
         txtHinh = new javax.swing.JTextField();
         button2 = new com.duan1.swing.Button();
@@ -96,8 +95,13 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
         panelBorder1.setBackground(new java.awt.Color(255, 255, 255));
         panelBorder1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8_bee_127px.png"))); // NOI18N
-        panelBorder1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 140, 130));
+        lblthoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/close1.png"))); // NOI18N
+        lblthoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblthoatMouseClicked(evt);
+            }
+        });
+        panelBorder1.add(lblthoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         panelBorder1.add(panelLogin_left2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 504));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -113,14 +117,6 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
 
         txtMatKhauCu.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/30px_pincode.png"))); // NOI18N
         panelBorder1.add(txtMatKhauCu, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 226, 240, 40));
-
-        lblthoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/36px__logout.png"))); // NOI18N
-        lblthoat.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblthoatMouseClicked(evt);
-            }
-        });
-        panelBorder1.add(lblthoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 440, -1, -1));
 
         txtMK.setIconTrc(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/32_Pass.png"))); // NOI18N
         panelBorder1.add(txtMK, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, 240, 36));
@@ -204,7 +200,6 @@ public class DoiMatKhauJFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.duan1.swing.Button button2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblthoat;
     private com.duan1.components.panelLogin_Border panelBorder1;
     private com.duan1.components.panelLogin_left panelLogin_left2;

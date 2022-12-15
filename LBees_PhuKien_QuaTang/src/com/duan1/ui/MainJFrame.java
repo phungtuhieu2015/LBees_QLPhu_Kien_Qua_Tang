@@ -7,6 +7,7 @@ import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
 import com.duan1.components.Form_LSHoaDon;
+import com.duan1.components.Form_Load;
 import com.duan1.components.Form_QLBanHang;
 import com.duan1.components.Form_QLDanhMuc;
 import com.duan1.components.Form_QLKhachHang;
@@ -514,7 +515,7 @@ public class MainJFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               new loginJFrame().setVisible(true);
+               new Form_Load().setVisible(true);
             }
         });
     }
