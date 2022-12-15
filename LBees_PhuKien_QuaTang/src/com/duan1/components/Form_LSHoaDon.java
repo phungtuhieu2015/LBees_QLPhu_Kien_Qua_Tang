@@ -423,7 +423,6 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
             jdl.setVisible(true);
 
-            System.out.println(A);
 
         }
 
