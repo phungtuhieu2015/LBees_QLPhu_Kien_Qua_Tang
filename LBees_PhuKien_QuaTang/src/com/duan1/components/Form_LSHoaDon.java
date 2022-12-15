@@ -34,7 +34,9 @@ import javaswingdev.GoogleMaterialDesignIcon;
 import javax.swing.JDialog;
 import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import org.apache.log4j.chainsaw.Main;
 
 public class Form_LSHoaDon extends javax.swing.JPanel {
@@ -47,6 +49,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
     List<HoaDon> listHD = daoHD.selectAll();
     MainJFrame frame = new MainJFrame();
+    DefaultTableModel model;
 
     public Form_LSHoaDon() {
         initComponents();
@@ -58,8 +61,8 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     }
 
     public void TimKiemHD() {
-        textFieldAnimationTK.setHintText("Nhập mã hóa đơn");
-        textFieldAnimationTK.addEvent(new EventTextField() {
+        txtTimKiem.setHintText("Nhập mã hóa đơn, tên khách hàng");
+        txtTimKiem.addEvent(new EventTextField() {
 
             @Override
             public void onPressed(EventCallBack call) {
@@ -90,12 +93,12 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     }
 
     void loadDuLieu() {
-        DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
+        model = (DefaultTableModel) tblLSHD.getModel();
         model.setRowCount(0);
 
         try {
-            
-            String keywork = textFieldAnimationTK.getText();
+
+            String keywork = txtTimKiem.getText();
             List<HoaDon> listhd = daoHD.selectByKeyword(keywork);
 
             for (HoaDon hd : listhd) {
@@ -118,15 +121,16 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-//    public void findIdAndNameBH(String IdAndName) {
-//        model = (DefaultTableModel) tblSanPham.getModel();
-//        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
-//        tblSanPham.setRowSorter(trs);
-//        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 2));
-//    }
+
+    public void findIdAndNameBH(String IdAndName) {
+        model = (DefaultTableModel) tblLSHD.getModel();
+        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+        tblLSHD.setRowSorter(trs);
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0,3));
+    }
 
     public void timKiemTheoNgay() {
-        if(txtTuNgay.getText().trim().isEmpty() || txtDenNgay.getText().trim().isEmpty()) {
+        if (txtTuNgay.getText().trim().isEmpty() || txtDenNgay.getText().trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Vui lòng chọn ngày!");
             return;
         }
@@ -158,7 +162,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         lblDenNgay = new javax.swing.JLabel();
         lblTuNgay = new javax.swing.JLabel();
-        textFieldAnimationTK = new com.duan1.swing.TextFieldAnimation();
+        txtTimKiem = new com.duan1.swing.TextFieldAnimation();
         materialTabbed1 = new com.duan1.swing.MaterialTabbed();
         jPanel1 = new javax.swing.JPanel();
         ScrollLSHD = new javax.swing.JScrollPane();
@@ -197,10 +201,15 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
             }
         });
 
-        textFieldAnimationTK.setBackground(new java.awt.Color(222, 214, 214));
-        textFieldAnimationTK.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtTimKiem.setBackground(new java.awt.Color(222, 214, 214));
+        txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKiemActionPerformed(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                textFieldAnimationTKKeyReleased(evt);
+                txtTimKiemKeyReleased(evt);
             }
         });
 
@@ -376,7 +385,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -391,7 +400,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtTuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblDenNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblTuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -432,17 +441,14 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
             jdl.setVisible(true);
 
-
         }
 
     }//GEN-LAST:event_tblLSHDMouseClicked
 
-    private void textFieldAnimationTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAnimationTKKeyReleased
-        // TODO add your handling code here:
-
-        loadDuLieu();
-
-    }//GEN-LAST:event_textFieldAnimationTKKeyReleased
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        String timKiem = txtTimKiem.getText();
+        findIdAndNameBH(timKiem);
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
@@ -454,6 +460,10 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
         timKiemTheoNgay();
     }//GEN-LAST:event_btnLocActionPerformed
+
+    private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
+
+    }//GEN-LAST:event_txtTimKiemActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -468,8 +478,8 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private javax.swing.JLabel lblTuNgay;
     private com.duan1.swing.MaterialTabbed materialTabbed1;
     private com.duan1.swing.Table tblLSHD;
-    private com.duan1.swing.TextFieldAnimation textFieldAnimationTK;
     private com.duan1.swing.MyTextField2 txtDenNgay;
+    private com.duan1.swing.TextFieldAnimation txtTimKiem;
     private com.duan1.swing.MyTextField2 txtTuNgay;
     // End of variables declaration//GEN-END:variables
 }
