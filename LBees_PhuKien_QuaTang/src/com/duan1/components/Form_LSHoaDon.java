@@ -26,6 +26,7 @@ import java.awt.Color;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -53,7 +54,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         TimKiemHD();
         loadDuLieu();
         txtDenNgay.setText("");
-        txtTuNgay1.setText("");
+        txtTuNgay.setText("");
     }
 
     public void TimKiemHD() {
@@ -83,7 +84,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     }
 
     public void init() {
-        txtTuNgay1.setLabelText("Từ ngày");
+        txtTuNgay.setLabelText("Từ ngày");
         txtDenNgay.setLabelText("Đến ngày");
         ScrollLSHD.setVerticalScrollBar(new ScrollBarCustom());
     }
@@ -122,32 +123,16 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tblLSHD.getModel();
         model.setRowCount(0);
+        String mauNgay = "dd-MM-yyyy";
         try {
 
            
-            String DenNgay = (txtDenNgay.getText());
-            String tuNgay = (txtTuNgay1.getText());
-            System.out.println(DenNgay + "----" + tuNgay );
-            List<HoaDon> listhd = daoHD.selectByDate(tuNgay,DenNgay);
+            Date tuNgay = XDate.toDate(txtTuNgay.getText(), mauNgay);
+            Date DenNgay = XDate.toDate(txtDenNgay.getText(), mauNgay);
+            List<Object[]> listhd = daoHD.findHDbyDate(tuNgay,DenNgay);
 
-           for (HoaDon hd : listhd) {
-                HoaDonChiTiet ct = daoCT.selectByid(hd.getMaHD());
-                KhachHang kh = daoKH.selectByid(hd.getMaKH());
-                
-
-                Object[] row = {
-                    hd.getMaHD(),
-                    hd.getMaNV(),
-                    hd.getMaKH(),
-                    hd.getNgayTao(),
-                    kh.getTenKH(),
-                    ct.getThanhTien()
-
-               
-                };
-                model.addRow(row);
-               
-
+            for (Object[] hd : listhd) {
+                model.addRow(hd);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -169,15 +154,18 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         ScrollLSHD = new javax.swing.JScrollPane();
         tblLSHD = new com.duan1.swing.Table();
-        txtTuNgay1 = new com.duan1.swing.MyTextField2();
+        txtTuNgay = new com.duan1.swing.MyTextField2();
         txtDenNgay = new com.duan1.swing.MyTextField2();
         btnMoi = new com.duan1.swing.Button();
+        btnLoc = new com.duan1.swing.Button();
 
         TuNgay_Date.setForeground(new java.awt.Color(0, 204, 255));
         TuNgay_Date.setToolTipText("");
-        TuNgay_Date.setTextRefernce(txtTuNgay1);
+        TuNgay_Date.setDateFormat("dd-MM-yyyy");
+        TuNgay_Date.setTextRefernce(txtTuNgay);
 
         DenNgay_Date.setForeground(new java.awt.Color(0, 204, 255));
+        DenNgay_Date.setDateFormat("dd-MM-yyyy");
         DenNgay_Date.setTextRefernce(txtDenNgay);
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -313,7 +301,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Hóa Đơn", "Mã nhân viên", "Mã khách hàng", "Ngày tạo", "Tên khách hàng", "Tổng Tiền"
+                "Mã Hóa Đơn", "Mã nhân viên", "Mã khách hàng", "Tên khách hàng", "Ngày tạo", "Tổng Tiền"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -344,16 +332,17 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
         materialTabbed1.addTab("Lịch sử hóa đơn", jPanel1);
 
-        txtDenNgay.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtDenNgayMouseReleased(evt);
-            }
-        });
-
         btnMoi.setText("Làm Mới");
         btnMoi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMoiActionPerformed(evt);
+            }
+        });
+
+        btnLoc.setText("Lọc");
+        btnLoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLocActionPerformed(evt);
             }
         });
 
@@ -368,12 +357,14 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(lblTuNgay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTuNgay1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTuNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblDenNgay)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -392,14 +383,15 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(textFieldAnimationTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTuNgay1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtTuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblDenNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblTuNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(38, 38, 38)
                         .addComponent(materialTabbed1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtDenNgay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -437,11 +429,6 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
 
     }//GEN-LAST:event_tblLSHDMouseClicked
 
-    private void txtDenNgayMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDenNgayMouseReleased
-        // TODO add your handling code here:
-        timKiemTheoNgay();
-    }//GEN-LAST:event_txtDenNgayMouseReleased
-
     private void textFieldAnimationTKKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldAnimationTKKeyReleased
         // TODO add your handling code here:
          
@@ -452,15 +439,20 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         // TODO add your handling code here:
         loadDuLieu();
-        txtTuNgay1.setText("");
+        txtTuNgay.setText("");
         txtDenNgay.setText("");
     }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void btnLocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLocActionPerformed
+        timKiemTheoNgay();
+    }//GEN-LAST:event_btnLocActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.duan1.swing.DateChooser DenNgay_Date;
     private javax.swing.JScrollPane ScrollLSHD;
     private com.duan1.swing.DateChooser TuNgay_Date;
+    private com.duan1.swing.Button btnLoc;
     private com.duan1.swing.Button btnMoi;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -470,6 +462,6 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
     private com.duan1.swing.Table tblLSHD;
     private com.duan1.swing.TextFieldAnimation textFieldAnimationTK;
     private com.duan1.swing.MyTextField2 txtDenNgay;
-    private com.duan1.swing.MyTextField2 txtTuNgay1;
+    private com.duan1.swing.MyTextField2 txtTuNgay;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,8 +8,9 @@
           <Color blue="ff" green="cc" red="0" type="rgb"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
+        <Property name="dateFormat" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="txtTuNgay1"/>
+          <ComponentRef name="txtTuNgay"/>
         </Property>
       </Properties>
     </Component>
@@ -18,6 +19,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="0" type="rgb"/>
         </Property>
+        <Property name="dateFormat" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="txtDenNgay"/>
         </Property>
@@ -54,12 +56,14 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblTuNgay" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtTuNgay1" min="-2" pref="126" max="-2" attributes="0"/>
+                      <Component id="txtTuNgay" min="-2" pref="126" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblDenNgay" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtDenNgay" min="-2" pref="126" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnLoc" min="-2" pref="78" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnMoi" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="textFieldAnimationTK" min="-2" pref="316" max="-2" attributes="0"/>
@@ -83,7 +87,7 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="textFieldAnimationTK" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTuNgay1" max="32767" attributes="0"/>
+                          <Component id="txtTuNgay" max="32767" attributes="0"/>
                           <Component id="lblDenNgay" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblTuNgay" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -93,6 +97,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtDenNgay" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnMoi" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
+                      <Component id="btnLoc" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -184,8 +189,8 @@
                         <Column editable="false" title="M&#xe3; H&#xf3;a &#x110;&#x1a1;n" type="java.lang.Object"/>
                         <Column editable="false" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.Object"/>
                         <Column editable="false" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
-                        <Column editable="false" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
                         <Column editable="false" title="T&#xea;n kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
+                        <Column editable="false" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
                         <Column editable="false" title="T&#x1ed5;ng Ti&#x1ec1;n" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -237,12 +242,9 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="com.duan1.swing.MyTextField2" name="txtTuNgay1">
+    <Component class="com.duan1.swing.MyTextField2" name="txtTuNgay">
     </Component>
     <Component class="com.duan1.swing.MyTextField2" name="txtDenNgay">
-      <Events>
-        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtDenNgayMouseReleased"/>
-      </Events>
     </Component>
     <Component class="com.duan1.swing.Button" name="btnMoi">
       <Properties>
@@ -250,6 +252,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoiActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="com.duan1.swing.Button" name="btnLoc">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="L&#x1ecd;c"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLocActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -89,10 +89,10 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         return this.selectBySql(sql, "%" + keyword + '%');
     }
 
-    public List<HoaDon> selectByDate(String tuNgay, String denNgay) {
-        String sql = "SELECT * FROM dbo.HoaDon WHERE NgayTao BETWEEN ? AND ?";
-        return this.selectBySql(sql, tuNgay, denNgay);
-    }
+//    public List<HoaDon> selectByDate(Date tuNgay, Date denNgay) {
+//        String sql = "SELECT * FROM dbo.HoaDon WHERE NgayTao BETWEEN ? AND ?";
+//        return this.selectBySql(sql, tuNgay, denNgay);
+//    }
 
    
     public String getLastID() throws SQLException {
@@ -112,4 +112,31 @@ public class HoaDonDAO extends QLPK<HoaDon, String> {
         String newID = String.format(sdf.format(date)+"%04d", idNumber+=1);
         return newID;
     }
+    private List<Object[]> getListOfArray(String sql, String[] cols, Object... args) {
+        try {
+            List<Object[]> list = new ArrayList<>();
+            ResultSet rs = XJdbc.executeQuery(sql, args);
+            while (rs.next()) {
+                Object[] vals = new Object[cols.length];
+                for (int i = 0; i < cols.length; i++) {
+                    vals[i] = rs.getObject(cols[i]);
+                }
+                list.add(vals);
+            }
+            rs.getStatement().getConnection().close();
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<Object[]> findHDbyDate(Date tuNgay, Date denNgay) {
+        String sql = "{CALL sp_TimHD_TheoNgay(?,?)}";
+        String[] cols = {"MaHD","MaNV","MaKH", "TenKH","NgayTao","TongTien"};
+        return this.getListOfArray(sql, cols,tuNgay,denNgay);
+    }
+//    public List<Object[]> getSoLuong_TongTien() {
+//        String sql = "{CALL sp_dsPhieuNhapKho}";
+//        String[] cols = {"MaPNK","NgayNhap","SoLuong", "ThanhTien"};
+//        return this.getListOfArray(sql, cols);
+//    }
 }
