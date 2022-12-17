@@ -1,5 +1,6 @@
 package com.duan1.ui;
 
+import com.duan1.components.DoiMatKhauJFrame;
 import com.duan1.DAO.NhanVienDAO;
 import com.duan1.DAO.TaiKhoanDAO;
 import com.duan1.Entity.NhanVien;
@@ -27,6 +28,7 @@ import com.duan1.components.Main_Form;
 import com.duan1.components.Form_QLBanHang;
 import com.duan1.components.JDL_ThongTinChiTiet_LSHoaDon;
 import com.duan1.components.jdl_GTQT;
+import com.duan1.components.loginJFrame;
 import com.duan1.swing.EventMenuSelected;
 import java.awt.Color;
 import java.awt.Component;
@@ -91,7 +93,7 @@ public class MainJFrame extends javax.swing.JFrame {
         if (Auth.isLogin()) {
             lblTen.setText("Xin chào: " + Auth.tenNV());
             if (Auth.role()) {
-                lblCVFN.setText("Chức vụ: Quản lý");
+                  lblCVFN.setText("Chức vụ: Quản lý");
             } else {
                 lblCVFN.setText("Chức vụ: Nhân viên");
             }
@@ -219,10 +221,7 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-//    public void setform(){
-//        lblTen.setText(Auth.tenNV());
-//        lblCVFN.setText(Auth.role());
-//    }
+
     @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -354,7 +353,7 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(0, 0, 0))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -407,7 +406,7 @@ public class MainJFrame extends javax.swing.JFrame {
         menuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //showForm(new panelTaiKhoanCuaBan ());
+                dangXuat();
 
             }
         });
@@ -458,7 +457,16 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         }).start();
     }
+     void dangXuat() {
+        if (Msgbox.yesNo("Bạn có chắc chắn ", " muốn đăng xuất ?")) {
+            if (Auth.isLogin()) {
+                Auth.clear();         
+                new loginJFrame().setVisible(true);
+                dispose();
+            }
+        }
 
+    }
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         Form_QLBanHang.checks = 0;

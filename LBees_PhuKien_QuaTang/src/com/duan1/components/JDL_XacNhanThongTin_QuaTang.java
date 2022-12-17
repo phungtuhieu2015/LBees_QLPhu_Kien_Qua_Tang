@@ -222,6 +222,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         jLabel4.setForeground(new java.awt.Color(102, 102, 102));
         jLabel4.setText("Số điện thoại khách hàng :");
 
+        txtTienPhiShip.setBackground(new java.awt.Color(233, 228, 240));
         txtTienPhiShip.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 txtTienPhiShipMousePressed(evt);
@@ -233,6 +234,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             }
         });
 
+        txttTienKhachDua.setBackground(new java.awt.Color(233, 228, 240));
         txttTienKhachDua.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txttTienKhachDuaKeyReleased(evt);
@@ -439,7 +441,6 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
                         .addComponent(txtTienPhiShip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txttTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelTrang1Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)

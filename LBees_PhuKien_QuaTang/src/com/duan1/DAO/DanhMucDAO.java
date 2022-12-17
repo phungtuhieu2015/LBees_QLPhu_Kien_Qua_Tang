@@ -7,6 +7,7 @@ package com.duan1.DAO;
 import com.duan1.Entity.DanhMuc;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class DanhMucDAO extends QLPK<DanhMuc, String> {
     String delete_SQL = "DELETE dbo.DanhMuc WHERE MaDM =?";
     String select_All_SQL = "SELECT * FROM dbo.DanhMuc ORDER BY MaDM";
     String select_ByID_SQL = "SELECT * FROM dbo.DanhMuc WHERE MaDM=?";
+    String select_Max_Id = "	SELECT MAX(SUBSTRING(MaDM,LEN(MaDM) -2 ,LEN(MaDM))) FROM dbo.DanhMuc";
 
     @Override
     public void insert(DanhMuc entity) {
@@ -69,4 +71,22 @@ public class DanhMucDAO extends QLPK<DanhMuc, String> {
         }
     }
 
+    public String getLastID() throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_Max_Id);
+        String id = null;
+        if (rs.next()) {
+            id = rs.getString(1);
+        }
+        rs.getStatement().getConnection().close();
+        return id;
+    }
+
+    public String initID() throws SQLException {
+        String id = getLastID();
+//        Date date = new Date();
+//        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+        int idNumber = Integer.parseInt(id);
+        String newID = String.format("%05d", idNumber += 1);
+        return newID;
+    }
 }

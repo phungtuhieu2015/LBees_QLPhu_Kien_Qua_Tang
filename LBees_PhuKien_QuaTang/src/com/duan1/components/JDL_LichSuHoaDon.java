@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+
 package com.duan1.components;
 
 import com.duan1.DAO.HoaDonChiTietDAO;
@@ -17,7 +14,6 @@ import com.duan1.Entity.SanPham;
 import com.duan1.Helper.XDate;
 import static com.duan1.Helper.XDate.now;
 import com.duan1.Helper.XJdbc;
-import static com.duan1.components.LocalDateTime.now;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

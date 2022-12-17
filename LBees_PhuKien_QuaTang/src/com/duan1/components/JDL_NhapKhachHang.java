@@ -260,6 +260,10 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
         panelTrang1.setBackground(new java.awt.Color(153, 51, 0));
 
+        txtTenKH.setBackground(new java.awt.Color(233, 228, 240));
+
+        txtSDTKH.setBackground(new java.awt.Color(233, 228, 240));
+
         btnThanhToan.setBackground(new java.awt.Color(0, 242, 96));
         btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToan.setText("Thanh Toán");
@@ -280,6 +284,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             }
         });
 
+        txtGhiChu1.setBackground(new java.awt.Color(233, 228, 240));
         txtGhiChu1.setColumns(20);
         txtGhiChu1.setRows(5);
         txtGhiChu.setViewportView(txtGhiChu1);
@@ -297,6 +302,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblTongTien.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
+        txtTienKhachDua.setBackground(new java.awt.Color(233, 228, 240));
         txtTienKhachDua.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txtTienKhachDua.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
@@ -348,15 +354,12 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         panelTrang1Layout.setHorizontalGroup(
             panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTrang1Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtTenKH, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtSDTKH, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtGhiChu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelTrang1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTenKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtSDTKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtGhiChu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(panelTrang1Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6))

@@ -5,7 +5,6 @@
 package com.duan1.components;
 
 import com.duan1.ui.MainJFrame;
-import com.duan1.ui.loginJFrame;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,23 +23,38 @@ public class Form_Load extends javax.swing.JFrame {
         initComponents();
         this.setBackground(new Color(0,0,0,0));
          intit();
+    
     }
 
      String check = "";
+     
     void intit() {
-        new Timer(120, new ActionListener() {
+        new Timer(50, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setLocationRelativeTo(null);
                 int value = pgbLoading.getValue();
                 int a = 0;
 
-                if (value < pgbLoading.getMaximum()) {
-                    pgbLoading.setValue(value + 10);
+                if (value < 100) {
+                    pgbLoading.setValue(value + 5);
+                    a = value + 5;
+                    if (value < 30) {
+                        lblChuChay.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
+                    } else {
+                        lblChuChay.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
+                    }
+                    if (value > 60) {
+                        lblChuChay.setText("Sắp xong vui lòng đợi!!");
+                    }
+                    if (value > 90) {
+                        lblChuChay.setText("Wellcom");
+                    }
                 } else {
                     check += "Stop";
                     checkwwin();
                     Form_Load.this.dispose();
+
                 }
             }
         }).start();
@@ -63,27 +77,28 @@ public class Form_Load extends javax.swing.JFrame {
 
         jProgressBar1 = new javax.swing.JProgressBar();
         panelTrang1 = new com.duan1.components.panelTrang();
-        jLabel2 = new javax.swing.JLabel();
+        pgbLoading = new com.duan1.swing.ProgressBar();
+        lblChuChay = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        pgbLoading = new javax.swing.JProgressBar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelTrang1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelTrang1.add(pgbLoading, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 230, 10));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
-        jLabel2.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
-        panelTrang1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
+        lblChuChay.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblChuChay.setForeground(new java.awt.Color(0, 51, 255));
+        lblChuChay.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblChuChay.setText("ĐẶT QUÀ LIỀN TAY - NHẬN QUÀ HÔM NAY");
+        panelTrang1.add(lblChuChay, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 290, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/02.gif"))); // NOI18N
-        panelTrang1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 800, 350));
+        panelTrang1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 360));
 
         getContentPane().add(panelTrang1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 360));
-
-        pgbLoading.setStringPainted(true);
-        getContentPane().add(pgbLoading, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 800, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -126,9 +141,9 @@ public class Form_Load extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel lblChuChay;
     private com.duan1.components.panelTrang panelTrang1;
-    private javax.swing.JProgressBar pgbLoading;
+    private com.duan1.swing.ProgressBar pgbLoading;
     // End of variables declaration//GEN-END:variables
 }
