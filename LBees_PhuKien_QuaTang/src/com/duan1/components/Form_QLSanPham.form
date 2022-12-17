@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Tabpane" alignment="0" max="32767" attributes="0"/>
+                          <Component id="TabpaneSP" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -53,14 +53,14 @@
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               <Component id="txtTimKiem" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="34" max="32767" attributes="0"/>
-              <Component id="Tabpane" min="-2" pref="450" max="-2" attributes="0"/>
+              <Component id="TabpaneSP" min="-2" pref="450" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="com.duan1.swing.MaterialTabbed" name="Tabpane">
+    <Container class="com.duan1.swing.MaterialTabbed" name="TabpaneSP">
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>

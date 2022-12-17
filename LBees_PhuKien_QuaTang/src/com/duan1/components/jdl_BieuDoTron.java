@@ -26,7 +26,7 @@ public class jdl_BieuDoTron extends javax.swing.JDialog {
 
     public void bieuDo(int nhap, int xuat) {
         pieChart1.setChartType(PieChart.PeiChartType.DONUT_CHART);
-        pieChart1.addData(new ModelPieChart("tổng nhập", nhap, Color.BLACK));
+        pieChart1.addData(new ModelPieChart("tổng nhập", nhap, Color.BLUE));
         pieChart1.addData(new ModelPieChart("tổng xuất", xuat, Color.red));
        
     }
@@ -68,7 +68,7 @@ public class jdl_BieuDoTron extends javax.swing.JDialog {
         pieChart1.add(jLabel2);
         jLabel2.setBounds(200, 10, 170, 20);
 
-        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBackground(new java.awt.Color(0, 0, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

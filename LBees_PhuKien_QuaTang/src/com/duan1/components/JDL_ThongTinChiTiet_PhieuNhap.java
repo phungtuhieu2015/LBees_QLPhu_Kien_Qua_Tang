@@ -98,6 +98,7 @@ public class JDL_ThongTinChiTiet_PhieuNhap extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(null);
 
+        tblPhieuNhapCT.setBackground(new java.awt.Color(233, 228, 240));
         tblPhieuNhapCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},

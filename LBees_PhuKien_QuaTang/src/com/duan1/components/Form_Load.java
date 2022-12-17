@@ -48,7 +48,7 @@ public class Form_Load extends javax.swing.JFrame {
                         lblChuChay.setText("Sắp xong vui lòng đợi!!");
                     }
                     if (value > 90) {
-                        lblChuChay.setText("Wellcom");
+                        lblChuChay.setText("Xin Chào");
                     }
                 } else {
                     check += "Stop";

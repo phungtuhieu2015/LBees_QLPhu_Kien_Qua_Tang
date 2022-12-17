@@ -149,6 +149,7 @@ public class JDL_ThongTinChiTiet_LSHoaDon extends javax.swing.JDialog {
 
         jScrollPane1.setBorder(null);
 
+        tblCHITIET.setBackground(new java.awt.Color(233, 228, 240));
         tblCHITIET.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -293,7 +294,7 @@ public class JDL_ThongTinChiTiet_LSHoaDon extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(panelTrang1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32))
         );

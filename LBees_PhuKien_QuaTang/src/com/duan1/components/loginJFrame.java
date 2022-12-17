@@ -9,8 +9,16 @@ import com.duan1.components.Form_Load;
 import com.duan1.ui.MainJFrame;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class loginJFrame extends javax.swing.JFrame {
 
@@ -62,7 +70,13 @@ public class loginJFrame extends javax.swing.JFrame {
         System.exit(0);
         // }
     }
-
+      public void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File("./src/com/duan1/icon/sound_DNThanhCong.wav");
+        AudioInputStream ad = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(ad);
+        clip.start();
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -159,8 +173,18 @@ public class loginJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        // TODO add your handling code here:
-        login();
+      
+       try {
+           login();
+            music();
+            dispose();
+        } catch (UnsupportedAudioFileException ex) {
+
+        } catch (IOException ex) {
+
+        } catch (LineUnavailableException ex) {
+
+        }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked

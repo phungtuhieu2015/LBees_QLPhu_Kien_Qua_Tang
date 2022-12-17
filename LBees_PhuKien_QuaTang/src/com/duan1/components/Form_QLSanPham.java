@@ -38,9 +38,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     PhieuNhapKhoDAO daoPNK = new PhieuNhapKhoDAO();
     PhieuNhapChiTietDAO daoPNK_ct = new PhieuNhapChiTietDAO();
     int index = -1;
-    /**
-     * Creates new form Form_QLSanPham
-     */
+  
     public Form_QLSanPham() {
         initComponents();
         init();
@@ -48,7 +46,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
     String maPNK = "";
     public static boolean checkBtn = true;
-
+    
     public void init() {
         updateStatus();
         scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
@@ -70,7 +68,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
         txtHinh.setVisible(false);
     }
-
+    
     public void setHint() {
         txtTimKiem.setHintText("Nhập tên, mã sản phẩm");
         txtMaSP.setHint("Mã sản phẩm");
@@ -151,6 +149,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         DanhMuc d = daoDM.selectByid(s.getMaDM());
         cboDanhMuc.setSelectedItem(d.getMaDM() + " - " + d.getTenDM());
         cboTrangThai.setSelectedItem(s.getTrangThai());
+        
     }
 
     public void clear() {
@@ -410,7 +409,12 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         tblSanPham.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 5));
     }
-
+    public void  goiham(){
+         
+            index = tblSanPham.getSelectedRow();
+            display(index);
+            TabpaneSP.setSelectedIndex(1);
+    } 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -420,7 +424,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Tabpane = new com.duan1.swing.MaterialTabbed();
+        TabpaneSP = new com.duan1.swing.MaterialTabbed();
         pnlCapNhat = new javax.swing.JPanel();
         pnlText = new javax.swing.JPanel();
         txtMaSP = new com.duan1.swing.MyTextField();
@@ -694,7 +698,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             .addComponent(pnlText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        Tabpane.addTab("Cập Nhật", pnlCapNhat);
+        TabpaneSP.addTab("Cập Nhật", pnlCapNhat);
 
         pnlDanhSach.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -764,7 +768,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                 .addComponent(scroll_SPBan, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Tabpane.addTab("Danh Sách", pnlDanhSach);
+        TabpaneSP.addTab("Danh Sách", pnlDanhSach);
 
         pnlDanhSach1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -824,7 +828,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                 .addComponent(scroll_PhieuNK, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        Tabpane.addTab("Danh sách phiếu nhập", pnlDanhSach1);
+        TabpaneSP.addTab("Danh sách phiếu nhập", pnlDanhSach1);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("QUẢN LÝ SẢN PHẨM");
@@ -844,7 +848,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(TabpaneSP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -861,7 +865,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(Tabpane, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(TabpaneSP, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -887,7 +891,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             index = tblSanPham.getSelectedRow();
             display(index);
-            Tabpane.setSelectedIndex(0);
+            TabpaneSP.setSelectedIndex(0);
         }
 
     }//GEN-LAST:event_tblSanPhamMouseClicked
@@ -968,7 +972,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private com.duan1.swing.MaterialTabbed Tabpane;
+    private com.duan1.swing.MaterialTabbed TabpaneSP;
     private com.duan1.swing.Button btnFirst;
     private com.duan1.swing.Button btnLast;
     private com.duan1.swing.Button btnMoi;
