@@ -28,14 +28,14 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     public int index;
     DefaultTableModel model;
     MessageDialog mdl = new MessageDialog(frame);
-
+    String maDM = "";
     public Form_QLDanhMuc() {
         initComponents();
         setHin();
         TimKiem();
         loadDataDM();
         ThanhTruotDM();
-
+        init();
     }
 
     public void setHin() {
@@ -62,7 +62,14 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     public void ThanhTruotDM() {
         ScrollTK.setVerticalScrollBar(new ScrollBarCustom());
     }
-
+      public void init (){
+          try {
+            maDM = "DM" + daoDM.initID();
+            txtMaDanhMuc.setText(maDM);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã danh muc");
         txtTimKiem.addEvent(new EventTextField() {
@@ -182,7 +189,7 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
         model = (DefaultTableModel) tblDanhMuc.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblDanhMuc.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter(IdAndName, 0, 1));
+          trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0,1));
     }
 
     //hỗ trợ thêm sửa xoá
@@ -307,6 +314,14 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
             }
         });
 
@@ -525,6 +540,8 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     private void txtTimKiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMousePressed
         String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
+        
+        Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemMousePressed
 
     private void txtTimKiemMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMouseReleased
@@ -565,7 +582,20 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         clear();
+        init();
     }//GEN-LAST:event_btnMoiActionPerformed
+
+    private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
+       String timKiem = txtTimKiem.getText();
+        findIdAndName(timKiem);
+        Tabpane.setSelectedIndex(1);
+    }//GEN-LAST:event_txtTimKiemKeyPressed
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+       String timKiem = txtTimKiem.getText();
+        findIdAndName(timKiem);
+        Tabpane.setSelectedIndex(1);
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
