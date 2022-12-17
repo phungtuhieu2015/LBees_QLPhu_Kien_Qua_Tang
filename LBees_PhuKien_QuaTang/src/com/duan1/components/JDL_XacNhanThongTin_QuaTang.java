@@ -8,6 +8,7 @@ import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.KhachHang;
 import com.duan1.Entity.QuaTang;
 import com.duan1.Entity.SanPham;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.Helper.XDate;
 import com.duan1.ui.MainJFrame;
@@ -155,7 +156,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         if (s == false) {
             daoKH.insert(k);
         }
-        HoaDon hd = new HoaDon(MaHD, 0, new Date(), "", "NV00001", k.getMaKH());
+        HoaDon hd = new HoaDon(MaHD, 0, new Date(), "", Auth.tk.getMaNV(), k.getMaKH());
         daoHD.insert(hd);
         XDate.toDate(lblNgayNhan.getText(), mauNgay);
         QuaTang qt = new QuaTang(daoQT.initID(), lblTenNN.getText(), lblDiaChi.getText(), lblSDTNN.getText(), XDate.toDate(lblNgayNhan.getText(), mauNgay), trangThaiString, "", maNGH, MaHD);
@@ -501,6 +502,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
 
             }
             music();
+            Msgbox.success(f, "Thanh toán thanh công!");
             dispose();
         } catch (UnsupportedAudioFileException ex) {
 

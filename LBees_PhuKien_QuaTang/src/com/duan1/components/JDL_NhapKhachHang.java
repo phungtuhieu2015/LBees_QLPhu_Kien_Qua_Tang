@@ -155,7 +155,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
             KhachHang kh = new KhachHang(maKH, txtTenKH.getText(), txtSDTKH.getText(), 1);
             daoKH.insert(kh);
-            HoaDon hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), "NV01", maKH);
+            HoaDon hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), Auth.tk.getMaNV(), maKH);
 //            System.out.println(Auth.tenNV());
             daoHD.insert(hd);
 
