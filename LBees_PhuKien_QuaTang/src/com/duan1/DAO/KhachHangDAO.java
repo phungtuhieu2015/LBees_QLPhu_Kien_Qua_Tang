@@ -95,5 +95,5 @@ public class KhachHangDAO extends QLPK<KhachHang, String> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }   
 }

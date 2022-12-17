@@ -48,7 +48,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     DefaultTableModel model;
 
     int index = -1;
-
+    
     /**
      * Creates new form Form_QLKhachHang
      */
@@ -61,6 +61,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         
 
     }
+   
 
     public void ThanhTruotTb() {
         ScrollKH.setVerticalScrollBar(new ScrollBarCustom());
@@ -143,40 +144,49 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }
 
     public void insert() {
-        KhachHang kh = getForm();
-        if(Msgbox.yesNo("Bạn có muốn thêm khách hàng", "bạn chắc chắn không?")){
-            daoKH.insert(kh);
-            loadData();
-            clear();
-            Msgbox.success(frame, "Thêm khách hàng thành công");
-            Tabpane.setSelectedIndex(1);
-            
-        }else{
-            Msgbox.waring(frame, "Thêm khách hàng không thành công");
+        try {
+            KhachHang kh = getForm();
+            if(Msgbox.yesNo("Bạn có muốn thêm khách hàng", "bạn chắc chắn không?")){
+                daoKH.insert(kh);
+                loadData();
+                clear();
+                Msgbox.success(frame, "Thêm khách hàng thành công");
+                Tabpane.setSelectedIndex(1);
+
+            }
+        } catch (Exception e) {
+                Msgbox.waring(frame, "Mã khách hàng không tồn tại");
         }
+        
     }
     public void update() {
-        KhachHang kh = getForm();
+        try {
+            KhachHang kh = getForm();
          if (Msgbox.yesNo("bạn có muốn cập nhật khách hàng", "bạn chắc chắn không???")) {
             daoKH.update(kh);
             loadData();
             clear();
             Msgbox.success(frame, "cập nhật khách hàng thành công");
             Tabpane.setSelectedIndex(1);
-        } else {
-            Msgbox.waring(frame, "cập nhật khách hàng không thành công");
         }
-    }
+            } catch (Exception e) {
+                 Msgbox.waring(frame, "Mã khách hàng không tồn tại");  
+            }
+        }
+         
     public void delete() {
-        if (Msgbox.yesNo("bạn có muốn xóa khách hàng", "bạn chắc chắn không???")) {         
+        try {
+            if (Msgbox.yesNo("bạn có muốn xóa khách hàng", "bạn chắc chắn không???")) {         
             String maKH = txtMaKhachHang.getText();
             daoKH.delete(maKH);
             loadData();
             clear();
             Msgbox.success(frame, "Xóa khách hàng thành công");
-        } else {
-            Msgbox.waring(frame, "Xóa khách hàng không thành công");
+            } 
+        } catch (Exception e) {          
+              
         }
+        
     }
 
     public void updateStatus() {
@@ -205,11 +215,13 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     public void firs() {
         index = 0;
         edit();
+        Msgbox.infoCT(frame, "Đang ở đầu danh sách khách hàng");
     }
 
     public void last() {
         index = listKH.size() - 1;
         edit();
+        Msgbox.infoCT(frame, "Đang ở cuối danh sách khách hàng");
     }
 
     public void prev() {
@@ -219,6 +231,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             index--;
         }
         edit();
+        
 
     }
 
@@ -271,7 +284,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         
         //
         
-        String SDTKH_REGEX = "^0[9834]\\d{8}";
+        String SDTKH_REGEX = "0[35789]{1}\\d{8}$";
         boolean SDTKH = txtSDT.getText().matches(SDTKH_REGEX);
         if (txtSDT.getText().trim().isEmpty()) {
             Msgbox.waring(frame, "Số điện thoại không được để trống");
@@ -279,7 +292,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             return false;
         }
         if (SDTKH != true) {
-            Msgbox.waring(frame, "Số điện thoại không đúng định dạng");
+            Msgbox.waring(frame, "Số điện thoại không đúng định dạng(chỉ nhập số và gồm 10 chỉ số)");
             txtSDT.requestFocus();
             return false;
         }
@@ -355,6 +368,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlText.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMaKhachHang.setEditable(false);
 
         pnlThemSuaXoa.setBackground(new java.awt.Color(255, 255, 255));
         pnlThemSuaXoa.setLayout(new java.awt.GridLayout(1, 0, 10, 0));

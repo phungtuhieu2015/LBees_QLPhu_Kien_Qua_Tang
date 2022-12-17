@@ -37,6 +37,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     NhanVienDAO daoNV = new NhanVienDAO();
     MainJFrame frame = new MainJFrame();
     int index;
+    String maNV = "";
 
     /**
      * Creates new form Form_QLKhachHang
@@ -52,6 +53,16 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         initTable();
         loadDaTa();
         initComboBox();
+        
+       
+    }
+    public void tt(){
+         try {
+            maNV = "NV" + daoNV.initID();
+            txtMaNV.setText(maNV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     
@@ -309,6 +320,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             throw new RuntimeException(ex);
 
         }
+        tt();
     }
 
     public void update() {
@@ -325,6 +337,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             Msgbox.waring(frame, "Mã nhân viên không tồn tại");
             throw new RuntimeException(ex);
         }
+        tt();
     }
 
     public void delete() {
@@ -340,6 +353,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             Msgbox.waring(frame, "Mã nhân viên không tồn tại");
             throw new RuntimeException(ex);
         }
+        tt();
     }
 
     public void edit() {
@@ -351,12 +365,14 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     public void firs() {
         index = 0;
         edit();
+        Msgbox.infoCT(frame, "Đang ở đầu danh sách nhân viên");
     }
 
     //end
     public void last() {
         index = listNV.size() - 1;
         edit();
+        Msgbox.infoCT(frame, "Đang ở cuối danh sách nhân viên");
     }
 
     //prev
@@ -542,6 +558,8 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         txtGhiChu.setColumns(20);
         txtGhiChu.setRows(5);
         txtTieuDeGhiChu.setViewportView(txtGhiChu);
+
+        txtMaNV.setEditable(false);
 
         txtGmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

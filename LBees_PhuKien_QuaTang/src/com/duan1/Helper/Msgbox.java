@@ -21,6 +21,11 @@ public class Msgbox {
         Notification no = new Notification((Frame) parentComponent, Notification.Type.INFO, Notification.Location.TOP_RIGHT, mes);
         no.showNotification();
     }
+    
+     public static void infoCT(Component parentComponent, String mes) {
+        Notification no = new Notification((Frame) parentComponent, Notification.Type.INFO, Notification.Location.TOP_CENTER, mes);
+        no.showNotification();
+    }
 
     public static void success(Component parentComponent, String mes) {
         Notification no = new Notification((Frame) parentComponent, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, mes);
@@ -36,6 +41,7 @@ public class Msgbox {
         Notification no = new Notification((Frame) parentComponent, Notification.Type.WARNING, Notification.Location.CENTER, mes);
         no.showNotification();
     }
+    
 
     public static boolean yesNo(String tieuDe, String text) {
         MainJFrame f = new MainJFrame();

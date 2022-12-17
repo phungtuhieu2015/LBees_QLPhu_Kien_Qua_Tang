@@ -31,7 +31,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     List<NguoiGiaoHang> listNGH = new ArrayList<>();
     NguoiGiaoHangDAO daoNGH = new NguoiGiaoHangDAO();
     int index = 0;
-
+    String maNGH = "";
     /**
      * Creates new form Form_QLNguoiGiaoHang
      */
@@ -50,6 +50,17 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         ThanhTruotTb();
         initTable();
         loadData();
+        tt();
+          
+    
+    }
+    public void tt(){
+        try {
+            maNGH = "NGH" + daoNGH.initID();
+            txtMaNGH.setText(maNGH);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void TimKiem() {
@@ -86,43 +97,55 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }
 
     public void insert() {
-        NguoiGiaoHang ngh = getForm();
-        if (Msgbox.yesNo("Bạn có muốn thêm người giao hàng", "bạn chắc chắn không?")) {
-            daoNGH.insert(ngh);
-            loadData();
-            clear();
-            Msgbox.success(frame, "Thêm người giao hàng thành công");
-            tabPane.setSelectedIndex(1);
+        try {
+                    NguoiGiaoHang ngh = getForm();
+                    if (Msgbox.yesNo("Bạn có muốn thêm người giao hàng", "bạn chắc chắn không?")) {
+                        daoNGH.insert(ngh);
+                        loadData();
+                        clear();
+                        Msgbox.success(frame, "Thêm người giao hàng thành công");
+                        tabPane.setSelectedIndex(1);
 
-        } else {
-            Msgbox.waring(frame, "Thêm người giao hàng không thành công");
+                    }
+        } catch (Exception e) {
+                    Msgbox.waring(frame, "Mã người giao hàng không tồn tại ");
         }
+        
+        tt();
     }
 
     public void update() {
-        NguoiGiaoHang ngh = getForm();
-        if (Msgbox.yesNo("bạn có muốn cập nhật người giao hàng", "bạn chắc chắn không???")) {
-            daoNGH.update(ngh);
-            loadData();
-            clear();
-            Msgbox.success(frame, "cập nhật người giao hàng thành công");
-            tabPane.setSelectedIndex(1);
-        } else {
-            Msgbox.waring(frame, "cập nhật người giao hàng không thành công");
+        try {
+            NguoiGiaoHang ngh = getForm();
+            if (Msgbox.yesNo("bạn có muốn cập nhật người giao hàng", "bạn chắc chắn không???")) {
+                daoNGH.update(ngh);
+                loadData();
+                clear();
+                Msgbox.success(frame, "Cập nhật người giao hàng thành công");
+                tabPane.setSelectedIndex(1);
+            }
+        } catch (Exception e) {
+            Msgbox.waring(frame, "Mã người giao hàng không tồn tại ");
         }
+       
+        tt();
     }
 
     public void delete() {
-        if (Msgbox.yesNo("bạn có muốn xóa người giao hàng", "bạn chắc chắn không???")) {
+        try {
+            if (Msgbox.yesNo("bạn có muốn xóa người giao hàng", "bạn chắc chắn không???")) {
             String maKH = txtMaNGH.getText();
             daoNGH.delete(maKH);
             loadData();
             clear();
             Msgbox.success(frame, "Xóa người giao hàng thành công");
             tabPane.setSelectedIndex(1);
-        } else {
-            Msgbox.waring(frame, "Xóa người giao hàng không thành công");
+            }
+        } catch (Exception e) {
+            Msgbox.waring(frame, "Mã người giao hàng không tồn tại ");
         }
+         
+        tt();
     }
 
     public void clear() {
@@ -190,12 +213,14 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     public void firs() {
         index = 0;
         edit();
+        Msgbox.infoCT(frame, "Đang ở đầu danh sách người giao hàng");
     }
 
     //end
     public void last() {
         index = listNGH.size() - 1;
         edit();
+        Msgbox.infoCT(frame, "Đang ở cuối danh sách người giao hàng");
     }
 
     //prev
@@ -263,7 +288,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         }
 
         //
-        String SDTNGH_REGEX = "^(0|\\\\+84)(\\\\s|\\\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\\\d)(\\\\s|\\\\.)?(\\\\d{3})(\\\\s|\\\\.)?(\\\\d{3})";
+        String SDTNGH_REGEX = "^0[35789]{1}\\d{8}$";
         boolean SDTNGH = txtSDT.getText().matches(SDTNGH_REGEX);
         if (txtSDT.getText().trim().trim().isEmpty()) {
             Msgbox.waring(frame, "Số điện thoại không được để trống");
@@ -271,13 +296,14 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
             return false;
         }
         if (SDTNGH != true) {
-            Msgbox.waring(frame, "Số điện thoại không đúng định dạng");
+            Msgbox.waring(frame, "Số điện thoại không đúng định dạng(chỉ nhập số và gồm 10 chỉ số)");
             txtSDT.requestFocus();
             return false;
         }
+        
 
         //
-        String EMAILNGH_REGEX = "^[a-z0-9]+@([a-z]+\\\\.[a-z]{2,3}){1,3}$";
+        String EMAILNGH_REGEX = "^[a-z0-9]+@([a-z]+\\.[a-z]{2,3}){1,3}$";
         boolean EMAILNGH = txtEmail.getText().matches(EMAILNGH_REGEX);
         if (txtEmail.getText().trim().isEmpty()) {
             Msgbox.waring(frame, "Email người giao hàng không được để trống");
@@ -339,6 +365,8 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlText.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMaNGH.setEditable(false);
 
         pnlThemSuaXoa.setBackground(new java.awt.Color(255, 255, 255));
         pnlThemSuaXoa.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
@@ -575,7 +603,7 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-        txtMaNGH.setText("");
+        tt();
         txtTenNGH.setText("");
         txtCCCD.setText("");
         txtSDT.setText("");

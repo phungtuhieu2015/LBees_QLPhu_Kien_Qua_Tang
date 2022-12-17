@@ -8,6 +8,7 @@ import com.duan1.Helper.XJdbc;
 import java.util.List;
 import com.duan1.Entity.NhanVien;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -22,6 +23,7 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
     String select_All_SQL = "SELECT * FROM dbo.NhanVien";
     String select_ByID_SQL = "SELECT * FROM dbo.NhanVien WHERE MaNV=?";
     String update_SQL_HinhAnh = "UPDATE dbo.NhanVien SET HinhAnh=? WHERE MaNV =?";
+    String select_Max_ID = "SELECT MAX(MaNV) FROM dbo.NhanVien";
 
     @Override
     public void insert(NhanVien entity) {
@@ -53,6 +55,26 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
             return null;
         }
         return list.get(0);
+    }
+    
+     public String select_Last_ID() throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_Max_ID);
+        return rs.getString("MaNV");
+    }
+
+    public String getLastID() throws SQLException {
+        ResultSet rs = XJdbc.executeQuery(select_Max_ID);
+        if (rs.next()) {
+            return rs.getString(1);
+        }
+        return null;
+    }
+    
+    public String initID() throws SQLException {
+        String id = getLastID();
+        int idNumber = Integer.parseInt(id.replaceAll("\\D+",""));
+        String newID = String.format("%05d", idNumber += 1);
+        return newID;
     }
 
     @Override
