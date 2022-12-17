@@ -8,7 +8,10 @@ import com.duan1.Entity.NhanVien;
 import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.XJdbc;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +26,7 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
     String select_All_SQL = "SELECT * FROM dbo.TaiKhoan";
     String select_ByID_SQL = "SELECT * FROM dbo.TaiKhoan WHERE MaTK=?";
     String Select_CV = "select  tenNV,chucvu from TaiKhoan t inner join nhanvien n on t.MaNV = n.maNV where t.manv =?";
+    String select_Max_Id = "SELECT MAX(SUBSTRING(MaTK,LEN(MaTK) -2 ,LEN(MaTK))) FROM dbo.TaiKhoan";
 
     @Override
     public void insert(TaiKhoan entity) {
@@ -121,5 +125,22 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+      public String getLastID() throws SQLException {
+            ResultSet rs = XJdbc.executeQuery(select_Max_Id);
+            String id = null;
+            if (rs.next()) {
+                id = rs.getString(1);
+            }
+            rs.getStatement().getConnection().close();
+            return id;
+    }
+      public String initID () throws SQLException {
+        String id = getLastID();
+//        Date date = new Date();
+//        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+        int idNumber = Integer.parseInt(id);
+        String newID = String.format("%05d", idNumber += 1);
+        return newID;
     }
 }

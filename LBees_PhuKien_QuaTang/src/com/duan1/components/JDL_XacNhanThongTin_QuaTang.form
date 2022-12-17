@@ -294,12 +294,22 @@
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txtTienPhiShip">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f0" green="e4" red="e9" type="rgb"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtTienPhiShipMousePressed"/>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTienPhiShipKeyReleased"/>
           </Events>
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txttTienKhachDua">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f0" green="e4" red="e9" type="rgb"/>
+            </Property>
+          </Properties>
           <Events>
             <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txttTienKhachDuaKeyReleased"/>
           </Events>

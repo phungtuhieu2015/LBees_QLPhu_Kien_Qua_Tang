@@ -31,7 +31,7 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
     MessageDialog mdl = new MessageDialog(frame);
     DefaultTableModel model ;
     public int index;
-
+    String maTK = "";
     public Form_QLTaiKhoan() {
         initComponents();
         setHin();
@@ -39,7 +39,7 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
         ThanhTruotTK();
         loadDataQLTK();
         lblIconAn.setVisible(false);
-
+        init();
     }
     //gán tên lên textfile
     public void setHin() {
@@ -51,6 +51,14 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
         txtTimKiem.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Tabpane.setCursor(new Cursor(Cursor.HAND_CURSOR));
        
+    }
+    public void init (){
+          try {
+            maTK = "TK" + daoTK.initID();
+            txtMaTaiKhoan.setText(maTK);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     //tạo animition cho thanh tìm kiếm
     public void TimKiem() {
@@ -284,7 +292,7 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
         model = (DefaultTableModel) tblQLTK.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblQLTK.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter(IdAndName, 0,1));
+         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0,1));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -322,6 +330,11 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
         txtTimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemActionPerformed(evt);
+            }
+        });
+        txtTimKiem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTimKiemKeyReleased(evt);
             }
         });
 
@@ -442,9 +455,9 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 202, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
                         .addComponent(btnDauTien, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(79, 79, 79)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnLui, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
                         .addComponent(btnToi, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -567,6 +580,7 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
         String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
+          Tabpane.setSelectedIndex(1);
         
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
@@ -641,12 +655,20 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
         clear();
+        init();
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void txtTimKiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMousePressed
         String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
+         Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemMousePressed
+
+    private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
+        String timKiem = txtTimKiem.getText();
+        findIdAndName(timKiem);
+         Tabpane.setSelectedIndex(1);
+    }//GEN-LAST:event_txtTimKiemKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollTK;
