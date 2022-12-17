@@ -89,14 +89,18 @@ public class MainJFrame extends javax.swing.JFrame {
     }
 
     public void checkDN() {
-
+        String cvString;
         if (Auth.isLogin()) {
-            lblTen.setText("Xin chào: " + Auth.tenNV());
+            
             if (Auth.role()) {
-                  lblCVFN.setText("Chức vụ: Quản lý");
+                cvString = ("Quản lý");
             } else {
-                lblCVFN.setText("Chức vụ: Nhân viên");
+                cvString = ("Nhân viên");
             }
+            lblTen.setText(cvString+": "+ Auth.tenNV());
+            NhanVien nv = new NhanVien();
+            nv =daoNV.selectByid(Auth.tk.getMaNV());
+            new ImgHelper().loadHinhVaoForm(nv.getHinhAnh(), lblAvatar);
         } else {
             JOptionPane.showMessageDialog(this, "Vui lòng đăng nhập", "Hệ thống", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
@@ -221,7 +225,6 @@ public class MainJFrame extends javax.swing.JFrame {
         });
     }
 
-
     @SuppressWarnings("unchecksed")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -234,7 +237,6 @@ public class MainJFrame extends javax.swing.JFrame {
         body = new javax.swing.JPanel();
         lblAvatar = new javax.swing.JLabel();
         lblDongHo = new javax.swing.JLabel();
-        lblCVFN = new javax.swing.JLabel();
         lblBaCham = new javax.swing.JLabel();
         lblTen = new javax.swing.JLabel();
 
@@ -317,14 +319,6 @@ public class MainJFrame extends javax.swing.JFrame {
 
         lblDongHo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
 
-        lblCVFN.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        lblCVFN.setText("admin");
-        lblCVFN.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblCVFNMouseClicked(evt);
-            }
-        });
-
         lblBaCham.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/duan1/icon/baCham_32.png"))); // NOI18N
         lblBaCham.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -332,6 +326,7 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         });
 
+        lblTen.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         lblTen.setText("Khanh");
 
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
@@ -346,11 +341,9 @@ public class MainJFrame extends javax.swing.JFrame {
                         .addComponent(lblAvatar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblCVFN, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblTen, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblBaCham, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0))
@@ -359,23 +352,18 @@ public class MainJFrame extends javax.swing.JFrame {
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelMenuu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(backgroundLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(backgroundLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(lblTen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblCVFN, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(backgroundLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblBaCham))))
+                        .addComponent(lblBaCham)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(backgroundLayout.createSequentialGroup()
+                                .addComponent(lblDongHo, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblTen))
+                            .addComponent(lblAvatar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -457,10 +445,11 @@ public class MainJFrame extends javax.swing.JFrame {
             }
         }).start();
     }
-     void dangXuat() {
+
+    void dangXuat() {
         if (Msgbox.yesNo("Bạn có chắc chắn ", " muốn đăng xuất ?")) {
             if (Auth.isLogin()) {
-                Auth.clear();         
+                Auth.clear();
                 new loginJFrame().setVisible(true);
                 dispose();
             }
@@ -487,10 +476,6 @@ public class MainJFrame extends javax.swing.JFrame {
         new Form_TaiKhoanCuaBan(this, rootPaneCheckingEnabled).setVisible(true);
 
     }//GEN-LAST:event_lblAvatarMouseClicked
-
-    private void lblCVFNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCVFNMouseClicked
-
-    }//GEN-LAST:event_lblCVFNMouseClicked
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
 
@@ -548,7 +533,6 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JPanel body;
     private javax.swing.JLabel lblAvatar;
     private javax.swing.JLabel lblBaCham;
-    private javax.swing.JLabel lblCVFN;
     private javax.swing.JLabel lblDongHo;
     private javax.swing.JLabel lblTen;
     private javax.swing.JLabel lblThoat;

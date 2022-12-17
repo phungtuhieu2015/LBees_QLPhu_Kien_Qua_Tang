@@ -18,8 +18,6 @@ public class loginJFrame extends javax.swing.JFrame {
         initComponents();
         this.setIconImage(ImgHelper.APP_ICON);
         lblThoat.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        txtMatKhau.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        txtTenTK.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnDangNhap.setCursor(new Cursor(Cursor.HAND_CURSOR));
         
     }
@@ -44,7 +42,7 @@ public class loginJFrame extends javax.swing.JFrame {
                     } else {
                         System.out.println("s");
                         Msgbox.waring(this, "Sai mật khẩu");
-                        return;
+   
                     }
 
                 }

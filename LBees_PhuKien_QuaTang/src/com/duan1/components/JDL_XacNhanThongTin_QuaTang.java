@@ -128,10 +128,10 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         tienThanhToan = tongTien;
         String tToan = String.format("%,d", tienThanhToan);
         String tTien = String.format("%,d", tongTien);
-      
+
         lblTongTien.setText(tTien + "");
         lblThanhToan.setText(tToan + "");
-      //  txtTienPhiShip.setText(tienPhiShip);
+        //  txtTienPhiShip.setText(tienPhiShip);
     }
 
     public void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -147,8 +147,16 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         boolean s = false;
         listKH = daoKH.selectAll();
         for (KhachHang kh : listKH) {
-            if (kh.getMaKH().equalsIgnoreCase(k.getMaKH())) {
-                daoKH.update(kh);
+            if (kh.getSDT().equalsIgnoreCase(k.getSDT())) {
+                boolean x = Msgbox.yesNo("Hệ Thống", "Số điện thoại đã được sử dụng với tên người dùng là: " + kh.getTenKH() + " bạn có muốn đặt lại tên người dùng hay không?");
+                if (x) {
+                    k.setTenKH(lblTenKH.getText());
+                } else {
+                    k.setTenKH(kh.getTenKH());
+                }
+                k.setMaKH(kh.getMaKH());
+                k.setSDT(kh.getSDT());
+                daoKH.update(k);
                 s = true;
                 break;
             }
@@ -524,6 +532,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             lblTienThua.setText("");
             return;
         }
+
         long tienTT = tienThanhToan;
         try {
             long tienKhachDua = Long.parseLong(txttTienKhachDua.getText());
@@ -551,9 +560,14 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         try {
             long tienTT = tienThanhToan;
             long tienship = Long.parseLong(txtTienPhiShip.getText());
-            String tThanhToan = String.format("%,d", tienThanhToan);
+
+            System.out.println(tongTien);
             if (tienship > 10000 || tienship < 100000) {
                 tienThanhToan = tongTien + tienship;
+                System.out.println(tongTien);
+                System.out.println(tienship);
+                System.out.println(tongTien + tienship);
+                String tThanhToan = String.format("%,d", tienThanhToan);
                 lblThanhToan.setText(tThanhToan + "");
 
             } else {

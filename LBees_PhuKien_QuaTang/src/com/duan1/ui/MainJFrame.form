@@ -60,12 +60,10 @@
                           <Component id="lblAvatar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblCVFN" min="-2" pref="121" max="-2" attributes="0"/>
                               <Component id="lblTen" min="-2" pref="155" max="-2" attributes="0"/>
+                              <Component id="lblDongHo" min="-2" pref="180" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="lblDongHo" min="-2" pref="180" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblBaCham" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <Component id="body" min="-2" pref="885" max="-2" attributes="0"/>
@@ -78,28 +76,21 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="panelMenuu" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Component id="lblTen" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="lblCVFN" min="-2" pref="16" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="lblDongHo" min="-2" pref="26" max="-2" attributes="0"/>
-                                      <Component id="lblBaCham" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                          </Group>
+                          <Component id="lblBaCham" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblAvatar" min="-2" pref="42" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="lblDongHo" min="-2" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="lblTen" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblAvatar" min="-2" pref="42" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -209,17 +200,6 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblCVFN">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="2"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="admin"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblCVFNMouseClicked"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblBaCham">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -232,6 +212,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblTen">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="11" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Khanh"/>
           </Properties>
         </Component>
