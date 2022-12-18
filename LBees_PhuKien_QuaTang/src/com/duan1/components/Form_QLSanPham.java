@@ -13,8 +13,10 @@ import com.duan1.Entity.PhieuNhapKho;
 import com.duan1.Entity.SanPham;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
+import com.duan1.Helper.XDate;
 import com.duan1.swing.ScrollBarCustom;
 import com.duan1.ui.MainJFrame;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,6 +41,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     PhieuNhapKhoDAO daoPNK = new PhieuNhapKhoDAO();
     PhieuNhapChiTietDAO daoPNK_ct = new PhieuNhapChiTietDAO();
     int index = -1;
+    int i = -1;
 
     /**
      * Creates new form Form_QLSanPham
@@ -105,11 +108,27 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                 model.addRow(row);
             }
             List<Object[]> listPN = daoPNK_ct.getSoLuong_TongTien();
+            i = -1;
             for (Object[] row : listPN) {
                 tblDsPhieuNhap.addRow(row);
+                i++;
+                chuyenNgay(String.valueOf(tblPhieuNhapKho.getValueAt(i, 1)),i);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "lỗi");
+            Msgbox.waring(new MainJFrame(), "Lỗi đổ dữ liệu!");
+        }
+    }
+
+    void chuyenNgay(String str, int index) {
+        Date ds = null;
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            ds = sf.parse(str);
+            str = XDate.toString(ds, "dd-MM-yyyy");
+            tblPhieuNhapKho.setValueAt(str, index, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Msgbox.waring(new MainJFrame(), "Lỗi chuyển ngày");
         }
     }
 
