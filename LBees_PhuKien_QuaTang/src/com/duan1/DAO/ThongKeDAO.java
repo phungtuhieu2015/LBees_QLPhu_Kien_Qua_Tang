@@ -97,5 +97,10 @@ public class ThongKeDAO {
         String[] cols = {"MaSP", "TenSP", "SoLuong","TongTien"};
         return this.getListOfArray(sql, cols);
     }
-  
+    
+      public List<Object[]> findHDbyDateTke(Date tuNgay, Date denNgay) {
+        String sql = "{CALL sp_TimHD_TheoNgayTke(?,?)}";
+        String[] cols = {"MaHD","NgayTao","TongTien"};
+        return this.getListOfArray(sql, cols,tuNgay,denNgay);
+    }
 }
