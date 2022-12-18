@@ -15,6 +15,7 @@ import com.duan1.Entity.SanPham;
 import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.ui.MainJFrame;
+import com.itextpdf.text.DocWriter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     List<HoaDonChiTiet> listHDCT = null;
 
     List<SanPham> listSP = null;
+    List<KhachHang> listKH = new ArrayList<>();
 
     HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
     HoaDonDAO daoHD = new HoaDonDAO();
@@ -71,7 +74,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         txtTienKhachDua.setLabelText("Tiền khách đưa");
         txtGhiChu.setLabelText("Ghi chú");
         txtpdf.setVisible(false);
-        
+
     }
 
     public long lamTron(int tongTien) {
@@ -114,13 +117,12 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             }
         }
         if (txtSDTKH.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Bạn chưa nhập SĐT!");
-            check = false;
         } else {
             if (!txtSDTKH.getText().matches(SDT_REG)) {
                 Msgbox.waring(f, "SĐT không đúng định dạng!");
                 check = false;
             }
+
         }
 
         if (txtTienKhachDua.getText().trim().isEmpty()) {
@@ -153,14 +155,50 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             maKH = "KH" + daoKH.initID();
             maHD = "HD" + daoHD.initID();
 
-            KhachHang kh = new KhachHang(maKH, txtTenKH.getText(), txtSDTKH.getText(), 1);
-            daoKH.insert(kh);
-            HoaDon hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), "NV01", maKH);
-//            System.out.println(Auth.tenNV());
-            daoHD.insert(hd);
+            KhachHang kh = new KhachHang();
+            listKH = daoKH.selectAll();
+            boolean checkKH = true;
+            HoaDon hd = new HoaDon();
+
+            for (KhachHang kH : listKH) {
+                if (txtSDTKH.getText().equals(kH.getSDT())) {
+                    boolean x = Msgbox.yesNo("Hệ Thống", "Số điện thoại đã được sử dụng với tên người dùng là: " + kH.getTenKH() + " bạn có muốn đặt lại tên người dùng hay không?");
+                    if (x) {
+                        kh.setTenKH(txtTenKH.getText());
+                    } else {
+                        kh.setTenKH(kH.getTenKH());
+                    }
+                    kh.setMaKH(kH.getMaKH());
+                    kh.setSDT(kH.getSDT());
+                    kh.setDiemTichLuy(0);
+                    daoKH.update(kh);
+                    hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), Auth.tk.getMaNV(), kh.getMaKH());
+                    daoHD.insert(hd);
+                    checkKH = false;
+                }
+            }
+            if (txtSDTKH.getText().trim().isEmpty()) {
+                kh.setTenKH(txtTenKH.getText());
+                kh.setMaKH(lblMaKH.getText());
+                kh.setSDT("Null");
+                kh.setDiemTichLuy(0);
+                daoKH.insert(kh);
+                hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), Auth.tk.getMaNV(), kh.getMaKH());
+                daoHD.insert(hd);
+                checkKH = false;
+
+            }
+            if (checkKH) {
+                kh = new KhachHang(lblMaKH.getText(), txtTenKH.getText(), txtSDTKH.getText(), 1);
+                daoKH.insert(kh);
+                System.out.println("Insert");
+                hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), Auth.tk.getMaNV(), maKH);
+                daoHD.insert(hd);
+            }
 
             for (HoaDonChiTiet hdct : listHDCT) {
                 try {
+
                     hdct.setMaHD(hd.getMaHD());
                     daoHDCT.insert(hdct);
                 } catch (Exception e) {
@@ -203,13 +241,25 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         SimpleDateFormat dinhDang = new SimpleDateFormat("hh:mm:ss");
         pdf += "In lúc: " + dinhDang.format(hienTai) + "\n\n";
 
-        pdf += "  TT   |Sản phẩm   |   Số lượng   |        Đơn vị tính   |        Giá      |          Tiền\n";
+        pdf += "  TT   |Sản phẩm\t|Số lượng\t|Đơn vị tính\t|Giá\t|Tiền\n";
         pdf += ".............................................................................................................\n";
         for (HoaDonChiTiet h : listHDCT) {
             SanPham sp = daoSP.selectByid(h.getMaSP());
-            pdf += "." + tt++ + "         " + sp.getTenSP() + "              " + h.getSoLuong() + "                   " + sp.getDonViTinh() + "                    " + sp.getDonGia() + "             " + h.getThanhTien() + "\n";
+            String tenSp = String.format("%s", sp.getTenSP());
+            String sl = String.format("%s", h.getSoLuong() + "");
+            String DonViTinh = String.format("%s", sp.getDonViTinh());
+            String donGia = String.format("%s", sp.getDonGia() + "");
+            String thanhTien = String.format("%s", h.getThanhTien() + "");
+//            pdf += "." + tt++ + "         " + sp.getTenSP() + "              " + h.getSoLuong() + "                   " + sp.getDonViTinh() + "                    " + sp.getDonGia() + "             " + h.getThanhTien() + "\n";
+//            pdf += "." + tt++ + "         " + String.format("%s", sp.getTenSP()) + "              " + String.format("%s", h.getSoLuong() + "") + "                   " + String.format("%s", sp.getDonViTinh()) + "                    " + String.format("%s", sp.getDonGia() + "") + "             " + String.format("%s", h.getThanhTien() + "") + "\n";
+            pdf += "." + tt++ + "\t";
+            pdf += String.format("%s", sp.getTenSP()) + "\t";
+            pdf += String.format("%s", h.getSoLuong() + "") + "\t";
+            pdf += String.format("%s", sp.getDonViTinh()) + "\t";
+            pdf += String.format("%s", sp.getDonGia() + "") + "\t";
+            pdf += String.format("%s", h.getThanhTien() + "") + "\n";
         }
-        pdf += "\n\n ...............`..................................................................................................\n\n\n";
+        pdf += "\n\n ..................................................................................................................\n\n\n";
         pdf += "Tổng tiền: " + lblTongTien.getText() + "VNĐ";
         pdf += "\t\tTiền khách đưa: " + txtTienKhachDua.getText() + "VNĐ" + "\n\n";
         pdf += "Thanh toán: " + lblThanhToan.getText() + "VNĐ";
@@ -484,13 +534,14 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
         if (txtTienKhachDua.getText().trim().isEmpty()) {
             lblTienTraLai.setText("");
+            System.out.println("ss");
             return;
         }
         long tienTT = tienThanhToan;
         try {
             long tienKhachDua = Long.parseLong(txtTienKhachDua.getText());
             long tienTraLai = tienKhachDua - tienTT;
-
+            System.out.println(tienTraLai);
             if (tienTraLai >= 0) {
                 lblTienTraLai.setText(tienTraLai + "");
             }

@@ -904,6 +904,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         txtTimKiem = new com.duan1.swing.TextFieldAnimation();
 
         dateChooser1.setForeground(new java.awt.Color(28, 181, 224));
+        dateChooser1.setDateFormat("dd-MM-yyyy");
         dateChooser1.setTextRefernce(txtNgayGiao);
 
         setBackground(new java.awt.Color(255, 255, 255));

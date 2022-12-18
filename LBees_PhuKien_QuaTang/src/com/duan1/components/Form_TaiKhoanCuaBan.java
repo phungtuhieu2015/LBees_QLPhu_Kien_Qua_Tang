@@ -62,11 +62,24 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
         new ImgHelper().loadHinhVaoForm(nv.getHinhAnh(), lblHinh);
     }
 
+    public void updateHinh() {
+        ImgHelper s = new ImgHelper();
+        s.ChonHinh(frame, lblHinh, txtHinh);
+        boolean check = Msgbox.yesNo("Hệ thống", "Bạn có muốn cập nhật lại hình ảnh của bản thân không ?");
+        if (check) {
+            daoNV.updateHA(txtHinh.getText(), lblMaNV.getText());
+        }else{
+            NhanVien nv = new NhanVien();
+            nv = daoNV.selectByid(lblMaNV.getText());
+            s.loadHinhVaoForm(nv.getHinhAnh(), lblHinh);
+        }
+    }
 //    public void display(int index) throws ParseException {
 //        TaiKhoan tk = listTK.get(index);
 //        setForm(tk);
 //
 //    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -311,10 +324,11 @@ public class Form_TaiKhoanCuaBan extends javax.swing.JDialog {
 
     private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked
         // TODO add your handling code here:
+        updateHinh();
     }//GEN-LAST:event_lblHinhMouseClicked
 
     private void button3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button3ActionPerformed
-       
+
         DoiMatKhauJFrame d = new DoiMatKhauJFrame();
         dispose();
         d.setVisible(true);

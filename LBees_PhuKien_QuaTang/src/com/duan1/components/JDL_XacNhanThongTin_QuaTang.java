@@ -8,6 +8,7 @@ import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.KhachHang;
 import com.duan1.Entity.QuaTang;
 import com.duan1.Entity.SanPham;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.Helper.XDate;
 import com.duan1.ui.MainJFrame;
@@ -127,10 +128,10 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         tienThanhToan = tongTien;
         String tToan = String.format("%,d", tienThanhToan);
         String tTien = String.format("%,d", tongTien);
-      
+
         lblTongTien.setText(tTien + "");
         lblThanhToan.setText(tToan + "");
-      //  txtTienPhiShip.setText(tienPhiShip);
+        //  txtTienPhiShip.setText(tienPhiShip);
     }
 
     public void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
@@ -146,8 +147,16 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         boolean s = false;
         listKH = daoKH.selectAll();
         for (KhachHang kh : listKH) {
-            if (kh.getMaKH().equalsIgnoreCase(k.getMaKH())) {
-                daoKH.update(kh);
+            if (kh.getSDT().equalsIgnoreCase(k.getSDT())) {
+                boolean x = Msgbox.yesNo("Hệ Thống", "Số điện thoại đã được sử dụng với tên người dùng là: " + kh.getTenKH() + " bạn có muốn đặt lại tên người dùng hay không?");
+                if (x) {
+                    k.setTenKH(lblTenKH.getText());
+                } else {
+                    k.setTenKH(kh.getTenKH());
+                }
+                k.setMaKH(kh.getMaKH());
+                k.setSDT(kh.getSDT());
+                daoKH.update(k);
                 s = true;
                 break;
             }
@@ -155,7 +164,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         if (s == false) {
             daoKH.insert(k);
         }
-        HoaDon hd = new HoaDon(MaHD, 0, new Date(), "", "NV00001", k.getMaKH());
+        HoaDon hd = new HoaDon(MaHD, 0, new Date(), "", Auth.tk.getMaNV(), k.getMaKH());
         daoHD.insert(hd);
         XDate.toDate(lblNgayNhan.getText(), mauNgay);
         QuaTang qt = new QuaTang(daoQT.initID(), lblTenNN.getText(), lblDiaChi.getText(), lblSDTNN.getText(), XDate.toDate(lblNgayNhan.getText(), mauNgay), trangThaiString, "", maNGH, MaHD);
@@ -502,6 +511,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
 
             }
             music();
+            Msgbox.success(f, "Thanh toán thanh công!");
             dispose();
         } catch (UnsupportedAudioFileException ex) {
 
@@ -522,6 +532,7 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
             lblTienThua.setText("");
             return;
         }
+
         long tienTT = tienThanhToan;
         try {
             long tienKhachDua = Long.parseLong(txttTienKhachDua.getText());
@@ -549,9 +560,14 @@ public class JDL_XacNhanThongTin_QuaTang extends javax.swing.JDialog {
         try {
             long tienTT = tienThanhToan;
             long tienship = Long.parseLong(txtTienPhiShip.getText());
-            String tThanhToan = String.format("%,d", tienThanhToan);
+
+            System.out.println(tongTien);
             if (tienship > 10000 || tienship < 100000) {
                 tienThanhToan = tongTien + tienship;
+                System.out.println(tongTien);
+                System.out.println(tienship);
+                System.out.println(tongTien + tienship);
+                String tThanhToan = String.format("%,d", tienThanhToan);
                 lblThanhToan.setText(tThanhToan + "");
 
             } else {
