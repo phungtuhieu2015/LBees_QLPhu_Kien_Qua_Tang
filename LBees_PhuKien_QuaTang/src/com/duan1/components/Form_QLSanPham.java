@@ -50,7 +50,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
     String maPNK = "";
     public static boolean checkBtn = true;
-    
+
     public void init() {
         updateStatus();
         scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
@@ -73,7 +73,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
         txtHinh.setVisible(false);
     }
-    
+
     public void setHint() {
         txtTimKiem.setHintText("Nhập tên, mã sản phẩm");
         txtMaSP.setHint("Mã sản phẩm");
@@ -154,7 +154,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         DanhMuc d = daoDM.selectByid(s.getMaDM());
         cboDanhMuc.setSelectedItem(d.getMaDM() + " - " + d.getTenDM());
         cboTrangThai.setSelectedItem(s.getTrangThai());
-        
+
     }
 
     public void clear() {
@@ -299,7 +299,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 //                } catch (Exception e) {
 //                    Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
 //                }
-                    update_SLSP(sp);
+                update_SLSP(sp);
             } else {
                 daoSP.insert(s);
                 PhieuNhapChiTiet pnct;
@@ -354,10 +354,6 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public void delete() {
-//        HoaDonChiTiet hdct = daoHDCT.selectByid(txtMaSP.getText());
-//        if (hdct != null) {
-//            Msgbox.waring(new MainJFrame(), "Sản phẩm không thể xóa đã được lưu vào hóa đơn");
-//        }
         if (txtMaSP.getText().trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Bạn chưa chọn sản phẩm để xóa!");
             return;
@@ -370,8 +366,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
                 clear();
             }
         } catch (Exception ex) {
-            Msgbox.waring(frame, "Mã nhân viên không tồn tại");
-            throw new RuntimeException(ex);
+            Msgbox.waring(frame, "Không thể xóa do dữ liệu cũng được lưu ở nơi khác");
         }
 
     }
@@ -387,41 +382,43 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
     public void edit() {
         tblSanPham.setRowSelectionInterval(index, index);
-        display(index);
+
     }
     //fist
 
-    public void firs() {
+    public void first() {
         index = 0;
-        edit();
+        Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
+        display(index);
     }
 
     //end
     public void last() {
         index = listSP.size() - 1;
-        edit();
+        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
+        display(index);
     }
 
     //prev
     public void prev() {
-        if (index <= 0) {
-            last();
-        } else {
+        if (index > 0) {
             index--;
         }
-        edit();
-
+        if (index <= 0) {
+            Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
+        }
+        display(index);
     }
 
     //next
     public void next() {
-        if (index == listSP.size() - 1) {
-            firs();
-        } else {
+        if (index < listSP.size() - 1) {
             index++;
         }
-        edit();
-
+        if (index >= listSP.size() - 1) {
+            Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
+        }
+        display(index);
     }
 
     public void update_SLSP(SanPham sp) {
@@ -459,12 +456,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         tblSanPham.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 5));
     }
-    public void  goiham(){
-         
-            index = tblSanPham.getSelectedRow();
-            display(index);
-            Tabpane.setSelectedIndex(1);
-    } 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -575,7 +567,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         });
         pnlDieuHuong.add(btnFirst);
 
-        btnPrev.setText("<");
+        btnPrev.setText("<<");
         btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -584,7 +576,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         });
         pnlDieuHuong.add(btnPrev);
 
-        btnNext.setText(">");
+        btnNext.setText(">>");
         btnNext.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -795,7 +787,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             tblSanPham.getColumnModel().getColumn(3).setPreferredWidth(30);
         }
 
-        cboTab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đang kinh doanh", "Không còn bán", "Hết hàng" }));
+        cboTab.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tất cả", "Đang kinh doanh", "Không còn bán", "Hết hàng" }));
         cboTab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTabActionPerformed(evt);
@@ -806,21 +798,22 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         pnlDanhSach.setLayout(pnlDanhSachLayout);
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createSequentialGroup()
-                .addContainerGap(694, Short.MAX_VALUE)
-                .addComponent(cboTab, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createSequentialGroup()
+            .addGroup(pnlDanhSachLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scroll_SPBan)
+                .addGroup(pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scroll_SPBan, javax.swing.GroupLayout.DEFAULT_SIZE, 894, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cboTab, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addContainerGap())
         );
         pnlDanhSachLayout.setVerticalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(cboTab, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
                 .addComponent(scroll_SPBan, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -902,25 +895,24 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))))
+                        .addGap(16, 16, 16)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(49, 49, 49)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
                 .addComponent(Tabpane, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -955,7 +947,11 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     private void cboTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTabActionPerformed
         // TODO add your handling code here:
         String s = String.valueOf(cboTab.getSelectedItem());
+        if (s == "Tất cả") {
+            s = "";//quay lại ban đầu
+        }
         filterByStatus(String.valueOf(s));
+
     }//GEN-LAST:event_cboTabActionPerformed
 
     private void cboDonViTinhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDonViTinhActionPerformed
@@ -971,23 +967,22 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_cboTrangThaiActionPerformed
 
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        // TODO add your handling code here:
-        prev();
+        first();
     }//GEN-LAST:event_btnFirstActionPerformed
 
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
         // TODO add your handling code here:
-        firs();
+        prev();
     }//GEN-LAST:event_btnPrevActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
-        last();
+        next();
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
         // TODO add your handling code here:
-        next();
+        last();
     }//GEN-LAST:event_btnLastActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
