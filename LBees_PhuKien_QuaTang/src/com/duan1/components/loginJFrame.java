@@ -1,4 +1,4 @@
-package com.duan1.ui;
+package com.duan1.components;
 
 import com.duan1.DAO.TaiKhoanDAO;
 import com.duan1.Entity.TaiKhoan;
@@ -6,6 +6,7 @@ import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
 import com.duan1.components.Form_Load;
+import com.duan1.ui.MainJFrame;
 import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;

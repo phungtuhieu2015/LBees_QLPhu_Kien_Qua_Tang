@@ -73,17 +73,12 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="35" pref="35" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="txtTenKH" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtSDTKH" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtGhiChu" alignment="1" max="32767" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtTenKH" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtSDTKH" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtGhiChu" alignment="1" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -191,8 +186,18 @@
       </Layout>
       <SubComponents>
         <Component class="com.duan1.swing.MyTextField2" name="txtTenKH">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f0" green="e4" red="e9" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txtSDTKH">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f0" green="e4" red="e9" type="rgb"/>
+            </Property>
+          </Properties>
         </Component>
         <Component class="com.duan1.swing.Button" name="btnThanhToan">
           <Properties>
@@ -234,6 +239,9 @@
           <SubComponents>
             <Component class="com.duan1.swing.TextArea" name="txtGhiChu1">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="f0" green="e4" red="e9" type="rgb"/>
+                </Property>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
               </Properties>
@@ -273,6 +281,9 @@
         </Component>
         <Component class="com.duan1.swing.MyTextField2" name="txtTienKhachDua">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="f0" green="e4" red="e9" type="rgb"/>
+            </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
           </Properties>
           <Events>

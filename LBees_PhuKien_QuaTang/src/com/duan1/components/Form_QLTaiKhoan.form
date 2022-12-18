@@ -53,6 +53,7 @@
       <Events>
         <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtTimKiemMousePressed"/>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTimKiemKeyReleased"/>
       </Events>
     </Component>
     <Container class="com.duan1.swing.MaterialTabbed" name="Tabpane">
@@ -101,9 +102,9 @@
                               <Component id="btnXoa" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="btnMoi" min="-2" pref="63" max="-2" attributes="0"/>
-                              <EmptySpace pref="202" max="32767" attributes="0"/>
+                              <EmptySpace pref="275" max="32767" attributes="0"/>
                               <Component id="btnDauTien" min="-2" pref="60" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="btnLui" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="btnToi" min="-2" pref="60" max="-2" attributes="0"/>
