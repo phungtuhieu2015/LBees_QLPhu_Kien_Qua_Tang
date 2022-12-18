@@ -94,7 +94,6 @@ CREATE TABLE NguoiGiaoHang
     Gmail VARCHAR(50) NOT NULL,
 );
 GO
-
 --9. Tạo bảng QuaTang
 CREATE TABLE QuaTang
 (
@@ -429,6 +428,7 @@ VALUES
 ('HD0110220009', '10/1/2022', 10000,'', 'NV00005','KH00002'),
 ('HD2010220010', '10/20/2022', 15000,'', 'NV00005','KH00001');
 GO
+
 --7. Thêm dữ liệu vào bảng HoaDonChiTiet
 INSERT INTO dbo.HoaDonChiTiet
 (
@@ -511,16 +511,20 @@ VALUES
 ('MP00004','GB00004',5,300000),
 ('MP00005','GB00005',2,160000)
 GO
+/*
 SELECT * FROM dbo.TaiKhoan
 SELECT * FROM dbo.NhanVien
 SELECT * FROM dbo.KhachHang
-SELECT * FROM dbo.DanhMuc ORDER BY MaDM
+SELECT * FROM dbo.DanhMuc
 SELECT * FROM dbo.SanPhamBan
 SELECT * FROM dbo.QuaTang
-SELECT * FROM dbo.HoaDon WHERE NgayTao BETWEEN '2022-10-10' AND '2022-12-13'
+SELECT * FROM dbo.HoaDon 
 SELECT * FROM dbo.HoaDonChiTiet
 SELECT * FROM dbo.PhieuNhapKho
 SELECT * FROM dbo.PhieuNhapChiTiet
+--DROP DATABASE QL_PHU_KIEN_QUA_TANG
+*/
+
 /*
 SELECT COUNT(SoLuong), SUM(thanhTien) FROM dbo.PhieuNhapChiTiet
 WHERE MaPNK = 'MP00001'
@@ -532,6 +536,7 @@ INNER JOIN dbo.PhieuNhapKho pnk ON pnk.MaPNK = pnct.MaPNK
 GROUP BY pnct.MaPNK,pnk.NgayNhap
 GO
 
+
 CREATE PROC sp_ThongKeDoanhThu @TuNgay DATE, @DenNgay DATE AS
 SELECT hdct.MaHD, hd.NgayTao, SUM(hdct.ThanhTien) TongTien
 FROM dbo.HoaDonChiTiet hdct INNER JOIN dbo.HoaDon hd ON hd.MaHD = hdct.MaHD
@@ -539,14 +544,14 @@ WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
 GROUP BY hdct.MaHD, hd.NgayTao
 GO
 
-CREATE PROC sp_ThongKeSanPham
+CREATE PROC sp_ThongKeSanPham AS 
 SELECT hdct.MaSP,(SELECT TenSP FROM dbo.SanPhamBan WHERE MaSP LIKE hdct.MaSP) TenSP,
 SUM(SoLuong) SoLuong,SUM(hdct.ThanhTien) TongTien
 FROM dbo.HoaDonChiTiet hdct GROUP BY MaSP ORDER BY SUM(SoLuong) DESC
 GO
 
 
-
+--SELECT * FROM dbo.HoaDonChiTiet --WHERE MaSP = ''
 /*EXEC dbo.sp_ThongKeDoanhThu @TuNgay = '2022-12-15', -- date
                             @DenNgay = '2022-12-15' -- date
 							*/
