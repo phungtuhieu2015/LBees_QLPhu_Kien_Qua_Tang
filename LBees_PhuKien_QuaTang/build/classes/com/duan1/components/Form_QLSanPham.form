@@ -194,6 +194,9 @@
               </Layout>
               <SubComponents>
                 <Component class="com.duan1.swing.MyTextField" name="txtMaSP">
+                  <Events>
+                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaSPKeyReleased"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JPanel" name="pnlThemSuaXoa">
                   <Properties>

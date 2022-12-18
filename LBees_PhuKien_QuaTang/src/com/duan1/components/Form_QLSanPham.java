@@ -35,9 +35,11 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     List<DanhMuc> listDM = new ArrayList<>();
     List<SanPham> listSP = new ArrayList<>();
     MainJFrame frame = new MainJFrame();
+    HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
     PhieuNhapKhoDAO daoPNK = new PhieuNhapKhoDAO();
     PhieuNhapChiTietDAO daoPNK_ct = new PhieuNhapChiTietDAO();
     int index = -1;
+
     /**
      * Creates new form Form_QLSanPham
      */
@@ -56,6 +58,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         setHint();
         fillComboBox();
         loadDaTa();
+        Tabpane.setSelectedIndex(1);
         try {
             if (checkBtn) {
                 maPNK = "";
@@ -142,7 +145,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public void setForm(SanPham s) {
-        
+
         txtMaSP.setText(s.getMaSP());
         txtTenSP.setText(s.getTenSP());
         txtSoLuong.setText(String.valueOf(s.getSoLuong()));
@@ -154,7 +157,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public void clear() {
-        
+
         txtMaSP.setText("");
         txtTenSP.setText("");
         txtSoLuong.setText("");
@@ -202,6 +205,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         MainJFrame f = new MainJFrame();
         boolean check = true;
         // Mã sản phẩm
+
         if (txtMaSP.getText().trim().isEmpty()) {
             Msgbox.waring(f, "Vui lòng nhập mã SP!");
             check = false;
@@ -216,10 +220,10 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             Msgbox.waring(f, "Vui lòng nhập tên SP!");
             check = false;
         }
-        if (txtHinh.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Vui lòng chọn ảnh!");
-            check = false;
-        }
+//        if (txtHinh.getText().trim().isEmpty()) {
+//            Msgbox.waring(f, "Vui lòng chọn ảnh!");
+//            check = false;
+//        }
         if (txtSoLuong.getText().trim().isEmpty()) {
             Msgbox.waring(f, "Vui lòng nhập số lượng!");
             check = false;
@@ -269,6 +273,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public void insert() {
+
         if (maPNK.trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Bạn chưa tạo mã nhập kho!");
             return;
@@ -278,12 +283,30 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         }
         try {
             SanPham s = new SanPham();
+            SanPham sp = daoSP.selectByid(s.getMaSP());
             s = getForm();
-            daoSP.insert(s);
-            PhieuNhapChiTiet pnct = new PhieuNhapChiTiet(maPNK, s.getMaSP(), s.getSoLuong(), s.getDonGia());
-            daoPNK_ct.insert(pnct);
-            ImgHelper.Write(s.getMaSP());
-            Msgbox.success(frame, "Thêm thành công sản phẩm !");
+            //trùng nhau cập nhật số lượng
+            if (sp.getMaSP().equals(s.getMaSP())) {
+//                boolean choice = Msgbox.yesNo("Cập nhật số lượng", "Sản phẩm đã tồn tại! \nBạn có muốn cập nhật lại số lượng không?");
+//                if (!choice) {
+//                    return;
+//                }
+//                String sl_new = JOptionPane.showInputDialog(new MainJFrame(), "Mời nhập số lượng!");
+//                try {
+//                    daoSP.updateSL(s.getMaSP(), Integer.parseInt(sl_new) + sp.getSoLuong());
+//                    Msgbox.success(new MainJFrame(), "Cập nhật thành công!");
+//                } catch (Exception e) {
+//                    Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
+//                }
+                    update_SLSP(sp);
+            } else {
+                daoSP.insert(s);
+                PhieuNhapChiTiet pnct;
+                pnct = new PhieuNhapChiTiet(maPNK, s.getMaSP(), s.getSoLuong(), s.getDonGia());
+                daoPNK_ct.insert(pnct);
+                ImgHelper.Write(s.getMaSP());
+                Msgbox.success(frame, "Thêm thành công sản phẩm !");
+            }
             loadDaTa();
             clear();
         } catch (Exception ex) {
@@ -292,7 +315,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public void Update() {
-        if(!validateForm()) {
+        if (!validateForm()) {
             return;
         }
         try {
@@ -305,8 +328,9 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
-       
+
     }
+
     private void updateStatus() {
         boolean edit = (this.index >= 0);
         boolean first = (this.index == 0);
@@ -321,14 +345,19 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         btnPrev.setEnabled(edit && !first);
         btnNext.setEnabled(edit && !last);
         btnLast.setEnabled(edit && !last);
-        
+
         btnThemMNK.setVisible(!edit);
         btnketThucLanNhapKho.setVisible(!edit);
         lblMaPNK.setVisible(!edit);
         lblTieuDeMaPNK.setVisible(!edit);
     }
+
     public void delete() {
-        if(txtMaSP.getText().trim().isEmpty()) {
+//        HoaDonChiTiet hdct = daoHDCT.selectByid(txtMaSP.getText());
+//        if (hdct != null) {
+//            Msgbox.waring(new MainJFrame(), "Sản phẩm không thể xóa đã được lưu vào hóa đơn");
+//        }
+        if (txtMaSP.getText().trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Bạn chưa chọn sản phẩm để xóa!");
             return;
         }
@@ -343,7 +372,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
             Msgbox.waring(frame, "Mã nhân viên không tồn tại");
             throw new RuntimeException(ex);
         }
-        
+
     }
 
     public void display(int index) {
@@ -352,7 +381,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         ImgHelper m = new ImgHelper();
         m.loadHinhVaoForm(s.getHinhAnh(), lblHinh);
         updateStatus();
-        
+
     }
 
     public void edit() {
@@ -392,6 +421,25 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         }
         edit();
 
+    }
+
+    public void update_SLSP(SanPham sp) {
+        if (sp != null) {
+            boolean choice = Msgbox.yesNo("Cập nhật số lượng", "Sản phẩm đã tồn tại! \nBạn có muốn cập nhật lại số lượng không?");
+            if (!choice) {
+                clear();
+                return;
+            }
+            String sl_new = JOptionPane.showInputDialog(new MainJFrame(), "Mời nhập số lượng!");
+            try {
+                daoSP.updateSL(sp.getMaSP(), Integer.parseInt(sl_new) + sp.getSoLuong());
+                Msgbox.success(new MainJFrame(), "Cập nhật thành công!");
+            } catch (Exception e) {
+                Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
+            }
+            loadDaTa();
+            clear();
+        }
     }
 
     public void findIdAndName(String IdAndName) {
@@ -463,6 +511,12 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         pnlCapNhat.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlText.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMaSP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaSPKeyReleased(evt);
+            }
+        });
 
         pnlThemSuaXoa.setBackground(new java.awt.Color(255, 255, 255));
         pnlThemSuaXoa.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
@@ -965,6 +1019,11 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_tblPhieuNhapKhoMouseClicked
+
+    private void txtMaSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaSPKeyReleased
+        SanPham sp = daoSP.selectByid(txtMaSP.getText());
+        update_SLSP(sp);
+    }//GEN-LAST:event_txtMaSPKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
