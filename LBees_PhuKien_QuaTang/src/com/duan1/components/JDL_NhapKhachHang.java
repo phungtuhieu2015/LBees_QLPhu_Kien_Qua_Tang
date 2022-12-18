@@ -211,11 +211,11 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                 Msgbox.waring(f, "Đã thêm thất bại!");
                 return;
             } else {
-                inHoaDon();
-                Msgbox.success(f, "Đã thêm thành công!");
                 for (SanPham s : listSP) {
                     daoSP.update(s);
                 }
+                inHoaDon();
+                Msgbox.success(f, "Đã thêm thành công!");
                 checkThanhToan = true;
             }
 
@@ -245,11 +245,11 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         pdf += ".............................................................................................................\n";
         for (HoaDonChiTiet h : listHDCT) {
             SanPham sp = daoSP.selectByid(h.getMaSP());
-            String tenSp = String.format("%s", sp.getTenSP());
-            String sl = String.format("%s", h.getSoLuong() + "");
-            String DonViTinh = String.format("%s", sp.getDonViTinh());
-            String donGia = String.format("%s", sp.getDonGia() + "");
-            String thanhTien = String.format("%s", h.getThanhTien() + "");
+//            String tenSp = String.format("%s", sp.getTenSP());
+//            String sl = String.format("%s", h.getSoLuong() + "");
+//            String DonViTinh = String.format("%s", sp.getDonViTinh());
+//            String donGia = String.format("%s", sp.getDonGia() + "");
+//            String thanhTien = String.format("%s", h.getThanhTien() + "");
 //            pdf += "." + tt++ + "         " + sp.getTenSP() + "              " + h.getSoLuong() + "                   " + sp.getDonViTinh() + "                    " + sp.getDonGia() + "             " + h.getThanhTien() + "\n";
 //            pdf += "." + tt++ + "         " + String.format("%s", sp.getTenSP()) + "              " + String.format("%s", h.getSoLuong() + "") + "                   " + String.format("%s", sp.getDonViTinh()) + "                    " + String.format("%s", sp.getDonGia() + "") + "             " + String.format("%s", h.getThanhTien() + "") + "\n";
             pdf += "." + tt++ + "\t";

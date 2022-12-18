@@ -220,7 +220,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         try {
 
             for (QuaTang qt : listQT) {
-            NguoiGiaoHang ngh = daoNGH.selectByid(qt.getMaNGH());
+                NguoiGiaoHang ngh = daoNGH.selectByid(qt.getMaNGH());
                 Object[] row = {
                     qt.getMaDH(),
                     qt.getMaHD(),
@@ -316,7 +316,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }
 
     public void fillComboboxTrangThai() {
-        String trangThai_GH[] = {"Chưa giao", "Đang giao hàng","Đã giao xong",  "Đã huỷ"};
+        String trangThai_GH[] = {"Chưa giao", "Đang giao hàng", "Đã giao xong", "Đã huỷ"};
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboTrangThai.getModel();
         model.removeAllElements();
 
@@ -326,7 +326,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }
 
     public void fillComboboxTrangThaiGiaoHang() {
-        String trangThai_GH[] = {"Lọc trạng thái", "Chưa giao", "Đang giao hàng","Đã giao xong",  "Đã huỷ"};
+        String trangThai_GH[] = {"Lọc trạng thái", "Chưa giao", "Đang giao hàng", "Đã giao xong", "Đã huỷ"};
         DefaultComboBoxModel model = (DefaultComboBoxModel) cboLocTheoTrangThai.getModel();
         model.removeAllElements();
 
@@ -912,6 +912,12 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         setMinimumSize(new java.awt.Dimension(923, 604));
         setPreferredSize(new java.awt.Dimension(923, 604));
 
+        panelQuaTang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelQuaTangMouseClicked(evt);
+            }
+        });
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         pnlDanhSach1.setBackground(new java.awt.Color(255, 255, 255));
@@ -1417,7 +1423,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         pnlDanhSachLayout.setHorizontalGroup(
             pnlDanhSachLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDanhSachLayout.createSequentialGroup()
-                .addContainerGap(452, Short.MAX_VALUE)
+                .addContainerGap(458, Short.MAX_VALUE)
                 .addComponent(cboLocTheoTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1468,7 +1474,8 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         JDL_XacNhanThongTin_QuaTang xn = new JDL_XacNhanThongTin_QuaTang(frame, true);
-        boolean ss= false;
+        Form_QLBanHang.checks = 0;
+        boolean ss = false;
         String s = String.valueOf(cboNGH.getSelectedItem());
         String maNGH = s.substring(s.length() - 8, s.length());
 
@@ -1476,14 +1483,14 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         listKH = daoKH.selectAll();
         for (KhachHang kh : listKH) {
             if (kh.getSDT().equalsIgnoreCase(txtSDTKH.getText())) {
-                xn.seta(kh.getMaKH(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()),maNGH,txtMaHD.getText());
+                xn.seta(kh.getMaKH(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()), maNGH, txtMaHD.getText());
                 ss = true;
                 break;
             }
         }
         if (ss == false) {
             try {
-                xn.seta("KH"+daoKH.initID(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()),maNGH,txtMaHD.getText());
+                xn.seta("KH" + daoKH.initID(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()), maNGH, txtMaHD.getText());
                 System.out.println(daoKH.initID());
                 System.out.println("ss false");
             } catch (SQLException ex) {
@@ -1497,6 +1504,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         }
         xn.geList(listSP);
         xn.setTongTienSP(tongTien);
+        xn.getList(listHDCT);
         xn.setVisible(true);
 
         // }
@@ -1648,6 +1656,14 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         s.Read_IMG(f, txtMaVach1);
         loadDataToGH();
     }//GEN-LAST:event_btnReadActionPerformed
+
+    private void panelQuaTangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelQuaTangMouseClicked
+        // TODO add your handling code here:
+        System.out.println(panelQuaTang.getSelectedIndex());
+        if (panelQuaTang.getSelectedIndex()==2){
+            loadData();
+        }
+    }//GEN-LAST:event_panelQuaTangMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
