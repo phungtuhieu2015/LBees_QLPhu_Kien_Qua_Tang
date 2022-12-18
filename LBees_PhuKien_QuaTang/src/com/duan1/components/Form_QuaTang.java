@@ -463,7 +463,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         model = (DefaultTableModel) tblQuaTang.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblQuaTang.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 3, 4, 5, 6, 7, 8));
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 2, 3, 4, 5));
     }
     //kiểm trả lỗi
 
