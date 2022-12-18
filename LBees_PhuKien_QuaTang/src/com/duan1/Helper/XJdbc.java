@@ -5,6 +5,7 @@
  */
 package com.duan1.Helper;
 
+import com.duan1.ui.MainJFrame;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -53,7 +54,7 @@ public class XJdbc {
                 stmt.getConnection().close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 

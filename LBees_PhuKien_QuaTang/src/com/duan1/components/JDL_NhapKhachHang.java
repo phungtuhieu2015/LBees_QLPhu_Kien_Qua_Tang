@@ -25,11 +25,18 @@ import java.awt.Color;
 import java.awt.print.PrinterException;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  *
@@ -223,6 +230,14 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void music() throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+        File file = new File("./src/com/duan1/icon/sound_ThanhToanThanhCong (1).wav");
+        AudioInputStream ad = AudioSystem.getAudioInputStream(file);
+        Clip clip = AudioSystem.getClip();
+        clip.open(ad);
+        clip.start();
     }
 
     public boolean isSuscess() {
@@ -515,7 +530,18 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
-        thanhToan();
+        try {
+            thanhToan();
+            music();
+            Msgbox.success(f, "Thanh toán thành công!");
+            dispose();
+        } catch (UnsupportedAudioFileException ex) {
+
+        } catch (IOException ex) {
+
+        } catch (LineUnavailableException ex) {
+
+        }
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void txtTienKhachDuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTienKhachDuaActionPerformed

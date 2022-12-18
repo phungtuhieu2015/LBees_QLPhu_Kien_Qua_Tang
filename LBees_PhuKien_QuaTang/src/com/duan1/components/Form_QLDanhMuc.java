@@ -3,6 +3,7 @@ package com.duan1.components;
 import com.duan1.DAO.DanhMucDAO;
 import com.duan1.Entity.DanhMuc;
 import com.duan1.Entity.TaiKhoan;
+import com.duan1.Helper.Msgbox;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
 import com.duan1.swing.MessageDialog;
@@ -25,30 +26,31 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     DanhMucDAO daoDM = new DanhMucDAO();
     MainJFrame frame = new MainJFrame();
     List<DanhMuc> listDM = daoDM.selectAll();
-    public int index;
+    public int index = -1;
     DefaultTableModel model;
     MessageDialog mdl = new MessageDialog(frame);
     String maDM = "";
+
     public Form_QLDanhMuc() {
         initComponents();
-        setHin();
+        setHint();
         TimKiem();
         loadDataDM();
         ThanhTruotDM();
         init();
     }
 
-    public void setHin() {
+    public void setHint() {
         txtMaDanhMuc.setHint("Nhập mã mã danh mục");
         txtTenDanhMuc.setHint("Nhập tên danh mục");
         //đổi con chuột
-        btnCuoi.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnDau.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnLui.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnLast.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnFirst.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnPrev.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnMoi.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnSua.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnThem.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnToi.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btnNext.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnXoa.setCursor(new Cursor(Cursor.HAND_CURSOR));
         txtTimKiem.setCursor(new Cursor(Cursor.HAND_CURSOR));
         txtMaDanhMuc.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -62,14 +64,16 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     public void ThanhTruotDM() {
         ScrollTK.setVerticalScrollBar(new ScrollBarCustom());
     }
-      public void init (){
-          try {
+
+    public void init() {
+        try {
             maDM = "DM" + daoDM.initID();
             txtMaDanhMuc.setText(maDM);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     public void TimKiem() {
         txtTimKiem.setHintText("Nhập mã danh muc");
         txtTimKiem.addEvent(new EventTextField() {
@@ -127,21 +131,21 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
 
     }
 
-    public void updateStatus() {
-        if (index == 0) {
-            btnDau.setEnabled(false);
-            btnLui.setEnabled(false);
-        } else {
-            btnDau.setEnabled(true);
-            btnLui.setEnabled(true);
-        }
-        if (index == listDM.size() - 1) {
-            btnToi.setEnabled(false);
-            btnDau.setEnabled(false);
-        } else {
-            btnToi.setEnabled(true);
-            btnDau.setEnabled(true);
-        }
+    private void updateStatus() {
+        boolean edit = (this.index >= 0);
+        boolean first = (this.index == 0);
+        boolean last = (this.index == tblDanhMuc.getRowCount() - 1);
+
+        txtMaDanhMuc.setEditable(!edit);
+        btnThem.setEnabled(!edit);
+        btnSua.setEnabled(edit);
+        btnXoa.setEnabled(edit);
+
+        btnFirst.setEnabled(edit && !first);
+        btnPrev.setEnabled(edit && !first);
+        btnNext.setEnabled(edit && !last);
+        btnLast.setEnabled(edit && !last);
+
     }
     //lấy giá trị
 
@@ -152,32 +156,35 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     }
 
     //tạo nút quay lại hàng đầu tiên
-    public void firs() {
+    public void first() {
         index = 0;
         edit();
+        Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách!");
     }
 
     //tạo nút tới hàng cuối cùng
     public void last() {
         index = listDM.size() - 1;
         edit();
+        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách!");
     }
 
     //tạo nút lùi lại 1 hàng
     public void prev() {
-        if (index <= 0) {
-            last();
-        } else {
-            index--;
+        if(index <= 0 ) {
+            first();
         }
+        if(index > 0){
+            index--;
+        } 
         edit();
 
     }
 
     //tạo nút tới 1 hàng
     public void next() {
-        if (index == listDM.size() - 1) {
-            firs();
+        if (index >= listDM.size() - 1) {
+            last();
         } else {
             index++;
         }
@@ -189,7 +196,7 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
         model = (DefaultTableModel) tblDanhMuc.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblDanhMuc.setRowSorter(trs);
-          trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0,1));
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
     }
 
     //hỗ trợ thêm sửa xoá
@@ -260,6 +267,10 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
 
     //tạo nút xoá
     public void xoa() {
+        if(txtMaDanhMuc.getText().trim().isEmpty()){
+            Msgbox.waring(new MainJFrame(), "Bạn chưa nhập chọn danh mục để xóa!");
+            return;
+        }
         mdl.showMessage("XÓA DANH MỤC", "Bạn có chắc chắn xóa danh mụckhông");
 
         if (mdl.getMessageType() == MessageDialog.MessageType.OK) {
@@ -270,7 +281,7 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
                 Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa danh mục thành công");
                 noti.showNotification();
             } catch (RuntimeException e) {
-                JOptionPane.showMessageDialog(this, "Loi xoa ");
+                Msgbox.waring(frame, "Không thể xóa do dữ liệu cũng được lưu ở nơi khác");
             }
         }
 
@@ -290,10 +301,10 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
         btnXoa = new com.duan1.swing.Button();
         btnSua = new com.duan1.swing.Button();
         btnThem = new com.duan1.swing.Button();
-        btnDau = new com.duan1.swing.Button();
-        btnLui = new com.duan1.swing.Button();
-        btnToi = new com.duan1.swing.Button();
-        btnCuoi = new com.duan1.swing.Button();
+        btnFirst = new com.duan1.swing.Button();
+        btnPrev = new com.duan1.swing.Button();
+        btnNext = new com.duan1.swing.Button();
+        btnLast = new com.duan1.swing.Button();
         pnlDanhSach = new javax.swing.JPanel();
         ScrollTK = new javax.swing.JScrollPane();
         tblDanhMuc = new com.duan1.swing.Table();
@@ -361,35 +372,35 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
             }
         });
 
-        btnDau.setText("<");
-        btnDau.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnDau.addActionListener(new java.awt.event.ActionListener() {
+        btnFirst.setText("|<");
+        btnFirst.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnFirst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDauActionPerformed(evt);
+                btnFirstActionPerformed(evt);
             }
         });
 
-        btnLui.setText("|<");
-        btnLui.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLui.addActionListener(new java.awt.event.ActionListener() {
+        btnPrev.setText("<<");
+        btnPrev.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnPrev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLuiActionPerformed(evt);
+                btnPrevActionPerformed(evt);
             }
         });
 
-        btnToi.setText(">|");
-        btnToi.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnToi.addActionListener(new java.awt.event.ActionListener() {
+        btnNext.setText(">>");
+        btnNext.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnToiActionPerformed(evt);
+                btnNextActionPerformed(evt);
             }
         });
 
-        btnCuoi.setText(">");
-        btnCuoi.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnCuoi.addActionListener(new java.awt.event.ActionListener() {
+        btnLast.setText(">|");
+        btnLast.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCuoiActionPerformed(evt);
+                btnLastActionPerformed(evt);
             }
         });
 
@@ -409,13 +420,13 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
                         .addGap(10, 10, 10)
                         .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDau, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnLui, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(btnToi, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
-                        .addComponent(btnCuoi, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlCapNhatLayout.createSequentialGroup()
                         .addComponent(txtMaDanhMuc, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
@@ -435,10 +446,10 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
                     .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLui, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnToi, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCuoi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPrev, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(216, Short.MAX_VALUE))
         );
 
@@ -521,26 +532,26 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
         findIdAndName(timKiem);
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
-    private void btnDauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDauActionPerformed
-        firs();
-    }//GEN-LAST:event_btnDauActionPerformed
+    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
+        first();
+    }//GEN-LAST:event_btnFirstActionPerformed
 
-    private void btnLuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuiActionPerformed
+    private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
         prev();
-    }//GEN-LAST:event_btnLuiActionPerformed
+    }//GEN-LAST:event_btnPrevActionPerformed
 
-    private void btnToiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToiActionPerformed
+    private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         next();
-    }//GEN-LAST:event_btnToiActionPerformed
+    }//GEN-LAST:event_btnNextActionPerformed
 
-    private void btnCuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuoiActionPerformed
+    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
         last();
-    }//GEN-LAST:event_btnCuoiActionPerformed
+    }//GEN-LAST:event_btnLastActionPerformed
 
     private void txtTimKiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMousePressed
         String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
-        
+
         Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemMousePressed
 
@@ -586,13 +597,13 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void txtTimKiemKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyPressed
-       String timKiem = txtTimKiem.getText();
+        String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
         Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemKeyPressed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-       String timKiem = txtTimKiem.getText();
+        String timKiem = txtTimKiem.getText();
         findIdAndName(timKiem);
         Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemKeyReleased
@@ -601,13 +612,13 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane ScrollTK;
     private com.duan1.swing.MaterialTabbed Tabpane;
-    private com.duan1.swing.Button btnCuoi;
-    private com.duan1.swing.Button btnDau;
-    private com.duan1.swing.Button btnLui;
+    private com.duan1.swing.Button btnFirst;
+    private com.duan1.swing.Button btnLast;
     private com.duan1.swing.Button btnMoi;
+    private com.duan1.swing.Button btnNext;
+    private com.duan1.swing.Button btnPrev;
     private com.duan1.swing.Button btnSua;
     private com.duan1.swing.Button btnThem;
-    private com.duan1.swing.Button btnToi;
     private com.duan1.swing.Button btnXoa;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel pnlCapNhat;

@@ -550,7 +550,13 @@ SUM(SoLuong) SoLuong,SUM(hdct.ThanhTien) TongTien
 FROM dbo.HoaDonChiTiet hdct GROUP BY MaSP ORDER BY SUM(SoLuong) DESC
 GO
 
-
+CREATE PROC sp_TimHD_TheoNgay @TuNgay DATE, @DenNgay DATE AS 
+SELECT hd.MaHD, hd.MaNV,hd.MaKH,kh.TenKH,hd.NgayTao,
+(SELECT SUM(ThanhTien) FROM dbo.HoaDonChiTiet WHERE MaHD = hd.MaHD) TongTien
+FROM dbo.HoaDon hd INNER JOIN dbo.NhanVien nv ON nv.MaNV = hd.MaNV
+INNER JOIN dbo.KhachHang kh ON kh.MaKH = hd.MaKH 
+WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
+GO
 --SELECT * FROM dbo.HoaDonChiTiet --WHERE MaSP = ''
 /*EXEC dbo.sp_ThongKeDoanhThu @TuNgay = '2022-12-15', -- date
                             @DenNgay = '2022-12-15' -- date

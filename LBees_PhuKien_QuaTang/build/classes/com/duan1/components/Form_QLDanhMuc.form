@@ -106,13 +106,13 @@
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="btnMoi" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="btnDau" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnFirst" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnLui" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnPrev" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="btnToi" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnNext" min="-2" pref="60" max="-2" attributes="0"/>
                               <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                              <Component id="btnCuoi" min="-2" pref="60" max="-2" attributes="0"/>
+                              <Component id="btnLast" min="-2" pref="60" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="txtMaDanhMuc" min="-2" pref="379" max="-2" attributes="0"/>
@@ -138,10 +138,10 @@
                           <Component id="btnSua" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnXoa" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="btnMoi" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnDau" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnLui" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnToi" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                          <Component id="btnCuoi" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnFirst" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnPrev" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="btnNext" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                          <Component id="btnLast" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="216" max="32767" attributes="0"/>
                   </Group>
@@ -200,48 +200,48 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnThemActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="btnDau">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&lt;"/>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="18" style="1"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDauActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="com.duan1.swing.Button" name="btnLui">
+            <Component class="com.duan1.swing.Button" name="btnFirst">
               <Properties>
                 <Property name="text" type="java.lang.String" value="|&lt;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="14" style="1"/>
+                  <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuiActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFirstActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="btnToi">
+            <Component class="com.duan1.swing.Button" name="btnPrev">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&gt;|"/>
+                <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToiActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPrevActionPerformed"/>
               </Events>
             </Component>
-            <Component class="com.duan1.swing.Button" name="btnCuoi">
+            <Component class="com.duan1.swing.Button" name="btnNext">
               <Properties>
-                <Property name="text" type="java.lang.String" value="&gt;"/>
+                <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="1"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNextActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="com.duan1.swing.Button" name="btnLast">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&gt;|"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="18" style="1"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCuoiActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLastActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
