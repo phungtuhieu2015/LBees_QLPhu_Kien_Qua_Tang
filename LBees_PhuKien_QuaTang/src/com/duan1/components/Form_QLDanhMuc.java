@@ -66,6 +66,7 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     }
 
     public void init() {
+        updateStatus();
         try {
             maDM = "DM" + daoDM.initID();
             txtMaDanhMuc.setText(maDM);
@@ -122,13 +123,12 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     public void display(int index) {
         DanhMuc danhMuc = listDM.get(index);
         setForm(danhMuc);
+        updateStatus();
     }
 
     public void setForm(DanhMuc danhMuc) {
-        DanhMuc dm = daoDM.selectByid(danhMuc.getMaDM());
         txtMaDanhMuc.setText(danhMuc.getMaDM());
         txtTenDanhMuc.setText(danhMuc.getTenDM());
-
     }
 
     private void updateStatus() {
@@ -149,47 +149,46 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     }
     //lấy giá trị
 
-    public void edit() {
-        tblDanhMuc.setRowSelectionInterval(index, index);
-        display(index);
-        updateStatus();
-    }
+//    public void edit() {
+//        tblDanhMuc.setRowSelectionInterval(index, index);
+//        display(index);
+//        updateStatus();
+//    }
 
-    //tạo nút quay lại hàng đầu tiên
     public void first() {
         index = 0;
-        edit();
-        Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách!");
+        Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
+        display(index);
+        
     }
 
-    //tạo nút tới hàng cuối cùng
+    //end
     public void last() {
         index = listDM.size() - 1;
-        edit();
-        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách!");
+        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
+        display(index);
     }
 
-    //tạo nút lùi lại 1 hàng
+    //prev
     public void prev() {
-        if(index <= 0 ) {
-            first();
-        }
-        if(index > 0){
+        if (index > 0) {
             index--;
-        } 
-        edit();
-
+        }
+        if (index <= 0) {
+            Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
+        }
+        display(index);
     }
 
-    //tạo nút tới 1 hàng
+    //next
     public void next() {
-        if (index >= listDM.size() - 1) {
-            last();
-        } else {
+        if (index < listDM.size() - 1) {
             index++;
         }
-        edit();
-
+        if (index >= listDM.size() - 1) {
+            Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
+        }
+        display(index);
     }
 
     public void findIdAndName(String IdAndName) {
@@ -212,7 +211,8 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
     public void clear() {
         txtMaDanhMuc.setText("");
         txtTenDanhMuc.setText("");
-
+        index = -1;
+        updateStatus();
     }
     //kiểm trả lỗi
 
@@ -247,7 +247,7 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
                 noti.showNotification();
             }
         }
-
+        updateStatus();
     }
     //tạo nút cập nhật
 
@@ -256,18 +256,18 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
         try {
             daoDM.update(tk);
             loadDataDM();
-            clear();
             Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Cập nhật danh mục  thành công");
             noti.showNotification();
         } catch (Exception e) {
             Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Cập nhật danh mục không thành công");
             noti.showNotification();
         }
+        updateStatus();
     }
 
     //tạo nút xoá
     public void xoa() {
-        if(txtMaDanhMuc.getText().trim().isEmpty()){
+        if (txtMaDanhMuc.getText().trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Bạn chưa nhập chọn danh mục để xóa!");
             return;
         }
@@ -284,7 +284,7 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
                 Msgbox.waring(frame, "Không thể xóa do dữ liệu cũng được lưu ở nơi khác");
             }
         }
-
+        updateStatus();
     }
 
     @SuppressWarnings("unchecked")
