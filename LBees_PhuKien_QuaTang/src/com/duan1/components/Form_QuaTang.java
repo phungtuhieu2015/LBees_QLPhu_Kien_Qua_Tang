@@ -1079,6 +1079,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtMaVach1.setEditable(false);
         txtMaVach1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaVach1ActionPerformed(evt);
@@ -1476,6 +1477,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
             btnSua.setVisible(true);
             btnXoa.setVisible(true);
             btnThem.setVisible(false);
+            hideDelete();
 
         }
     }//GEN-LAST:event_tblQuaTangMouseClicked

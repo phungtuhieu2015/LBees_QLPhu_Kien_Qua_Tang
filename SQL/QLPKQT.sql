@@ -1,5 +1,7 @@
 ﻿CREATE DATABASE QL_PHU_KIEN_QUA_TANG;
+--DROP DATABASE QL_PHU_KIEN_QUA_TANG;
 GO
+-- USE Master
 USE QL_PHU_KIEN_QUA_TANG;
 GO
 --I. TẠO BẢNG
@@ -471,12 +473,12 @@ INSERT INTO dbo.QuaTang
     MaHD
 )
 VALUES
-('DH00001', N'Nguyễn Đức Trí', N'An Khánh Ninh Kiều','0984716471', '10/22/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH00001', 'HD2010220001'),
-('DH00002', N'Nguyễn Hữu bằng', N'Cầu Bà Bộ','0984716472', '10/22/2022', N'Chưa giao', N'Dễ vỡ', N'NGH00003', 'HD1010220002'),
-('DH00003', N'Trần Văn Được', N'An Khánh Ninh Kiều','0984716473', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD0310220003'),
-('DH00004', N'Võ Minh Phong', N'Thời Bình - Cà Mau','0984716474', '10/20/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH00001', 'HD0210220004'),
-('DH00005', N'Nguyễn Minh Lộc', N'Bạc Liêu','0984716475', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD0410220005'),
-('DH00006', N'Bùi Quốc Huy', N'TP-HCM','0984716476','10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD2010220006');
+('DH2010220001', N'Nguyễn Đức Trí', N'An Khánh Ninh Kiều','0984716471', '10/22/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH00001', 'HD2010220001'),
+('DH1010220002', N'Nguyễn Hữu bằng', N'Cầu Bà Bộ','0984716472', '10/22/2022', N'Chưa giao', N'Dễ vỡ', N'NGH00003', 'HD1010220002'),
+('DH0310220003', N'Trần Văn Được', N'An Khánh Ninh Kiều','0984716473', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD0310220003'),
+('DH0210220004', N'Võ Minh Phong', N'Thời Bình - Cà Mau','0984716474', '10/20/2022', N'Đã giao xong', N'Dễ vỡ', 'NGH00001', 'HD0210220004'),
+('DH0410220005', N'Nguyễn Minh Lộc', N'Bạc Liêu','0984716475', '10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD0410220005'),
+('DH2010220006', N'Bùi Quốc Huy', N'TP-HCM','0984716476','10/20/2022', N'Đang giao hàng', N'Dễ vỡ', 'NGH00001', 'HD2010220006');
 GO
 --10. Thêm dữ liệu vào bảng PhieuNhapKho
 

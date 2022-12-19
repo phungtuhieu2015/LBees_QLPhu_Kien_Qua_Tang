@@ -619,6 +619,7 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtMaVach.setEditable(false);
         txtMaVach.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaVachActionPerformed(evt);

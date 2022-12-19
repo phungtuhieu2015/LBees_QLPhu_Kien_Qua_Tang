@@ -75,6 +75,59 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
     }
 
+    public boolean check() {
+
+        //^([a-z]+)((\s{1}[a-z]+){1,})$
+        String TENKH_REGEX = "^([A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\s{1}[A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+
+        boolean TENKH = txtTenKH.getText().matches(TENKH_REGEX);
+        if (txtTenKH.getText().trim().isEmpty()) {
+            Msgbox.waring(f, "Tên khách hàng không được để trống");
+            txtTenKH.requestFocus();
+            return false;
+        }
+        if (TENKH != true) {
+            Msgbox.waring(f, "Tên khách hàng không đúng định dạng (Nguyễn Văn A)");
+            txtTenKH.requestFocus();
+            return false;
+        }
+
+        //
+        String SDTKH_REGEX = "0[35789]{1}\\d{8}$";
+        boolean SDTKH = txtSDTKH.getText().matches(SDTKH_REGEX);
+        if (txtSDTKH.getText().trim().isEmpty()) {
+            Msgbox.waring(f, "Số điện thoại không được để trống");
+            txtSDTKH.requestFocus();
+            return false;
+        }
+        if (SDTKH != true) {
+            Msgbox.waring(f, "Số điện thoại không đúng định dạng(chỉ nhập số và gồm 10 chỉ số)");
+            txtSDTKH.requestFocus();
+            return false;
+        }
+
+        //
+//        if (txtDiemTichLuy.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Điểm tích lũy không được để trống");
+//            txtDiemTichLuy.requestFocus();
+//            return false;
+//        } else {
+//            try {
+//                double diem = Integer.parseInt(txtDiemTichLuy.getText());
+//                if (diem < 0) {
+//                    Msgbox.waring(frame, "Điểm tích lũy phải lớn hơn 0");
+//                    txtDiemTichLuy.requestFocus();
+//                    return false;
+//                }
+//            } catch (Exception e) {
+//                Msgbox.waring(frame, "Vui lòng nhập điểm tích lũy bằng số");
+//                txtDiemTichLuy.requestFocus();
+//                return false;
+//            }
+//        }
+        return true;
+    }
+
     public void setHint() {
         txtTenKH.setLabelText("Họ và Tên khách hàng");
         txtSDTKH.setLabelText("Số điện thoại");
@@ -275,10 +328,10 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             pdf += String.format("%s", h.getThanhTien() + "") + "\n";
         }
         pdf += "\n\n ..................................................................................................................\n\n\n";
-        pdf += "Tổng tiền: " + lblTongTien.getText() + "VNĐ";
-        pdf += "\t\tTiền khách đưa: " + txtTienKhachDua.getText() + "VNĐ" + "\n\n";
-        pdf += "Thanh toán: " + lblThanhToan.getText() + "VNĐ";
-        pdf += "\t\tTrả lại: " + lblTienTraLai.getText() + "VNĐ";
+        pdf += "Tổng tiền: " + lblTongTien.getText();
+        pdf += "\t\tTiền khách đưa: " + txtTienKhachDua.getText() + " VNĐ" + "\n\n";
+        pdf += "Thanh toán: " + lblThanhToan.getText() + " VNĐ";
+        pdf += "\t\tTrả lại: " + lblTienTraLai.getText() + " VNĐ";
 
         txtpdf.setText(pdf);
         txtpdf.print();
@@ -393,7 +446,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel8.setText("VND");
+        jLabel8.setText("VNĐ");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("NHẬP THÔNG TIN KHÁCH HÀNG");
@@ -430,10 +483,11 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                            .addGroup(panelTrang1Layout.createSequentialGroup()
+                                .addComponent(lblThanhToan, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8))
                             .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
                         .addGap(26, 26, 26)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -478,29 +532,26 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelTrang1Layout.createSequentialGroup()
-                        .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelTrang1Layout.createSequentialGroup()
-                                .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-                                    .addComponent(lblTienTraLai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(panelTrang1Layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel8)))
-                        .addGap(19, 19, 19)
-                        .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelTrang1Layout.createSequentialGroup()
+                        .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblTongTien, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                            .addComponent(lblTienTraLai, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(panelTrang1Layout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))))
+                            .addComponent(jLabel5)))
+                    .addGroup(panelTrang1Layout.createSequentialGroup()
+                        .addComponent(lblTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)))
+                .addGap(19, 19, 19)
+                .addGroup(panelTrang1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnThanhToan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHuy, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -531,10 +582,13 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         try {
-            thanhToan();
-            music();
-            Msgbox.success(f, "Thanh toán thành công!");
-            dispose();
+            if (check()) {
+                thanhToan();
+                music();
+                Msgbox.success(f, "Thanh toán thành công!");
+                dispose();
+            }
+
         } catch (UnsupportedAudioFileException ex) {
 
         } catch (IOException ex) {
@@ -560,14 +614,12 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
     private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
         if (txtTienKhachDua.getText().trim().isEmpty()) {
             lblTienTraLai.setText("");
-            System.out.println("ss");
             return;
         }
         long tienTT = tienThanhToan;
         try {
             long tienKhachDua = Long.parseLong(txtTienKhachDua.getText());
             long tienTraLai = tienKhachDua - tienTT;
-            System.out.println(tienTraLai);
             if (tienTraLai >= 0) {
                 lblTienTraLai.setText(tienTraLai + "");
             }

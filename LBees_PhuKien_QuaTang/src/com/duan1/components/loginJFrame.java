@@ -109,9 +109,6 @@ public class loginJFrame extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblThoatMouseClicked(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblThoatMouseEntered(evt);
-            }
         });
         panelBorder1.add(lblThoat, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 30, 30));
         panelBorder1.add(panelLogin_left2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 452, 504));
@@ -188,10 +185,6 @@ public class loginJFrame extends javax.swing.JFrame {
     private void lblThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseClicked
         exit();
     }//GEN-LAST:event_lblThoatMouseClicked
-
-    private void lblThoatMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblThoatMouseEntered
-
-    }//GEN-LAST:event_lblThoatMouseEntered
 
     private void txtMatKhauKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMatKhauKeyReleased
       if (evt.getKeyChar()== KeyEvent.VK_ENTER){

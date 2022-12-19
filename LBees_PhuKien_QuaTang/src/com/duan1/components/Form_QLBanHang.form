@@ -461,6 +461,9 @@
           </Layout>
           <SubComponents>
             <Component class="com.duan1.swing.MyTextField2" name="txtMaVach">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaVachActionPerformed"/>
                 <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaVachKeyPressed"/>

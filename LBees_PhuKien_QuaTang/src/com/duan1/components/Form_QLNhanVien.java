@@ -333,6 +333,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
                 clear();
                 Msgbox.success(frame, "Thêm thành công");
             }
+            frame.setavatar();
         } catch (Exception ex) {
             Msgbox.waring(frame, "Mã nhân viên không tồn tại");
             throw new RuntimeException(ex);
@@ -358,7 +359,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
                 daoNV.delete(txtMaNV.getText());
                 loadDaTa();
-                Msgbox.success(frame, "Xóa thành công!");
+                Msgbox.waring(frame, "Xóa thành công!");
                 clear();
             }
         } catch (Exception ex) {
@@ -739,12 +740,10 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-        if (evt.getClickCount() == 2) {
             Tabpane.setSelectedIndex(0);
             index = tblNhanVien.getSelectedRow();
             display(index);
             loadDaTa();
-        }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
