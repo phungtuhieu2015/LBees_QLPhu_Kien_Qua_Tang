@@ -5,7 +5,9 @@
 package com.duan1.components;
 
 import com.duan1.DAO.NhanVienDAO;
+import com.duan1.DAO.SanPhamDAO;
 import com.duan1.Entity.NhanVien;
+import com.duan1.Entity.SanPham;
 import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.swing.EventCallBack;
@@ -53,8 +55,6 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         loadDaTa();
         initComboBox();
     }
-
-    
 
     public void setHint() {
         txtMaNV.setLabelText("Mã nhân viên");
@@ -328,7 +328,19 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     }
 
     public void delete() {
-
+        SanPhamDAO daoSP = new SanPhamDAO();
+        List<SanPham> listSP = daoSP.selectAll();
+        for (SanPham s : listSP) {
+            if (s.getMaNV().equals(txtMaNV.getText())) {
+                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
+                return;
+            }
+        }
+        for (SanPham s : listSP) {
+            if (s.getMaNV().equals(txtMaNV.getText())) {
+                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
+            }
+        }
         try {
             if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
                 daoNV.delete(txtMaNV.getText());
@@ -659,7 +671,15 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
             new String [] {
                 "Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "CCCD", "Số Điện Thoại", "Gmail", "Chức Vụ", "Ghi Chú", "Hình Ảnh"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblNhanVien.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblNhanVienMouseClicked(evt);
@@ -701,10 +721,10 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-        Tabpane.setSelectedIndex(0);
-        index = tblNhanVien.getSelectedRow();
-        display(index);
-        loadDaTa();
+            Tabpane.setSelectedIndex(0);
+            index = tblNhanVien.getSelectedRow();
+            display(index);
+            loadDaTa();
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

@@ -13,6 +13,7 @@ import com.duan1.Entity.NguoiGiaoHang;
 import com.duan1.Entity.QuaTang;
 import com.duan1.Entity.SanPham;
 import com.duan1.Entity.TaiKhoan;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.Helper.XDate;
 import static com.duan1.components.Form_QLBanHang.checks;
@@ -112,6 +113,13 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
         ThanhTruotQT();
         String keyword = "";
         initWebcam();
+        hideDelete();
+    }
+
+    public void hideDelete() {
+        if (Auth.role() == false) {
+            btnXoa.setVisible(false);
+        }
 
     }
 
@@ -469,7 +477,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
 
     public boolean check() {
 
-        String Ten_REG = "\"^([A-ZĐa-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\\\s{1}[A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
+        String Ten_REG = "^([A-Za-zĐỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ']+)((\s{1}[A-Za-zĐỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ']+){1,})$";
         boolean TenKH = txtTenKH.getText().matches(Ten_REG);
         boolean TenNN = txtTenNN.getText().matches(Ten_REG);
 
@@ -539,9 +547,9 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
             txtNgayGiao.requestFocus();
             return false;
         }
-        if (NgayGiao != true) {
-            Msgbox.waring(frame, "Ngày giao chưa đúng định dạng!");
-            txtNgayGiao.requestFocus();
+        Date presenTime = XDate.toDate(txtNgayGiao.getText(), mauNgay);
+        if (presenTime.before(XDate.now())) {
+            Msgbox.waring(f, "Ngày giao hàng phải sau ngày hôm nay");
             return false;
         }
         /////////////////////////////////////////////////////////////////////
@@ -1473,41 +1481,42 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     }//GEN-LAST:event_tblQuaTangMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+
         JDL_XacNhanThongTin_QuaTang xn = new JDL_XacNhanThongTin_QuaTang(frame, true);
         Form_QLBanHang.checks = 0;
         boolean ss = false;
         String s = String.valueOf(cboNGH.getSelectedItem());
         String maNGH = s.substring(s.length() - 8, s.length());
 
-        // if (check()) {       
-        listKH = daoKH.selectAll();
-        for (KhachHang kh : listKH) {
-            if (kh.getSDT().equalsIgnoreCase(txtSDTKH.getText())) {
-                xn.seta(kh.getMaKH(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()), maNGH, txtMaHD.getText());
-                ss = true;
-                break;
+        if (check()) {
+            listKH = daoKH.selectAll();
+            for (KhachHang kh : listKH) {
+                if (kh.getSDT().equalsIgnoreCase(txtSDTKH.getText())) {
+                    xn.seta(kh.getMaKH(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()), maNGH, txtMaHD.getText());
+                    ss = true;
+                    break;
+                }
             }
-        }
-        if (ss == false) {
-            try {
-                xn.seta("KH" + daoKH.initID(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()), maNGH, txtMaHD.getText());
-                System.out.println(daoKH.initID());
-                System.out.println("ss false");
-            } catch (SQLException ex) {
-                java.util.logging.Logger.getLogger(Form_QuaTang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            if (ss == false) {
+                try {
+                    xn.seta("KH" + daoKH.initID(), txtTenKH.getText(), txtSDTKH.getText(), txtTenNN.getText(), txtDiaChiNN.getText(), txtSDTNN.getText(), txtNgayGiao.getText(), String.valueOf(cboTrangThai.getSelectedItem()), maNGH, txtMaHD.getText());
+                    System.out.println(daoKH.initID());
+                    System.out.println("ss false");
+                } catch (SQLException ex) {
+                    java.util.logging.Logger.getLogger(Form_QuaTang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                }
             }
-        }
 
-        int tongTien = 0;
-        for (HoaDonChiTiet hdct : listHDCT) {
-            tongTien += hdct.getThanhTien();
-        }
-        xn.geList(listSP);
-        xn.setTongTienSP(tongTien);
-        xn.getList(listHDCT);
-        xn.setVisible(true);
+            int tongTien = 0;
+            for (HoaDonChiTiet hdct : listHDCT) {
+                tongTien += hdct.getThanhTien();
+            }
+            xn.geList(listSP);
+            xn.setTongTienSP(tongTien);
+            xn.getList(listHDCT);
+            xn.setVisible(true);
 
-        // }
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -1660,7 +1669,7 @@ public class Form_QuaTang extends javax.swing.JPanel implements Runnable, Thread
     private void panelQuaTangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelQuaTangMouseClicked
         // TODO add your handling code here:
         System.out.println(panelQuaTang.getSelectedIndex());
-        if (panelQuaTang.getSelectedIndex()==2){
+        if (panelQuaTang.getSelectedIndex() == 2) {
             loadData();
         }
     }//GEN-LAST:event_panelQuaTangMouseClicked

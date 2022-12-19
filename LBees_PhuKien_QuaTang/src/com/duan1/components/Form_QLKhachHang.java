@@ -9,6 +9,7 @@ import com.duan1.DAO.KhachHangDAO;
 import com.duan1.Entity.HoaDon;
 import com.duan1.Entity.KhachHang;
 import com.duan1.Entity.NguoiGiaoHang;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 
 import com.duan1.swing.EventCallBack;
@@ -58,7 +59,13 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         TimKiem();
         ThanhTruotTb();
         loadData();
-        
+        hideDelete();
+    }
+
+    public void hideDelete() {
+        if (Auth.role() == false) {
+            btnXoa.setVisible(false);
+        }
 
     }
 
@@ -144,20 +151,21 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
 
     public void insert() {
         KhachHang kh = getForm();
-        if(Msgbox.yesNo("Bạn có muốn thêm khách hàng", "bạn chắc chắn không?")){
+        if (Msgbox.yesNo("Bạn có muốn thêm khách hàng", "bạn chắc chắn không?")) {
             daoKH.insert(kh);
             loadData();
             clear();
             Msgbox.success(frame, "Thêm khách hàng thành công");
             Tabpane.setSelectedIndex(1);
-            
-        }else{
+
+        } else {
             Msgbox.waring(frame, "Thêm khách hàng không thành công");
         }
     }
+
     public void update() {
         KhachHang kh = getForm();
-         if (Msgbox.yesNo("bạn có muốn cập nhật khách hàng", "bạn chắc chắn không???")) {
+        if (Msgbox.yesNo("bạn có muốn cập nhật khách hàng", "bạn chắc chắn không???")) {
             daoKH.update(kh);
             loadData();
             clear();
@@ -167,8 +175,9 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             Msgbox.waring(frame, "cập nhật khách hàng không thành công");
         }
     }
+
     public void delete() {
-        if (Msgbox.yesNo("bạn có muốn xóa khách hàng", "bạn chắc chắn không???")) {         
+        if (Msgbox.yesNo("bạn có muốn xóa khách hàng", "bạn chắc chắn không???")) {
             String maKH = txtMaKhachHang.getText();
             daoKH.delete(maKH);
             loadData();
@@ -236,11 +245,12 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         model = (DefaultTableModel) tblKhachHang.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblKhachHang.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)"+IdAndName, 0,1));
-        
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
+
     }
-     public boolean check() {
-        String MAKH_REGEX = "(?i)[kh]{2}\\d{5}"; 
+
+    public boolean check() {
+        String MAKH_REGEX = "(?i)[kh]{2}\\d{5}";
         boolean MAKH = txtMaKhachHang.getText().matches(MAKH_REGEX);
         if (txtMaKhachHang.getText().trim().isEmpty()) {
             Msgbox.waring(frame, "Mã khách hàng không được để trống");
@@ -252,8 +262,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             txtMaKhachHang.requestFocus();
             return false;
         }
-        
-        
+
         //^([a-z]+)((\s{1}[a-z]+){1,})$
         String TENKH_REGEX = "^([A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+)((\\s{1}[A-Za-zỲọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđỲỌÁẦẢẤỜỄÀẠẰỆẾÝỘẬỐŨỨĨÕÚỮỊỖÌỀỂẨỚẶÒÙỒỢÃỤỦÍỸẮẪỰỈỎỪỶỞÓÉỬỴẲẸÈẼỔẴẺỠƠÔƯĂÊÂĐ']+){1,})$";
 
@@ -268,9 +277,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             txtTenKhachHang.requestFocus();
             return false;
         }
-        
+
         //
-        
         String SDTKH_REGEX = "^0[9834]\\d{8}";
         boolean SDTKH = txtSDT.getText().matches(SDTKH_REGEX);
         if (txtSDT.getText().trim().isEmpty()) {
@@ -283,9 +291,8 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
             txtSDT.requestFocus();
             return false;
         }
-        
+
         //
-        
         if (txtDiemTichLuy.getText().trim().isEmpty()) {
             Msgbox.waring(frame, "Điểm tích lũy không được để trống");
             txtDiemTichLuy.requestFocus();
@@ -306,7 +313,7 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
         }
 
         return true;
-     }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -562,13 +569,13 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblKhachHangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblKhachHangMouseClicked
-            int index = tblKhachHang.getSelectedRow();
-             if (evt.getClickCount() == 2) {
-                display(index);  
-             Tabpane.setSelectedIndex(0);
-            }
-           
-            
+        int index = tblKhachHang.getSelectedRow();
+        if (evt.getClickCount() == 2) {
+            display(index);
+            Tabpane.setSelectedIndex(0);
+        }
+
+
     }//GEN-LAST:event_tblKhachHangMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -582,9 +589,9 @@ public class Form_QLKhachHang extends javax.swing.JPanel {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-            String ID = txtTimKiem.getText().trim();
-            findIdAndName(ID);
-            loadData();
+        String ID = txtTimKiem.getText().trim();
+        findIdAndName(ID);
+        loadData();
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void txtTimKiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMousePressed

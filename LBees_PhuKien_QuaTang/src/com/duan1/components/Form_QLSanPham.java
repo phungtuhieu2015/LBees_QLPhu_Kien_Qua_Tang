@@ -11,6 +11,7 @@ import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Entity.PhieuNhapChiTiet;
 import com.duan1.Entity.PhieuNhapKho;
 import com.duan1.Entity.SanPham;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
 import com.duan1.swing.ScrollBarCustom;
@@ -46,10 +47,18 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     public Form_QLSanPham() {
         initComponents();
         init();
-
+        hideDelete();
     }
+
     String maPNK = "";
     public static boolean checkBtn = true;
+
+    public void hideDelete() {
+        if (Auth.role() == false) {
+            btnXoa.setVisible(false);
+        }
+
+    }
 
     public void init() {
         updateStatus();

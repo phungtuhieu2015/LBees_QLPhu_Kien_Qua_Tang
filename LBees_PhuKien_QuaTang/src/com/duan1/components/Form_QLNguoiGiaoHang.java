@@ -6,6 +6,7 @@ package com.duan1.components;
 
 import com.duan1.DAO.NguoiGiaoHangDAO;
 import com.duan1.Entity.NguoiGiaoHang;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.Msgbox;
 import com.duan1.swing.EventCallBack;
 import com.duan1.swing.EventTextField;
@@ -38,6 +39,14 @@ public class Form_QLNguoiGiaoHang extends javax.swing.JPanel {
     public Form_QLNguoiGiaoHang() {
         initComponents();
         init();
+        hideDelete();
+    }
+
+    public void hideDelete() {
+        if (Auth.role() == false) {
+            btnXoa.setVisible(false);
+        }
+
     }
 
     public void ThanhTruotTb() {
