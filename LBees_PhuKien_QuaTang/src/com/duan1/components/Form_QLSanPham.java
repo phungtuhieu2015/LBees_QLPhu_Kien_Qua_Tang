@@ -283,7 +283,6 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public void insert() {
-
         if (maPNK.trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Bạn chưa tạo mã nhập kho!");
             return;

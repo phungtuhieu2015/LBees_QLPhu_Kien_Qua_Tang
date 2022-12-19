@@ -332,7 +332,7 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
         List<SanPham> listSP = daoSP.selectAll();
         for (SanPham s : listSP) {
             if (s.getMaNV().equals(txtMaNV.getText())) {
-                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
+                Msgbox.waring(frame, "Nhân viên này đang quản lý sản phẩm");
                 return;
             }
         }

@@ -284,9 +284,8 @@ public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, Thre
         model = (DefaultTableModel) tblSanPham.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 2, 1));
     }
-
     public void deleteBH(int index) {
         if (listHDCT.isEmpty()) {
             Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
