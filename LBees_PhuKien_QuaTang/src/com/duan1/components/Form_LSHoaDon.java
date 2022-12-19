@@ -109,7 +109,7 @@ public class Form_LSHoaDon extends javax.swing.JPanel {
                     hd.getMaNV(),
                     hd.getMaKH(),
                     kh.getTenKH(),
-                    hd.getNgayTao(),
+                    XDate.toString(hd.getNgayTao(), "dd-MM-yyyy"),
                     tongTien
                 };
                 model.addRow(row);

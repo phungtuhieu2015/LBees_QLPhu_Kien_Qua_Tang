@@ -583,9 +583,8 @@ public class Form_QLDanhMuc extends javax.swing.JPanel {
 
     private void tblDanhMucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDanhMucMouseClicked
         if (evt.getClickCount() == 2) {
-            int sec = tblDanhMuc.getSelectedRow();
-
-            display(sec);
+            index = tblDanhMuc.getSelectedRow();
+            display(index);
             Tabpane.setSelectedIndex(0);
 
         }
