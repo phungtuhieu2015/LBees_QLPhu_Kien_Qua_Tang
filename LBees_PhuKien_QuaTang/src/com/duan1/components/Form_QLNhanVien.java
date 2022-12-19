@@ -721,10 +721,12 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
+        if (evt.getClickCount() == 2) {
             Tabpane.setSelectedIndex(0);
             index = tblNhanVien.getSelectedRow();
             display(index);
             loadDaTa();
+        }
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed

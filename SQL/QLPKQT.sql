@@ -1,7 +1,6 @@
 ﻿CREATE DATABASE QL_PHU_KIEN_QUA_TANG;
 GO
 USE QL_PHU_KIEN_QUA_TANG;
-
 GO
 --I. TẠO BẢNG
 --1. Tạo bảng NhanVien
@@ -196,7 +195,6 @@ ALTER TABLE dbo.NguoiGiaoHang ADD CONSTRAINT UQ_NGH_SDT UNIQUE (SDT);
 ALTER TABLE dbo.NguoiGiaoHang ADD CONSTRAINT UQ_NGH_Gmail UNIQUE (Gmail);
 GO
 --7. Tạo ràng buộc duy nhất cho bảng QuaTang
-ALTER TABLE dbo.QuaTang ADD CONSTRAINT UQ_QuaTang_SDT UNIQUE (SDTNN)
 --IV. TẠO KHÓA NGOẠI
 
 --1. Tạo khóa ngoại cho bảng SanPhamBan
@@ -557,6 +555,13 @@ FROM dbo.HoaDon hd INNER JOIN dbo.NhanVien nv ON nv.MaNV = hd.MaNV
 INNER JOIN dbo.KhachHang kh ON kh.MaKH = hd.MaKH 
 WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
 GO
+
+CREATE PROC sp_TimHD_TheoNgayTke @TuNgay DATE, @DenNgay DATE AS 
+SELECT hdct.MaHD,hd.NgayTao, SUM(hdct.ThanhTien) TongTien
+FROM dbo.HoaDon hd INNER JOIN dbo.HoaDonChiTiet hdct
+ON hdct.MaHD = hd.MaHD
+WHERE hd.NgayTao BETWEEN @TuNgay AND @DenNgay
+GROUP BY hdct.MaHD ,hd.NgayTao
 --SELECT * FROM dbo.HoaDonChiTiet --WHERE MaSP = ''
 /*EXEC dbo.sp_ThongKeDoanhThu @TuNgay = '2022-12-15', -- date
                             @DenNgay = '2022-12-15' -- date
@@ -569,3 +574,4 @@ SELECT MAX(SUBSTRING(MaHD,LEN(MaHD) - 3,LEN(MaHD)))FROM HOADON
 SELECT * FROM dbo.PhieuNhapChiTiet WHERE MaPNK LIKE '%MP00002%'
 SELECT * FROM dbo.PhieuNhapChiTiet WHERE MaPNK LIKE '%MP00002%'
 */
+

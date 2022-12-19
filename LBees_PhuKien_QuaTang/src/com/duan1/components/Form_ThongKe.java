@@ -48,7 +48,8 @@ public class Form_ThongKe extends javax.swing.JPanel {
     String mauNgay = "dd-MM-yyyy";
     DefaultTableModel model;
     private JMenuItem menuItem = null;
-    
+    int i = -1;
+
     public Form_ThongKe() {
         initComponents();
         setHin();
@@ -94,7 +95,6 @@ public class Form_ThongKe extends javax.swing.JPanel {
     public void creatPopupMenu(JPanel JP) {
         menuItem = new JMenuItem(
                 "TỔNG DANH THU = (TỔNG TẤT CẢ DOANH THU - PHÍ SHIP)"
-                       
         //  new ImageIcon(".\\src\\com\\duan1\\icon\\16_dangXuat_16.png")
         );
         //apply desc
@@ -149,10 +149,27 @@ public class Form_ThongKe extends javax.swing.JPanel {
         Date tuNgay = XDate.toDate(tn, mauNgay);
         Date denNgay = XDate.toDate(dn, mauNgay);
         List<Object[]> list = daoTKe.getDoanhThu(tuNgay, denNgay);
+        i = -1;
+
         for (Object[] row : list) {
             model.addRow(row);
+            i++;
+            chuyenNgay(String.valueOf(tblDoanhThu.getValueAt(i, 1)),i);
         }
 
+    }
+
+    void chuyenNgay(String str, int index) {
+        Date ds = null;
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            ds = sf.parse(str);
+            str = XDate.toString(ds, mauNgay);
+            tblDoanhThu.setValueAt(str, index, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Msgbox.waring(new MainJFrame(), "Lỗi chuyển ngày");
+        }
     }
 
     void fillTableSanPham() {
@@ -165,16 +182,13 @@ public class Form_ThongKe extends javax.swing.JPanel {
         }
     }
 
-    
-
     public void findIdAndNameBH(String IdAndName) {
         model = (DefaultTableModel) tblSanPham.getModel();
         TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
         tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1 ,2));
+        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1, 2));
     }
-    
-    
+
     public void timKiemTheoNgay() {
         if (txtTuNgay.getText().trim().isEmpty() || txtDenNgay.getText().trim().isEmpty()) {
             Msgbox.waring(new MainJFrame(), "Vui lòng chọn ngày!");
@@ -188,9 +202,12 @@ public class Form_ThongKe extends javax.swing.JPanel {
             Date tuNgay = XDate.toDate(txtTuNgay.getText(), mauNgay);
             Date DenNgay = XDate.toDate(txtDenNgay.getText(), mauNgay);
             List<Object[]> listTke = daoTKe.findHDbyDateTke(tuNgay, DenNgay);
-
+            Date d = null;
+            i = -1;
             for (Object[] hd : listTke) {
                 model.addRow(hd);
+                i++;
+                chuyenNgay(String.valueOf(tblDoanhThu.getValueAt(i, 1)),i);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -198,6 +215,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
         }
 
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -558,7 +576,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                     .addGroup(kGradientPanel6Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel14)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         kGradientPanel6Layout.setVerticalGroup(
             kGradientPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -612,7 +630,6 @@ public class Form_ThongKe extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -640,6 +657,10 @@ public class Form_ThongKe extends javax.swing.JPanel {
                             .addComponent(txtTimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2147482657, 2147482657, 2147482657))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,7 +673,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtDenNgay, javax.swing.GroupLayout.DEFAULT_SIZE, 53, Short.MAX_VALUE)
+                                    .addComponent(txtDenNgay, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(button2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(14, 14, 14))
@@ -668,7 +689,7 @@ public class Form_ThongKe extends javax.swing.JPanel {
                     .addComponent(kGradientPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(kGradientPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(kGradientPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(10, 10, 10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tabpane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -764,14 +785,14 @@ public class Form_ThongKe extends javax.swing.JPanel {
 
     private void lblChuyenSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblChuyenSPMouseClicked
         if (evt.getClickCount() == 2) {
-            MainJFrame m = new MainJFrame(); 
+            MainJFrame m = new MainJFrame();
             m.showForm(new Form_QLSanPham());
             m.setVisible(true);
         }
     }//GEN-LAST:event_lblChuyenSPMouseClicked
 
     private void button1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button1ActionPerformed
-      timKiemTheoNgay();
+        timKiemTheoNgay();
     }//GEN-LAST:event_button1ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed

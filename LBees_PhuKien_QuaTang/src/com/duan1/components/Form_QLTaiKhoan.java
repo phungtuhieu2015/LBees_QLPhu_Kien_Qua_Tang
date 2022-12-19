@@ -202,7 +202,6 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
          if (Msgbox.yesNo("bạn có muốn cập nhật tài khoản", "bạn chắc chắn không???")) {
             daoTK.update(tk);
             loadDataQLTK();
-            clear();
             Msgbox.success(frame, "cập nhật tài khoản thành công");
             Tabpane.setSelectedIndex(1);
         } else {
@@ -257,12 +256,14 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
     //tạo nút quay lại hàng đầu tiên
     public void firs() {
         index = 0;
+         Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách!");
         edit();
     }
 
     //tạo nút tới hàng cuối cùng
     public void last() {
         index = listTK.size() - 1;
+        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách!");
         edit();
     }
 
