@@ -11,6 +11,7 @@ import com.duan1.Entity.HoaDonChiTiet;
 import com.duan1.Entity.PhieuNhapChiTiet;
 import com.duan1.Entity.PhieuNhapKho;
 import com.duan1.Entity.SanPham;
+import com.duan1.Helper.Auth;
 import com.duan1.Helper.ImgHelper;
 import com.duan1.Helper.Msgbox;
 import com.duan1.swing.ScrollBarCustom;
@@ -46,11 +47,19 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     public Form_QLSanPham() {
         initComponents();
         init();
-
+        hideDelete();
     }
+
     String maPNK = "";
     public static boolean checkBtn = true;
-    
+
+    public void hideDelete() {
+        if (Auth.role() == false) {
+            btnXoa.setVisible(false);
+        }
+
+    }
+
     public void init() {
         updateStatus();
         scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
@@ -73,7 +82,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
         txtHinh.setVisible(false);
     }
-    
+
     public void setHint() {
         txtTimKiem.setHintText("Nhập tên, mã sản phẩm");
         txtMaSP.setHint("Mã sản phẩm");
@@ -154,7 +163,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         DanhMuc d = daoDM.selectByid(s.getMaDM());
         cboDanhMuc.setSelectedItem(d.getMaDM() + " - " + d.getTenDM());
         cboTrangThai.setSelectedItem(s.getTrangThai());
-        
+
     }
 
     public void clear() {
@@ -299,7 +308,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 //                } catch (Exception e) {
 //                    Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
 //                }
-                    update_SLSP(sp);
+                update_SLSP(sp);
             } else {
                 daoSP.insert(s);
                 PhieuNhapChiTiet pnct;
@@ -459,12 +468,14 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         tblSanPham.setRowSorter(trs);
         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 5));
     }
-    public void  goiham(){
-         
-            index = tblSanPham.getSelectedRow();
-            display(index);
-            Tabpane.setSelectedIndex(1);
-    } 
+
+    public void goiham() {
+
+        index = tblSanPham.getSelectedRow();
+        display(index);
+        Tabpane.setSelectedIndex(1);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
