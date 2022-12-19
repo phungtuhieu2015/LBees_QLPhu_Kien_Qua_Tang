@@ -352,6 +352,9 @@
                   </SubComponents>
                 </Container>
                 <Component class="com.duan1.swing.MyTextField2" name="txtMaNV">
+                  <Properties>
+                    <Property name="editable" type="boolean" value="false"/>
+                  </Properties>
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtSDT">
                 </Component>
