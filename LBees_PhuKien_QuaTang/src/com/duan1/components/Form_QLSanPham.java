@@ -49,42 +49,42 @@ public class Form_QLSanPham extends javax.swing.JPanel {
      */
     public Form_QLSanPham() {
         initComponents();
-        init();
-        hideDelete();
+//        init();
+//        hideDelete();
     }
 
     String maPNK = "";
     public static boolean checkBtn = true;
+//
+//    public void hideDelete() {
+//        if (Auth.role() == false) {
+//            btnXoa.setVisible(false);
+//        }
+//
+//    }
 
-    public void hideDelete() {
-        if (Auth.role() == false) {
-            btnXoa.setVisible(false);
-        }
-
-    }
-
-    public void init() {
-        updateStatus();
-        scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
-        scroll_PhieuNK.setVerticalScrollBar(new ScrollBarCustom());
-        setHint();
-        fillComboBox();
-        loadDaTa();
-        Tabpane.setSelectedIndex(1);
-        try {
-            if (checkBtn) {
-                maPNK = "";
-                lblMaPNK.setText(maPNK);
-            } else {
-                maPNK = daoPNK.getLastID();
-                lblMaPNK.setText(maPNK);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        txtHinh.setVisible(false);
-    }
+//    public void init() {
+//        updateStatus();
+//        scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
+//        scroll_PhieuNK.setVerticalScrollBar(new ScrollBarCustom());
+//        setHint();
+//        fillComboBox();
+//        loadDaTa();
+//        Tabpane.setSelectedIndex(1);
+//        try {
+//            if (checkBtn) {
+//                maPNK = "";
+//                lblMaPNK.setText(maPNK);
+//            } else {
+//                maPNK = daoPNK.getLastID();
+//                lblMaPNK.setText(maPNK);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        txtHinh.setVisible(false);
+//    }
 
     public void setHint() {
         txtTimKiem.setHintText("Nhập tên, mã sản phẩm");
@@ -95,7 +95,7 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     void loadDaTa() {
-        int tt = 0;
+        int stt = 0;
         listSP = daoSP.selectAll();
         DefaultTableModel model = (DefaultTableModel) tblSanPham.getModel();
         DefaultTableModel tblDsPhieuNhap = (DefaultTableModel) tblPhieuNhapKho.getModel();
@@ -104,15 +104,12 @@ public class Form_QLSanPham extends javax.swing.JPanel {
         try {
             for (SanPham sp : listSP) {
                 Object[] row = {
-                    tt++,
+                    stt++,
                     sp.getMaSP(),
                     sp.getTenSP(),
-                    sp.getSoLuong(),
-                    sp.getDonGia(),
-                    sp.getTrangThai(),
-                    sp.getMaDM(),
-                    sp.getMaNV(),
-                    sp.getHinhAnh()
+                    sp.getSoLuongTonKho(),
+                    sp.getHinhAnh(),
+                    sp.getTrangThai()
                 };
                 model.addRow(row);
             }
@@ -156,166 +153,169 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }
 
     public SanPham getForm() {
-        String maDM = (String) cboDanhMuc.getSelectedItem();
-        maDM = maDM.substring(0, 7);
+//        String maDM = (String) cboDanhMuc.getSelectedItem();
+//        maDM = maDM.substring(0, 7);
+//        SanPham s = new SanPham();
+//        s.setMaSP(txtMaSP.getText());
+//        s.setTenSP(txtTenSP.getText());
+//        s.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
+//        s.setDonGia(Float.parseFloat(txtDonGia.getText()));
+//        s.setDonViTinh(String.valueOf(cboDonViTinh.getSelectedItem()));
+//        s.setTrangThai(String.valueOf(cboTrangThai.getSelectedItem()));
+//        s.setMaDM(maDM);
+//        s.setMaVach(txtMaSP.getText());
+//        s.setMaNV("NV00001");
+//        s.setHinhAnh(txtHinh.getText());
+
         SanPham s = new SanPham();
-        s.setMaSP(txtMaSP.getText());
-        s.setTenSP(txtTenSP.getText());
-        s.setSoLuong(Integer.parseInt(txtSoLuong.getText()));
-        s.setDonGia(Float.parseFloat(txtDonGia.getText()));
-        s.setDonViTinh(String.valueOf(cboDonViTinh.getSelectedItem()));
-        s.setTrangThai(String.valueOf(cboTrangThai.getSelectedItem()));
-        s.setMaDM(maDM);
-        s.setMaVach(txtMaSP.getText());
-        s.setMaNV("NV00001");
-        s.setHinhAnh(txtHinh.getText());
+//        s.setMaSP(maPNK);
         return s;
     }
 
     public void setForm(SanPham s) {
 
-        txtMaSP.setText(s.getMaSP());
-        txtTenSP.setText(s.getTenSP());
-        txtSoLuong.setText(String.valueOf(s.getSoLuong()));
-        txtDonGia.setText(String.valueOf(s.getDonGia()));
-        cboDonViTinh.setSelectedItem(s.getDonViTinh());
-        DanhMuc d = daoDM.selectByid(s.getMaDM());
-        cboDanhMuc.setSelectedItem(d.getMaDM() + " - " + d.getTenDM());
-        cboTrangThai.setSelectedItem(s.getTrangThai());
+//        txtMaSP.setText(s.getMaSP());
+//        txtTenSP.setText(s.getTenSP());
+//        txtSoLuong.setText(String.valueOf(s.getSoLuong()));
+//        txtDonGia.setText(String.valueOf(s.getDonGia()));
+//        cboDonViTinh.setSelectedItem(s.getDonViTinh());
+//        DanhMuc d = daoDM.selectByid(s.getMaDM());
+//        cboDanhMuc.setSelectedItem(d.getMaDM() + " - " + d.getTenDM());
+//        cboTrangThai.setSelectedItem(s.getTrangThai());
 
     }
 
-    public void clear() {
-
-        txtMaSP.setText("");
-        txtTenSP.setText("");
-        txtSoLuong.setText("");
-        txtDonGia.setText("");
-        cboDonViTinh.setSelectedIndex(0);
-        cboDanhMuc.setSelectedIndex(0);
-        cboTrangThai.setSelectedIndex(0);
-        lblMaPNK.setText("");
-        txtHinh.setText("");
-        index = - 1;
-        updateStatus();
-    }
+//    public void clear() {
+//
+//        txtMaSP.setText("");
+//        txtTenSP.setText("");
+//        txtSoLuong.setText("");
+//        txtDonGia.setText("");
+//        cboDonViTinh.setSelectedIndex(0);
+//        cboDanhMuc.setSelectedIndex(0);
+//        cboTrangThai.setSelectedIndex(0);
+//        lblMaPNK.setText("");
+//        txtHinh.setText("");
+//        index = - 1;
+//        updateStatus();
+//    }
 
     public void taoPhieuNhapKho() {
-        boolean choice = Msgbox.yesNo("Tạo phiếu nhập kho", "Bạn có chắc chắn muốn tạo phiếu nhập");
-        if (!choice) {
-            return;
-        }
-        try {
-            maPNK = "MP" + daoPNK.initID();
-            lblMaPNK.setText(maPNK);
-            PhieuNhapKho pnk = new PhieuNhapKho(maPNK, new Date());
-            daoPNK.insert(pnk);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        checkBtn = false;
-        btnThemMNK.setEnabled(checkBtn);
+//        boolean choice = Msgbox.yesNo("Tạo phiếu nhập kho", "Bạn có chắc chắn muốn tạo phiếu nhập");
+//        if (!choice) {
+//            return;
+//        }
+//        try {
+//            maPNK = "MP" + daoPNK.initID();
+//            lblMaPNK.setText(maPNK);
+//            PhieuNhapKho pnk = new PhieuNhapKho(maPNK, new Date());
+//            daoPNK.insert(pnk);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        checkBtn = false;
+//        btnThemMNK.setEnabled(checkBtn);
 
     }
 
     public void ketThucLanNhapKho() {
-        boolean choice = Msgbox.yesNo("Kết thúc lần nhập kho", "Bạn có chắn chắn muốn kế thúc lần nhập!");
-        if (!choice) {
-            return;
-        }
-        maPNK = "";
-        lblMaPNK.setText(maPNK);
-        checkBtn = true;
-        btnThemMNK.setEnabled(checkBtn);
+//        boolean choice = Msgbox.yesNo("Kết thúc lần nhập kho", "Bạn có chắn chắn muốn kế thúc lần nhập!");
+//        if (!choice) {
+//            return;
+//        }
+//        maPNK = "";
+//        lblMaPNK.setText(maPNK);
+//        checkBtn = true;
+//        btnThemMNK.setEnabled(checkBtn);
     }
 
-    public boolean validateForm() {
-        MainJFrame f = new MainJFrame();
-        boolean check = true;
-        // Mã sản phẩm
-
-        if (txtMaSP.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Vui lòng nhập mã SP!");
-            check = false;
-        } else {
-            if (txtMaSP.getText().length() > 10) {
-                Msgbox.waring(f, "Mã sản phẩm vượt quá số lượng cho phép!");
-                check = false;
-            }
-        }
-
-        if (txtTenSP.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Vui lòng nhập tên SP!");
-            check = false;
-        }
-//        if (txtHinh.getText().trim().isEmpty()) {
-//            Msgbox.waring(f, "Vui lòng chọn ảnh!");
+//    public boolean validateForm() {
+//        MainJFrame f = new MainJFrame();
+//        boolean check = true;
+//        // Mã sản phẩm
+//
+//        if (txtMaSP.getText().trim().isEmpty()) {
+//            Msgbox.waring(f, "Vui lòng nhập mã SP!");
+//            check = false;
+//        } else {
+//            if (txtMaSP.getText().length() > 10) {
+//                Msgbox.waring(f, "Mã sản phẩm vượt quá số lượng cho phép!");
+//                check = false;
+//            }
+//        }
+//
+//        if (txtTenSP.getText().trim().isEmpty()) {
+//            Msgbox.waring(f, "Vui lòng nhập tên SP!");
 //            check = false;
 //        }
-        if (txtSoLuong.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Vui lòng nhập số lượng!");
-            check = false;
-        } else {
+////        if (txtHinh.getText().trim().isEmpty()) {
+////            Msgbox.waring(f, "Vui lòng chọn ảnh!");
+////            check = false;
+////        }
+//        if (txtSoLuong.getText().trim().isEmpty()) {
+//            Msgbox.waring(f, "Vui lòng nhập số lượng!");
+//            check = false;
+//        } else {
+//
+//            try {
+//                int sl = Integer.parseInt(txtSoLuong.getText());
+//                if (sl < 0) {
+//                    Msgbox.waring(f, "Số lượng phải là số dương!");
+//                    check = false;
+//                }
+//            } catch (Exception e) {
+//                Msgbox.waring(f, "Vui lòng nhập số lượng là số!");
+//                check = false;
+//            }
+//        }
+//        if (txtDonGia.getText().trim().isEmpty()) {
+//            Msgbox.waring(f, "Vui lòng nhập đơn giá!");
+//            check = false;
+//        } else {
+//            try {
+//                double dg = Double.parseDouble(txtDonGia.getText());
+//                if (dg < 0) {
+//                    Msgbox.waring(f, "Đơn giá phải là số dương!");
+//                    check = false;
+//                }
+//            } catch (Exception e) {
+//                Msgbox.waring(f, "Vui lòng nhập đơn giá là số!");
+//                check = false;
+//            }
+//        }
+//
+//        if (cboDanhMuc.getSelectedIndex() == 0) {
+//            Msgbox.waring(f, "Vui lòng chọn danh mục!");
+//            check = false;
+//        }
+//        if (cboDonViTinh.getSelectedIndex() == 0) {
+//            Msgbox.waring(f, "Vui lòng chọn đơn vị tính!");
+//            check = false;
+//        }
+//        if (cboTrangThai.getSelectedIndex() == 0) {
+//            Msgbox.waring(f, "Vui lòng chọn trạng thái!");
+//            check = false;
+//        }
+//        return check;
+//
+//    }
 
-            try {
-                int sl = Integer.parseInt(txtSoLuong.getText());
-                if (sl < 0) {
-                    Msgbox.waring(f, "Số lượng phải là số dương!");
-                    check = false;
-                }
-            } catch (Exception e) {
-                Msgbox.waring(f, "Vui lòng nhập số lượng là số!");
-                check = false;
-            }
-        }
-        if (txtDonGia.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Vui lòng nhập đơn giá!");
-            check = false;
-        } else {
-            try {
-                double dg = Double.parseDouble(txtDonGia.getText());
-                if (dg < 0) {
-                    Msgbox.waring(f, "Đơn giá phải là số dương!");
-                    check = false;
-                }
-            } catch (Exception e) {
-                Msgbox.waring(f, "Vui lòng nhập đơn giá là số!");
-                check = false;
-            }
-        }
-
-        if (cboDanhMuc.getSelectedIndex() == 0) {
-            Msgbox.waring(f, "Vui lòng chọn danh mục!");
-            check = false;
-        }
-        if (cboDonViTinh.getSelectedIndex() == 0) {
-            Msgbox.waring(f, "Vui lòng chọn đơn vị tính!");
-            check = false;
-        }
-        if (cboTrangThai.getSelectedIndex() == 0) {
-            Msgbox.waring(f, "Vui lòng chọn trạng thái!");
-            check = false;
-        }
-        return check;
-
-    }
-
-    public void insert() {
-
-        if (maPNK.trim().isEmpty()) {
-            Msgbox.waring(new MainJFrame(), "Bạn chưa tạo mã nhập kho!");
-            return;
-        }
-        if (!validateForm()) {
-            return;
-        }
-        try {
-            SanPham s = new SanPham();
-            SanPham sp = daoSP.selectByid(s.getMaSP());
-            s = getForm();
-            //trùng nhau cập nhật số lượng
-            if (sp.getMaSP().equals(s.getMaSP())) {
+//    public void insert() {
+//
+//        if (maPNK.trim().isEmpty()) {
+//            Msgbox.waring(new MainJFrame(), "Bạn chưa tạo mã nhập kho!");
+//            return;
+//        }
+//        if (!validateForm()) {
+//            return;
+//        }
+//        try {
+//            SanPham s = new SanPham();
+//            SanPham sp = daoSP.selectByid(s.getMaSP());
+//            s = getForm();
+//            //trùng nhau cập nhật số lượng
+//            if (sp != null) {
 //                boolean choice = Msgbox.yesNo("Cập nhật số lượng", "Sản phẩm đã tồn tại! \nBạn có muốn cập nhật lại số lượng không?");
 //                if (!choice) {
 //                    return;
@@ -325,165 +325,166 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 //                    daoSP.updateSL(s.getMaSP(), Integer.parseInt(sl_new) + sp.getSoLuong());
 //                    Msgbox.success(new MainJFrame(), "Cập nhật thành công!");
 //                } catch (Exception e) {
-//                    Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
+//                    Msgbox.waring(new MainJFrame(),
+//                            "Lỗi cập nhật dữ liệu khi thêm!");
 //                }
-                update_SLSP(sp);
-            } else {
-                daoSP.insert(s);
-                PhieuNhapChiTiet pnct;
-                pnct = new PhieuNhapChiTiet(maPNK, s.getMaSP(), s.getSoLuong(), s.getDonGia());
-                daoPNK_ct.insert(pnct);
-                ImgHelper.Write(s.getMaSP());
-                Msgbox.success(frame, "Thêm thành công sản phẩm !");
-            }
-            loadDaTa();
-            clear();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    public void Update() {
-        if (!validateForm()) {
-            return;
-        }
-        try {
-            SanPham s = new SanPham();
-            s = getForm();
-            daoSP.update(s);
-            Msgbox.success(frame, "Cập nhật thành công sản phẩm !");
-            clear();
-            loadDaTa();
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }
-
-    }
-
-    private void updateStatus() {
-        boolean edit = (this.index >= 0);
-        boolean first = (this.index == 0);
-        boolean last = (this.index == tblSanPham.getRowCount() - 1);
-
-        txtMaSP.setEditable(!edit);
-        btnThem.setEnabled(!edit);
-        btnSua.setEnabled(edit);
-        btnXoa.setEnabled(edit);
-
-        btnFirst.setEnabled(edit && !first);
-        btnPrev.setEnabled(edit && !first);
-        btnNext.setEnabled(edit && !last);
-        btnLast.setEnabled(edit && !last);
-
-        btnThemMNK.setVisible(!edit);
-        btnketThucLanNhapKho.setVisible(!edit);
-        lblMaPNK.setVisible(!edit);
-        lblTieuDeMaPNK.setVisible(!edit);
-    }
-
-    public void delete() {
-        if (txtMaSP.getText().trim().isEmpty()) {
-            Msgbox.waring(new MainJFrame(), "Bạn chưa chọn sản phẩm để xóa!");
-            return;
-        }
-        try {
-            if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
-                daoSP.delete(txtMaSP.getText());
-                loadDaTa();
-                Msgbox.success(frame, "Xóa thành công!");
-                clear();
-            }
-        } catch (Exception ex) {
-            Msgbox.waring(frame, "Không thể xóa do dữ liệu cũng được lưu ở nơi khác");
-        }
-
-    }
-
-    public void display(int index) {
-        SanPham s = listSP.get(index);
-        setForm(s);
-        ImgHelper m = new ImgHelper();
-        m.loadHinhVaoForm(s.getHinhAnh(), lblHinh);
-        updateStatus();
-
-    }
-
-    public void edit() {
-        tblSanPham.setRowSelectionInterval(index, index);
-
-    }
-    //fist
-
-    public void first() {
-        index = 0;
-        Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
-        display(index);
-    }
-
-    //end
-    public void last() {
-        index = listSP.size() - 1;
-        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
-        display(index);
-    }
-
-    //prev
-    public void prev() {
-        if (index > 0) {
-            index--;
-        }
-        if (index <= 0) {
-            Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
-        }
-        display(index);
-    }
-
-    //next
-    public void next() {
-        if (index < listSP.size() - 1) {
-            index++;
-        }
-        if (index >= listSP.size() - 1) {
-            Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
-        }
-        display(index);
-    }
-
-    public void update_SLSP(SanPham sp) {
-        if (sp != null) {
-            boolean choice = Msgbox.yesNo("Cập nhật số lượng", "Sản phẩm đã tồn tại! \nBạn có muốn cập nhật lại số lượng không?");
-            if (!choice) {
-                clear();
-                return;
-            }
-            String sl_new = JOptionPane.showInputDialog(new MainJFrame(), "Mời nhập số lượng!");
-            try {
-                daoSP.updateSL(sp.getMaSP(), Integer.parseInt(sl_new) + sp.getSoLuong());
-                Msgbox.success(new MainJFrame(), "Cập nhật thành công!");
-            } catch (Exception e) {
-                Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
-            }
-            loadDaTa();
-            clear();
-        }
-    }
-
-    public void findIdAndName(String IdAndName) {
-        DefaultTableModel model = new DefaultTableModel();
-        model = (DefaultTableModel) tblSanPham.getModel();
-        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
-        tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 1, 5));
-
-    }
-
-    public void filterByStatus(String IdAndName) {
-        DefaultTableModel model = new DefaultTableModel();
-        model = (DefaultTableModel) tblSanPham.getModel();
-        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
-        tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 5));
-    }
+//                update_SLSP(sp);
+//            } else {
+//                daoSP.insert(s);
+//                PhieuNhapChiTiet pnct;
+//                pnct = new PhieuNhapChiTiet(maPNK, s.getMaSP(), s.getSoLuong(), s.getDonGia());
+//                daoPNK_ct.insert(pnct);
+//                ImgHelper.Write(s.getMaSP());
+//                Msgbox.success(frame, "Thêm thành công sản phẩm !");
+//            }
+//            loadDaTa();
+//            clear();
+//        } catch (Exception ex) {
+//            throw new RuntimeException(ex);
+//        }
+//    }
+//
+//    public void Update() {
+//        if (!validateForm()) {
+//            return;
+//        }
+//        try {
+//            SanPham s = new SanPham();
+//            s = getForm();
+//            daoSP.update(s);
+//            Msgbox.success(frame, "Cập nhật thành công sản phẩm !");
+//            clear();
+//            loadDaTa();
+//        } catch (Exception ex) {
+//            throw new RuntimeException(ex);
+//        }
+//
+//    }
+//
+//    private void updateStatus() {
+//        boolean edit = (this.index >= 0);
+//        boolean first = (this.index == 0);
+//        boolean last = (this.index == tblSanPham.getRowCount() - 1);
+//
+//        txtMaSP.setEditable(!edit);
+//        btnThem.setEnabled(!edit);
+//        btnSua.setEnabled(edit);
+//        btnXoa.setEnabled(edit);
+//
+//        btnFirst.setEnabled(edit && !first);
+//        btnPrev.setEnabled(edit && !first);
+//        btnNext.setEnabled(edit && !last);
+//        btnLast.setEnabled(edit && !last);
+//
+//        btnThemMNK.setVisible(!edit);
+//        btnketThucLanNhapKho.setVisible(!edit);
+//        lblMaPNK.setVisible(!edit);
+//        lblTieuDeMaPNK.setVisible(!edit);
+//    }
+//
+//    public void delete() {
+//        if (txtMaSP.getText().trim().isEmpty()) {
+//            Msgbox.waring(new MainJFrame(), "Bạn chưa chọn sản phẩm để xóa!");
+//            return;
+//        }
+//        try {
+//            if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
+//                daoSP.delete(txtMaSP.getText());
+//                loadDaTa();
+//                Msgbox.success(frame, "Xóa thành công!");
+//                clear();
+//            }
+//        } catch (Exception ex) {
+//            Msgbox.waring(frame, "Không thể xóa do dữ liệu cũng được lưu ở nơi khác");
+//        }
+//
+//    }
+//
+//    public void display(int index) {
+//        SanPham s = listSP.get(index);
+//        setForm(s);
+//        ImgHelper m = new ImgHelper();
+//        m.loadHinhVaoForm(s.getHinhAnh(), lblHinh);
+//        updateStatus();
+//
+//    }
+//
+//    public void edit() {
+//        tblSanPham.setRowSelectionInterval(index, index);
+//
+//    }
+//    //fist
+//
+//    public void first() {
+//        index = 0;
+//        Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
+//        display(index);
+//    }
+//
+//    //end
+//    public void last() {
+//        index = listSP.size() - 1;
+//        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
+//        display(index);
+//    }
+//
+//    //prev
+//    public void prev() {
+//        if (index > 0) {
+//            index--;
+//        }
+//        if (index <= 0) {
+//            Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách");
+//        }
+//        display(index);
+//    }
+//
+//    //next
+//    public void next() {
+//        if (index < listSP.size() - 1) {
+//            index++;
+//        }
+//        if (index >= listSP.size() - 1) {
+//            Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách");
+//        }
+//        display(index);
+//    }
+//
+//    public void update_SLSP(SanPham sp) {
+//        if (sp != null) {
+//            boolean choice = Msgbox.yesNo("Cập nhật số lượng", "Sản phẩm đã tồn tại! \nBạn có muốn cập nhật lại số lượng không?");
+//            if (!choice) {
+//                clear();
+//                return;
+//            }
+//            String sl_new = JOptionPane.showInputDialog(new MainJFrame(), "Mời nhập số lượng!");
+//            try {
+//                daoSP.updateSL(sp.getMaSP(), Integer.parseInt(sl_new) + sp.getSoLuong());
+//                Msgbox.success(new MainJFrame(), "Cập nhật thành công!");
+//            } catch (Exception e) {
+//                Msgbox.waring(new MainJFrame(), "Lỗi cập nhật dữ liệu khi thêm!");
+//            }
+//            loadDaTa();
+//            clear();
+//        }
+//    }
+//
+//    public void findIdAndName(String IdAndName) {
+//        DefaultTableModel model = new DefaultTableModel();
+//        model = (DefaultTableModel) tblSanPham.getModel();
+//        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+//        tblSanPham.setRowSorter(trs);
+//        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 1, 5));
+//
+//    }
+//
+//    public void filterByStatus(String IdAndName) {
+//        DefaultTableModel model = new DefaultTableModel();
+//        model = (DefaultTableModel) tblSanPham.getModel();
+//        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+//        tblSanPham.setRowSorter(trs);
+//        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 5));
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -948,37 +949,28 @@ public class Form_QLSanPham extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
 
-        insert();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        Update();
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        delete();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-        clear();
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void tblSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSanPhamMouseClicked
-        if (evt.getClickCount() == 2) {
-            index = tblSanPham.getSelectedRow();
-            display(index);
-            Tabpane.setSelectedIndex(0);
-        }
+//        if (evt.getClickCount() == 2) {
+//            index = tblSanPham.getSelectedRow();
+//            display(index);
+//            Tabpane.setSelectedIndex(0);
+//        }
 
     }//GEN-LAST:event_tblSanPhamMouseClicked
 
     private void cboTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTabActionPerformed
         // TODO add your handling code here:
-        String s = String.valueOf(cboTab.getSelectedItem());
-        if (s == "Tất cả") {
-            s = "";//quay lại ban đầu
-        }
-        filterByStatus(String.valueOf(s));
 
     }//GEN-LAST:event_cboTabActionPerformed
 
@@ -995,28 +987,22 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_cboTrangThaiActionPerformed
 
     private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        first();
     }//GEN-LAST:event_btnFirstActionPerformed
 
     private void btnPrevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevActionPerformed
         // TODO add your handling code here:
-        prev();
     }//GEN-LAST:event_btnPrevActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
         // TODO add your handling code here:
-        next();
     }//GEN-LAST:event_btnNextActionPerformed
 
     private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
         // TODO add your handling code here:
-        last();
     }//GEN-LAST:event_btnLastActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
-        findIdAndName(txtTimKiem.getText());
-        System.out.println(txtTimKiem.getText());
 
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
@@ -1050,8 +1036,6 @@ public class Form_QLSanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_tblPhieuNhapKhoMouseClicked
 
     private void txtMaSPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaSPKeyReleased
-        SanPham sp = daoSP.selectByid(txtMaSP.getText());
-        update_SLSP(sp);
     }//GEN-LAST:event_txtMaSPKeyReleased
 
 

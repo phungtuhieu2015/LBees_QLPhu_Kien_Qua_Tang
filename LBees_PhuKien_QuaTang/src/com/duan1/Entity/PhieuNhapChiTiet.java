@@ -9,27 +9,40 @@ package com.duan1.Entity;
  * @author asus
  */
 public class PhieuNhapChiTiet {
-    String maPNK;
+
+    String maPNCT;
+    String maPN;
     String maSP;
-    int soLuong;
-    double thanhTien;
+    String soLuongNhap;
+    double giaNhap;
+    double giaBan;
 
     public PhieuNhapChiTiet() {
     }
 
-    public PhieuNhapChiTiet(String maPNK, String maSP, int soLuong, double thanhTien) {
-        this.maPNK = maPNK;
+    public PhieuNhapChiTiet(String maPNCT, String maPN, String maSP, String soLuongNhap, double giaNhap, double giaBan) {
+        this.maPNCT = maPNCT;
+        this.maPN = maPN;
         this.maSP = maSP;
-        this.soLuong = soLuong;
-        this.thanhTien = thanhTien;
+        this.soLuongNhap = soLuongNhap;
+        this.giaNhap = giaNhap;
+        this.giaBan = giaBan;
     }
 
-    public String getMaPNK() {
-        return maPNK;
+    public String getMaPNCT() {
+        return maPNCT;
     }
 
-    public void setMaPNK(String maPNK) {
-        this.maPNK = maPNK;
+    public void setMaPNCT(String maPNCT) {
+        this.maPNCT = maPNCT;
+    }
+
+    public String getMaPN() {
+        return maPN;
+    }
+
+    public void setMaPN(String maPN) {
+        this.maPN = maPN;
     }
 
     public String getMaSP() {
@@ -40,22 +53,28 @@ public class PhieuNhapChiTiet {
         this.maSP = maSP;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public String getSoLuongNhap() {
+        return soLuongNhap;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
+    public void setSoLuongNhap(String soLuongNhap) {
+        this.soLuongNhap = soLuongNhap;
     }
 
-    public double getThanhTien() {
-        return thanhTien;
+    public double getGiaNhap() {
+        return giaNhap;
     }
 
-    public void setThanhTien(double thanhTien) {
-        this.thanhTien = thanhTien;
+    public void setGiaNhap(double giaNhap) {
+        this.giaNhap = giaNhap;
     }
 
-   
-    
+    public double getGiaBan() {
+        return giaBan;
+    }
+
+    public void setGiaBan(double giaBan) {
+        this.giaBan = giaBan;
+    }
+
 }

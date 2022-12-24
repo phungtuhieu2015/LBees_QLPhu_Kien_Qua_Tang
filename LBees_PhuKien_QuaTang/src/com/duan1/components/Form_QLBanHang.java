@@ -1,431 +1,431 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
-package com.duan1.components;
-
-import com.duan1.DAO.HoaDonChiTietDAO;
-import com.duan1.DAO.SanPhamDAO;
-import com.duan1.Entity.HoaDonChiTiet;
-import com.duan1.Entity.SanPham;
-import com.duan1.Helper.Msgbox;
-import com.duan1.swing.Barcodes;
-import com.duan1.swing.ScrollBarCustom;
-import com.duan1.ui.MainJFrame;
-import com.github.sarxos.webcam.Webcam;
-import com.github.sarxos.webcam.WebcamPanel;
-import com.github.sarxos.webcam.WebcamResolution;
-import com.google.zxing.BinaryBitmap;
-import com.google.zxing.LuminanceSource;
-import com.google.zxing.MultiFormatReader;
-import com.google.zxing.NotFoundException;
-import com.google.zxing.Result;
-import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
-import com.google.zxing.common.HybridBinarizer;
-import java.awt.Desktop;
-import java.awt.Dimension;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
-
-/**
- *
- * @author ASUS
- */
-public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
-
-    SanPhamDAO daoSP = new SanPhamDAO();
-    List<SanPham> listSP = new ArrayList<>();
-    List<HoaDonChiTiet> listHDCT = new ArrayList<>();
-    DefaultTableModel tblVoHang;
-    HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
-    String keyword = "";
-    String sl;
-    int index = -1;
-    MainJFrame f = new MainJFrame();
-    private WebcamPanel panel = null;
-    private Webcam webcam = null;
-    private Executor executor = Executors.newSingleThreadExecutor(this);
-    public static int checks = 1;
-
-    /**
-     * Creates new form Form_QLBanHang
-     */
-    public Form_QLBanHang() {
-        initComponents();
-        init();
-    }
-    MainJFrame frame = new MainJFrame();
-
-    public void init() {
-        Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
-        Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
-        txtTimKiem.setHintText("Nhập mã, tên sản phẩm...");
-        txtMaVach.setLabelText("Mã vạch");
-        listSP = daoSP.selectAll();
-        initWebcam();
-        loadData();
-    }
-    DefaultTableModel model;
-
-    public void loadData() {
-        int tt = 0;
-        model = (DefaultTableModel) tblSanPham.getModel();
-        model.setRowCount(0);
-        try {
-            for (SanPham sp : listSP) {
-                Object[] row = {
-                    tt++,
-                    sp.getMaSP(),
-                    sp.getTenSP(),
-                    sp.getSoLuong(),
-                    sp.getDonGia(),
-                    sp.getMaVach(),
-                    sp.getTrangThai()};
-                model.addRow(row);
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    public void clearGH() {
-        listHDCT.removeAll(listHDCT);
-        loadDataToGH();
-    }
-// Nếu trùng mã sẽ câp nhập số lượng
-    // ngược lại sẽ thêm
-
-//    public void addDataGH(int index) {
-//        SanPham sp = listSP.get(index);
-//        HoaDonChiTiet hdct = new HoaDonChiTiet();
-//        hdct.setMaHD(sp.getMaSP());
-//        hdct.setMaSP(sp.getMaSP());
-//        hdct.setSoLuong(Integer.parseInt(sl));
-//        hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
-//        listHDCT.add(hdct);
-//        loadDataToGH();
-//    }
-//    public void updateGH(int index) {
-//        SanPham sp = listSP.get(index);
-//        boolean check = true;
-//        String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
-//        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
-//        if (sl == null) {
-//            return;
-//        }
-//        try {
-//            if (sl.trim().isEmpty()) {
-//                Msgbox.waring(frame, "Bạn chưa nhập số lượng");
-//                return;
-//            }
-//            int s = Integer.parseInt(sl);
-//        } catch (NumberFormatException e) {
-//            Msgbox.waring(frame, "Vui lòng nhập số!");
-//            return;
-//        }
-//        
-//        for (HoaDonChiTiet h : listHDCT) {
-//            if (h.getMaSP().equals(sp.getMaSP())) {
-//                boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
-//                if (choice) {
-//                    h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
-//                    h.setThanhTien(h.getSoLuong() * sp.getDonGia());
-//                    check = false;
-//                    loadDataToGH();
-//                    break;
-//                }
-//            }
-//        }
-//        if (check) {
-//            addDataGH(index);
-//        }
-//    }
-    public void updateGHMV(String maVach) {
-        SanPham sp = daoSP.selectByMV(maVach);
-        boolean check = true;
-        for (SanPham s : listSP) {
-            if (s.getMaVach().equalsIgnoreCase(sp.getMaVach())) {
-                if (s.getSoLuong() <= 0) {
-                    Msgbox.waring(frame, "Đã hết hàng !");
-                    return;
-                }
-            }
-        }
-        for (HoaDonChiTiet h : listHDCT) {
-            if (h.getMaSP().equals(sp.getMaSP())) {
-                boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
-                if (choice) {
-                    break;
-                } else {
-                    return;
-                }
-            }
-        }
-
-        MainJFrame frame = new MainJFrame();
-        String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
-        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
-        if (sl == null) {
-            return;
-        }
-        try {
-            if (sl.trim().isEmpty()) {
-                Msgbox.waring(frame, "Bạn chưa nhập số lượng");
-                return;
-            }
-            int s = Integer.parseInt(sl);
-        } catch (NumberFormatException e) {
-            Msgbox.waring(frame, "Vui lòng nhập số!");
-            return;
-        }
-        if (checkSL()) {
-
-        } else {
-            Msgbox.waring(frame, "Số lượng không đủ!");
-            return;
-        }
-
-        for (HoaDonChiTiet h : listHDCT) {
-            if (h.getMaSP().equals(sp.getMaSP())) {
-                h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
-                h.setThanhTien(h.getSoLuong() * sp.getDonGia());
-//                daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
-                check = false;
-
-                break;
-            }
-        }
-        for (SanPham s : listSP) {
-            if (s.getMaVach().equalsIgnoreCase(sp.getMaVach())) {
-                s.setSoLuong(s.getSoLuong() - Integer.parseInt(sl));
-                break;
-            }
-        }
-        loadDataToGH();
-        loadData();
-        setTrangThai();
-        if (check) {
-            addDataGH(maVach);
-        }
-    }
-
-    public void addDataGH(String maVach) {
-        SanPham sp = daoSP.selectByMV(maVach);
-        HoaDonChiTiet hdct = new HoaDonChiTiet();
-        hdct.setMaHD(sp.getMaSP());
-        hdct.setMaSP(sp.getMaSP());
-        hdct.setSoLuong(Integer.parseInt(sl));
-        hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
-        listHDCT.add(hdct);
-        loadDataToGH();
-        setTrangThai();
-    }
-
-    public void loadDataToGH() {
-        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
-        model.setRowCount(0);
-        try {
-            int tt = 0;
-            for (HoaDonChiTiet hdct : listHDCT) {
-                SanPham sp = daoSP.selectByid(hdct.getMaSP());
-                Object[] row = {
-                    tt++,
-                    hdct.getMaSP(),
-                    sp.getTenSP(),
-                    hdct.getSoLuong(),
-                    sp.getDonGia(),
-                    hdct.getThanhTien()
-                };
-                model.addRow(row);
-                model.fireTableDataChanged();
-            }
-        } catch (Exception e) {
-        }
-    }
-
-    public void deleteAll() {
-        if (listHDCT.isEmpty()) {
-            Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
-            return;
-        }
-        boolean chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
-        if (chon) {
-            for (int i = 0; i < tblGioHang.getRowCount(); i++) {
-                int sl = (int) tblGioHang.getValueAt(i, 3);
-                String maSP = (String) tblGioHang.getValueAt(i, 1);
-                for (SanPham s : listSP) {
-                    if (s.getMaSP().equalsIgnoreCase(maSP)) {
-                        s.setSoLuong(s.getSoLuong() + sl);
-                    }
-                }
-            }
-
-            listHDCT.removeAll(listHDCT);
-            loadData();
-            loadDataToGH();
-            setTrangThai();
-        }
-    }
-
-    public void findIdAndName(String IdAndName) {
-        model = (DefaultTableModel) tblSanPham.getModel();
-        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
-        tblSanPham.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
-    }
-
-    public void deleteBH(int index) {
-        if (listHDCT.isEmpty()) {
-            Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
-            return;
-        }
-        if (index < 0) {
-            Msgbox.waring(f, "Bạn chưa chọn sản phẩm để xóa!");
-            return;
-        }
-        boolean chon = Msgbox.yesNo("Xóa khỏi giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
-        if (chon) {
-            int sl = (int) tblGioHang.getValueAt(index, 3);
-            String maSP = (String) tblGioHang.getValueAt(index, 1);
-            for (SanPham s : listSP) {
-                if (s.getMaSP().equalsIgnoreCase(maSP)) {
-                    s.setSoLuong(s.getSoLuong() + sl);
-                }
-            }
-            listHDCT.remove(index);
-            loadDataToGH();
-            loadData();
-            setTrangThai();
-        }
-
-    }
-
-    private void initWebcam() {
-        Dimension size = WebcamResolution.VGA.getSize();
-        webcam = Webcam.getWebcams().get(0);
-        webcam.setViewSize(size);
-//        webcam.setViewSize(new Dimension(2592, 1944));
-        panel = new WebcamPanel(webcam);
-        panel.setPreferredSize(size);
-//        panel.setPreferredSize(new Dimension(2592, 1944));
-        panel.setFPSDisplayed(true);
-//2592, 1944
-        jPanel2.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 200));
-
-        executor.execute(this);
-    }
-
-    /**
-     *
-     */
-    @Override
-    public void run() {
-        boolean i = true;
-        do {
-            try {
-                Thread.sleep(100);
-
-            } catch (InterruptedException ex) {
-//                Logger.getLogger(com.duan1.components.Form_QLBanHang.class
-//                        .getName()).log(Level.SEVERE, null, ex);
-            }
-            Result result = null;
-            BufferedImage image = null;
-            if (webcam.isOpen()) {
-                if ((image = webcam.getImage()) == null) {
-                    continue;
-                }
-            }
-            LuminanceSource source = new BufferedImageLuminanceSource(image);
-            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-            try {
-                result = new MultiFormatReader().decode(bitmap);
-            } catch (NotFoundException ex) {
-//                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
-                if (checks == 1) {
-//                    List<SanPham> s = new ArrayList<>();
-//                    s = daoSP.selectAll();
-                    for (SanPham sanPham : listSP) {
-                        if (sanPham.getMaVach().equals(txtMaVach.getText())) {
-                            updateGHMV(txtMaVach.getText());
-                            txtMaVach.setText("");
-                        }
-                    }
-                }
-                if (checks == 0 || checks == 2) {
-                    webcam.close();
-                    return;
-                }
-            }
-            if (result != null) {
-                txtMaVach.setText(result.getText());
-            }
-            if (txtMaVach.getText().length() > 0) {
-                try {
-                    Desktop.getDesktop().browse(new URI(txtMaVach.getText()));
-                    i = true;
-                } catch (IOException | URISyntaxException ex) {
-//                    i = true;
-                }
-            }
-        } while (i);
-    }
-
-    @Override
-    public Thread newThread(Runnable r) {
-        Thread t = new Thread(r, "My Thread");
-        t.setDaemon(true);
-        return t;
-    }
-
-    public void setTrangThai() {
-        for (SanPham s : listSP) {
-            if (s.getSoLuong() <= 0) {
-                s.setTrangThai("Hết hàng");
-            }
-            if (s.getSoLuong() > 0 && !s.getTrangThai().equalsIgnoreCase("Không còn bán")) {
-                s.setTrangThai("Đang kinh doanh");
-            }
-        }
-        loadData();
-    }
-
-    public boolean checkSL() {
-        int soLuong;
-        if (txtMaVach.getText().trim().isEmpty()) {
-            soLuong = (int) tblSanPham.getValueAt(index, 3);
-        } else {
-            SanPham s = new SanPham();
-            s = daoSP.selectByMV(txtMaVach.getText());
-            soLuong = s.getSoLuong();
-        }
-
-        if (soLuong < Integer.parseInt(sl)) {
-            Msgbox.waring(frame, "Số lượng sản phẩm hiện tại không đủ!");
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
-    @SuppressWarnings("unchecked")
+/////*
+//// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+//// * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+//// */
+////package com.duan1.components;
+////
+////import com.duan1.DAO.HoaDonChiTietDAO;
+////import com.duan1.DAO.SanPhamDAO;
+////import com.duan1.Entity.HoaDonChiTiet;
+////import com.duan1.Entity.SanPham;
+////import com.duan1.Helper.Msgbox;
+////import com.duan1.swing.Barcodes;
+////import com.duan1.swing.ScrollBarCustom;
+////import com.duan1.ui.MainJFrame;
+////import com.github.sarxos.webcam.Webcam;
+////import com.github.sarxos.webcam.WebcamPanel;
+////import com.github.sarxos.webcam.WebcamResolution;
+////import com.google.zxing.BinaryBitmap;
+////import com.google.zxing.LuminanceSource;
+////import com.google.zxing.MultiFormatReader;
+////import com.google.zxing.NotFoundException;
+////import com.google.zxing.Result;
+////import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+////import com.google.zxing.common.HybridBinarizer;
+////import java.awt.Desktop;
+////import java.awt.Dimension;
+////import java.awt.event.KeyEvent;
+////import java.awt.image.BufferedImage;
+////import java.io.IOException;
+////import java.net.URI;
+////import java.net.URISyntaxException;
+////import java.util.ArrayList;
+////import java.util.List;
+////import java.util.concurrent.Executor;
+////import java.util.concurrent.Executors;
+////import java.util.concurrent.ThreadFactory;
+////import java.util.logging.Level;
+////import java.util.logging.Logger;
+////import javax.swing.JOptionPane;
+////import javax.swing.RowFilter;
+////import javax.swing.table.DefaultTableModel;
+////import javax.swing.table.TableRowSorter;
+////
+/////**
+//// *
+//// * @author ASUS
+//// */
+////public class Form_QLBanHang extends javax.swing.JPanel implements Runnable, ThreadFactory {
+////
+////    SanPhamDAO daoSP = new SanPhamDAO();
+////    List<SanPham> listSP = new ArrayList<>();
+////    List<HoaDonChiTiet> listHDCT = new ArrayList<>();
+////    DefaultTableModel tblVoHang;
+////    HoaDonChiTietDAO daoHDCT = new HoaDonChiTietDAO();
+////    String keyword = "";
+////    String sl;
+////    int index = -1;
+////    MainJFrame f = new MainJFrame();
+////    private WebcamPanel panel = null;
+////    private Webcam webcam = null;
+////    private Executor executor = Executors.newSingleThreadExecutor(this);
+////    public static int checks = 1;
+////
+////    /**
+////     * Creates new form Form_QLBanHang
+////     */
+////    public Form_QLBanHang() {
+////        initComponents();
+////        init();
+////    }
+////    MainJFrame frame = new MainJFrame();
+////
+////    public void init() {
+////        Scroll_GioHang.setVerticalScrollBar(new ScrollBarCustom());
+////        Scroll_SPBan.setVerticalScrollBar(new ScrollBarCustom());
+////        txtTimKiem.setHintText("Nhập mã, tên sản phẩm...");
+////        txtMaVach.setLabelText("Mã vạch");
+////        listSP = daoSP.selectAll();
+////        initWebcam();
+////        loadData();
+////    }
+////    DefaultTableModel model;
+////
+////    public void loadData() {
+////        int tt = 0;
+////        model = (DefaultTableModel) tblSanPham.getModel();
+////        model.setRowCount(0);
+////        try {
+////            for (SanPham sp : listSP) {
+////                Object[] row = {
+////                    tt++,
+////                    sp.getMaSP(),
+////                    sp.getTenSP(),
+////                    sp.getSoLuong(),
+////                    sp.getDonGia(),
+////                    sp.getMaVach(),
+////                    sp.getTrangThai()};
+////                model.addRow(row);
+////            }
+////        } catch (Exception e) {
+////        }
+////    }
+////
+////    public void clearGH() {
+////        listHDCT.removeAll(listHDCT);
+////        loadDataToGH();
+////    }
+////// Nếu trùng mã sẽ câp nhập số lượng
+////    // ngược lại sẽ thêm
+////
+//////    public void addDataGH(int index) {
+//////        SanPham sp = listSP.get(index);
+//////        HoaDonChiTiet hdct = new HoaDonChiTiet();
+//////        hdct.setMaHD(sp.getMaSP());
+//////        hdct.setMaSP(sp.getMaSP());
+//////        hdct.setSoLuong(Integer.parseInt(sl));
+//////        hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
+//////        listHDCT.add(hdct);
+//////        loadDataToGH();
+//////    }
+//////    public void updateGH(int index) {
+//////        SanPham sp = listSP.get(index);
+//////        boolean check = true;
+//////        String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
+//////        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
+//////        if (sl == null) {
+//////            return;
+//////        }
+//////        try {
+//////            if (sl.trim().isEmpty()) {
+//////                Msgbox.waring(frame, "Bạn chưa nhập số lượng");
+//////                return;
+//////            }
+//////            int s = Integer.parseInt(sl);
+//////        } catch (NumberFormatException e) {
+//////            Msgbox.waring(frame, "Vui lòng nhập số!");
+//////            return;
+//////        }
+//////        
+//////        for (HoaDonChiTiet h : listHDCT) {
+//////            if (h.getMaSP().equals(sp.getMaSP())) {
+//////                boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
+//////                if (choice) {
+//////                    h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
+//////                    h.setThanhTien(h.getSoLuong() * sp.getDonGia());
+//////                    check = false;
+//////                    loadDataToGH();
+//////                    break;
+//////                }
+//////            }
+//////        }
+//////        if (check) {
+//////            addDataGH(index);
+//////        }
+//////    }
+////    public void updateGHMV(String maVach) {
+////        SanPham sp = daoSP.selectByMV(maVach);
+////        boolean check = true;
+////        for (SanPham s : listSP) {
+////            if (s.getMaVach().equalsIgnoreCase(sp.getMaVach())) {
+////                if (s.getSoLuong() <= 0) {
+////                    Msgbox.waring(frame, "Đã hết hàng !");
+////                    return;
+////                }
+////            }
+////        }
+////        for (HoaDonChiTiet h : listHDCT) {
+////            if (h.getMaSP().equals(sp.getMaSP())) {
+////                boolean choice = Msgbox.yesNo("Xác nhận thêm", "Sản phẩm đã được thêm\n Bạn có muốn thêm nữa không?");
+////                if (choice) {
+////                    break;
+////                } else {
+////                    return;
+////                }
+////            }
+////        }
+////
+////        MainJFrame frame = new MainJFrame();
+////        String mess = "mã sản phẩm: " + sp.getMaSP() + "\nTên sản phẩm: " + sp.getTenSP() + "\nNhập số lượng: ";
+////        sl = JOptionPane.showInputDialog(frame, mess, "Nhập số lượng sản phẩm", JOptionPane.INFORMATION_MESSAGE);
+////        if (sl == null) {
+////            return;
+////        }
+////        try {
+////            if (sl.trim().isEmpty()) {
+////                Msgbox.waring(frame, "Bạn chưa nhập số lượng");
+////                return;
+////            }
+////            int s = Integer.parseInt(sl);
+////        } catch (NumberFormatException e) {
+////            Msgbox.waring(frame, "Vui lòng nhập số!");
+////            return;
+////        }
+////        if (checkSL()) {
+////
+////        } else {
+////            Msgbox.waring(frame, "Số lượng không đủ!");
+////            return;
+////        }
+////
+////        for (HoaDonChiTiet h : listHDCT) {
+////            if (h.getMaSP().equals(sp.getMaSP())) {
+////                h.setSoLuong(h.getSoLuong() + Integer.parseInt(sl));
+////                h.setThanhTien(h.getSoLuong() * sp.getDonGia());
+//////                daoSP.updateSL(sp.getMaSP(), sp.getSoLuong() - Integer.parseInt(sl));
+////                check = false;
+////
+////                break;
+////            }
+////        }
+////        for (SanPham s : listSP) {
+////            if (s.getMaVach().equalsIgnoreCase(sp.getMaVach())) {
+////                s.setSoLuong(s.getSoLuong() - Integer.parseInt(sl));
+////                break;
+////            }
+////        }
+////        loadDataToGH();
+////        loadData();
+////        setTrangThai();
+////        if (check) {
+////            addDataGH(maVach);
+////        }
+////    }
+////
+////    public void addDataGH(String maVach) {
+////        SanPham sp = daoSP.selectByMV(maVach);
+////        HoaDonChiTiet hdct = new HoaDonChiTiet();
+////        hdct.setMaHD(sp.getMaSP());
+////        hdct.setMaSP(sp.getMaSP());
+////        hdct.setSoLuong(Integer.parseInt(sl));
+////        hdct.setThanhTien(hdct.getSoLuong() * sp.getDonGia());
+////        listHDCT.add(hdct);
+////        loadDataToGH();
+////        setTrangThai();
+////    }
+////
+////    public void loadDataToGH() {
+////        DefaultTableModel model = (DefaultTableModel) tblGioHang.getModel();
+////        model.setRowCount(0);
+////        try {
+////            int tt = 0;
+////            for (HoaDonChiTiet hdct : listHDCT) {
+////                SanPham sp = daoSP.selectByid(hdct.getMaSP());
+////                Object[] row = {
+////                    tt++,
+////                    hdct.getMaSP(),
+////                    sp.getTenSP(),
+////                    hdct.getSoLuong(),
+////                    sp.getDonGia(),
+////                    hdct.getThanhTien()
+////                };
+////                model.addRow(row);
+////                model.fireTableDataChanged();
+////            }
+////        } catch (Exception e) {
+////        }
+////    }
+////
+////    public void deleteAll() {
+////        if (listHDCT.isEmpty()) {
+////            Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
+////            return;
+////        }
+////        boolean chon = Msgbox.yesNo("Xóa tất cả giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
+////        if (chon) {
+////            for (int i = 0; i < tblGioHang.getRowCount(); i++) {
+////                int sl = (int) tblGioHang.getValueAt(i, 3);
+////                String maSP = (String) tblGioHang.getValueAt(i, 1);
+////                for (SanPham s : listSP) {
+////                    if (s.getMaSP().equalsIgnoreCase(maSP)) {
+////                        s.setSoLuong(s.getSoLuong() + sl);
+////                    }
+////                }
+////            }
+////
+////            listHDCT.removeAll(listHDCT);
+////            loadData();
+////            loadDataToGH();
+////            setTrangThai();
+////        }
+////    }
+////
+////    public void findIdAndName(String IdAndName) {
+////        model = (DefaultTableModel) tblSanPham.getModel();
+////        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+////        tblSanPham.setRowSorter(trs);
+////        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
+////    }
+////
+////    public void deleteBH(int index) {
+////        if (listHDCT.isEmpty()) {
+////            Msgbox.waring(f, "Không có sản phẩm nào để xóa!");
+////            return;
+////        }
+////        if (index < 0) {
+////            Msgbox.waring(f, "Bạn chưa chọn sản phẩm để xóa!");
+////            return;
+////        }
+////        boolean chon = Msgbox.yesNo("Xóa khỏi giỏ hàng", "Bạn có chắc chắn muốn xóa ?");
+////        if (chon) {
+////            int sl = (int) tblGioHang.getValueAt(index, 3);
+////            String maSP = (String) tblGioHang.getValueAt(index, 1);
+////            for (SanPham s : listSP) {
+////                if (s.getMaSP().equalsIgnoreCase(maSP)) {
+////                    s.setSoLuong(s.getSoLuong() + sl);
+////                }
+////            }
+////            listHDCT.remove(index);
+////            loadDataToGH();
+////            loadData();
+////            setTrangThai();
+////        }
+////
+////    }
+////
+////    private void initWebcam() {
+////        Dimension size = WebcamResolution.VGA.getSize();
+////        webcam = Webcam.getWebcams().get(0);
+////        webcam.setViewSize(size);
+//////        webcam.setViewSize(new Dimension(2592, 1944));
+////        panel = new WebcamPanel(webcam);
+////        panel.setPreferredSize(size);
+//////        panel.setPreferredSize(new Dimension(2592, 1944));
+////        panel.setFPSDisplayed(true);
+//////2592, 1944
+////        jPanel2.add(panel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 200));
+////
+////        executor.execute(this);
+////    }
+////
+////    /**
+////     *
+////     */
+////    @Override
+////    public void run() {
+////        boolean i = true;
+////        do {
+////            try {
+////                Thread.sleep(100);
+////
+////            } catch (InterruptedException ex) {
+//////                Logger.getLogger(com.duan1.components.Form_QLBanHang.class
+//////                        .getName()).log(Level.SEVERE, null, ex);
+////            }
+////            Result result = null;
+////            BufferedImage image = null;
+////            if (webcam.isOpen()) {
+////                if ((image = webcam.getImage()) == null) {
+////                    continue;
+////                }
+////            }
+////            LuminanceSource source = new BufferedImageLuminanceSource(image);
+////            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+////            try {
+////                result = new MultiFormatReader().decode(bitmap);
+////            } catch (NotFoundException ex) {
+//////                Logger.getLogger(com.duan1.components.MyWebCam.class.getName()).log(Level.SEVERE, null, ex);
+////                if (checks == 1) {
+//////                    List<SanPham> s = new ArrayList<>();
+//////                    s = daoSP.selectAll();
+////                    for (SanPham sanPham : listSP) {
+////                        if (sanPham.getMaVach().equals(txtMaVach.getText())) {
+////                            updateGHMV(txtMaVach.getText());
+////                            txtMaVach.setText("");
+////                        }
+////                    }
+////                }
+////                if (checks == 0 || checks == 2) {
+////                    webcam.close();
+////                    return;
+////                }
+////            }
+////            if (result != null) {
+////                txtMaVach.setText(result.getText());
+////            }
+////            if (txtMaVach.getText().length() > 0) {
+////                try {
+////                    Desktop.getDesktop().browse(new URI(txtMaVach.getText()));
+////                    i = true;
+////                } catch (IOException | URISyntaxException ex) {
+//////                    i = true;
+////                }
+////            }
+////        } while (i);
+////    }
+////
+////    @Override
+////    public Thread newThread(Runnable r) {
+////        Thread t = new Thread(r, "My Thread");
+////        t.setDaemon(true);
+////        return t;
+////    }
+////
+////    public void setTrangThai() {
+////        for (SanPham s : listSP) {
+////            if (s.getSoLuong() <= 0) {
+////                s.setTrangThai("Hết hàng");
+////            }
+////            if (s.getSoLuong() > 0 && !s.getTrangThai().equalsIgnoreCase("Không còn bán")) {
+////                s.setTrangThai("Đang kinh doanh");
+////            }
+////        }
+////        loadData();
+////    }
+////
+////    public boolean checkSL() {
+////        int soLuong;
+////        if (txtMaVach.getText().trim().isEmpty()) {
+////            soLuong = (int) tblSanPham.getValueAt(index, 3);
+////        } else {
+////            SanPham s = new SanPham();
+////            s = daoSP.selectByMV(txtMaVach.getText());
+////            soLuong = s.getSoLuong();
+////        }
+////
+////        if (soLuong < Integer.parseInt(sl)) {
+////            Msgbox.waring(frame, "Số lượng sản phẩm hiện tại không đủ!");
+////            return false;
+////        }
+////        return true;
+////    }
+////
+////    /**
+////     * This method is called from within the constructor to initialize the form.
+////     * WARNING: Do NOT modify this code. The content of this method is always
+////     * regenerated by the Form Editor.
+////     */
+////    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 

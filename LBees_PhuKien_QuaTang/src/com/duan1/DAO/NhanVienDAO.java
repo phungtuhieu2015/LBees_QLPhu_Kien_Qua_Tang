@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class NhanVienDAO extends QLPK<NhanVien, String> {
 
-    String insert_SQL = "INSERT INTO dbo.NhanVien(MaNV,TenNV,GioiTinh,CCCD,SDT,Gmail,ChucVu,GhiChu,HinhAnh)VALUES(?,?,?,?,?,?,?,?,?)";
-    String update_SQL = "UPDATE dbo.NhanVien SET TenNV=?,GioiTinh=?,CCCD=?,SDT=?,Gmail=?,ChucVu=?,GhiChu=?,HinhAnh=? WHERE MaNV =?";
+    String insert_SQL = "INSERT INTO NhanVien (MaNV, MaTK, TenNV, GioiTinh, CCCD, SDT, Email, DiaChi, HinhAnh, GhiChu, TrangThai) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+    String update_SQL = "UPDATE NhanVien SET TenNV = ?, GioiTinh = ? , CCCD = ? , SDT = ? , Email = ? , DiaChi = ? , HinhAnh = ? , GhiChu = ? , TrangThai = ? WHERE MaNV = ?";
     String delete_SQL = "DELETE dbo.NhanVien WHERE MaNV =?";
     String select_All_SQL = "SELECT * FROM dbo.NhanVien";
     String select_ByID_SQL = "SELECT * FROM dbo.NhanVien WHERE MaNV=?";
@@ -27,12 +27,14 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
 
     @Override
     public void insert(NhanVien entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaNV(), entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVu(), entity.getGhiChu(), entity.getHinhAnh());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaNV(), entity.getMaTK(), entity.getTenNV(),entity.isGioiTinh(),  entity.getCCCD(), 
+                entity.getSDT(), entity.getEmail(), entity.getDiaChi(), entity.getHinhAnh(),entity.getGhiChu(),entity.getTrangThai() );
     }
 
     @Override
     public void update(NhanVien entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), entity.getSDT(), entity.getGmail(), entity.isChucVu(), entity.getGhiChu(), entity.getHinhAnh(), entity.getMaNV());
+        XJdbc.executeUpdate(update_SQL, entity.getTenNV(), entity.isGioiTinh(), entity.getCCCD(), 
+                entity.getSDT(), entity.getEmail(), entity.getDiaChi(), entity.getHinhAnh(), entity.getGhiChu(),entity.getTrangThai(), entity.getMaNV());
     }
     public void updateHA(String DuongDan , String maNV){
         XJdbc.executeUpdate(update_SQL_HinhAnh,DuongDan,maNV);
@@ -85,14 +87,16 @@ public class NhanVienDAO extends QLPK<NhanVien, String> {
             while (rs.next()) {
                 NhanVien entity = new NhanVien();
                 entity.setMaNV(rs.getString("MaNV"));
+                entity.setMaTK(rs.getString("MaTK"));
                 entity.setTenNV(rs.getString("TenNV"));
                 entity.setGioiTinh(rs.getBoolean("GioiTinh"));
                 entity.setCCCD(rs.getString("CCCD"));
                 entity.setSDT(rs.getString("SDT"));
-                entity.setGmail(rs.getString("Gmail"));
-                entity.setChucVu(rs.getBoolean("ChucVu"));
+                entity.setEmail(rs.getString("Gmail"));
                 entity.setGhiChu(rs.getString("GhiChu"));
                 entity.setHinhAnh(rs.getString("HinhAnh"));
+                entity.setTrangThai(rs.getString("TrangThai"));
+                entity.setDiaChi(rs.getString("DiaChi"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

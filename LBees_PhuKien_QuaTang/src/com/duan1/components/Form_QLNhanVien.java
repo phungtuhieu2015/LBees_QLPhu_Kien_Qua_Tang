@@ -33,383 +33,384 @@ import javax.swing.table.TableRowSorter;
  * @author ASUS
  */
 public class Form_QLNhanVien extends javax.swing.JPanel {
-
-    DefaultTableModel modelNV = new DefaultTableModel();
-    List<NhanVien> listNV = new ArrayList<>();
-    NhanVienDAO daoNV = new NhanVienDAO();
-    MainJFrame frame = new MainJFrame();
-    int index;
-    String maNV = "";
-
-    /**
-     * Creates new form Form_QLKhachHang
-     */
-    public Form_QLNhanVien() {
-        initComponents();
-        init();
-        TimKiem();
-    }
-
-    public void init() {
-        setHint();
-        initTable();
-        loadDaTa();
-        initComboBox();
-        
-       
-    }
-    public void tt(){
-         try {
-            maNV = "NV" + daoNV.initID();
-            txtMaNV.setText(maNV);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setHint() {
-        txtMaNV.setLabelText("Mã nhân viên");
-        txtSDT.setLabelText("Số điện thoại");
-        txtTenNV.setLabelText("Tên nhân viên");
-        txtCCCD.setLabelText("Căn cước công dân");
-        txtGmail.setLabelText("Gmail");
-        txtTieuDeGhiChu.setLabelText("Ghi chú");
-        txtTimKiem.setHintText("Tìm theo mã, tên nhân viên");
-        txtHinh.setVisible(false);
-    }
-
-    public boolean check() {
-        if (txtMaNV.getText().trim().isEmpty()) {
-            Msgbox.waring(frame, "Mã nhân viên không được để trống!");
-            return false;
-        }
-        if (!txtMaNV.getText().matches("(?i)[NV]{2}\\d{5}")) {
-            Msgbox.waring(frame, "Mã nhân viên không hợp lệ!(NV00001)");
-            return false;
-        }
-        if (txtTenNV.getText().trim().isEmpty()) {
-            Msgbox.waring(frame, "Tên nhân viên không được để trống!");
-            return false;
-        }
-        if (!txtTenNV.getText().matches("^([A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơưăêâưôđ']+)((\s{1}[A-Za-zĐỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ']+){1,})$")) {
-            Msgbox.waring(frame, "Tên nhân viên không hợp lệ!(Trần Tấn Khanh)");
-            return false;
-        }
-        if (txtSDT.getText().trim().isEmpty()) {
-            Msgbox.waring(frame, "Số điện thoại không được để trống không được để trống!");
-            return false;
-        }
-        if (!txtSDT.getText().matches("^0[9384]{1}\\d{8}$")) {
-            Msgbox.waring(frame, "Số điện thoại không hợp lệ!(0829232859)");
-            return false;
-        }
-        if (txtCCCD.getText().trim().isEmpty()) {
-            Msgbox.waring(frame, "Căn cước công dân không được để trống!");
-            return false;
-        }
-        if (!txtCCCD.getText().matches("^\\d{12}$")) {
-            Msgbox.waring(frame, "Căn cước công dân không hợp lệ!(109876547817)");
-            return false;
-        }
-        if (rdoNam.isSelected() == false && rdoNu.isSelected() == false) {
-            Msgbox.waring(frame, "Bạn chưa chọn giới tính!");
-            return false;
-        }
-        if (txtGmail.getText().trim().isEmpty()) {
-            Msgbox.waring(frame, "Gmail không được để trống!");
-            return false;
-        }
-        if (!txtGmail.getText().matches("^\\w+@gmail\\.com$")) {
-            Msgbox.waring(frame, "Gmail không hợp lệ!(khanh@gmail.com)");
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkCode() {
-        if (txtMaNV.getText().trim().isEmpty()) {
-            Msgbox.waring(frame, "Mã nhân viên không được để trống!");
-            return false;
-        }
-        listNV = daoNV.selectAll();
-        for (NhanVien n : listNV) {
-            if (n.getMaNV().equalsIgnoreCase(txtMaNV.getText())) {
-                return true;
-            }
-        }
-        Msgbox.waring(frame, "Mã nhân viên không tồn tại!");
-        return false;
-
-    }
-
-    public boolean checkUnique() {
-        listNV = daoNV.selectAll();
-        for (NhanVien n : listNV) {
-            if (n.getMaNV().equalsIgnoreCase(txtMaNV.getText())) {
-                Msgbox.waring(frame, "Mã nhân viên đã tồn tại!");
-                return false;
-            }
-        }
-        for (NhanVien n : listNV) {
-            if (n.getSDT().equalsIgnoreCase(txtSDT.getText())) {
-                Msgbox.waring(frame, "Số điện thoại đã tồn tại!");
-                return false;
-            }
-        }
-        for (NhanVien n : listNV) {
-            if (n.getCCCD().equalsIgnoreCase(txtCCCD.getText())) {
-                Msgbox.waring(frame, "Căc cước công dân đã tồn tại!");
-                return false;
-            }
-        }
-        for (NhanVien n : listNV) {
-            if (n.getGmail().equalsIgnoreCase(txtGmail.getText())) {
-                Msgbox.waring(frame, "Gmail đã tồn tại!");
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public void TimKiem() {
-        txtTimKiem.setHintText("Nhập mã hoặc tên tài khoản");
-        txtTimKiem.addEvent(new EventTextField() {
-            @Override
-            public void onPressed(EventCallBack call) {
-                //  Test
-                try {
-                    for (int i = 1; i <= 100; i++) {
-
-                        Thread.sleep(5);
-                    }
-                    call.done();
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        });
-    }
-
-    public void initComboBox() {
-        Object[] rows = new Object[]{"Quản lý", "Nhân viên"};
-        cboChucVu.setModel(new DefaultComboBoxModel(rows));
-    }
-
-    public void initTable() {
-        String[] cols = new String[]{"Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "CCCD", "SDT", "Gmail", "Chức Vụ", "Ghi chú", "Hình ảnh"};
-        modelNV.setColumnIdentifiers(cols);
-        tblNhanVien.setModel(modelNV);
-    }
-
-    public void loadDaTa() {
-        while (modelNV.getRowCount() > 0) {
-            modelNV.removeRow(0);
-        }
-        listNV = daoNV.selectAll();
-        for (NhanVien n : listNV) {
-            Object[] Rows = new Object[]{n.getMaNV(), n.getTenNV(), n.isGioiTinh() ? "Nam" : "Nữ", n.getCCCD(), n.getSDT(), n.getGmail(), n.isChucVu() ? "Quản lý" : "Nhân viên", n.getGhiChu(), n.getHinhAnh()};
-            modelNV.addRow(Rows);
-        }
-    }
-
-    public void findIdAndName(String IdAndName) {
-        modelNV = (DefaultTableModel) tblNhanVien.getModel();
-        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(modelNV);
-        tblNhanVien.setRowSorter(trs);
-        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
-    }
-
-    public NhanVien getForm() {
-        NhanVien n = new NhanVien();
-        n.setMaNV(txtMaNV.getText());
-        n.setTenNV(txtTenNV.getText());
-        if (rdoNam.isSelected()) {
-            n.setGioiTinh(true);
-        } else {
-            n.setGioiTinh(false);
-        }
-        n.setCCCD(txtCCCD.getText());
-        n.setSDT(txtSDT.getText());
-        n.setGmail(txtGmail.getText());
-        if (String.valueOf(cboChucVu.getSelectedItem()).equalsIgnoreCase("Quản lý")) {
-            n.setChucVu(true);
-        } else {
-            n.setChucVu(false);
-        }
-        n.setHinhAnh(txtHinh.getText());
-        n.setGhiChu(txtGhiChu.getText());
-        return n;
-    }
-
-    public void setForm(NhanVien n) {
-        txtMaNV.setText(n.getMaNV());
-        txtTenNV.setText(n.getTenNV());
-        if (n.isGioiTinh()) {
-            rdoNam.setSelected(true);
-        } else {
-            rdoNu.setSelected(true);
-        }
-        txtCCCD.setText(n.getCCCD());
-        txtSDT.setText(txtSDT.getText());
-        txtGmail.setText(n.getGmail());
-        txtHinh.setText(n.getHinhAnh());
-        if (n.isChucVu()) {
-            cboChucVu.setSelectedItem("Quản lý");
-        } else {
-            cboChucVu.setSelectedItem("Nhân viên");
-        }
-        txtGhiChu.setText(n.getGhiChu());
-    }
-
-    public void display(int index) {
-        NhanVien n = listNV.get(index);
-        txtMaNV.setText(n.getMaNV());
-        txtTenNV.setText(n.getTenNV());
-        txtSDT.setText(n.getSDT());
-        if (n.isGioiTinh()) {
-            rdoNam.setSelected(true);
-        } else {
-            rdoNu.setSelected(true);
-        }
-        txtCCCD.setText(n.getCCCD());
-        txtSDT.setText(n.getSDT());
-        txtGmail.setText(n.getGmail());
-        txtHinh.setText(n.getHinhAnh());
-        if (n.isChucVu()) {
-            cboChucVu.setSelectedItem("Quản lý");
-        } else {
-            cboChucVu.setSelectedItem("Nhân viên");
-        }
-        txtGhiChu.setText(n.getGhiChu());
-        ImgHelper m = new ImgHelper();
-        m.loadHinhVaoForm(String.valueOf(n.getHinhAnh()), lblHinh);
-    }
-
-    public void clear() {
-        txtMaNV.setText("");
-        txtTenNV.setText("");
-        rdoNam.setSelected(false);
-        rdoNu.setSelected(false);
-
-        txtCCCD.setText("");
-        txtSDT.setText("");
-        txtGmail.setText("");
-        cboChucVu.setSelectedItem("Quản lý");
-        txtHinh.setText("");
-        txtGhiChu.setText("");
-    }
-
-    public void insert() {
-        try {
-            NhanVien n = new NhanVien();
-            n = getForm();
-            if (n != null) {
-                daoNV.insert(n);
-                loadDaTa();
-                Msgbox.success(frame, "Thêm thành công");
-                clear();
-            }
-        } catch (Exception ex) {
-            Msgbox.waring(frame, "Mã nhân viên đã tồn tại!");
-            throw new RuntimeException(ex);
-
-        }
-        tt();
-    }
-
-    public void update() {
-        try {
-            NhanVien n = new NhanVien();
-            n = getForm();
-            if (n != null) {
-                daoNV.update(n);
-                loadDaTa();
-                clear();
-                Msgbox.success(frame, "Thêm thành công");
-            }
-            frame.setavatar();
-        } catch (Exception ex) {
-            Msgbox.waring(frame, "Mã nhân viên không tồn tại");
-            throw new RuntimeException(ex);
-        }
-        tt();
-    }
-
-    public void delete() {
-        SanPhamDAO daoSP = new SanPhamDAO();
-        List<SanPham> listSP = daoSP.selectAll();
-        for (SanPham s : listSP) {
-            if (s.getMaNV().equals(txtMaNV.getText())) {
-                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
-                return;
-            }
-        }
-        for (SanPham s : listSP) {
-            if (s.getMaNV().equals(txtMaNV.getText())) {
-                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
-            }
-        }
-        try {
-            if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
-                daoNV.delete(txtMaNV.getText());
-                loadDaTa();
-                Msgbox.waring(frame, "Xóa thành công!");
-                clear();
-            }
-        } catch (Exception ex) {
-            Msgbox.waring(frame, "Mã nhân viên không tồn tại");
-            throw new RuntimeException(ex);
-        }
-        tt();
-    }
-
-    public void edit() {
-        tblNhanVien.setRowSelectionInterval(index, index);
-        display(index);
-    }
-    //fist
-
-    public void firs() {
-        index = 0;
-        edit();
-        Msgbox.infoCT(frame, "Đang ở đầu danh sách nhân viên");
-    }
-
-    //end
-    public void last() {
-        index = listNV.size() - 1;
-        edit();
-        Msgbox.infoCT(frame, "Đang ở cuối danh sách nhân viên");
-    }
-
-    //prev
-    public void prev() {
-        if (index <= 0) {
-            last();
-        } else {
-            index--;
-        }
-        edit();
-
-    }
-
-    //next
-    public void next() {
-        if (index == listNV.size() - 1) {
-            firs();
-        } else {
-            index++;
-        }
-        edit();
-
-    }
-    private javax.swing.JFileChooser FileChooser;
+//
+//    DefaultTableModel modelNV = new DefaultTableModel();
+//    List<NhanVien> listNV = new ArrayList<>();
+//    NhanVienDAO daoNV = new NhanVienDAO();
+//    MainJFrame frame = new MainJFrame();
+//    int index;
+//    String maNV = "";
+//
+//    /**
+//     * Creates new form Form_QLKhachHang
+//     */
+//    public Form_QLNhanVien() {
+//        initComponents();
+//        init();
+//        TimKiem();
+//    }
+//
+//    public void init() {
+//        tt();
+//        setHint();
+//        initTable();
+//        loadDaTa();
+//        initComboBox();
+//        
+//       
+//    }
+//    public void tt(){
+//         try {
+//            maNV = "NV" + daoNV.initID();
+//            txtMaNV.setText(maNV);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    public void setHint() {
+//        txtMaNV.setLabelText("Mã nhân viên");
+//        txtSDT.setLabelText("Số điện thoại");
+//        txtTenNV.setLabelText("Tên nhân viên");
+//        txtCCCD.setLabelText("Căn cước công dân");
+//        txtGmail.setLabelText("Gmail");
+//        txtTieuDeGhiChu.setLabelText("Ghi chú");
+//        txtTimKiem.setHintText("Tìm theo mã, tên nhân viên");
+//        txtHinh.setVisible(false);
+//    }
+//
+//    public boolean check() {
+//        if (txtMaNV.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Mã nhân viên không được để trống!");
+//            return false;
+//        }
+//        if (!txtMaNV.getText().matches("(?i)[NV]{2}\\d{5}")) {
+//            Msgbox.waring(frame, "Mã nhân viên không hợp lệ!(NV00001)");
+//            return false;
+//        }
+//        if (txtTenNV.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Tên nhân viên không được để trống!");
+//            return false;
+//        }
+//        if (!txtTenNV.getText().matches("^([A-Za-zỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơưăêâưôđ']+)((\s{1}[A-Za-zĐỳọáầảấờễàạằệếýộậốũứĩõúữịỗìềểẩớặòùồợãụủíỹắẫựỉỏừỷởóéửỵẳẹèẽổẵẻỡơôưăêâđ']+){1,})$")) {
+//            Msgbox.waring(frame, "Tên nhân viên không hợp lệ!(Trần Tấn Khanh)");
+//            return false;
+//        }
+//        if (txtSDT.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Số điện thoại không được để trống không được để trống!");
+//            return false;
+//        }
+//        if (!txtSDT.getText().matches("^0[9384]{1}\\d{8}$")) {
+//            Msgbox.waring(frame, "Số điện thoại không hợp lệ!(0829232859)");
+//            return false;
+//        }
+//        if (txtCCCD.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Căn cước công dân không được để trống!");
+//            return false;
+//        }
+//        if (!txtCCCD.getText().matches("^\\d{12}$")) {
+//            Msgbox.waring(frame, "Căn cước công dân không hợp lệ!(109876547817)");
+//            return false;
+//        }
+//        if (rdoNam.isSelected() == false && rdoNu.isSelected() == false) {
+//            Msgbox.waring(frame, "Bạn chưa chọn giới tính!");
+//            return false;
+//        }
+//        if (txtGmail.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Gmail không được để trống!");
+//            return false;
+//        }
+//        if (!txtGmail.getText().matches("^\\w+@gmail\\.com$")) {
+//            Msgbox.waring(frame, "Gmail không hợp lệ!(khanh@gmail.com)");
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    public boolean checkCode() {
+//        if (txtMaNV.getText().trim().isEmpty()) {
+//            Msgbox.waring(frame, "Mã nhân viên không được để trống!");
+//            return false;
+//        }
+//        listNV = daoNV.selectAll();
+//        for (NhanVien n : listNV) {
+//            if (n.getMaNV().equalsIgnoreCase(txtMaNV.getText())) {
+//                return true;
+//            }
+//        }
+//        Msgbox.waring(frame, "Mã nhân viên không tồn tại!");
+//        return false;
+//
+//    }
+//
+//    public boolean checkUnique() {
+//        listNV = daoNV.selectAll();
+//        for (NhanVien n : listNV) {
+//            if (n.getMaNV().equalsIgnoreCase(txtMaNV.getText())) {
+//                Msgbox.waring(frame, "Mã nhân viên đã tồn tại!");
+//                return false;
+//            }
+//        }
+//        for (NhanVien n : listNV) {
+//            if (n.getSDT().equalsIgnoreCase(txtSDT.getText())) {
+//                Msgbox.waring(frame, "Số điện thoại đã tồn tại!");
+//                return false;
+//            }
+//        }
+//        for (NhanVien n : listNV) {
+//            if (n.getCCCD().equalsIgnoreCase(txtCCCD.getText())) {
+//                Msgbox.waring(frame, "Căc cước công dân đã tồn tại!");
+//                return false;
+//            }
+//        }
+//        for (NhanVien n : listNV) {
+//            if (n.getGmail().equalsIgnoreCase(txtGmail.getText())) {
+//                Msgbox.waring(frame, "Gmail đã tồn tại!");
+//                return false;
+//            }
+//        }
+//
+//        return true;
+//    }
+//
+//    public void TimKiem() {
+//        txtTimKiem.setHintText("Nhập mã hoặc tên tài khoản");
+//        txtTimKiem.addEvent(new EventTextField() {
+//            @Override
+//            public void onPressed(EventCallBack call) {
+//                //  Test
+//                try {
+//                    for (int i = 1; i <= 100; i++) {
+//
+//                        Thread.sleep(5);
+//                    }
+//                    call.done();
+//                } catch (Exception e) {
+//                    System.err.println(e);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//        });
+//    }
+//
+//    public void initComboBox() {
+//        Object[] rows = new Object[]{"Quản lý", "Nhân viên"};
+//        cboChucVu.setModel(new DefaultComboBoxModel(rows));
+//    }
+//
+//    public void initTable() {
+//        String[] cols = new String[]{"Mã Nhân Viên", "Tên Nhân Viên", "Giới Tính", "CCCD", "SDT", "Gmail", "Chức Vụ", "Ghi chú", "Hình ảnh"};
+//        modelNV.setColumnIdentifiers(cols);
+//        tblNhanVien.setModel(modelNV);
+//    }
+//
+//    public void loadDaTa() {
+//        while (modelNV.getRowCount() > 0) {
+//            modelNV.removeRow(0);
+//        }
+//        listNV = daoNV.selectAll();
+//        for (NhanVien n : listNV) {
+//            Object[] Rows = new Object[]{n.getMaNV(), n.getTenNV(), n.isGioiTinh() ? "Nam" : "Nữ", n.getCCCD(), n.getSDT(), n.getGmail(), n.isChucVu() ? "Quản lý" : "Nhân viên", n.getGhiChu(), n.getHinhAnh()};
+//            modelNV.addRow(Rows);
+//        }
+//    }
+//
+//    public void findIdAndName(String IdAndName) {
+//        modelNV = (DefaultTableModel) tblNhanVien.getModel();
+//        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(modelNV);
+//        tblNhanVien.setRowSorter(trs);
+//        trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0, 1));
+//    }
+//
+//    public NhanVien getForm() {
+//        NhanVien n = new NhanVien();
+//        n.setMaNV(txtMaNV.getText());
+//        n.setTenNV(txtTenNV.getText());
+//        if (rdoNam.isSelected()) {
+//            n.setGioiTinh(true);
+//        } else {
+//            n.setGioiTinh(false);
+//        }
+//        n.setCCCD(txtCCCD.getText());
+//        n.setSDT(txtSDT.getText());
+//        n.setGmail(txtGmail.getText());
+//        if (String.valueOf(cboChucVu.getSelectedItem()).equalsIgnoreCase("Quản lý")) {
+//            n.setChucVu(true);
+//        } else {
+//            n.setChucVu(false);
+//        }
+//        n.setHinhAnh(txtHinh.getText());
+//        n.setGhiChu(txtGhiChu.getText());
+//        return n;
+//    }
+//
+//    public void setForm(NhanVien n) {
+//        txtMaNV.setText(n.getMaNV());
+//        txtTenNV.setText(n.getTenNV());
+//        if (n.isGioiTinh()) {
+//            rdoNam.setSelected(true);
+//        } else {
+//            rdoNu.setSelected(true);
+//        }
+//        txtCCCD.setText(n.getCCCD());
+//        txtSDT.setText(txtSDT.getText());
+//        txtGmail.setText(n.getGmail());
+//        txtHinh.setText(n.getHinhAnh());
+//        if (n.isChucVu()) {
+//            cboChucVu.setSelectedItem("Quản lý");
+//        } else {
+//            cboChucVu.setSelectedItem("Nhân viên");
+//        }
+//        txtGhiChu.setText(n.getGhiChu());
+//    }
+//
+//    public void display(int index) {
+//        NhanVien n = listNV.get(index);
+//        txtMaNV.setText(n.getMaNV());
+//        txtTenNV.setText(n.getTenNV());
+//        txtSDT.setText(n.getSDT());
+//        if (n.isGioiTinh()) {
+//            rdoNam.setSelected(true);
+//        } else {
+//            rdoNu.setSelected(true);
+//        }
+//        txtCCCD.setText(n.getCCCD());
+//        txtSDT.setText(n.getSDT());
+//        txtGmail.setText(n.getGmail());
+//        txtHinh.setText(n.getHinhAnh());
+//        if (n.isChucVu()) {
+//            cboChucVu.setSelectedItem("Quản lý");
+//        } else {
+//            cboChucVu.setSelectedItem("Nhân viên");
+//        }
+//        txtGhiChu.setText(n.getGhiChu());
+//        ImgHelper m = new ImgHelper();
+//        m.loadHinhVaoForm(String.valueOf(n.getHinhAnh()), lblHinh);
+//    }
+//
+//    public void clear() {
+//        txtMaNV.setText("");
+//        txtTenNV.setText("");
+//        rdoNam.setSelected(false);
+//        rdoNu.setSelected(false);
+//
+//        txtCCCD.setText("");
+//        txtSDT.setText("");
+//        txtGmail.setText("");
+//        cboChucVu.setSelectedItem("Quản lý");
+//        txtHinh.setText("");
+//        txtGhiChu.setText("");
+//    }
+//
+//    public void insert() {
+//        try {
+//            NhanVien n = new NhanVien();
+//            n = getForm();
+//            if (n != null) {
+//                daoNV.insert(n);
+//                loadDaTa();
+//                Msgbox.success(frame, "Thêm thành công");
+//                clear();
+//            }
+//        } catch (Exception ex) {
+//            Msgbox.waring(frame, "Mã nhân viên đã tồn tại!");
+//            throw new RuntimeException(ex);
+//
+//        }
+//        tt();
+//    }
+//
+//    public void update() {
+//        try {
+//            NhanVien n = new NhanVien();
+//            n = getForm();
+//            if (n != null) {
+//                daoNV.update(n);
+//                loadDaTa();
+//                clear();
+//                Msgbox.success(frame, "Thêm thành công");
+//            }
+//            frame.setavatar();
+//        } catch (Exception ex) {
+//            Msgbox.waring(frame, "Mã nhân viên không tồn tại");
+//            throw new RuntimeException(ex);
+//        }
+//        tt();
+//    }
+//
+//    public void delete() {
+//        SanPhamDAO daoSP = new SanPhamDAO();
+//        List<SanPham> listSP = daoSP.selectAll();
+//        for (SanPham s : listSP) {
+//            if (s.getMaNV().equals(txtMaNV.getText())) {
+//                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
+//                return;
+//            }
+//        }
+//        for (SanPham s : listSP) {
+//            if (s.getMaNV().equals(txtMaNV.getText())) {
+//                Msgbox.success(frame, "Nhân viên này đang quản lý sản phẩm");
+//            }
+//        }
+//        try {
+//            if (Msgbox.yesNo("bạn có muốn xóa", "bạn chắc chắn không???")) {
+//                daoNV.delete(txtMaNV.getText());
+//                loadDaTa();
+//                Msgbox.waring(frame, "Xóa thành công!");
+//                clear();
+//            }
+//        } catch (Exception ex) {
+//            Msgbox.waring(frame, "Mã nhân viên không tồn tại");
+//            throw new RuntimeException(ex);
+//        }
+//        tt();
+//    }
+//
+//    public void edit() {
+//        tblNhanVien.setRowSelectionInterval(index, index);
+//        display(index);
+//    }
+//    //fist
+//
+//    public void firs() {
+//        index = 0;
+//        edit();
+//        Msgbox.infoCT(frame, "Đang ở đầu danh sách nhân viên");
+//    }
+//
+//    //end
+//    public void last() {
+//        index = listNV.size() - 1;
+//        edit();
+//        Msgbox.infoCT(frame, "Đang ở cuối danh sách nhân viên");
+//    }
+//
+//    //prev
+//    public void prev() {
+//        if (index <= 0) {
+//            last();
+//        } else {
+//            index--;
+//        }
+//        edit();
+//
+//    }
+//
+//    //next
+//    public void next() {
+//        if (index == listNV.size() - 1) {
+//            firs();
+//        } else {
+//            index++;
+//        }
+//        edit();
+//
+//    }
+//    private javax.swing.JFileChooser FileChooser;
 
 //    public void ChonHinh() {
 //        FileChooser = new javax.swing.JFileChooser();
@@ -740,40 +741,22 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNhanVienMouseClicked
-            Tabpane.setSelectedIndex(0);
-            index = tblNhanVien.getSelectedRow();
-            display(index);
-            loadDaTa();
     }//GEN-LAST:event_tblNhanVienMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (check()) {
-            if (checkUnique()) {
-                insert();
-            }
-        }
 
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
 
-        if (check()) {
-            if (checkCode()) {
-                update();
-            }
-        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
 
-        if (checkCode()) {
-            delete();
-        }
 
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-        clear();
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void rdoNamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoNamActionPerformed
@@ -786,33 +769,26 @@ public class Form_QLNhanVien extends javax.swing.JPanel {
 
     private void lblHinhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblHinhMouseClicked
         // TODO add your handling code here:
-        ImgHelper n = new ImgHelper();
-        n.ChonHinh(frame, lblHinh, txtHinh);
     }//GEN-LAST:event_lblHinhMouseClicked
 
     private void button6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button6ActionPerformed
         // TODO add your handling code here:
-        prev();
     }//GEN-LAST:event_button6ActionPerformed
 
     private void button7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button7ActionPerformed
         // TODO add your handling code here:
-        firs();
     }//GEN-LAST:event_button7ActionPerformed
 
     private void button8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button8ActionPerformed
         // TODO add your handling code here:
-        last();
     }//GEN-LAST:event_button8ActionPerformed
 
     private void button2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_button2ActionPerformed
         // TODO add your handling code here:
-        next();
     }//GEN-LAST:event_button2ActionPerformed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
         // TODO add your handling code here:
-        findIdAndName(txtTimKiem.getText());
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

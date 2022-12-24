@@ -9,19 +9,29 @@ package com.duan1.Entity;
  * @author MSI PC
  */
 public class HoaDonChiTiet {
-   int soLuong;	
-   double thanhTien;	
-   String maSP;	
-   String maHD;	
+
+    String maPNCT;
+    int soLuong;
+    String maSP;
+    String maHD;
 
     public HoaDonChiTiet() {
     }
-
-    public HoaDonChiTiet(int soLuong, double thanhTien, String maSP, String maHD) {
+    
+    
+    public HoaDonChiTiet(String maPNCT, int soLuong, String maSP, String maHD) {
+        this.maPNCT = maPNCT;
         this.soLuong = soLuong;
-        this.thanhTien = thanhTien;
         this.maSP = maSP;
         this.maHD = maHD;
+    }
+
+    public String getMaPNCT() {
+        return maPNCT;
+    }
+
+    public void setMaPNCT(String maPNCT) {
+        this.maPNCT = maPNCT;
     }
 
     public int getSoLuong() {
@@ -30,14 +40,6 @@ public class HoaDonChiTiet {
 
     public void setSoLuong(int soLuong) {
         this.soLuong = soLuong;
-    }
-
-    public double getThanhTien() {
-        return thanhTien;
-    }
-
-    public void setThanhTien(double thanhTien) {
-        this.thanhTien = thanhTien;
     }
 
     public String getMaSP() {
@@ -56,6 +58,4 @@ public class HoaDonChiTiet {
         this.maHD = maHD;
     }
 
-    
-	
 }

@@ -18,20 +18,24 @@ import java.util.List;
  */
 public class PhieuNhapChiTietDAO extends QLPK<PhieuNhapChiTiet, String> {
 
-    String insert_SQL = "INSERT INTO dbo.PhieuNhapChiTiet(MaPNK,MaSP,SoLuong,ThanhTien)VALUES(?,?,?,?)";
-    String update_SQL = "UPDATE dbo.PhieuNhapChiTiet SET MaSP=?,SoLuong=?,ThanhTien=? WHERE MaPNK =?";
+    String insert_SQL = "INSERT INTO PhieuNhapChiTiet (MaPNCT, MaPN, MaSP, SoLuongNhap, GiaNhap, GiaBan) VALUES (?,?,?,?,?,?)";
+    String update_SQL = "UPDATE PhieuNhapChiTiet SET MaPN = ?, MaSP = ?, SoLuongNhap = ?, GiaNhap = ?, GiaBan = ? WHERE MaPNCT = ?";
     String delete_SQL = "DELETE dbo.PhieuNhapChiTiet WHERE MaPNK =?";
     String select_All_SQL = "SELECT * FROM dbo.PhieuNhapChiTiet";
     String select_ByID_SQL = "SELECT * FROM dbo.PhieuNhapChiTiet WHERE MaPNK=?";
 
     @Override
     public void insert(PhieuNhapChiTiet entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaPNK(), entity.getMaSP(), entity.getSoLuong(), entity.getThanhTien());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaPNCT(), entity.getMaPN(),
+                entity.getMaSP(), entity.getSoLuongNhap(),
+                entity.getGiaNhap(),entity.getGiaBan());
     }
 
     @Override
     public void update(PhieuNhapChiTiet entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getMaSP(), entity.getSoLuong(), entity.getThanhTien(), entity.getMaPNK());
+        XJdbc.executeUpdate(update_SQL, entity.getMaPN(),
+                entity.getMaSP(), entity.getSoLuongNhap(),
+                entity.getGiaNhap(),entity.getGiaBan(),entity.getMaPNCT());
     }
 
     @Override

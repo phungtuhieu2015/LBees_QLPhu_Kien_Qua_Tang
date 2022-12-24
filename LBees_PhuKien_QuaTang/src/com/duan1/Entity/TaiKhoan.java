@@ -10,27 +10,29 @@ package com.duan1.Entity;
  */
 public class TaiKhoan {
 
-    String maTK;
+    String MaTK;
     String tenTK;
     String matKhau;
-    String maNV;
+    boolean chucVu;
+    String trangThai;
 
     public TaiKhoan() {
     }
 
-    public TaiKhoan(String maTK, String tenTK, String matKhau, String maNV) {
-        this.maTK = maTK;
+    public TaiKhoan(String MaTK, String tenTK, String matKhau, boolean chucVu, String trangThai) {
+        this.MaTK = MaTK;
         this.tenTK = tenTK;
         this.matKhau = matKhau;
-        this.maNV = maNV;
+        this.chucVu = chucVu;
+        this.trangThai = trangThai;
     }
 
     public String getMaTK() {
-        return maTK;
+        return MaTK;
     }
 
-    public void setMaTK(String maTK) {
-        this.maTK = maTK;
+    public void setMaTK(String MaTK) {
+        this.MaTK = MaTK;
     }
 
     public String getTenTK() {
@@ -49,14 +51,20 @@ public class TaiKhoan {
         this.matKhau = matKhau;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public boolean isChucVu() {
+        return chucVu;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public void setChucVu(boolean chucVu) {
+        this.chucVu = chucVu;
     }
-    
-    
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
 
 }

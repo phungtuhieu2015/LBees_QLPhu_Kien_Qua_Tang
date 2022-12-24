@@ -12,23 +12,35 @@ import java.util.Date;
  */
 public class PhieuNhapKho {
 
-    String maPNK;
+    String maPN;
+    String maNV;
     Date ngayNhap;
+    String ghiChu;
 
     public PhieuNhapKho() {
     }
 
-    public PhieuNhapKho(String maPNK, Date ngayNhap) {
-        this.maPNK = maPNK;
+    public PhieuNhapKho(String maPN, String maNV, Date ngayNhap, String ghiChu) {
+        this.maPN = maPN;
+        this.maNV = maNV;
         this.ngayNhap = ngayNhap;
+        this.ghiChu = ghiChu;
     }
 
-    public String getMaPNK() {
-        return maPNK;
+    public String getMaPN() {
+        return maPN;
     }
 
-    public void setMaPNK(String maPNK) {
-        this.maPNK = maPNK;
+    public void setMaPN(String maPN) {
+        this.maPN = maPN;
+    }
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public Date getNgayNhap() {
@@ -39,6 +51,12 @@ public class PhieuNhapKho {
         this.ngayNhap = ngayNhap;
     }
 
-    
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
 
 }

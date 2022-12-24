@@ -20,11 +20,11 @@ import java.util.List;
  */
 public class KhachHangDAO extends QLPK<KhachHang, String> {
 
-    String insert_SQL = "INSERT dbo.KhachHang(MaKH,TenKH,SDT,DiemTichLuy)VALUES(?,?,?,?)";
-    String update_SQL = "UPDATE dbo.KhachHang SET TenKH=? , SDT=? ,DiemTichLuy=? WHERE MaKH=?";
-    String delete_SQL = "DELETE dbo.KhachHang WHERE MaKH =?";
-    String select_All_SQL = "SELECT * FROM dbo.KhachHang";
-    String select_ByID_SQL = "SELECT * FROM dbo.KhachHang WHERE MaKH=?";
+    String insert_SQL = "INSERT INTO KhachHang (MaKH, TenKH, SDT, DiemTichLuy) VALUES  (?,?,?,?)";
+    String update_SQL = "UPDATE KhachHang SET  TenKH = ?, SDT = ?, DiemTichLuy = ? WHERE MaKH = ?";
+    String delete_SQL = "DELETE FROM KhachHang WHERE MaKH = ?";
+    String select_All_SQL = "SELECT * FROM KhachHang";
+    String select_ByID_SQL = "SELECT * FROM KhachHang WHERE MaKH= ? ";
 //    String select_Max_ID = "SELECT MAX(SUBSTRING(MaKH,LEN(MaKH) - 4,LEN(MaKH))) FROM dbo.KhachHang";
     String select_Max_ID = "SELECT MAX(MaKH) FROM dbo.KhachHang";
 

@@ -2,7 +2,6 @@ package com.duan1.components;
 
 import com.duan1.DAO.TaiKhoanDAO;
 import com.duan1.Entity.KhachHang;
-import com.duan1.Entity.QuaTang;
 import com.duan1.Entity.TaiKhoan;
 import com.duan1.Helper.Msgbox;
 import com.duan1.Helper.XDate;
@@ -25,276 +24,276 @@ import javax.swing.table.TableRowSorter;
  */
 public class Form_QLTaiKhoan extends javax.swing.JPanel {
 
-    TaiKhoanDAO daoTK = new TaiKhoanDAO();
-    MainJFrame frame = new MainJFrame();
-    List<TaiKhoan> listTK = daoTK.selectAll();
-    MessageDialog mdl = new MessageDialog(frame);
-    DefaultTableModel model ;
-    public int index;
-    String maTK = "";
-    public Form_QLTaiKhoan() {
-        initComponents();
-        setHin();
-        TimKiem();
-        ThanhTruotTK();
-        loadDataQLTK();
-        lblIconAn.setVisible(false);
-        init();
-    }
-    //gán tên lên textfile
-    public void setHin() {
-        txtMaTaiKhoan.setHint("Nhập mã tài khoản");
-        txtMatKhau.setHint("Nhập mật khẩu");
-        txtTaiKhoan.setHint("Nhập tên tài khoản");
-        //đổi con chuột
-        
-        txtTimKiem.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        Tabpane.setCursor(new Cursor(Cursor.HAND_CURSOR));
-       
-    }
-    public void init (){
-          try {
-            maTK = "TK" + daoTK.initID();
-            txtMaTaiKhoan.setText(maTK);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    //tạo animition cho thanh tìm kiếm
-    public void TimKiem() {
-        txtTimKiem.setHintText("Nhập mã hoặc tên tài khoản");
-        txtTimKiem.addEvent(new EventTextField() {
-            @Override
-            public void onPressed(EventCallBack call) {
-                //  Test
-                try {
-                    for (int i = 1; i <= 100; i++) {
-
-                        Thread.sleep(5);
-                    }
-                    call.done();
-                } catch (Exception e) {
-                    System.err.println(e);
-                }
-            }
-
-            @Override
-            public void onCancel() {
-
-            }
-        });
-    }
-
-    //tạo thanh trượt trong table
-    public void ThanhTruotTK() {
-        ScrollTK.setVerticalScrollBar(new ScrollBarCustom());
-    }
-    
-    //load dữ liệu lên bảng
-    public void loadDataQLTK() {
-        DefaultTableModel model = (DefaultTableModel) tblQLTK.getModel();
-        model.setRowCount(0);
-        listTK = daoTK.selectAll();
-        try {
-            for (TaiKhoan tk : listTK) {
-
-                Object[] row = {
-                    tk.getMaTK(),
-                    tk.getTenTK(),
-                    tk.getMatKhau()
-                };
-                model.addRow(row);
-            }
-
-        } catch (Exception e) {
-            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.CENTER, "Lỗi thêm dữ liệu vào tài khoản");
-            noti.showNotification();
-        }
-    }
-    
-    //lấy nhập  trên textfiled
-    public void setForm(TaiKhoan tk) {
-        TaiKhoan hd = daoTK.selectByid(tk.getMaTK());
-        txtMaTaiKhoan.setText(tk.getMaTK());
-        txtTaiKhoan.setText(tk.getTenTK());
-        txtMatKhau.setText(tk.getMatKhau());
-
-    }
-    
-    //lấy giá trị của bảng
-    public void display(int index) {
-        TaiKhoan taiKhoan = listTK.get(index);
-        setForm(taiKhoan);
-    }
-    
-    //hỗ trợ thêm sửa xoá
-    public TaiKhoan getForm() {
-        TaiKhoan tk = new TaiKhoan();
-        tk.setMaTK(txtMaTaiKhoan.getText());
-        tk.setTenTK(txtTaiKhoan.getText());
-        tk.setMatKhau(txtMatKhau.getText());
-        return tk;
-    }
-    
-    //xoá sạch bảng
-    public void clear() {
-        txtMaTaiKhoan.setText("");
-        txtTaiKhoan.setText("");
-        txtMatKhau.setText("");
-    }
-    
-    //kiểm trả lỗi
-    public boolean check() {
-
-        try {
-            if (txtMaTaiKhoan.getText().trim().isEmpty()) {
-                Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mã tài khoản");
-                noti.showNotification();
-                return false;
-            }
-            if (txtMaTaiKhoan.getText().length() > 11) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Mã tài khoản phải dưới 10 kí tự");
-            noti.showNotification();
-            return false;
-        }
-        } catch (Exception e) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Lỗi trùng mã");
-            noti.showNotification();
-        }
-        
-
-        if (txtTaiKhoan.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống tên tài khoản");
-            noti.showNotification();
-            return false;
-        }
-        if (txtMatKhau.getText().trim().isEmpty()) {
-            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mật khẩu");
-            noti.showNotification();
-            return false;
-        }
-        return true;
-    }
-
-    //tạo nút thêm
-    public void Them() {
-        TaiKhoan tk = getForm();
-
-        if (tk != null) {
-            try {
-                daoTK.insert(tk);
-                loadDataQLTK();
-                clear();
-                Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm tài khoản thành công");
-                noti.showNotification();
-            } catch (Exception e) {
-                Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm tài khoản không thành công");
-                noti.showNotification();
-            }
-        }
-
-    }
-
-    //tạo nút cập nhật
-    public void capNhat() {
-     
-        TaiKhoan tk = getForm();
-         if (Msgbox.yesNo("bạn có muốn cập nhật tài khoản", "bạn chắc chắn không???")) {
-            daoTK.update(tk);
-            loadDataQLTK();
-            Msgbox.success(frame, "cập nhật tài khoản thành công");
-            Tabpane.setSelectedIndex(1);
-        } else {
-            Msgbox.waring(frame, "cập nhật tài khoản không thành công");
-        }
-   
-    }
-    
-    //tạo nút xoá
-    public void xoa() {
-        mdl.showMessage("XÓA TÀI KHOẢN", "Bạn có chắc chắn xóa tài khoản không");
-
-        if (mdl.getMessageType() == MessageDialog.MessageType.OK) {
-            String maKH = txtMaTaiKhoan.getText();
-            try {
-                daoTK.delete(maKH);
-                loadDataQLTK();
-                Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa tài khoản thành công");
-                noti.showNotification();
-            } catch (RuntimeException e) {
-                JOptionPane.showMessageDialog(this, "Loi xoa ");
-            }
-        }
-
-    }
-
-    //cập nhật tình trạng của 4 nút
-    public void updateStatus() {
-        if (index == 0) {
-            btnDauTien.setEnabled(false);
-            btnLui.setEnabled(false);
-        } else {
-            btnDauTien.setEnabled(true);
-            btnLui.setEnabled(true);
-        }
-        if (index == listTK.size() - 1) {
-            btnToi.setEnabled(false);
-            btnCuoi.setEnabled(false);
-        } else {
-            btnToi.setEnabled(true);
-            btnCuoi.setEnabled(true);
-        }
-    }
-
-    //lấy giá trị
-    public void edit() {
-        tblQLTK.setRowSelectionInterval(index, index);
-        display(index);
-        updateStatus();
-    }
-
-    //tạo nút quay lại hàng đầu tiên
-    public void firs() {
-        index = 0;
-         Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách!");
-        edit();
-    }
-
-    //tạo nút tới hàng cuối cùng
-    public void last() {
-        index = listTK.size() - 1;
-        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách!");
-        edit();
-    }
-
-    //tạo nút lùi lại 1 hàng
-    public void prev() {
-        if (index <= 0) {
-            last();
-        } else {
-            index--;
-        }
-        edit();
-
-    }
-
-    //tạo nút tới 1 hàng
-    public void next() {
-        if (index == listTK.size() - 1) {
-            firs();
-        } else {
-            index++;
-        }
-        edit();
-
-    }
-    
-    public void findIdAndName(String IdAndName) {
-        model = (DefaultTableModel) tblQLTK.getModel();
-        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
-        tblQLTK.setRowSorter(trs);
-         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0,1));
-    }
+//    TaiKhoanDAO daoTK = new TaiKhoanDAO();
+//    MainJFrame frame = new MainJFrame();
+//    List<TaiKhoan> listTK = daoTK.selectAll();
+//    MessageDialog mdl = new MessageDialog(frame);
+//    DefaultTableModel model ;
+//    public int index;
+//    String maTK = "";
+//    public Form_QLTaiKhoan() {
+//        initComponents();
+//        setHin();
+//        TimKiem();
+//        ThanhTruotTK();
+//        loadDataQLTK();
+//        lblIconAn.setVisible(false);
+//        init();
+//    }
+//    //gán tên lên textfile
+//    public void setHin() {
+//        txtMaTaiKhoan.setHint("Nhập mã tài khoản");
+//        txtMatKhau.setHint("Nhập mật khẩu");
+//        txtTaiKhoan.setHint("Nhập tên tài khoản");
+//        //đổi con chuột
+//        
+//        txtTimKiem.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//        Tabpane.setCursor(new Cursor(Cursor.HAND_CURSOR));
+//       
+//    }
+//    public void init (){
+//          try {
+//            maTK = "TK" + daoTK.initID();
+//            txtMaTaiKhoan.setText(maTK);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    //tạo animition cho thanh tìm kiếm
+//    public void TimKiem() {
+//        txtTimKiem.setHintText("Nhập mã hoặc tên tài khoản");
+//        txtTimKiem.addEvent(new EventTextField() {
+//            @Override
+//            public void onPressed(EventCallBack call) {
+//                //  Test
+//                try {
+//                    for (int i = 1; i <= 100; i++) {
+//
+//                        Thread.sleep(5);
+//                    }
+//                    call.done();
+//                } catch (Exception e) {
+//                    System.err.println(e);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//        });
+//    }
+//
+//    //tạo thanh trượt trong table
+//    public void ThanhTruotTK() {
+//        ScrollTK.setVerticalScrollBar(new ScrollBarCustom());
+//    }
+//    
+//    //load dữ liệu lên bảng
+//    public void loadDataQLTK() {
+//        DefaultTableModel model = (DefaultTableModel) tblQLTK.getModel();
+//        model.setRowCount(0);
+//        listTK = daoTK.selectAll();
+//        try {
+//            for (TaiKhoan tk : listTK) {
+//
+//                Object[] row = {
+//                    tk.getMaTK(),
+//                    tk.getTenTK(),
+//                    tk.getMatKhau()
+//                };
+//                model.addRow(row);
+//            }
+//
+//        } catch (Exception e) {
+//            Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.CENTER, "Lỗi thêm dữ liệu vào tài khoản");
+//            noti.showNotification();
+//        }
+//    }
+//    
+//    //lấy nhập  trên textfiled
+//    public void setForm(TaiKhoan tk) {
+//        TaiKhoan hd = daoTK.selectByid(tk.getMaTK());
+//        txtMaTaiKhoan.setText(tk.getMaTK());
+//        txtTaiKhoan.setText(tk.getTenTK());
+//        txtMatKhau.setText(tk.getMatKhau());
+//
+//    }
+//    
+//    //lấy giá trị của bảng
+//    public void display(int index) {
+//        TaiKhoan taiKhoan = listTK.get(index);
+//        setForm(taiKhoan);
+//    }
+//    
+//    //hỗ trợ thêm sửa xoá
+//    public TaiKhoan getForm() {
+//        TaiKhoan tk = new TaiKhoan();
+//        tk.setMaTK(txtMaTaiKhoan.getText());
+//        tk.setTenTK(txtTaiKhoan.getText());
+//        tk.setMatKhau(txtMatKhau.getText());
+//        return tk;
+//    }
+//    
+//    //xoá sạch bảng
+//    public void clear() {
+//        txtMaTaiKhoan.setText("");
+//        txtTaiKhoan.setText("");
+//        txtMatKhau.setText("");
+//    }
+//    
+//    //kiểm trả lỗi
+//    public boolean check() {
+//
+//        try {
+//            if (txtMaTaiKhoan.getText().trim().isEmpty()) {
+//                Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mã tài khoản");
+//                noti.showNotification();
+//                return false;
+//            }
+//            if (txtMaTaiKhoan.getText().length() > 11) {
+//            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Mã tài khoản phải dưới 10 kí tự");
+//            noti.showNotification();
+//            return false;
+//        }
+//        } catch (Exception e) {
+//            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Lỗi trùng mã");
+//            noti.showNotification();
+//        }
+//        
+//
+//        if (txtTaiKhoan.getText().trim().isEmpty()) {
+//            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống tên tài khoản");
+//            noti.showNotification();
+//            return false;
+//        }
+//        if (txtMatKhau.getText().trim().isEmpty()) {
+//            Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Không được để trống mật khẩu");
+//            noti.showNotification();
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    //tạo nút thêm
+//    public void Them() {
+//        TaiKhoan tk = getForm();
+//
+//        if (tk != null) {
+//            try {
+//                daoTK.insert(tk);
+//                loadDataQLTK();
+//                clear();
+//                Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Thêm tài khoản thành công");
+//                noti.showNotification();
+//            } catch (Exception e) {
+//                Notification noti = new Notification(frame, Notification.Type.WARNING, Notification.Location.TOP_RIGHT, "Thêm tài khoản không thành công");
+//                noti.showNotification();
+//            }
+//        }
+//
+//    }
+//
+//    //tạo nút cập nhật
+//    public void capNhat() {
+//     
+//        TaiKhoan tk = getForm();
+//         if (Msgbox.yesNo("bạn có muốn cập nhật tài khoản", "bạn chắc chắn không???")) {
+//            daoTK.update(tk);
+//            loadDataQLTK();
+//            Msgbox.success(frame, "cập nhật tài khoản thành công");
+//            Tabpane.setSelectedIndex(1);
+//        } else {
+//            Msgbox.waring(frame, "cập nhật tài khoản không thành công");
+//        }
+//   
+//    }
+//    
+//    //tạo nút xoá
+//    public void xoa() {
+//        mdl.showMessage("XÓA TÀI KHOẢN", "Bạn có chắc chắn xóa tài khoản không");
+//
+//        if (mdl.getMessageType() == MessageDialog.MessageType.OK) {
+//            String maKH = txtMaTaiKhoan.getText();
+//            try {
+//                daoTK.delete(maKH);
+//                loadDataQLTK();
+//                Notification noti = new Notification(frame, Notification.Type.SUCCESS, Notification.Location.TOP_RIGHT, "Xóa tài khoản thành công");
+//                noti.showNotification();
+//            } catch (RuntimeException e) {
+//                JOptionPane.showMessageDialog(this, "Loi xoa ");
+//            }
+//        }
+//
+//    }
+//
+//    //cập nhật tình trạng của 4 nút
+//    public void updateStatus() {
+//        if (index == 0) {
+//            btnDauTien.setEnabled(false);
+//            btnLui.setEnabled(false);
+//        } else {
+//            btnDauTien.setEnabled(true);
+//            btnLui.setEnabled(true);
+//        }
+//        if (index == listTK.size() - 1) {
+//            btnToi.setEnabled(false);
+//            btnCuoi.setEnabled(false);
+//        } else {
+//            btnToi.setEnabled(true);
+//            btnCuoi.setEnabled(true);
+//        }
+//    }
+//
+//    //lấy giá trị
+//    public void edit() {
+//        tblQLTK.setRowSelectionInterval(index, index);
+//        display(index);
+//        updateStatus();
+//    }
+//
+//    //tạo nút quay lại hàng đầu tiên
+//    public void firs() {
+//        index = 0;
+//         Msgbox.info(new MainJFrame(), "Bạn đang ở đầu danh sách!");
+//        edit();
+//    }
+//
+//    //tạo nút tới hàng cuối cùng
+//    public void last() {
+//        index = listTK.size() - 1;
+//        Msgbox.info(new MainJFrame(), "Bạn đang ở cuối danh sách!");
+//        edit();
+//    }
+//
+//    //tạo nút lùi lại 1 hàng
+//    public void prev() {
+//        if (index <= 0) {
+//            last();
+//        } else {
+//            index--;
+//        }
+//        edit();
+//
+//    }
+//
+//    //tạo nút tới 1 hàng
+//    public void next() {
+//        if (index == listTK.size() - 1) {
+//            firs();
+//        } else {
+//            index++;
+//        }
+//        edit();
+//
+//    }
+//    
+//    public void findIdAndName(String IdAndName) {
+//        model = (DefaultTableModel) tblQLTK.getModel();
+//        TableRowSorter<DefaultTableModel> trs = new TableRowSorter<>(model);
+//        tblQLTK.setRowSorter(trs);
+//         trs.setRowFilter(RowFilter.regexFilter("(?i)" + IdAndName, 0,1));
+//    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -579,31 +578,16 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemActionPerformed
-        String timKiem = txtTimKiem.getText();
-        findIdAndName(timKiem);
-          Tabpane.setSelectedIndex(1);
         
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
        // MainJFrame m = new MainJFrame();
 //       new Form_ThemThanhCong(m, true).setVisible(true);
-        if (check()) {
-            Them();
-
-        }
 
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void tblQLTKMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLTKMouseClicked
-        if (evt.getClickCount() == 2) {
-            int sec = tblQLTK.getSelectedRow();
-
-            display(sec);
-            Tabpane.setSelectedIndex(0);
-           
-
-        }
     }//GEN-LAST:event_tblQLTKMouseClicked
 
     private void txtTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTaiKhoanActionPerformed
@@ -624,53 +608,34 @@ public class Form_QLTaiKhoan extends javax.swing.JPanel {
     }//GEN-LAST:event_lblIconAnMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        if (check()) {
-            capNhat();
-            loadDataQLTK();
-        }
             
        
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        xoa();
-        clear();
-        loadDataQLTK();
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnDauTienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDauTienActionPerformed
-       prev();
     }//GEN-LAST:event_btnDauTienActionPerformed
 
     private void btnLuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuiActionPerformed
        // 
-        firs();
     }//GEN-LAST:event_btnLuiActionPerformed
 
     private void btnToiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToiActionPerformed
-       last();
     }//GEN-LAST:event_btnToiActionPerformed
 
     private void btnCuoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCuoiActionPerformed
        
-          next();
     }//GEN-LAST:event_btnCuoiActionPerformed
 
     private void btnMoiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoiActionPerformed
-        clear();
-        init();
     }//GEN-LAST:event_btnMoiActionPerformed
 
     private void txtTimKiemMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTimKiemMousePressed
-        String timKiem = txtTimKiem.getText();
-        findIdAndName(timKiem);
-         Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemMousePressed
 
     private void txtTimKiemKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTimKiemKeyReleased
-        String timKiem = txtTimKiem.getText();
-        findIdAndName(timKiem);
-         Tabpane.setSelectedIndex(1);
     }//GEN-LAST:event_txtTimKiemKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

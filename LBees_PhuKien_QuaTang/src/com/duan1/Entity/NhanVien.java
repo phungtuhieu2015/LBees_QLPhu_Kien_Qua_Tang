@@ -11,28 +11,32 @@ package com.duan1.Entity;
 public class NhanVien {
 
     String maNV;
+    String maTK;
     String tenNV;
     boolean gioiTinh;
     String CCCD;
     String SDT;
-    String gmail;
-    boolean chucVu;
-    String ghiChu;
+    String email;
+    String diaChi;
     String hinhAnh;
+    String ghiChu;
+    String trangThai;
 
     public NhanVien() {
     }
 
-    public NhanVien(String maNV, String tenNV, boolean gioiTinh, String CCCD, String SDT, String gmail, boolean chucVu, String ghiChu, String hinhAnh) {
+    public NhanVien(String maNV, String maTK, String tenNV, boolean gioiTinh, String CCCD, String SDT, String email, String diaChi, String hinhAnh, String ghiChu, String trangThai) {
         this.maNV = maNV;
+        this.maTK = maTK;
         this.tenNV = tenNV;
         this.gioiTinh = gioiTinh;
         this.CCCD = CCCD;
         this.SDT = SDT;
-        this.gmail = gmail;
-        this.chucVu = chucVu;
-        this.ghiChu = ghiChu;
+        this.email = email;
+        this.diaChi = diaChi;
         this.hinhAnh = hinhAnh;
+        this.ghiChu = ghiChu;
+        this.trangThai = trangThai;
     }
 
     public String getMaNV() {
@@ -41,6 +45,14 @@ public class NhanVien {
 
     public void setMaNV(String maNV) {
         this.maNV = maNV;
+    }
+
+    public String getMaTK() {
+        return maTK;
+    }
+
+    public void setMaTK(String maTK) {
+        this.maTK = maTK;
     }
 
     public String getTenNV() {
@@ -75,28 +87,20 @@ public class NhanVien {
         this.SDT = SDT;
     }
 
-    public String getGmail() {
-        return gmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setGmail(String gmail) {
-        this.gmail = gmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public boolean isChucVu() {
-        return chucVu;
+    public String getDiaChi() {
+        return diaChi;
     }
 
-    public void setChucVu(boolean chucVu) {
-        this.chucVu = chucVu;
-    }
-
-    public String getGhiChu() {
-        return ghiChu;
-    }
-
-    public void setGhiChu(String ghiChu) {
-        this.ghiChu = ghiChu;
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 
     public String getHinhAnh() {
@@ -107,6 +111,20 @@ public class NhanVien {
         this.hinhAnh = hinhAnh;
     }
 
-    
-        
+    public String getGhiChu() {
+        return ghiChu;
+    }
+
+    public void setGhiChu(String ghiChu) {
+        this.ghiChu = ghiChu;
+    }
+
+    public String getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
+    }
+
 }

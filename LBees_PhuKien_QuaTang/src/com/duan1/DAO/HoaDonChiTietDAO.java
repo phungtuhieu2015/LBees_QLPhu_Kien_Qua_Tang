@@ -17,21 +17,21 @@ import java.util.List;
  */
 public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String> {
 
-    String insert_SQL = "INSERT INTO dbo.HoaDonChiTiet(SoLuong,ThanhTien,MaSP,MaHD)VALUES(?,?,?,?)";
-    String update_SQL = "UPDATE dbo.HoaDonChiTiet SET SoLuong=?,ThanhTien=?,MaSP=?WHERE MaHD =?";
-    String delete_SQL = "DELETE dbo.HoaDonChiTiet WHERE MaHD =?";
-    String select_All_SQL = "SELECT * FROM dbo.HoaDonChiTiet";
-    String select_ByID_SQL = "SELECT * FROM dbo.HoaDonChiTiet WHERE MaHD=?";
+    String insert_SQL = "INSERT INTO HoaDonChiTiet ( MaHD,MaPNCT,  MaSP, SoLuongBan) VALUES    (?,?,?,?)";
+    String update_SQL = "UPDATE HoaDonChiTiet SET MaSP = ?, SoLuongBan = ? WHERE MaHD = ?";
+    String delete_SQL = "DELETE dbo.HoaDonChiTiet WHERE MaHD = ?";
+    String select_All_SQL = "SELECT * FROM HoaDonChiTiet";
+    String select_ByID_SQL = "SELECT   * FROM HoaDonChiTiet WHERE MaPNCT = ?";
     String select_tongTien = "SELECT  SUM(ThanhTien) FROM dbo.HoaDonChiTiet WHERE MaHD like ?";
 
     @Override
     public void insert(HoaDonChiTiet entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getSoLuong(), entity.getThanhTien(), entity.getMaSP(), entity.getMaHD());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(),entity.getMaPNCT(), entity.getMaSP(),entity.getSoLuong());
     }
 
     @Override
     public void update(HoaDonChiTiet entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getSoLuong(), entity.getThanhTien(), entity.getMaSP(), entity.getMaHD());
+        XJdbc.executeUpdate(update_SQL, entity.getMaSP(),entity.getSoLuong(), entity.getMaHD());
     }
 
     @Override
@@ -73,10 +73,10 @@ public class HoaDonChiTietDAO extends QLPK<HoaDonChiTiet, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 HoaDonChiTiet entity = new HoaDonChiTiet();
-                entity.setSoLuong(rs.getInt("SoLuong"));
-                entity.setThanhTien(rs.getFloat("ThanhTien"));
-                entity.setMaSP(rs.getString("MaSP"));
                 entity.setMaHD(rs.getString("MaHD"));
+                entity.setMaPNCT(rs.getString("MaPNCT"));
+                entity.setMaSP(rs.getString("MaSP"));
+                entity.setSoLuong(rs.getInt("SoLuongBan"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

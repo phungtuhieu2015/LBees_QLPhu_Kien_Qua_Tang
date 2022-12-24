@@ -95,16 +95,16 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
         //
         String SDTKH_REGEX = "0[35789]{1}\\d{8}$";
         boolean SDTKH = txtSDTKH.getText().matches(SDTKH_REGEX);
-        if (txtSDTKH.getText().trim().isEmpty()) {
-            Msgbox.waring(f, "Số điện thoại không được để trống");
-            txtSDTKH.requestFocus();
-            return false;
-        }
-        if (SDTKH != true) {
-            Msgbox.waring(f, "Số điện thoại không đúng định dạng(chỉ nhập số và gồm 10 chỉ số)");
-            txtSDTKH.requestFocus();
-            return false;
-        }
+//        if (txtSDTKH.getText().trim().isEmpty()) {
+//            Msgbox.waring(f, "Số điện thoại không được để trống");
+//            txtSDTKH.requestFocus();
+//            return false;
+//        }
+//        if (SDTKH != true) {
+//            Msgbox.waring(f, "Số điện thoại không đúng định dạng(chỉ nhập số và gồm 10 chỉ số)");
+//            txtSDTKH.requestFocus();
+//            return false;
+//        }
 
         //
 //        if (txtDiemTichLuy.getText().trim().isEmpty()) {
@@ -240,7 +240,7 @@ public class JDL_NhapKhachHang extends javax.swing.JDialog {
             if (txtSDTKH.getText().trim().isEmpty()) {
                 kh.setTenKH(txtTenKH.getText());
                 kh.setMaKH(lblMaKH.getText());
-                kh.setSDT("Null");
+                kh.setSDT("0000000000");
                 kh.setDiemTichLuy(0);
                 daoKH.insert(kh);
                 hd = new HoaDon(maHD, 0, new Date(), txtGhiChu1.getText(), Auth.tk.getMaNV(), kh.getMaKH());

@@ -20,22 +20,22 @@ import java.util.List;
  */
 public class HoaDonDAO extends QLPK<HoaDon, String> {
 
-    String insert_SQL = "INSERT dbo.HoaDon(MaHD,NgayTao,TienShip,GhiChu,MaNV,MaKH)VALUES(?,?,?,?,?,?)";
-    String update_SQL = "UPDATE dbo.HoaDon SET NgayTao=?,TienShip ,GhiChu=?,MaNV=?,MaKH=? WHERE MaHD =?";
-    String delete_SQL = "DELETE dbo.HoaDon WHERE MaHD =?";
-    String select_All_SQL = "SELECT * FROM dbo.HoaDon";
-    String select_ByID_SQL = "SELECT * FROM dbo.HoaDon WHERE MaHD=?";
+    String insert_SQL = "INSERT INTO HoaDon (MaHD, MaKH, MaNV, NgayTao, TienShip, GhiChu) VALUES    (?,?,?,?,?,?)";
+    String update_SQL = "UPDATE HoaDon SET MaKH = ? , MaNV = ? , NgayTao = ? , TienShip = ? , GhiChu = ? WHERE MaHD = ?";
+    String delete_SQL = "DELETE HoaDon WHERE MaHD = ?";
+    String select_All_SQL = "SELECT * FROM HoaDon";
+    String select_ByID_SQL = "SELECT * FROM HoaDon WHERE MaHD=?";
     String select_Max_ID = "SELECT MAX(SUBSTRING(MaHD,LEN(MaHD) - 3,LEN(MaHD)))FROM HOADON";
     String select_ByID_SQL_TK = "SELECT * FROM dbo.HoaDon WHERE NgayTao=?";
 
     @Override
     public void insert(HoaDon entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getNgayTao(), entity.getTienShip(), entity.getGhiChu(), entity.getMaNV(), entity.getMaKH());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaHD(), entity.getMaKH() ,entity.getMaNV(),entity.getNgayTao(), entity.getTienShip(), entity.getGhiChu());
     }
 
     @Override
     public void update(HoaDon entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getNgayTao(), entity.getGhiChu(), entity.getTienShip(), entity.getMaNV(), entity.getMaKH(), entity.getMaHD());
+        XJdbc.executeUpdate(update_SQL, entity.getMaKH() ,entity.getMaNV(),entity.getNgayTao(), entity.getTienShip(),entity.getGhiChu(),entity.getMaHD());
     }
 
     @Override

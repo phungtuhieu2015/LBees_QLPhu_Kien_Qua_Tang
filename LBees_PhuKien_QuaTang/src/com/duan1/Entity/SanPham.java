@@ -11,34 +11,26 @@ package com.duan1.Entity;
 public class SanPham {
 
     String maSP;
-    String tenSP;
-    int soLuong;
-    String donViTinh;
-    double donGia;
-    String trangThai;
     String maVach;
+    int maDM;
+    int maDVT;
+    String tenSP;
+    int soLuongTonKho;
     String hinhAnh;
-    String maNV;
-    String maDM;
-
-    public String toString() {
-        return this.maDM;
-    }
+    String trangThai;
 
     public SanPham() {
     }
 
-    public SanPham(String maSP, String tenSP, int soLuong, String donViTinh, double donGia, String trangThai, String maVach, String hinhAnh, String maNV, String maDM) {
+    public SanPham(String maSP, String maVach, int maDM, int maDVT, String tenSP, int soLuongTonKho, String hinhAnh, String trangThai) {
         this.maSP = maSP;
-        this.tenSP = tenSP;
-        this.soLuong = soLuong;
-        this.donViTinh = donViTinh;
-        this.donGia = donGia;
-        this.trangThai = trangThai;
         this.maVach = maVach;
-        this.hinhAnh = hinhAnh;
-        this.maNV = maNV;
         this.maDM = maDM;
+        this.maDVT = maDVT;
+        this.tenSP = tenSP;
+        this.soLuongTonKho = soLuongTonKho;
+        this.hinhAnh = hinhAnh;
+        this.trangThai = trangThai;
     }
 
     public String getMaSP() {
@@ -49,6 +41,30 @@ public class SanPham {
         this.maSP = maSP;
     }
 
+    public String getMaVach() {
+        return maVach;
+    }
+
+    public void setMaVach(String maVach) {
+        this.maVach = maVach;
+    }
+
+    public int getMaDM() {
+        return maDM;
+    }
+
+    public void setMaDM(int maDM) {
+        this.maDM = maDM;
+    }
+
+    public int getMaDVT() {
+        return maDVT;
+    }
+
+    public void setMaDVT(int maDVT) {
+        this.maDVT = maDVT;
+    }
+
     public String getTenSP() {
         return tenSP;
     }
@@ -57,44 +73,12 @@ public class SanPham {
         this.tenSP = tenSP;
     }
 
-    public int getSoLuong() {
-        return soLuong;
+    public int getSoLuongTonKho() {
+        return soLuongTonKho;
     }
 
-    public void setSoLuong(int soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public String getDonViTinh() {
-        return donViTinh;
-    }
-
-    public void setDonViTinh(String donViTinh) {
-        this.donViTinh = donViTinh;
-    }
-
-    public double getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(double donGia) {
-        this.donGia = donGia;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    public String getMaVach() {
-        return maVach;
-    }
-
-    public void setMaVach(String maVach) {
-        this.maVach = maVach;
+    public void setSoLuongTonKho(int soLuongTonKho) {
+        this.soLuongTonKho = soLuongTonKho;
     }
 
     public String getHinhAnh() {
@@ -105,20 +89,11 @@ public class SanPham {
         this.hinhAnh = hinhAnh;
     }
 
-    public String getMaNV() {
-        return maNV;
+    public String getTrangThai() {
+        return trangThai;
     }
 
-    public void setMaNV(String maNV) {
-        this.maNV = maNV;
+    public void setTrangThai(String trangThai) {
+        this.trangThai = trangThai;
     }
-
-    public String getMaDM() {
-        return maDM;
-    }
-
-    public void setMaDM(String maDM) {
-        this.maDM = maDM;
-    }
-
 }

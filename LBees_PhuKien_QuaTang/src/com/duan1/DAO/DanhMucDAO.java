@@ -17,16 +17,15 @@ import java.util.List;
  */
 public class DanhMucDAO extends QLPK<DanhMuc, String> {
 
-    String insert_SQL = "INSERT dbo.DanhMuc(MaDM,TenDM)VALUES(?,?)";
-    String update_SQL = "UPDATE dbo.DanhMuc SET TenDM=?  WHERE MaDM =?";
-    String delete_SQL = "DELETE dbo.DanhMuc WHERE MaDM =?";
-    String select_All_SQL = "SELECT * FROM dbo.DanhMuc ORDER BY MaDM";
-    String select_ByID_SQL = "SELECT * FROM dbo.DanhMuc WHERE MaDM=?";
-    String select_Max_Id = "	SELECT MAX(SUBSTRING(MaDM,LEN(MaDM) -2 ,LEN(MaDM))) FROM dbo.DanhMuc";
+    String insert_SQL = "INSERT INTO DanhMuc (TenDM) VALUES(?)";
+    String update_SQL = "UPDATE DanhMuc SET TenDM = ? WHERE MaDM =?";
+    String delete_SQL = "DELETE FROM DanhMuc WHERE MaDM = ?";
+    String select_All_SQL = "SELECT *  FROM DanhMuc";
+    String select_ByID_SQL = "SELECT *  FROM DanhMuc WHERE MaDM = ?";
 
     @Override
     public void insert(DanhMuc entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaDM(), entity.getTenDM());
+        XJdbc.executeUpdate(insert_SQL,  entity.getTenDM());
     }
 
     @Override
@@ -71,22 +70,22 @@ public class DanhMucDAO extends QLPK<DanhMuc, String> {
         }
     }
 
-    public String getLastID() throws SQLException {
-        ResultSet rs = XJdbc.executeQuery(select_Max_Id);
-        String id = null;
-        if (rs.next()) {
-            id = rs.getString(1);
-        }
-        rs.getStatement().getConnection().close();
-        return id;
-    }
-
-    public String initID() throws SQLException {
-        String id = getLastID();
-//        Date date = new Date();
-//        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
-        int idNumber = Integer.parseInt(id);
-        String newID = String.format("%05d", idNumber += 1);
-        return newID;
-    }
+//    public String getLastID() throws SQLException {
+//        ResultSet rs = XJdbc.executeQuery(select_Max_Id);
+//        String id = null;
+//        if (rs.next()) {
+//            id = rs.getString(1);
+//        }
+//        rs.getStatement().getConnection().close();
+//        return id;
+//    }
+//
+//    public String initID() throws SQLException {
+//        String id = getLastID();
+////        Date date = new Date();
+////        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyy");
+//        int idNumber = Integer.parseInt(id);
+//        String newID = String.format("%05d", idNumber += 1);
+//        return newID;
+//    }
 }

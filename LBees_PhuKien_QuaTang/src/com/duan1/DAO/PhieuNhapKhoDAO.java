@@ -19,22 +19,22 @@ import java.util.Date;
  */
 public class PhieuNhapKhoDAO extends QLPK<PhieuNhapKho, String> {
 
-    String insert_SQL = "INSERT INTO dbo.PhieuNhapKho(MaPNK,NgayNhap)VALUES(?,?)";
-    String update_SQL = "UPDATE dbo.PhieuNhapKho SET NgayNhap=?  WHERE MaPNK =?";
-    String delete_SQL = "DELETE dbo.PhieuNhapKho WHERE MaPNK =?";
-    String select_All_SQL = "SELECT * FROM dbo.PhieuNhapKho";
-    String select_ByID_SQL = "SELECT * FROM dbo.PhieuNhapKho WHERE MaPNK=?";
+    String insert_SQL = "INSERT INTO PhieuNhap (MaPN, MaNV, NgayNhap, GhiChu) VALUES  (?,?,?,?)";
+    String update_SQL = "UPDATE PhieuNhap SET MaNV = ?, NgayNhap = ?, GhiChu = ? WHERE MaPN = ?";
+    String delete_SQL = "DELETE PhieuNhap WHERE MaPN = ? ";
+    String select_All_SQL = "SELECT * FROM PhieuNhap";
+    String select_ByID_SQL = "SELECT * FROM PhieuNhap WHERE MaPN = ? ";
 //    String select_Max_ID = "SELECT MAX(SUBSTRING(MaPNK,LEN(MaPNK) - 4 ,LEN(MaPNK)))FROM dbo.PhieuNhapKho";
     String select_Max_ID = "SELECT MAX(MaPNK) FROM dbo.PhieuNhapKho";
 
     @Override
     public void insert(PhieuNhapKho entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaPNK(), entity.getNgayNhap());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaPN(), entity.getMaNV(),entity.getNgayNhap(),entity.getGhiChu());
     }
 
     @Override
     public void update(PhieuNhapKho entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getNgayNhap(), entity.getMaPNK());
+        XJdbc.executeUpdate(update_SQL, entity.getMaNV(),entity.getNgayNhap(),entity.getGhiChu(),entity.getMaPN());
     }
 
     @Override
@@ -63,8 +63,10 @@ public class PhieuNhapKhoDAO extends QLPK<PhieuNhapKho, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 PhieuNhapKho entity = new PhieuNhapKho();
-                entity.setMaPNK(rs.getString("MaPNK"));
+                entity.setMaPN(rs.getString("MaPN"));
                 entity.setNgayNhap(rs.getDate("NgayNhap"));
+                entity.setGhiChu(rs.getString("GhiChu"));
+                entity.setMaNV(rs.getString("MaNV"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
