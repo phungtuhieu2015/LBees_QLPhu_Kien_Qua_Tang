@@ -25,21 +25,21 @@ public class Auth {
     }
 
     //Kiểm tra vai trò của nhân viên đó
-    public static boolean role() {
-        TaiKhoanDAO daoTK = new TaiKhoanDAO();
-        String name = daoTK.selectByCV(tk.getMaNV()) ? "QUẢN LÝ" : "NHÂN VIÊN";
-        if (name.equals("QUẢN LÝ")) {
-            return true;
-        }else{
-            return false;
-        }
-    }
+//    public static boolean role() {
+//        TaiKhoanDAO daoTK = new TaiKhoanDAO();
+//        String name = daoTK.selectByCV(tk.getMaNV()) ? "QUẢN LÝ" : "NHÂN VIÊN";
+//        if (name.equals("QUẢN LÝ")) {
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
 
-    public static String tenNV() {
-
-        TaiKhoanDAO daoTK = new TaiKhoanDAO();
-        String name = daoTK.selectByTen(tk.getMaNV());
-
-        return name;
-    }
+//    public static String tenNV() {
+//
+//        TaiKhoanDAO daoTK = new TaiKhoanDAO();
+//        String name = daoTK.selectByTen(tk.getMaNV());
+//
+//        return name;
+//    }
 }

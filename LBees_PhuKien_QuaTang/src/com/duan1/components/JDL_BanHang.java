@@ -110,6 +110,7 @@ public class JDL_BanHang extends javax.swing.JDialog {
             java.util.logging.Logger.getLogger(JDL_BanHang.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {

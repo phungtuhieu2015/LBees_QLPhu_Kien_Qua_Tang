@@ -64,10 +64,12 @@ public class PhieuNhapChiTietDAO extends QLPK<PhieuNhapChiTiet, String> {
             ResultSet rs = XJdbc.executeQuery(sql, args);
             while (rs.next()) {
                 PhieuNhapChiTiet entity = new PhieuNhapChiTiet();
-                entity.setMaPNK(rs.getString("MaPNK"));
+                entity.setMaPNCT(rs.getString("MaPNCT"));
+                entity.setMaPN(rs.getString("MaPN"));
                 entity.setMaSP(rs.getString("MaSP"));
-                entity.setSoLuong(rs.getInt("SoLuong"));
-                entity.setThanhTien(rs.getFloat("ThanhTien"));
+                entity.setSoLuongNhap(rs.getInt("SoLuongNhap"));
+                entity.setGiaNhap(rs.getFloat("GiaNhap"));
+                entity.setGiaBan(rs.getFloat("GiaBan"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

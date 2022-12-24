@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <NonVisualComponents>
     <Component class="com.duan1.swing.DateChooser" name="TuNgay_Date">
       <Properties>
@@ -8,9 +8,8 @@
           <Color blue="ff" green="cc" red="0" type="rgb"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="dateFormat" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="txtTuNgay"/>
+          <ComponentRef name="txtTuNgay1"/>
         </Property>
       </Properties>
     </Component>
@@ -19,7 +18,6 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="cc" red="0" type="rgb"/>
         </Property>
-        <Property name="dateFormat" type="java.lang.String" value="dd-MM-yyyy"/>
         <Property name="textRefernce" type="javax.swing.JTextField" editor="org.netbeans.modules.form.ComponentChooserEditor">
           <ComponentRef name="txtDenNgay"/>
         </Property>
@@ -56,17 +54,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblTuNgay" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="txtTuNgay" min="-2" pref="126" max="-2" attributes="0"/>
+                      <Component id="txtTuNgay1" min="-2" pref="126" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="lblDenNgay" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtDenNgay" min="-2" pref="126" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnLoc" min="-2" pref="78" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btnMoi" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="txtTimKiem" min="-2" pref="316" max="-2" attributes="0"/>
+                      <Component id="textFieldAnimationTK" min="-2" pref="316" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -86,19 +80,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="txtTimKiem" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtTuNgay" max="32767" attributes="0"/>
+                          <Component id="textFieldAnimationTK" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTuNgay1" max="32767" attributes="0"/>
                           <Component id="lblDenNgay" alignment="0" max="32767" attributes="0"/>
                           <Component id="lblTuNgay" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="38" pref="38" max="-2" attributes="0"/>
                       <Component id="materialTabbed1" min="-2" pref="487" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtDenNgay" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnMoi" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="btnLoc" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="txtDenNgay" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -134,16 +124,7 @@
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblTuNgayMouseClicked"/>
       </Events>
     </Component>
-    <Component class="com.duan1.swing.TextFieldAnimation" name="txtTimKiem">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="d6" green="d6" red="de" type="rgb"/>
-        </Property>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKiemActionPerformed"/>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTimKiemKeyReleased"/>
-      </Events>
+    <Component class="com.duan1.swing.TextFieldAnimation" name="textFieldAnimationTK">
     </Component>
     <Container class="com.duan1.swing.MaterialTabbed" name="materialTabbed1">
 
@@ -161,17 +142,17 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ScrollLSHD" alignment="1" pref="906" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="906" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ScrollLSHD" alignment="0" pref="444" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="444" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="ScrollLSHD">
+            <Container class="javax.swing.JScrollPane" name="jScrollPane1">
               <Properties>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
@@ -183,59 +164,18 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="com.duan1.swing.Table" name="tblLSHD">
+                <Component class="com.duan1.swing.Table" name="table1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="100">
-                        <Column editable="false" title="M&#xe3; H&#xf3;a &#x110;&#x1a1;n" type="java.lang.Object"/>
-                        <Column editable="false" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.Object"/>
-                        <Column editable="false" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
-                        <Column editable="false" title="T&#xea;n kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
-                        <Column editable="false" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
-                        <Column editable="false" title="T&#x1ed5;ng Ti&#x1ec1;n" type="java.lang.Object"/>
+                      <Table columnCount="5" rowCount="4">
+                        <Column editable="true" title="M&#xe3; H&#xf3;a &#x110;&#x1a1;n" type="java.lang.Object"/>
+                        <Column editable="true" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.Object"/>
+                        <Column editable="true" title="M&#xe3; kh&#xe1;ch h&#xe0;ng" type="java.lang.Object"/>
+                        <Column editable="true" title="Ng&#xe0;y t&#x1ea1;o" type="java.lang.Object"/>
+                        <Column editable="true" title="Ghi ch&#xfa;" type="java.lang.Object"/>
                       </Table>
                     </Property>
-                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                      <TableColumnModel selectionModel="0">
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                          <Title/>
-                          <Editor/>
-                          <Renderer/>
-                        </Column>
-                      </TableColumnModel>
-                    </Property>
-                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
-                    </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblLSHDMouseClicked"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -243,25 +183,9 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="com.duan1.swing.MyTextField2" name="txtTuNgay">
+    <Component class="com.duan1.swing.MyTextField2" name="txtTuNgay1">
     </Component>
     <Component class="com.duan1.swing.MyTextField2" name="txtDenNgay">
-    </Component>
-    <Component class="com.duan1.swing.Button" name="btnMoi">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="L&#xe0;m M&#x1edb;i"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMoiActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="com.duan1.swing.Button" name="btnLoc">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="L&#x1ecd;c"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLocActionPerformed"/>
-      </Events>
     </Component>
   </SubComponents>
 </Form>

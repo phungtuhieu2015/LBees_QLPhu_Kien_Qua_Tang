@@ -16,18 +16,21 @@ import java.util.List;
  */
 public class SanPhamDAO extends QLPK<SanPham, String> {
 
-    String insert_SQL = "INSERT INTO dbo.SanPhamBan(MaSP,TenSP,SoLuong,DonViTinh,DonGia,TrangThai,MaVach,HinhAnh,MaNV,MaDM)VALUES(?,?,?,?,?,?,?,?,?,?)";
-    String update_SQL = "UPDATE dbo.SanPhamBan SET TenSP=?,SoLuong=?,DonViTinh=?,DonGia=?,TrangThai=?,MaVach=?,HinhAnh=?,MaNV=?,MaDM=?  WHERE MaSP =?";
-    String delete_SQL = "DELETE dbo.SanPhamBan WHERE MaSP =?";
-    String select_All_SQL = "SELECT * FROM dbo.SanPhamBan";
-    String select_ByID_SQL = "SELECT * FROM dbo.SanPhamBan WHERE MaSP=?";
-    String select_ByMV_SQL = "SELECT * FROM dbo.SanPhamBan WHERE MaVach=?";
-    String select_BySL_SQL = "Update dbo.SanPhamBan set SoLuong=? WHERE MaSP= ?";
-    String select_ByTT_SQL = "Update dbo.SanPhamBan set TrangThai=? WHERE MaSP= ?";
+    String insert_SQL = "INSERT INTO SanPham (MaSP, MaVach, MaDM, MaDVT, TenSP, SoLuongTonKho, HinhAnh, TrangThai) VALUES  (?,?,?,?,?,?,?,?)";
+    String update_SQL = "UPDATE SanPham SET MaDM = ? , MaDVT = ? , TenSP = ? , SoLuongTonKho = ? , HinhAnh = ? , TrangThai = ? WHERE MaSP = ?";
+    String delete_SQL = "DELETE SanPham WHERE MaSP =?";
+    String select_All_SQL = "SELECT * FROM SanPham";
+    String select_ByID_SQL = "SELECT * FROM SanPham WHERE MaSP=?";
+    String select_ByMV_SQL = "SELECT * FROM SanPham WHERE MaVach=?";
+    String select_BySL_SQL = "Update SanPham set SoLuongTonKho=? WHERE MaSP= ?";
+    String select_ByTT_SQL = "Update SanPham  set TrangThai=? WHERE MaSP= ?";
     String select_ThongKeSP = "SELECT MaSP ,SoLuong, (SoLuong * DonGia ) AS N'Tổng tiền' FROM dbo.SanPhamBan";
+
     @Override
     public void insert(SanPham entity) {
-        XJdbc.executeUpdate(insert_SQL, entity.getMaSP(), entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM());
+        XJdbc.executeUpdate(insert_SQL, entity.getMaSP(),
+                entity.getMaVach(), entity.getMaDM(), entity.getMaDVT(), entity.getTenSP(),
+                entity.getSoLuongTonKho(), entity.getHinhAnh(), entity.getTrangThai());
     }
 
     public void updateTT(String maSP, String trangThai) {
@@ -36,7 +39,9 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
 
     @Override
     public void update(SanPham entity) {
-        XJdbc.executeUpdate(update_SQL, entity.getTenSP(), entity.getSoLuong(), entity.getDonViTinh(), entity.getDonGia(), entity.getTrangThai(), entity.getMaVach(), entity.getHinhAnh(), entity.getMaNV(), entity.getMaDM(), entity.getMaSP());
+        XJdbc.executeUpdate(update_SQL,
+                entity.getMaVach(), entity.getMaDM(), entity.getMaDVT(), entity.getTenSP(),
+                entity.getSoLuongTonKho(), entity.getHinhAnh(), entity.getTrangThai(), entity.getMaSP());
     }
 
     public void updateSL(String MaSP, int sl) {
@@ -78,15 +83,13 @@ public class SanPhamDAO extends QLPK<SanPham, String> {
             while (rs.next()) {
                 SanPham entity = new SanPham();
                 entity.setMaSP(rs.getString("MaSP"));
-                entity.setTenSP(rs.getString("TenSP"));
-                entity.setSoLuong(rs.getInt("SoLuong"));
-                entity.setDonViTinh(rs.getString("DonViTinh"));
-                entity.setDonGia(rs.getFloat("DonGia"));
-                entity.setTrangThai(rs.getString("TrangThai"));
+                entity.setMaDM(rs.getInt("MaDM"));
+                entity.setMaDVT(rs.getInt("MaDVT"));
                 entity.setMaVach(rs.getString("MaVach"));
+                entity.setTenSP(rs.getString("TenSP"));
+                entity.setSoLuongTonKho(rs.getInt("SoLuongTonKho"));
+                entity.setTrangThai(rs.getString("TrangThai"));
                 entity.setHinhAnh(rs.getString("HinhAnh"));
-                entity.setMaNV(rs.getString("MaNV"));
-                entity.setMaDM(rs.getString("MaDM"));
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();

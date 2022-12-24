@@ -55,9 +55,6 @@
   </Layout>
   <SubComponents>
     <Component class="com.duan1.swing.TextFieldAnimation" name="txtTimKiem">
-      <Events>
-        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTimKiemKeyReleased"/>
-      </Events>
     </Component>
     <Container class="com.duan1.swing.MaterialTabbed" name="Tabpane">
 
@@ -101,37 +98,28 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
                                   <Component id="pnlThemSuaXoa" min="-2" pref="285" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="234" max="-2" attributes="0"/>
                                   <Component id="pnlDieuHuong" min="-2" pref="270" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                          <Component id="txtHinh" min="-2" pref="77" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="txtGhiChu" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="textAreaScroll2" min="-2" pref="107" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="rdoNam" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="rdoNu" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="txtMaNV" alignment="0" min="-2" pref="305" max="-2" attributes="0"/>
+                                          <Component id="txtSDT" min="-2" pref="305" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="lblHinh" min="-2" pref="120" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace pref="37" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="cboChucVu" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="rdoNam" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="rdoNu" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="txtMaNV" alignment="0" pref="305" max="32767" attributes="0"/>
-                                      <Component id="txtSDT" pref="305" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="1" attributes="0">
@@ -144,14 +132,10 @@
                                               <Component id="txtGmail" min="-2" pref="305" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                                          <Component id="txtTieuDeGhiChu" min="-2" pref="305" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace pref="79" max="32767" attributes="0"/>
+                          <EmptySpace pref="98" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -160,16 +144,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Component id="lblHinh" min="-2" pref="120" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="textAreaScroll2" min="-2" pref="128" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="rdoNam" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="rdoNu" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="txtMaNV" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="txtTenNV" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -184,13 +167,7 @@
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtTieuDeGhiChu" min="-2" pref="88" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cboChucVu" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtHinh" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                          <Component id="txtGhiChu" min="-2" pref="88" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="pnlThemSuaXoa" min="-2" pref="50" max="-2" attributes="0"/>
@@ -281,9 +258,6 @@
                           <Font name="Segoe UI" size="18" style="1"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button6ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="com.duan1.swing.Button" name="button7">
                       <Properties>
@@ -292,9 +266,6 @@
                           <Font name="Segoe UI" size="14" style="1"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button7ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="com.duan1.swing.Button" name="button8">
                       <Properties>
@@ -303,9 +274,6 @@
                           <Font name="Segoe UI" size="14" style="1"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button8ActionPerformed"/>
-                      </Events>
                     </Component>
                     <Component class="com.duan1.swing.Button" name="button2">
                       <Properties>
@@ -314,9 +282,6 @@
                           <Font name="Segoe UI" size="18" style="1"/>
                         </Property>
                       </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="button2ActionPerformed"/>
-                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -339,11 +304,11 @@
                     <Property name="text" type="java.lang.String" value="N&#x1eef;"/>
                   </Properties>
                 </Component>
-                <Container class="com.duan1.swing.TextAreaScroll" name="txtTieuDeGhiChu">
+                <Container class="com.duan1.swing.TextAreaScroll" name="txtGhiChu">
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="com.duan1.swing.TextArea" name="txtGhiChu">
+                    <Component class="com.duan1.swing.TextArea" name="textArea1">
                       <Properties>
                         <Property name="columns" type="int" value="20"/>
                         <Property name="rows" type="int" value="5"/>
@@ -351,10 +316,11 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Container class="com.duan1.swing.TextAreaScroll" name="textAreaScroll2">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                </Container>
                 <Component class="com.duan1.swing.MyTextField2" name="txtMaNV">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="false"/>
-                  </Properties>
                 </Component>
                 <Component class="com.duan1.swing.MyTextField2" name="txtSDT">
                 </Component>
@@ -366,20 +332,6 @@
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtGmailActionPerformed"/>
                   </Events>
-                </Component>
-                <Component class="com.duan1.swing.ComboBoxSuggestion" name="cboChucVu">
-                </Component>
-                <Component class="javax.swing.JLabel" name="lblHinh">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/com/duan1/icon/Avatar.png"/>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblHinhMouseClicked"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JTextField" name="txtHinh">
                 </Component>
               </SubComponents>
             </Container>
@@ -431,15 +383,15 @@
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="9" rowCount="0">
-                        <Column editable="false" title="M&#xe3; Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
-                        <Column editable="false" title="T&#xea;n Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
-                        <Column editable="false" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
-                        <Column editable="false" title="CCCD" type="java.lang.Object"/>
-                        <Column editable="false" title="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i" type="java.lang.Object"/>
-                        <Column editable="false" title="Gmail" type="java.lang.Object"/>
-                        <Column editable="false" title="Ch&#x1ee9;c V&#x1ee5;" type="java.lang.Object"/>
-                        <Column editable="false" title="Ghi Ch&#xfa;" type="java.lang.Object"/>
-                        <Column editable="false" title="H&#xec;nh &#x1ea2;nh" type="java.lang.Object"/>
+                        <Column editable="true" title="M&#xe3; Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
+                        <Column editable="true" title="T&#xea;n Nh&#xe2;n Vi&#xea;n" type="java.lang.Object"/>
+                        <Column editable="true" title="Gi&#x1edb;i T&#xed;nh" type="java.lang.Object"/>
+                        <Column editable="true" title="CCCD" type="java.lang.Object"/>
+                        <Column editable="true" title="S&#x1ed1; &#x110;i&#x1ec7;n Tho&#x1ea1;i" type="java.lang.Object"/>
+                        <Column editable="true" title="Gmail" type="java.lang.Object"/>
+                        <Column editable="true" title="Ch&#x1ee9;c V&#x1ee5;" type="java.lang.Object"/>
+                        <Column editable="true" title="Ghi Ch&#xfa;" type="java.lang.Object"/>
+                        <Column editable="true" title="H&#xec;nh &#x1ea2;nh" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

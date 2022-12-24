@@ -19,12 +19,11 @@ import java.util.List;
  * @author asus
  */
 public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
-
-    String insert_SQL = "INSERT INTO dbo.TaiKhoan(MaTK,TenTK,MatKhau,MaNV)VALUES(?,?,?,?)";
-    String update_SQL = "UPDATE dbo.TaiKhoan SET TenTK=?,MatKhau=?  WHERE MaTK =?";
-    String delete_SQL = "DELETE dbo.TaiKhoan WHERE MaTK =?";
-    String select_All_SQL = "SELECT * FROM dbo.TaiKhoan";
-    String select_ByID_SQL = "SELECT * FROM dbo.TaiKhoan WHERE MaTK=?";
+    String insert_SQL = "INSERT INTO TaiKhoan (MaTK, TenTK, MatKhau, ChucVu, TrangThai) VALUES (?,?,?,?,?)";
+    String update_SQL = "UPDATE TaiKhoan SET TenTK = ? , MatKhau = ? , ChucVu = ?, TrangThai = ? WHERE MaTK = ?";
+    String delete_SQL = "DELETE TaiKhoan WHERE MaTK =?";
+    String select_All_SQL = "SELECT * FROM TaiKhoan";
+    String select_ByID_SQL = "SELECT * FROM TaiKhoan WHERE MaTK=?";
     String Select_CV = "select  tenNV,chucvu from TaiKhoan t inner join nhanvien n on t.MaNV = n.maNV where t.manv =?";
     String select_Max_Id = "SELECT MAX(SUBSTRING(MaTK,LEN(MaTK) -2 ,LEN(MaTK))) FROM dbo.TaiKhoan";
 
@@ -57,14 +56,14 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
         return list.get(0);
     }
 
-    public boolean selectByCV(String key) {
-        List<NhanVien> list = this.selectBySqll(Select_CV, key);
-        boolean s = false;
-        for (NhanVien t : list) {
-            s = t.isChucVu();
-        }
-        return s;
-    }
+//    public boolean selectByCV(String key) {
+//        List<NhanVien> list = this.selectBySqll(Select_CV, key);
+//        boolean s = false;
+//        for (NhanVien t : list) {
+//            s = t.isChucVu();
+//        }
+//        return s;
+//    }
 
     public String selectByTen(String key) {
         List<NhanVien> list = this.selectBySqlTen(Select_CV, key);
@@ -85,7 +84,9 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
                 entity.setMaTK(rs.getString("MaTK"));
                 entity.setTenTK(rs.getString("TenTK"));
                 entity.setMatKhau(rs.getString("MatKhau"));
-                entity.setMaNV(rs.getString("MaNV"));
+                entity.setChucVu(rs.getBoolean("ChucVu"));
+                entity.setTrangThai(rs.getString("TrangThai"));
+                
                 list.add(entity);
             }
             rs.getStatement().getConnection().close();
@@ -95,21 +96,21 @@ public class TaiKhoanDAO extends QLPK<TaiKhoan, String> {
         }
     }
 
-    protected List<NhanVien> selectBySqll(String sql, Object... args) {
-        List<NhanVien> list = new ArrayList<>();
-        try {
-            ResultSet rs = XJdbc.executeQuery(sql, args);
-            while (rs.next()) {
-                NhanVien entity = new NhanVien();
-                entity.setChucVu(rs.getBoolean("ChucVu"));
-                list.add(entity);
-            }
-            rs.getStatement().getConnection().close();
-            return list;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    protected List<NhanVien> selectBySqll(String sql, Object... args) {
+//        List<NhanVien> list = new ArrayList<>();
+//        try {
+//            ResultSet rs = XJdbc.executeQuery(sql, args);
+//            while (rs.next()) {
+//                NhanVien entity = new NhanVien();
+//                entity.setChucVu(rs.getBoolean("ChucVu"));
+//                list.add(entity);
+//            }
+//            rs.getStatement().getConnection().close();
+//            return list;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     protected List<NhanVien> selectBySqlTen(String sql, Object... args) {
         List<NhanVien> list = new ArrayList<>();

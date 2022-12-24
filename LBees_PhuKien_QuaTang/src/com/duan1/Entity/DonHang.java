@@ -9,20 +9,30 @@ public class DonHang {
     String maHD;
     String tenNN;
     String sdtNN;
+    String diaChiNN;
     Date ngayGiao;
     String ghiChu;
 
-    public DonHang(String maDH, String maKH, String maHD, String tenNN, String sdtNN, Date ngayGiao, String ghiChu) {
+    public DonHang(String maDH, String maKH, String maHD, String tenNN, String sdtNN, String diaChiNN, Date ngayGiao, String ghiChu) {
         this.maDH = maDH;
         this.maKH = maKH;
         this.maHD = maHD;
         this.tenNN = tenNN;
         this.sdtNN = sdtNN;
+        this.diaChiNN = diaChiNN;
         this.ngayGiao = ngayGiao;
         this.ghiChu = ghiChu;
     }
 
     public DonHang() {
+    }
+
+    public String getDiaChiNN() {
+        return diaChiNN;
+    }
+
+    public void setDiaChiNN(String diaChiNN) {
+        this.diaChiNN = diaChiNN;
     }
 
     public String getMaDH() {
@@ -80,7 +90,5 @@ public class DonHang {
     public void setGhiChu(String ghiChu) {
         this.ghiChu = ghiChu;
     }
-    
-    
 
 }

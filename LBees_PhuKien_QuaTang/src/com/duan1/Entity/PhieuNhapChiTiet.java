@@ -13,14 +13,14 @@ public class PhieuNhapChiTiet {
     String maPNCT;
     String maPN;
     String maSP;
-    String soLuongNhap;
+    int soLuongNhap;
     double giaNhap;
     double giaBan;
 
     public PhieuNhapChiTiet() {
     }
 
-    public PhieuNhapChiTiet(String maPNCT, String maPN, String maSP, String soLuongNhap, double giaNhap, double giaBan) {
+    public PhieuNhapChiTiet(String maPNCT, String maPN, String maSP, int soLuongNhap, double giaNhap, double giaBan) {
         this.maPNCT = maPNCT;
         this.maPN = maPN;
         this.maSP = maSP;
@@ -29,6 +29,7 @@ public class PhieuNhapChiTiet {
         this.giaBan = giaBan;
     }
 
+   
     public String getMaPNCT() {
         return maPNCT;
     }
@@ -53,14 +54,6 @@ public class PhieuNhapChiTiet {
         this.maSP = maSP;
     }
 
-    public String getSoLuongNhap() {
-        return soLuongNhap;
-    }
-
-    public void setSoLuongNhap(String soLuongNhap) {
-        this.soLuongNhap = soLuongNhap;
-    }
-
     public double getGiaNhap() {
         return giaNhap;
     }
@@ -77,4 +70,12 @@ public class PhieuNhapChiTiet {
         this.giaBan = giaBan;
     }
 
+    public int getSoLuongNhap() {
+        return soLuongNhap;
+    }
+
+    public void setSoLuongNhap(int soLuongNhap) {
+        this.soLuongNhap = soLuongNhap;
+    }
+    
 }
